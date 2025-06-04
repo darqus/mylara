@@ -12,7 +12,7 @@
         ID: {{ id }}
       </div>
       <div class="text-body2">
-        {{ description }}
+        {{ label }}
       </div>
     </q-card-section>
     <q-card-actions
@@ -40,7 +40,7 @@ defineOptions({
 defineProps<{
   id: string | number
   imgLink?: string
-  description?: string
+  label?: string
   externalLink?: string
 }>()
 

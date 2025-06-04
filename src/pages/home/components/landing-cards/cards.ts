@@ -1,45 +1,52 @@
 export type Card = {
-  id: number;
-  imgLink: string;
-  description: string;
-  externalLink: string;
+  id: number
+  imgLink: string
+  label: string
+  externalLink: string
+  info: string
 }
 
 export const LANDING_CARDS: Card[] = [
   {
     id: 1,
     imgLink: 'https://cdn.quasar.dev/img/mountains.jpg',
-    description: 'Красивые горы и природа',
+    label: 'Красивые горы и природа',
     externalLink: 'https://example.com/mountains',
+    info: 'Величественные горные пейзажи и нетронутая природа',
   },
   {
     id: 2,
     imgLink: 'https://cdn.quasar.dev/img/parallax1.jpg',
-    description: 'Городской пейзаж',
+    label: 'Городской пейзаж',
     externalLink: 'https://example.com/city',
+    info: 'Современная городская архитектура и жизнь мегаполиса',
   },
   {
     id: 3,
     imgLink: 'https://cdn.quasar.dev/img/parallax2.jpg',
-    description: 'Технологии будущего',
+    label: 'Технологии будущего',
     externalLink: 'https://example.com/tech',
+    info: 'Инновационные технологические решения завтрашнего дня',
   },
   {
     id: 4,
     imgLink: 'https://cdn.quasar.dev/img/parallax2.jpg',
-    description: 'Тропический пляж',
+    label: 'Тропический пляж',
     externalLink: 'https://example.com/beach',
+    info: 'Райский уголок с белоснежным песком и лазурным морем',
   },
   {
     id: 5,
     imgLink: 'https://cdn.quasar.dev/img/mountains.jpg',
-    description: 'Зеленый лес',
+    label: 'Зеленый лес',
     externalLink: 'https://example.com/forest',
+    info: 'Дремучий лес полный жизни и загадок природы',
   },
   {
     id: 6,
     imgLink: 'https://cdn.quasar.dev/img/parallax1.jpg',
-    description: 'Песчаная пустыня',
+    label: 'Песчаная пустыня',
     externalLink: 'https://example.com/desert',
+    info: 'Бескрайние песчаные дюны и захватывающие пустынные пейзажи',
   },
 ]
