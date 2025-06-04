@@ -4,22 +4,20 @@ import { ref, } from 'vue'
 import { slides, } from './slides'
 
 const slide = ref(1)
-const autoplay = ref(true)
 </script>
 
 <template>
   <q-carousel
     v-model="slide"
-    :autoplay="autoplay"
     class="q-mb-md"
     height="300px"
     transition-next="slide-left"
     transition-prev="slide-right"
     animated
     arrows
+    autoplay
+    infinite
     swipeable
-    @mouseenter="autoplay = false"
-    @mouseleave="autoplay = true"
   >
     <q-carousel-slide
       v-for="{ id, image, title, subtitle } in slides"
