@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LandingCards from './components/LandingCards.vue'
-import LandingCarousel from './components/LandingCarousel.vue'
+import LandingCards from './components/landing-cards/LandingCards.vue'
+import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
 </script>
 
 <template>
