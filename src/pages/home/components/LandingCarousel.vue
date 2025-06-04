@@ -12,12 +12,11 @@ const autoplay = ref(true)
     v-model="slide"
     :autoplay="autoplay"
     class="q-mb-md"
+    height="300px"
     transition-next="slide-left"
     transition-prev="slide-right"
     animated
     arrows
-    navigation
-    padding
     swipeable
     @mouseenter="autoplay = false"
     @mouseleave="autoplay = true"
@@ -28,9 +27,18 @@ const autoplay = ref(true)
       :img-src="image"
       :name="id"
     >
-      <div class="absolute-bottom custom-caption text-h2 text-center">
-        {{ title }}
+      <div class="absolute-bottom custom-caption">
+        <div class="text-h2">
+          {{ title }}
+        </div>
+        <div class="text-subtitle1">
+          {{ title }}
+        </div>
       </div>
     </q-carousel-slide>
   </q-carousel>
 </template>
+
+<style lang="scss">
+@import './scss/landing-carousel.scss';
+</style>
