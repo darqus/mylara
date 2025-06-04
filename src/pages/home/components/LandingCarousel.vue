@@ -22,7 +22,7 @@ const autoplay = ref(true)
     @mouseleave="autoplay = true"
   >
     <q-carousel-slide
-      v-for="{ id, image, title } in slides"
+      v-for="{ id, image, title, subtitle } in slides"
       :key="id"
       :img-src="image"
       :name="id"
@@ -32,7 +32,7 @@ const autoplay = ref(true)
           {{ title }}
         </div>
         <div class="text-subtitle1">
-          {{ title }}
+          {{ subtitle }}
         </div>
       </div>
     </q-carousel-slide>
