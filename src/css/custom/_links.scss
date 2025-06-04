@@ -1,0 +1,19 @@
+@mixin hover-focus($color) {
+  &:hover,
+  &:focus {
+    color: $color;
+  }
+}
+
+$link-colors: "red", "gray", "black", "white";
+
+@each $color in $link-colors {
+  .link-#{$color} {
+    color: #{$color};
+    transition: color $generic-hover-transition;
+  }
+
+  .link-hover-#{$color} {
+    @include hover-focus(#{$color});
+  }
+}

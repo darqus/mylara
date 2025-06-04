@@ -1,0 +1,43 @@
+/*
+Variables list
+https://quasar.dev/style/sass-scss-variables#variables-list
+
+color schema (UI Kit)
+https://www.figma.com/design/R40bNVr2MiUHqIELb25Gmh/UI-KIT?node-id=14001-45&p=f&t=whU8viLtRbSvyNzW-0
+
+original color schema (Material Theme Builder)
+https://www.figma.com/community/plugin/1034969338659738588/material-theme-builder
+*/
+
+@import "quasar/breakpoints";
+@import "custom/font";
+// @import "quasar/colors";
+@import "quasar/color-scheme";
+@import "quasar/space";
+@import "quasar/gap";
+@import "quasar/animate";
+@import "quasar/flex";
+@import "quasar/body";
+@import "quasar/typography";
+@import "quasar/ios";
+@import "quasar/z-index";
+@import "quasar/shadows";
+@import "quasar/generic";
+@import "quasar/buttons";
+@import "quasar/chat-message";
+@import "quasar/editor";
+@import "quasar/table";
+@import "quasar/toolbar";
+@import "quasar/layout";
+@import "quasar/menu";
+@import "quasar/rating";
+@import "quasar/tooltip";
+@import "quasar/input";
+@import "quasar/img";
+@import "quasar/option";
+// @import "quasar/form-override";
+@import "custom/animation";
+@import "custom/scrollbar";
+@import "custom/container";
+@import "custom/content";
+@import "custom/links";

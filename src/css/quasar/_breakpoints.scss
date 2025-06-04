@@ -1,0 +1,41 @@
+/* quasar */
+/* https://quasar.dev/style/sass-scss-variables#variables-list */
+
+/* figma */
+/* https://www.figma.com/design/R40bNVr2MiUHqIELb25Gmh/UI-KIT?node-id=14022-40836&t=VCraaaWnfLN7nvaS-0 */
+
+$breakpoint-remainder: 0.02px !default;
+
+$breakpoint-xs: 768px - $breakpoint-remainder !default;
+$breakpoint-sm: 1024px - $breakpoint-remainder !default;
+$breakpoint-md: 1440px - $breakpoint-remainder !default;
+$breakpoint-lg: 1920px - $breakpoint-remainder !default;
+
+$breakpoints: (
+  xs: $breakpoint-xs,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: 2600px - $breakpoint-remainder,
+);
+
+@mixin breakpoint($size) {
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+/* use mobile first */
+
+/* usage */
+// .my-class {
+//   background-color: $red;
+//
+//   @include breakpoint(md) {
+//     background-color: $blue;
+//   }
+//
+//   @include breakpoint(lg) {
+//     background-color: $green;
+//   }
+// }

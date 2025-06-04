@@ -1,0 +1,48 @@
+/* use mobile first */
+
+.container {
+  display: grid;
+  grid-template-columns: minmax(
+    0,
+    map-get($breakpoints, xs) + $breakpoint-remainder
+  );
+  justify-content: center;
+
+  @include breakpoint(xs) {
+    grid-template-columns: minmax(
+      0,
+      map-get($breakpoints, sm) + $breakpoint-remainder
+    );
+  }
+
+  @include breakpoint(sm) {
+    grid-template-columns: minmax(
+      0,
+      map-get($breakpoints, md) + $breakpoint-remainder
+    );
+  }
+
+  @include breakpoint(md) {
+    grid-template-columns: minmax(
+      0,
+      map-get($breakpoints, lg) + $breakpoint-remainder
+    );
+  }
+
+  @include breakpoint(lg) {
+    grid-template-columns: minmax(
+      0,
+      map-get($breakpoints, xl) + $breakpoint-remainder
+    );
+  }
+
+  .center {
+    &-x {
+      justify-items: center;
+    }
+
+    &-y {
+      align-items: center;
+    }
+  }
+}

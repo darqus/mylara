@@ -1,0 +1,7 @@
+.animation-rotate-90 {
+  transition: transform $animate-duration;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+}

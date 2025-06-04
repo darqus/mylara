@@ -1,0 +1,273 @@
+/* // https://fonts.google.com/specimen/Open+Sans */
+
+/* https://www.figma.com/design/R40bNVr2MiUHqIELb25Gmh/UI-KIT?node-id=14001-45&p=f&t=whU8viLtRbSvyNzW-0 */
+
+$typography-font-family: $font-family;
+
+/* mobile first approach for typography */
+/* if mobile line-height is 100%, set value normal */
+/* if mobile letter-spacing is 0%, set value normal */
+
+/* map
+  1 font-size mobile
+  2 line-height mobile
+  3 letter-spacing mobile
+  4 font-weight mobile
+  5 font-size tablet
+  6 line-height tablet
+  7 letter-spacing tablet
+  8 font-weight tablet
+  9 font-size desktop
+  10 line-height desktop
+  11 letter-spacing desktop
+  12 font-weight desktop
+*/
+
+$typography: (
+  "h0": (
+    26px,
+    120%,
+    normal,
+    $font-weight-semi-bold,
+    40px,
+    120%,
+    normal,
+    $font-weight-semi-bold,
+    40px,
+    120%,
+    normal,
+    $font-weight-semi-bold,
+  ),
+  "h1": (
+    24px,
+    110%,
+    normal,
+    $font-weight-semi-bold,
+    32px,
+    110%,
+    normal,
+    $font-weight-medium,
+    32px,
+    110%,
+    normal,
+    $font-weight-medium,
+  ),
+  "h2": (
+    24px,
+    normal,
+    normal,
+    $font-weight-bold,
+    28px,
+    120%,
+    normal,
+    $font-weight-bold,
+    28px,
+    120%,
+    normal,
+    $font-weight-bold,
+  ),
+  "h3": (
+    20px,
+    120%,
+    normal,
+    $font-weight-bold,
+    22px,
+    120%,
+    normal,
+    $font-weight-bold,
+    22px,
+    120%,
+    normal,
+    $font-weight-bold,
+  ),
+  "h4": (
+    16px,
+    110%,
+    normal,
+    $font-weight-semi-bold,
+    18px,
+    120%,
+    normal,
+    $font-weight-medium,
+    18px,
+    120%,
+    normal,
+    $font-weight-medium,
+  ),
+  "h5": (
+    14px,
+    110%,
+    normal,
+    $font-weight-extra-bold,
+    18px,
+    120%,
+    normal,
+    $font-weight-extra-bold,
+    18px,
+    120%,
+    normal,
+    $font-weight-extra-bold,
+  ),
+  "h6": (
+    12px,
+    110%,
+    normal,
+    $font-weight-semi-bold,
+    14px,
+    110%,
+    normal,
+    $font-weight-semi-bold,
+    14px,
+    110%,
+    normal,
+    $font-weight-semi-bold,
+  ),
+  "subtitle": (
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+  ),
+  "subtitle1": (
+    16px,
+    18px,
+    normal,
+    $font-weight-semi-bold,
+    16px,
+    18px,
+    normal,
+    $font-weight-semi-bold,
+    20px,
+    normal,
+    normal,
+    $font-weight-regular,
+  ),
+  "subtitle1bold": (
+    16px,
+    18px,
+    normal,
+    $font-weight-bold,
+    16px,
+    18px,
+    normal,
+    $font-weight-bold,
+    20px,
+    normal,
+    normal,
+    $font-weight-bold,
+  ),
+  "subtitle2": (
+    14px,
+    120%,
+    normal,
+    $font-weight-regular,
+    14px,
+    120%,
+    normal,
+    $font-weight-regular,
+    16px,
+    120%,
+    normal,
+    $font-weight-regular,
+  ),
+  "subtitle2semibold": (
+    14px,
+    120%,
+    normal,
+    $font-weight-semi-bold,
+    14px,
+    120%,
+    normal,
+    $font-weight-semi-bold,
+    16px,
+    130%,
+    normal,
+    $font-weight-semi-bold,
+  ),
+  "body": (
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+    18px,
+    28px,
+    0.4px,
+    $font-weight-regular,
+  ),
+  "body1": (
+    12px,
+    150%,
+    normal,
+    $font-weight-medium,
+    12px,
+    150%,
+    normal,
+    $font-weight-medium,
+    14px,
+    130%,
+    normal,
+    $font-weight-medium,
+  ),
+  "body2": (
+    11px,
+    140%,
+    normal,
+    $font-weight-medium,
+    12px,
+    140%,
+    normal,
+    $font-weight-medium,
+    11px,
+    140%,
+    normal,
+    $font-weight-regular,
+  ),
+) !default;
+// mobile
+@mixin typography($tag) {
+  $properties: map-get($typography, $tag);
+  font-size: nth($properties, 1);
+  font-weight: nth($properties, 4);
+  line-height: nth($properties, 2);
+  letter-spacing: nth($properties, 3);
+  // tablet
+  @include breakpoint(xs) {
+    font-size: nth($properties, 5);
+    font-weight: nth($properties, 8);
+    line-height: nth($properties, 6);
+    letter-spacing: nth($properties, 7);
+  }
+  // desktop
+  @include breakpoint(md) {
+    font-size: nth($properties, 9);
+    font-weight: nth($properties, 12);
+    line-height: nth($properties, 10);
+    letter-spacing: nth($properties, 11);
+  }
+}
+
+@each $tag in map-keys($typography) {
+  .#{$tag} {
+    @include typography($tag);
+  }
+}
+
+.bold {
+  font-weight: $font-weight-semi-bold;
+}
+
+.wrap {
+  hyphens: auto;
+}

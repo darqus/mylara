@@ -1,0 +1,16 @@
+**/.quasar
+**/dist
+**/node_modules
+**/tsconfig.json
+**/package.json
+**/yarn.lock
+**/quasar.testing.json
+**/quasar.extensions.json
+**/*.d.ts
+src/types/api-types.ts
+dist
+src-capacitor
+src-cordova
+.quasar
+node_modules
+quasar.config.*.temporary.compiled*
