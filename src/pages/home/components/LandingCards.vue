@@ -14,23 +14,19 @@ const handleCardClick = (id: number | string) => {
 </script>
 
 <template>
-  <div class="q-pa-md">
-    <div class="q-container">
-      <div class="row q-col-gutter-md">
-        <div
-          v-for="{ id, description, externalLink, imgLink } in cards"
-          :key="id"
-          class="col-12 col-sm-6 col-md-4"
-        >
-          <LandingCard
-            :id="id"
-            :description="description"
-            :external-link="externalLink"
-            :img-link="imgLink"
-            @click="handleCardClick"
-          />
-        </div>
-      </div>
+  <div class="row q-col-gutter-md">
+    <div
+      v-for="{ id, description, externalLink, imgLink } in cards"
+      :key="id"
+      class="col-12 col-sm-6 col-md-4"
+    >
+      <LandingCard
+        :id="id"
+        :description="description"
+        :external-link="externalLink"
+        :img-link="imgLink"
+        @click="handleCardClick"
+      />
     </div>
   </div>
 </template>
