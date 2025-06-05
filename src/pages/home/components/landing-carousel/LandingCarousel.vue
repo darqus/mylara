@@ -3,21 +3,22 @@ import {
   ref, computed,
 } from 'vue'
 
+import type { Card, } from './carousel'
 import { LANDING_CAROUSEL, } from './carousel'
 
 const slide = ref(1)
 const showDialog = ref(false)
-const selectedItem = ref(null)
+const selectedItem = ref<Card | null>(null)
 
-const openDialog = (item) => {
+const openDialog = (item: Card) => {
   selectedItem.value = item
   showDialog.value = true
 }
 
-const items = computed(() => {
+const items = computed<Card[][]>(() => {
   const itemsPerPage = 5
   const pages = Math.ceil(LANDING_CAROUSEL.length / itemsPerPage)
-  const result = []
+  const result: Card[][] = []
 
   for (let i = 0; i < pages; i++) {
     result.push(LANDING_CAROUSEL.slice(i * itemsPerPage, (i + 1) * itemsPerPage))
