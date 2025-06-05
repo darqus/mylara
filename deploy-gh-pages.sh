@@ -17,25 +17,25 @@ cd dist/spa
 touch .nojekyll
 
 # Копирование файла CNAME
-cp ../CNAME .
+# cp ../CNAME .
 
 # Исправление путей в index.html
-# echo "Исправление путей в index.html..."
-# sed -i 's|href=/|href=|g' index.html
-# sed -i 's|src="/|src="|g' index.html
-# sed -i 's|href="/|href="|g' index.html
-# echo "Пути успешно исправлены!"
+echo "Исправление путей в index.html..."
+sed -i 's|href=/|href=|g' index.html
+sed -i 's|src="/|src="|g' index.html
+sed -i 's|href="/|href="|g' index.html
+echo "Пути успешно исправлены!"
 
 # Инициализация Git репозитория
-git init -b main
-git config --local user.email "$EMAIL"
-git config --local user.name "$NAME"
-git add .
-git commit -m "Deploy to GitHub Pages"
+# git init -b main
+# git config --local user.email "$EMAIL"
+# git config --local user.name "$NAME"
+# git add .
+# git commit -m "Deploy to GitHub Pages"
 
 # Пуш на ветку gh-pages
 # Используем HTTPS вместо SSH для более простой аутентификации
-git push -f https://github.com/$USERNAME/$REPO.git HEAD:gh-pages
+# git push -f https://github.com/$USERNAME/$REPO.git HEAD:gh-pages
 
 # Возврат в корневую директорию
 cd -
