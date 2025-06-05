@@ -16,7 +16,7 @@ git add .
 git commit -m "Deploy to GitHub Pages"
 
 # Пуш на ветку gh-pages
-git push -f git@github.com:darqus/mylara.git master:gh-pages
+git push -f git@github.com:darqus/mylara.git main:gh-pages
 
 # Возврат в корневую директорию
 cd -
