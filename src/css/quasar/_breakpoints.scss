@@ -27,14 +27,15 @@ $breakpoints: (
 /* use mobile first */
 
 /* usage */
-// .my-class {
-//   background-color: $red;
-//
-//   @include breakpoint(md) {
-//     background-color: $blue;
-//   }
-//
-//   @include breakpoint(lg) {
-//     background-color: $green;
-//   }
-// }
+
+/* .my-class {
+  background-color: $red;
+
+  @include breakpoint(md) {
+    background-color: $blue;
+  }
+
+  @include breakpoint(lg) {
+    background-color: $green;
+  }
+} */
