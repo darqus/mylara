@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ref, computed,
+  ref, computed, onMounted, onUnmounted,
 } from 'vue'
 
 import type { Card, } from './carousel'
@@ -15,13 +15,39 @@ const openDialog = (item: Card) => {
   showDialog.value = true
 }
 
+const screenWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1440)
+
+// Update screen width on resize
+const updateScreenWidth = () => {
+  screenWidth.value = window.innerWidth
+}
+
+// Add event listener for window resize
+onMounted(() => {
+  window.addEventListener('resize', updateScreenWidth)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenWidth)
+})
+
+// Compute items per page based on screen width
+const itemsPerPage = computed(() => {
+  if (screenWidth.value < 600) {return 1}       // xs: 1 item
+  if (screenWidth.value < 1024) {return 2}      // sm-md: 2 items
+  if (screenWidth.value < 1440) {return 3}      // lg: 3 items
+  if (screenWidth.value < 1920) {return 4}      // xl: 4 items
+
+  return 5                                    // >xl: 5 items
+})
+
 const items = computed<Card[][]>(() => {
-  const itemsPerPage = 8
-  const pages = Math.ceil(LANDING_CAROUSEL.length / itemsPerPage)
+  const perPage = itemsPerPage.value
+  const pages = Math.ceil(LANDING_CAROUSEL.length / perPage)
   const result: Card[][] = []
 
   for (let i = 0; i < pages; i++) {
-    result.push(LANDING_CAROUSEL.slice(i * itemsPerPage, (i + 1) * itemsPerPage))
+    result.push(LANDING_CAROUSEL.slice(i * perPage, (i + 1) * perPage))
   }
 
   return result
@@ -49,6 +75,7 @@ const items = computed<Card[][]>(() => {
         <div
           v-for="item in page"
           :key="item.id"
+          class="carousel-card-container"
           @click="openDialog(item)"
         >
           <q-card class="cursor-pointer my-card">
