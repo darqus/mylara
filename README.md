@@ -13,6 +13,7 @@ When you push to the `main` branch, the GitHub Actions workflow will automatical
 1. Build the project
 2. Deploy it to the `gh-pages` branch
 3. Make it available at `https://[your-username].github.io/mylara/`
+4. Make it available at `https://darqus.github.io/mylara/`
 
 ### Manual Deployment
 
