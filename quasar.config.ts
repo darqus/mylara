@@ -35,14 +35,15 @@ export default defineConfig((/* ctx */) => ({
       // extendTsConfig (tsConfig) {}
     },
 
-    vueRouterMode: 'history', // available values: 'hash', 'history'
+    vueRouterMode: 'hash', // available values: 'hash', 'history'
     // vueRouterBase,
     // vueDevtools,
     // vueOptionsAPI: false,
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    // publicPath: '/',
+    publicPath: './',
+
     // analyze: true,
     // env: {},
     // rawDefine: {}
@@ -58,7 +59,7 @@ export default defineConfig((/* ctx */) => ({
       [
         'vite-plugin-checker',
         {
-          vueTsc: false, // отключил из-за кофликтов с типами src/types/api-types.ts
+          vueTsc: true,
           eslint: {
             lintCommand:
               'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
