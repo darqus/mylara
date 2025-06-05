@@ -16,6 +16,12 @@ cd dist/spa
 # Создание файла .nojekyll для GitHub Pages
 touch .nojekyll
 
+# Исправление путей в index.html
+echo "Исправление путей в index.html..."
+sed -i 's|href=/|href=|g' index.html
+sed -i 's|src="/|src="|g' index.html
+echo "Пути успешно исправлены!"
+
 # Инициализация Git репозитория
 git init -b main
 git config --local user.email "$EMAIL"
