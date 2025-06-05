@@ -1,0 +1,14 @@
+.carousel-item {
+  width: 20%;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.my-card {
+  width: 100%;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
