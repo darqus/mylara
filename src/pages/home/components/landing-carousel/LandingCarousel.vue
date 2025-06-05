@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import {
-  ref, computed, onMounted, onUnmounted,
+  ref, computed,
 } from 'vue'
+
+import { useQuasar, } from 'quasar'
 
 import type { Card, } from './carousel'
 import { LANDING_CAROUSEL, } from './carousel'
 
+const $q = useQuasar()
 const slide = ref(1)
 const showDialog = ref(false)
 const selectedItem = ref<Card | null>(null)
@@ -15,30 +18,14 @@ const openDialog = (item: Card) => {
   showDialog.value = true
 }
 
-const screenWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1440)
-
-// Update screen width on resize
-const updateScreenWidth = () => {
-  screenWidth.value = window.innerWidth
-}
-
-// Add event listener for window resize
-onMounted(() => {
-  window.addEventListener('resize', updateScreenWidth)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenWidth)
-})
-
-// Compute items per page based on screen width
+// Compute items per page based on Quasar breakpoints
 const itemsPerPage = computed(() => {
-  if (screenWidth.value < 600) {return 1}       // xs: 1 item
-  if (screenWidth.value < 1024) {return 2}      // sm-md: 2 items
-  if (screenWidth.value < 1440) {return 3}      // lg: 3 items
-  if (screenWidth.value < 1920) {return 4}      // xl: 4 items
+  if ($q.screen.xs) {return 2}
+  if ($q.screen.sm) {return 3}
+  if ($q.screen.md) {return 4}
+  if ($q.screen.lg) {return 6}
 
-  return 5                                    // >xl: 5 items
+  return 1
 })
 
 const items = computed<Card[][]>(() => {
