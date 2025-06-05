@@ -20,6 +20,7 @@ touch .nojekyll
 echo "Исправление путей в index.html..."
 sed -i 's|href=/|href=|g' index.html
 sed -i 's|src="/|src="|g' index.html
+sed -i 's|href="/|href="|g' index.html
 echo "Пути успешно исправлены!"
 
 # Инициализация Git репозитория
