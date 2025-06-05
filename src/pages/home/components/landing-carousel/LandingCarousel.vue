@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, } from 'vue'
 
-import type { Card, } from './cards'
-import { LANDING_CARDS, } from './cards'
+import type { Card, } from './carousel'
+import { LANDING_CAROUSEL, } from './carousel'
 import LandingCard from '../landing-card/LandingCard.vue'
 
-const cards = ref<Card[]>(LANDING_CARDS)
+const carousel = ref<Card[]>(LANDING_CAROUSEL)
 
 const handleCardClick = (id: number | string) => {
   console.warn('Карточка выбрана:', id)
@@ -15,7 +15,7 @@ const handleCardClick = (id: number | string) => {
 <template>
   <div class="row q-col-gutter-md">
     <div
-      v-for="{ id, label, externalLink, imgLink } in cards"
+      v-for="{ id, label, externalLink, imgLink } in carousel"
       :key="id"
       class="col-12 col-sm-6 col-md-4"
     >
