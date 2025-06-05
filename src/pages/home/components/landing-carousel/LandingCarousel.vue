@@ -20,12 +20,13 @@ const openDialog = (item: Card) => {
 
 // Compute items per page based on Quasar breakpoints
 const itemsPerPage = computed(() => {
+  if ($q.screen.width < 320) {return 1}
   if ($q.screen.xs) {return 2}
   if ($q.screen.sm) {return 3}
-  if ($q.screen.md) {return 4}
+  if ($q.screen.md) {return 5}
   if ($q.screen.lg) {return 6}
 
-  return 1
+  return 7
 })
 
 const items = computed<Card[][]>(() => {
