@@ -9,7 +9,7 @@ const slide = ref(1)
 <template>
   <q-carousel
     v-model="slide"
-    class="bg-primary text-white"
+    class="bg-white text-white"
     height="600px"
     transition-next="slide-left"
     transition-prev="slide-right"

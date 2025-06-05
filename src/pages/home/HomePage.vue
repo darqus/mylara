@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import LandingCards from './components/landing-cards/LandingCards.vue'
-import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
+import LandingBanner from './components/landing-carousel/LandingBanner.vue'
 import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
 </script>
 
 <template>
   <q-page>
-    <LandingCarousel />
+    <LandingBanner />
     <div class="q-pa-md">
       <div
         class="q-mx-auto"
