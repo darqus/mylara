@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import { ref, } from 'vue'
 
+import { useQuasar, } from 'quasar'
+
 import { slides, } from './slides'
 
+const $q = useQuasar()
 const slide = ref(1)
 </script>
 
 <template>
   <q-carousel
     v-model="slide"
+    :class="{
+      'height-xs': $q.screen.xs,
+      'height-sm': $q.screen.sm,
+      'height-md': $q.screen.md,
+      'height-lg': $q.screen.lg || $q.screen.xl
+    }"
     class="bg-white text-white"
-    height="600px"
     transition-next="slide-left"
     transition-prev="slide-right"
     animated
