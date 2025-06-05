@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LandingBanner from './components/landing-banner/LandingBanner.vue'
-import LandingCards from './components/landing-cards/LandingCards.vue'
+import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
 import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
 </script>
 
@@ -14,7 +14,7 @@ import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
       >
         <LandingSlogan />
 
-        <LandingCards />
+        <LandingCarousel />
       </div>
     </div>
   </q-page>
