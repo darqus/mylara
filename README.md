@@ -9,6 +9,7 @@ This project is configured to deploy to GitHub Pages using GitHub Actions.
 ### Automatic Deployment
 
 When you push to the `main` branch, the GitHub Actions workflow will automatically:
+
 1. Build the project
 2. Deploy it to the `gh-pages` branch
 3. Make it available at `https://[your-username].github.io/mylara/`
