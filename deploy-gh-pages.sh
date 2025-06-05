@@ -16,6 +16,9 @@ cd dist/spa
 # Создание файла .nojekyll для GitHub Pages
 touch .nojekyll
 
+# Копирование файла CNAME
+cp ../CNAME .
+
 # Исправление путей в index.html
 # echo "Исправление путей в index.html..."
 # sed -i 's|href=/|href=|g' index.html
