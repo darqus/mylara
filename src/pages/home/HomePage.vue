@@ -6,10 +6,11 @@ import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
 <template>
   <q-page>
     <div class="q-pa-md">
-      <div class="q-container">
+      <div
+        class="q-mx-auto"
+        style="max-width: 1200px"
+      >
         <LandingCarousel />
-      </div>
-      <div class="q-container">
         <LandingCards />
       </div>
     </div>
