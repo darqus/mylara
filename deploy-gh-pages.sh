@@ -8,7 +8,7 @@ NAME="Your Name"                # Замените на своё имя
 
 # Сборка проекта
 echo "Сборка проекта..."
-npm run build
+yarn build
 
 # Переход в директорию сборки
 cd dist/spa
