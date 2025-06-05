@@ -1,28 +1,24 @@
 #!/bin/bash
 
-# Build the app
-echo "Building the app..."
+# Сборка проекта
+echo "Сборка проекта..."
 npm run build
 
-# Create or checkout gh-pages branch
-echo "Preparing gh-pages branch..."
-git checkout -B gh-pages
+# Переход в директорию сборки
+cd dist/spa
 
-# Copy dist files to root
-echo "Copying build files..."
-cp -r dist/spa/* .
+# Создание файла .nojekyll для GitHub Pages
+touch .nojekyll
 
-# Add and commit changes
-echo "Committing changes..."
+# Инициализация Git репозитория
+git init
 git add .
 git commit -m "Deploy to GitHub Pages"
 
-# Push to GitHub
-echo "Pushing to GitHub..."
-git push -f origin gh-pages
+# Пуш на ветку gh-pages
+git push -f git@github.com:darqus/mylara.git master:gh-pages
 
-# Return to original branch
-echo "Returning to main branch..."
-git checkout main
+# Возврат в корневую директорию
+cd -
 
-echo "Deployment complete!"
+echo "Деплой на GitHub Pages завершен!"
