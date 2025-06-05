@@ -31,7 +31,7 @@ const items = computed<Card[][]>(() => {
 <template>
   <q-carousel
     v-model="slide"
-    height="400px"
+    control-color="primary"
     animated
     arrows
     infinite
@@ -41,12 +41,12 @@ const items = computed<Card[][]>(() => {
       v-for="(page, index) in items"
       :key="index"
       :name="index + 1"
+      class="column no-wrap"
     >
-      <div class="row items-center justify-start q-gutter-md">
+      <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
         <div
           v-for="item in page"
           :key="item.id"
-          class="carousel-item"
           @click="openDialog(item)"
         >
           <q-card class="cursor-pointer my-card">
