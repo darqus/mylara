@@ -49,4 +49,32 @@ export const LANDING_CAROUSEL: Card[] = [
     externalLink: 'https://example.com/desert',
     info: 'Бескрайние песчаные дюны и захватывающие пустынные пейзажи',
   },
+  {
+    id: 7,
+    imgLink: 'https://cdn.quasar.dev/img/mountains.jpg',
+    label: 'Зеленый лес',
+    externalLink: 'https://example.com/forest',
+    info: 'Дремучий лес полный жизни и загадок природы',
+  },
+  {
+    id: 8,
+    imgLink: 'https://cdn.quasar.dev/img/parallax1.jpg',
+    label: 'Песчаная пустыня',
+    externalLink: 'https://example.com/desert',
+    info: 'Бескрайние песчаные дюны и захватывающие пустынные пейзажи',
+  },
+  {
+    id: 9,
+    imgLink: 'https://cdn.quasar.dev/img/mountains.jpg',
+    label: 'Зеленый лес',
+    externalLink: 'https://example.com/forest',
+    info: 'Дремучий лес полный жизни и загадок природы',
+  },
+  {
+    id: 10,
+    imgLink: 'https://cdn.quasar.dev/img/parallax1.jpg',
+    label: 'Песчаная пустыня',
+    externalLink: 'https://example.com/desert',
+    info: 'Бескрайние песчаные дюны и захватывающие пустынные пейзажи',
+  },
 ]

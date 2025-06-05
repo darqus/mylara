@@ -16,7 +16,7 @@ const openDialog = (item: Card) => {
 }
 
 const items = computed<Card[][]>(() => {
-  const itemsPerPage = 5
+  const itemsPerPage = 8
   const pages = Math.ceil(LANDING_CAROUSEL.length / itemsPerPage)
   const result: Card[][] = []
 
@@ -32,6 +32,8 @@ const items = computed<Card[][]>(() => {
   <q-carousel
     v-model="slide"
     control-color="primary"
+    transition-next="slide-left"
+    transition-prev="slide-right"
     animated
     arrows
     infinite

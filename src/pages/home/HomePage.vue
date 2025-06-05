@@ -7,15 +7,12 @@ import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
 <template>
   <q-page>
     <LandingBanner />
-    <div class="q-pa-md">
-      <div
-        class="q-mx-auto"
-        style="max-width: 1200px"
-      >
-        <LandingSlogan />
-
-        <LandingCarousel />
-      </div>
+    <div
+      class="q-mx-auto"
+      style="max-width: 1200px"
+    >
+      <LandingSlogan />
     </div>
+    <LandingCarousel />
   </q-page>
 </template>

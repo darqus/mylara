@@ -3,7 +3,7 @@ const SLOGAN = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do 
 </script>
 
 <template>
-  <div class="q-pb-md">
+  <div class="q-pt-xl q-px-md">
     {{ SLOGAN }}
   </div>
 </template>
