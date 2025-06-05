@@ -8,9 +8,11 @@
     elevated
   >
     <q-toolbar>
-      <q-toolbar-title> Mylara </q-toolbar-title>
-
-      <div>Mylara v{{ $q.version }}</div>
+      <q-img
+        height="auto"
+        src="logo.svg"
+        width="150px"
+      />
     </q-toolbar>
   </q-header>
 </template>
