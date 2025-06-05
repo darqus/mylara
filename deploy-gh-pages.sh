@@ -17,11 +17,11 @@ cd dist/spa
 touch .nojekyll
 
 # Исправление путей в index.html
-echo "Исправление путей в index.html..."
-sed -i 's|href=/|href=|g' index.html
-sed -i 's|src="/|src="|g' index.html
-sed -i 's|href="/|href="|g' index.html
-echo "Пути успешно исправлены!"
+# echo "Исправление путей в index.html..."
+# sed -i 's|href=/|href=|g' index.html
+# sed -i 's|src="/|src="|g' index.html
+# sed -i 's|href="/|href="|g' index.html
+# echo "Пути успешно исправлены!"
 
 # Инициализация Git репозитория
 git init -b main

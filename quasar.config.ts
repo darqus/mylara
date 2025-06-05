@@ -42,7 +42,7 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: 'https://darqus.github.io/mylara/',
+    publicPath: '/mylara/',
 
     // analyze: true,
     // env: {},
