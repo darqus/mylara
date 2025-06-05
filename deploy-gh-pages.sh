@@ -3,8 +3,8 @@
 # Настройка переменных
 USERNAME="darqus"
 REPO="mylara"
-EMAIL="your-email@example.com"  # Замените на свой email
-NAME="Your Name"                # Замените на своё имя
+EMAIL="voladores@inbox.ru"  # Замените на свой email
+NAME="darqus"                # Замените на своё имя
 
 # Сборка проекта
 echo "Сборка проекта..."
