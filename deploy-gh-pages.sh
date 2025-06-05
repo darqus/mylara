@@ -17,7 +17,7 @@ cd dist/spa
 touch .nojekyll
 
 # Инициализация Git репозитория
-git init
+git init -b main
 git config --local user.email "$EMAIL"
 git config --local user.name "$NAME"
 git add .
