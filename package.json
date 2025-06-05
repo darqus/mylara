@@ -13,7 +13,8 @@
     "postinstall": "quasar prepare",
     "test:unit": "vitest",
     "test:unit:ci": "vitest run",
-    "inspect": "quasar inspect --depth"
+    "inspect": "quasar inspect --depth",
+    "deploy": "bash deploy.sh"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
@@ -37,6 +38,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-vue": "^10.0.0",
+    "gh-pages": "^6.1.1",
     "globals": "^16.0.0",
     "prettier": "^3.3.3",
     "stylelint": "^16.17.0",

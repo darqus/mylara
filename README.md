@@ -1,43 +1,46 @@
-# mylara
+# Mylara Landing Page
 
-mylara
+A Quasar Framework app for Mylara landing page.
 
-## Install the dependencies
+## Deploy to GitHub Pages
+
+This project is configured to deploy to GitHub Pages using GitHub Actions.
+
+### Automatic Deployment
+
+When you push to the `main` branch, the GitHub Actions workflow will automatically:
+1. Build the project
+2. Deploy it to the `gh-pages` branch
+3. Make it available at `https://[your-username].github.io/mylara/`
+
+### Manual Deployment
+
+You can also deploy manually:
 
 ```bash
-yarn
-# or
-npm i
+# Install gh-pages package if not already installed
+npm install --save-dev gh-pages
+
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+## Development
 
 ```bash
-quasar dev
-# or
-yarn dev
-# or
+# Install dependencies
+npm install
+
+# Start the app in development mode
 npm run dev
 ```
 
-### Format and linting with fix all files
+## Build
 
 ```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
-
-```bash
-quasar build
-# or
-yarn build
-# or
+# Build the app for production
 npm run build
 ```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
