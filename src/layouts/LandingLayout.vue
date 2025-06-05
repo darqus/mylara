@@ -1,15 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LandingHeader from './landing-header/LandingHeader.vue'
+
+</script>
 
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title> Mylara </q-toolbar-title>
-
-        <div>Mylara v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
+    <LandingHeader />
     <q-page-container>
       <router-view />
     </q-page-container>
