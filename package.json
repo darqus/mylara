@@ -5,7 +5,7 @@
   "productName": "mylara-landing",
   "author": "",
   "type": "module",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "quasar dev",
     "build": "quasar build",
