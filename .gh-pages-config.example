@@ -2,16 +2,16 @@
 # Скопируйте этот файл в .gh-pages-config и заполните своими данными
 
 # Имя пользователя GitHub
-GH_USERNAME="YOUR_GH_USERNAME"
+GH_USERNAME=YOUR_GH_USERNAME
 
 # Имя репозитория
-GH_REPO="YOUR_GH_REPO"
+GH_REPO=YOUR_GH_REPO
 
 # Email для Git
-GH_EMAIL="YOUR_GH_EMAIL"
+GH_EMAIL=YOUR_GH_EMAIL
 
 # Имя для Git
-GH_NAME="YOUR_GH_NAME"
+GH_NAME=YOUR_GH_NAME
 
 # Токен GitHub (опционально)
-GITHUB_TOKEN="YOUR_tOKEN"
+GITHUB_TOKEN=YOUR_tOKEN
