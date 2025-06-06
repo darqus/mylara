@@ -1,3 +1,4 @@
+import { execSync, } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath, } from 'url'
@@ -42,5 +43,14 @@ envContent = envContent.replace(/VITE_APP_VERSION=.*/, `VITE_APP_VERSION=${versi
 
 // Записываем обновленный файл
 fs.writeFileSync(envPath, envContent)
+
+// Коммитим изменения версий
+try {
+  execSync('git add package.json .env')
+  execSync(`git commit -m "chore: bump version to ${version}"`)
+  console.warn(`Committed version changes: ${version}`)
+} catch (error) {
+  console.error('Failed to commit version changes:', error.message)
+}
 
 console.warn(`Updated .env with build date: ${buildDate} and version: ${version}`)
