@@ -15,7 +15,7 @@
     "test:unit": "vitest",
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
-    "deploy": "bash deploy-gh-pages.sh"
+    "deploy": "yarn build && gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
