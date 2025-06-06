@@ -5,7 +5,7 @@ const {
 } = import.meta.env
 
 export const {
-  VITE_ROUTER_BASE: BASE,
+  VITE_ROUTER_BASE: ROUTER_BASE,
 } = import.meta.env
 
 export const {
