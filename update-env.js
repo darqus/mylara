@@ -9,8 +9,23 @@ const now = new Date()
 const buildDate = now.toISOString().replace('T', ' ').substring(0, 19)
 
 // Получаем версию из package.json
-const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'))
-const version = packageJson.version
+const packageJsonPath = path.join(__dirname, 'package.json')
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
+let version = packageJson.version
+
+// Инкремент минорной версии
+const versionParts = version.split('.')
+
+versionParts[1] = parseInt(versionParts[1]) + 1
+if (parseInt(versionParts[1]) > 99) {
+  versionParts[0] = parseInt(versionParts[0]) + 1
+  versionParts[1] = '0'
+}
+version = versionParts.join('.')
+
+// Обновляем версию в package.json
+packageJson.version = version
+fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
 
 // Читаем файл .env
 const envPath = path.join(__dirname, '.env')
