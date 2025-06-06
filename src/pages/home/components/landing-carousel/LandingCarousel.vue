@@ -85,7 +85,7 @@ const items = computed<Card[][]>(() => {
   <q-dialog v-model="showDialog">
     <q-card
       v-if="selectedItem"
-      style="min-width: 350px"
+      style="max-width: 350px"
     >
       <q-card-section>
         <div class="text-h6">
