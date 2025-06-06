@@ -55,6 +55,7 @@ fs.writeFileSync(envPath, envContent)
 try {
   execSync('git add package.json .env')
   execSync(`git commit -m "chore: bump version to ${version}"`)
+  execSync('git push')
   console.warn(`Committed version changes: ${version}`)
 } catch (error) {
   console.error('Failed to commit version changes:', error.message)
