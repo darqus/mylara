@@ -3,6 +3,10 @@
 
 import { defineConfig, } from '#q-app/wrappers'
 
+import { APP_BASE, } from 'src/utils/constants'
+
+// Используем прямой доступ к переменным окружения вместо импорта из constants
+
 export default defineConfig((/* ctx */) => ({
   // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
   // preFetch: true,
@@ -42,7 +46,7 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: '/mylara/',
+    publicPath: APP_BASE,
 
     // analyze: true,
     // env: {},

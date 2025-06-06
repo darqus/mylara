@@ -1,24 +1,26 @@
 // https://wiki.mylara.ru/pages/viewpage.action?pageId=63963614
 
-const {
-  VITE_NAME_FULL, VITE_REDIRECT_PATH, VITE_REDIRECT_PATH_DEV, VITE_KEYWORDS,
-} = import.meta.env
+// Безопасное получение переменных окружения
+const getEnvVar = (key: string, defaultValue: string = ''): string => {
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    return import.meta.env[key] || defaultValue
+  }
 
-export const {
-  VITE_ROUTER_BASE: ROUTER_BASE,
-} = import.meta.env
+  return defaultValue
+}
 
-export const {
-  VITE_APP_BASE: APP_BASE,
-} = import.meta.env
+const VITE_NAME_FULL = getEnvVar('VITE_NAME_FULL', 'MYLARA')
+const VITE_REDIRECT_PATH = getEnvVar('VITE_REDIRECT_PATH', '')
+const VITE_REDIRECT_PATH_DEV = getEnvVar('VITE_REDIRECT_PATH_DEV', '')
+const VITE_KEYWORDS = getEnvVar('VITE_KEYWORDS', 'Косметика по уходу за лицом')
 
-export const {
-  VITE_API_HOST: API_HOST,
-} = import.meta.env
+export const ROUTER_BASE = getEnvVar('VITE_ROUTER_BASE', '/')
 
-export const {
-  VITE_API_BASE_HOST: API_BASE_HOST,
-} = import.meta.env
+export const APP_BASE = getEnvVar('VITE_APP_BASE', '/mylara/')
+
+export const API_HOST = getEnvVar('VITE_API_HOST', '')
+
+export const API_BASE_HOST = getEnvVar('VITE_API_BASE_HOST', '')
 
 export const NO_IMG = 'img/no-image.svg'
 
@@ -35,7 +37,7 @@ export const REDIRECT_PATH =
     ? VITE_REDIRECT_PATH
     : VITE_REDIRECT_PATH_DEV
 
-const getPhoneLink = (str: string) => `tel:${str.replace(/\D/g, '')}`
+const getPhoneLink = (str: string) => `tel:${str.replace(/\\D/g, '')}`
 
 export const PHONES = {
   HOT_LINE: {
