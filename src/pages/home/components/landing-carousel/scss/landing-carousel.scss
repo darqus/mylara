@@ -23,6 +23,16 @@
   flex: 0 0 auto;
   width: calc(100% / v-bind(itemsPerPage));
   padding: 0 8px;
+
+  .my-card {
+    width: 100%;
+    transition: transform 0.3s;
+
+    &.active,
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
 }
 
 .carousel-nav-btn {
@@ -35,14 +45,5 @@
 
   &.carousel-next-btn {
     right: 10px;
-  }
-}
-
-.my-card {
-  width: 100%;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-5px);
   }
 }

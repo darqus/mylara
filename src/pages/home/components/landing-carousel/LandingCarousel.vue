@@ -10,6 +10,7 @@ const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<Card | null>(null)
 const carouselRef = ref<unknown>(null)
+const activeItemId = ref<number | string | null>(null)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
@@ -20,6 +21,7 @@ const openDialog = ({
     id, imgLink, label, externalLink, info,
   }
   showDialog.value = true
+  activeItemId.value = id
 }
 
 const visibleItems = computed(() => {
@@ -74,9 +76,11 @@ const scrollToCurrentItem = () => {
         v-for="({ id, imgLink, label, externalLink, info }) in visibleItems"
         :key="id"
         class="carousel-card-container"
-        @click="openDialog({ id, imgLink, label, externalLink, info })"
       >
-        <q-card class="cursor-pointer my-card">
+        <q-card
+          :class="['cursor-pointer my-card', { 'active': activeItemId === id }]"
+          @click="openDialog({ id, imgLink, label, externalLink, info })"
+        >
           <img
             :src="imgLink"
             style="height: 200px; object-fit: cover;"
@@ -100,7 +104,10 @@ const scrollToCurrentItem = () => {
     />
   </div>
 
-  <q-dialog v-model="showDialog">
+  <q-dialog
+    v-model="showDialog"
+    @hide="activeItemId = null"
+  >
     <q-card
       v-if="selectedItem"
       style="max-width: 350px"
