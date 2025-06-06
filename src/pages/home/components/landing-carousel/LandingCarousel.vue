@@ -45,9 +45,10 @@ const prevItem = () => {
 const scrollToCurrentItem = () => {
   const container = document.querySelector('.carousel-items-container')
   const items = document.querySelectorAll('.carousel-card-container')
+  const currentItem = items[currentIndex.value]
 
-  if (container && items[currentIndex.value]) {
-    const itemWidth = items[currentIndex.value].clientWidth
+  if (container && currentItem) {
+    const itemWidth = currentItem.clientWidth || 0
 
     container.scrollTo({
       left: itemWidth * currentIndex.value,
@@ -55,6 +56,7 @@ const scrollToCurrentItem = () => {
     })
   }
 }
+
 </script>
 
 <template>
