@@ -1,16 +1,8 @@
 #!/bin/bash
 
-# Загрузка переменных из файла конфигурации, если он существует
-CONFIG_FILE=".gh-pages-config"
-if [ -f "$CONFIG_FILE" ]; then
-  source "$CONFIG_FILE"
-fi
-
-# Использование переменных окружения или значений по умолчанию
-USERNAME=${GH_USERNAME:-$(git config user.name)}
-REPO=${GH_REPO:-$(basename -s .git `git config --get remote.origin.url`)}
-EMAIL=${GH_EMAIL:-$(git config user.email)}
-NAME=${GH_NAME:-$(git config user.name)}
+# Настройка переменных
+USERNAME="darqus"
+REPO="mylara"
 
 # Сборка проекта
 echo "Сборка проекта..."
@@ -24,19 +16,20 @@ touch .nojekyll
 
 # Инициализация Git репозитория
 git init -b main
-git config --local user.email "$EMAIL"
-git config --local user.name "$NAME"
+git config --local user.email "github-actions@github.com"
+git config --local user.name "GitHub Actions"
 git add .
 git commit -m "Deploy to GitHub Pages"
 
-# Пуш на ветку gh-pages с использованием токена для аутентификации
-# Проверяем наличие переменной GITHUB_TOKEN
-if [ -z "$GITHUB_TOKEN" ]; then
-  echo "GITHUB_TOKEN не найден. Используем SSH URL."
-  git push -f git@github.com:$USERNAME/$REPO.git HEAD:gh-pages
-else
-  echo "Используем GITHUB_TOKEN для аутентификации."
-  git push -f https://$GITHUB_TOKEN@github.com/$USERNAME/$REPO.git HEAD:gh-pages
+# Пуш на ветку gh-pages с использованием HTTPS
+echo "Деплой на GitHub Pages..."
+git push -f https://${USERNAME}:${GITHUB_TOKEN}@github.com/${USERNAME}/${REPO}.git HEAD:gh-pages
+
+# Если токен не установлен, выводим инструкцию
+if [ $? -ne 0 ]; then
+  echo "Ошибка при деплое. Установите токен GitHub:"
+  echo "export GITHUB_TOKEN=ваш_токен"
+  echo "Токен можно создать на странице https://github.com/settings/tokens"
 fi
 
 # Возврат в корневую директорию

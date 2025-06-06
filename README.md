@@ -14,14 +14,24 @@ Push to the `main` branch to trigger GitHub Actions workflow that will:
 
 ### Manual Deployment
 
-```bash
-# Install dependencies if needed
-yarn add --dev gh-pages
+1. Создайте персональный токен доступа GitHub:
 
-# Build and deploy
-yarn build
-./deploy-gh-pages.sh
-```
+   - Перейдите на страницу <https://github.com/settings/tokens>
+   - Нажмите "Generate new token"
+   - Выберите "repo" scope
+   - Скопируйте созданный токен
+
+2. Установите токен как переменную окружения (.gh-pages-config):
+
+   ```bash
+   export GITHUB_TOKEN=ваш_токен
+   ```
+
+3. Запустите скрипт деплоя:
+
+   ```bash
+   yarn deploy
+   ```
 
 ## Development
 
