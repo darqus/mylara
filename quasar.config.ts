@@ -3,8 +3,6 @@
 
 import { defineConfig, } from '#q-app/wrappers'
 
-import { APP_BASE, } from 'src/utils/constants'
-
 // Используем прямой доступ к переменным окружения вместо импорта из constants
 
 export default defineConfig((/* ctx */) => ({
@@ -46,7 +44,7 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: APP_BASE,
+    publicPath: '/mylara/',
 
     // analyze: true,
     // env: {},
