@@ -3,84 +3,102 @@ import {
   ref, computed,
 } from 'vue'
 
-import { useQuasar, } from 'quasar'
-
 import type { Card, } from './carousel'
 import { LANDING_CAROUSEL, } from './carousel'
 
-const $q = useQuasar()
-const slide = ref(1)
+const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<Card | null>(null)
+const carouselRef = ref<unknown>(null)
 
-const openDialog = (item: Card) => {
-  selectedItem.value = item
+const openDialog = ({
+  id, imgLink, label, externalLink, info,
+}: Card & {
+  info: string
+}) => {
+  selectedItem.value = {
+    id, imgLink, label, externalLink, info,
+  }
   showDialog.value = true
 }
 
-// Compute items per page based on Quasar breakpoints
-const itemsPerPage = computed(() => {
-  if ($q.screen.width < 320) {return 1}
-  if ($q.screen.xs) {return 2}
-  if ($q.screen.sm) {return 3}
-  if ($q.screen.md) {return 5}
-  if ($q.screen.lg) {return 6}
-
-  return 7
+const visibleItems = computed(() => {
+  return LANDING_CAROUSEL
 })
 
-const items = computed<Card[][]>(() => {
-  const perPage = itemsPerPage.value
-  const pages = Math.ceil(LANDING_CAROUSEL.length / perPage)
-  const result: Card[][] = []
-
-  for (let i = 0; i < pages; i++) {
-    result.push(LANDING_CAROUSEL.slice(i * perPage, (i + 1) * perPage))
+const nextItem = () => {
+  if (currentIndex.value < LANDING_CAROUSEL.length - 1) {
+    currentIndex.value++
+    scrollToCurrentItem()
   }
+}
 
-  return result
-})
+const prevItem = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+    scrollToCurrentItem()
+  }
+}
+
+const scrollToCurrentItem = () => {
+  const container = document.querySelector('.carousel-items-container')
+  const items = document.querySelectorAll('.carousel-card-container')
+
+  if (container && items[currentIndex.value]) {
+    const itemWidth = items[currentIndex.value].clientWidth
+
+    container.scrollTo({
+      left: itemWidth * currentIndex.value,
+      behavior: 'smooth',
+    })
+  }
+}
 </script>
 
 <template>
-  <q-carousel
-    v-model="slide"
-    control-color="primary"
-    transition-next="slide-left"
-    transition-prev="slide-right"
-    animated
-    arrows
-    infinite
-    navigation
-  >
-    <q-carousel-slide
-      v-for="(page, index) in items"
-      :key="index"
-      :name="index + 1"
-      class="column no-wrap"
+  <div class="carousel-wrapper">
+    <q-btn
+      :disable="currentIndex === 0"
+      class="carousel-nav-btn carousel-prev-btn"
+      color="primary"
+      icon="chevron_left"
+      round
+      @click="prevItem"
+    />
+
+    <div
+      ref="carouselRef"
+      class="carousel-items-container q-py-lg q-my-sm"
     >
-      <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-        <div
-          v-for="item in page"
-          :key="item.id"
-          class="carousel-card-container"
-          @click="openDialog(item)"
-        >
-          <q-card class="cursor-pointer my-card">
-            <img
-              :src="item.imgLink"
-              style="height: 200px; object-fit: cover;"
-            >
-            <q-card-section class="text-center">
-              <div class="text-subtitle2">
-                {{ item.label }}
-              </div>
-            </q-card-section>
-          </q-card>
-        </div>
+      <div
+        v-for="({ id, imgLink, label, externalLink, info }) in visibleItems"
+        :key="id"
+        class="carousel-card-container"
+        @click="openDialog({ id, imgLink, label, externalLink, info })"
+      >
+        <q-card class="cursor-pointer my-card">
+          <img
+            :src="imgLink"
+            style="height: 200px; object-fit: cover;"
+          >
+          <q-card-section class="text-center">
+            <div class="text-subtitle2">
+              {{ label }}
+            </div>
+          </q-card-section>
+        </q-card>
       </div>
-    </q-carousel-slide>
-  </q-carousel>
+    </div>
+
+    <q-btn
+      :disable="currentIndex === LANDING_CAROUSEL.length - 1"
+      class="carousel-nav-btn carousel-next-btn"
+      color="primary"
+      icon="chevron_right"
+      round
+      @click="nextItem"
+    />
+  </div>
 
   <q-dialog v-model="showDialog">
     <q-card
