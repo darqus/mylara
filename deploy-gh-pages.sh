@@ -1,8 +1,16 @@
 #!/bin/bash
 
+# Загрузка переменных из файла конфигурации, если он существует
+CONFIG_FILE=".gh-pages-config"
+if [ -f "$CONFIG_FILE" ]; then
+  source "$CONFIG_FILE"
+  echo "Конфигурация загружена из $CONFIG_FILE"
+fi
+
 # Настройка переменных
-USERNAME="darqus"
-REPO="mylara"
+USERNAME=${GH_USERNAME:-"darqus"}
+REPO=${GH_REPO:-"mylara"}
+GITHUB_TOKEN=${GITHUB_TOKEN:-$GH_TOKEN}
 
 # Сборка проекта
 echo "Сборка проекта..."
@@ -27,8 +35,10 @@ git push -f https://${USERNAME}:${GITHUB_TOKEN}@github.com/${USERNAME}/${REPO}.g
 
 # Если токен не установлен, выводим инструкцию
 if [ $? -ne 0 ]; then
-  echo "Ошибка при деплое. Установите токен GitHub:"
-  echo "export GITHUB_TOKEN=ваш_токен"
+  echo "Ошибка при деплое. Создайте файл .gh-pages-config с содержимым:"
+  echo "GH_USERNAME=ваше_имя_пользователя"
+  echo "GH_REPO=имя_репозитория"
+  echo "GH_TOKEN=ваш_токен"
   echo "Токен можно создать на странице https://github.com/settings/tokens"
 fi
 
