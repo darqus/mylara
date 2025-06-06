@@ -34,6 +34,7 @@ let envContent = fs.readFileSync(envPath, 'utf8')
 // Обновляем переменные
 envContent = envContent.replace(/VITE_BUILD_DATE=.*/, `VITE_BUILD_DATE=${buildDate}`)
 envContent = envContent.replace(/VITE_VERSION=.*/, `VITE_VERSION=${version}`)
+envContent = envContent.replace(/VITE_APP_VERSION=.*/, `VITE_APP_VERSION=${version}`)
 
 // Записываем обновленный файл
 fs.writeFileSync(envPath, envContent)
