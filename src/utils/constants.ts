@@ -41,14 +41,9 @@ const getPhoneLink = (str: string) => `tel:${str.replace(/\\D/g, '')}`
 
 export const PHONES = {
   HOT_LINE: {
-    LABEL: '+7 495 648-66-73',
-    LINK: getPhoneLink('+7 495 648-66-73'), // tel:74956486673
+    LABEL: '+7 999 677-90-67',
+    LINK: getPhoneLink('+7 999 677-90-67'), // tel:9996779067
   },
-
-  /* FREE_CALL: {
-    LABEL: '8 800 123-45-67',
-    LINK: getPhoneLink('8 800 123-45-67'), // tel:88001234567
-  }, */
 }
 
 export const DOMAIN = 'mylara.ru'
@@ -70,9 +65,8 @@ export const EMAILS = {
 }
 
 export const SOCIALS = {
-  VK: 'https://vk.com/mylaraiva',
-  TELEGRAM: 'https://t.me/ivauc',
-  RUTUBE: 'https://rutube.ru/channel/46755972/',
+  VK: 'https://vk.com/mylara',
+  TELEGRAM: 'https://t.me/mylara',
 }
 
 export const LINKS = {
