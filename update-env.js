@@ -5,9 +5,16 @@ import { fileURLToPath, } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Получаем текущую дату и время
+// Получаем текущую дату и время в локальном часовом поясе
 const now = new Date()
-const buildDate = now.toISOString().replace('T', ' ').substring(0, 19)
+const buildDate = now.toLocaleString('ru-RU', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}).replace(',', '')
 
 // Получаем версию из package.json
 const packageJsonPath = path.join(__dirname, 'package.json')
