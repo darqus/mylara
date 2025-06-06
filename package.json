@@ -15,7 +15,8 @@
     "test:unit": "vitest",
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
-    "deploy": "yarn build && gh-pages -d dist/spa"
+    "update-env": "node update-env.js",
+    "deploy": "yarn update-env && yarn build && gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
