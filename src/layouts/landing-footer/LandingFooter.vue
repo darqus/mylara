@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {
+  APP_VERSION, BUILD_DATE,
+} from 'src/utils/meta'
 
 </script>
 
@@ -11,8 +14,12 @@
       <q-img
         height="auto"
         src="logo.svg"
-        width="150px"
+        width="50px"
       />
+      <q-space />
+      <small>
+        v{{ APP_VERSION }} {{ BUILD_DATE }}
+      </small>
     </q-toolbar>
   </q-footer>
 </template>
