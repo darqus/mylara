@@ -17,8 +17,6 @@ export default defineConfig({
       // Matches vitest tests in any subfolder of 'src' or into 'test/vitest/__tests__'
       // Matches all files with extension 'js', 'jsx', 'ts' and 'tsx'
       'src/**/*.vitest.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
-
-      // 'test/vitest/__tests__/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', // demo tests
     ],
 
     // Add alias configuration for resolving paths
@@ -31,10 +29,10 @@ export default defineConfig({
       template: {
         transformAssetUrls,
       },
-    }) as unknown as PluginOption,
+    }) satisfies PluginOption,
     quasar({
       sassVariables: 'src/quasar-variables.scss',
-    }) as unknown as PluginOption,
-    tsconfigPaths() as unknown as PluginOption,
+    }) satisfies PluginOption,
+    tsconfigPaths() satisfies PluginOption,
   ],
 })
