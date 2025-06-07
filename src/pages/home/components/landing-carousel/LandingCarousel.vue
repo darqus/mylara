@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import {
-  ref, computed,
+  ref, computed, onMounted,
 } from 'vue'
 
-import type { CarouselItem, } from './carousel'
 import { LANDING_CAROUSEL, } from './carousel'
+import type { CarouselItem, } from './carousel'
+import './scss/landing-carousel.scss'
 
 const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
-const carouselRef = ref<unknown>(null)
+const carouselRef = ref<HTMLElement | null>(null)
 const activeItemId = ref<number | string | null>(null)
+const touchStartX = ref(0)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
@@ -55,6 +57,37 @@ const scrollToCurrentItem = () => {
   }
 }
 
+// Обработчики touch-событий для свайпа
+const handleTouchStart = (event: TouchEvent) => {
+  touchStartX.value = event.touches[0].clientX
+}
+
+const handleTouchEnd = (event: TouchEvent) => {
+  const touchEndX = event.changedTouches[0].clientX
+  const diffX = touchStartX.value - touchEndX
+
+  // Если свайп был достаточно длинным (более 50px)
+  if (Math.abs(diffX) > 50) {
+    if (diffX > 0) {
+      // Свайп влево - следующий элемент
+      nextItem()
+    } else {
+      // Свайп вправо - предыдущий элемент
+      prevItem()
+    }
+  }
+}
+
+onMounted(() => {
+  if (carouselRef.value) {
+    carouselRef.value.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    })
+    carouselRef.value.addEventListener('touchend', handleTouchEnd, {
+      passive: true,
+    })
+  }
+})
 </script>
 
 <template>
@@ -133,7 +166,3 @@ const scrollToCurrentItem = () => {
     </q-card>
   </q-dialog>
 </template>
-
-<style lang="scss">
-@import './scss/landing-carousel';
-</style>
