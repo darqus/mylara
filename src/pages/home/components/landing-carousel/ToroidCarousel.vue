@@ -17,7 +17,7 @@ const activeItemId = ref<number | string | null>(null)
 const carouselContainer = ref<HTMLElement | null>(null)
 
 // Параметры тороида
-const horizontalRadius = 500 // Горизонтальный радиус тороида
+const horizontalRadius = 320 // Горизонтальный радиус тороида
 const verticalRadius = 90   // Вертикальный радиус тороида
 const itemCount = computed(() => items.value.length)
 

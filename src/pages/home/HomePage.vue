@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LandingBanner from './components/landing-banner/LandingBanner.vue'
-import ToroidCarousel from './components/landing-carousel/ToroidCarousel.vue'
+import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
 import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
 </script>
 
@@ -13,6 +13,6 @@ import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
     >
       <LandingSlogan />
     </div>
-    <ToroidCarousel />
+    <LandingCarousel />
   </q-page>
 </template>
