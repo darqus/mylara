@@ -14,9 +14,7 @@ const activeItemId = ref<number | string | null>(null)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
-}: CarouselItem & {
-  info: string
-}) => {
+}: CarouselItem) => {
   selectedItem.value = {
     id, imgLink, label, externalLink, info,
   }
