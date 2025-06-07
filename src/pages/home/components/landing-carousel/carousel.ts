@@ -1,4 +1,4 @@
-export type Card = {
+export type CarouselItem = {
   id: number
   imgLink: string
   label: string
@@ -6,7 +6,7 @@ export type Card = {
   info: string
 }
 
-export const LANDING_CAROUSEL: Card[] = [
+export const LANDING_CAROUSEL: CarouselItem[] = [
   {
     id: 1,
     imgLink: 'https://cdn.quasar.dev/img/mountains.jpg',

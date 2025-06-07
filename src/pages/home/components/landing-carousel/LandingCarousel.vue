@@ -3,18 +3,18 @@ import {
   ref, computed,
 } from 'vue'
 
-import type { Card, } from './carousel'
+import type { CarouselItem, } from './carousel'
 import { LANDING_CAROUSEL, } from './carousel'
 
 const currentIndex = ref(0)
 const showDialog = ref(false)
-const selectedItem = ref<Card | null>(null)
+const selectedItem = ref<CarouselItem | null>(null)
 const carouselRef = ref<unknown>(null)
 const activeItemId = ref<number | string | null>(null)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
-}: Card & {
+}: CarouselItem & {
   info: string
 }) => {
   selectedItem.value = {

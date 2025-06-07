@@ -1,0 +1,59 @@
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.carousel-3d-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.carousel-card-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 300px;
+  transform-origin: center center;
+  transition: all 0.5s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.my-card {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+
+  &.active {
+    border: 2px solid var(--q-primary);
+    transform: scale(1.05);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.carousel-nav-btn {
+  position: absolute;
+  z-index: 2;
+
+  &.carousel-prev-btn {
+    left: 10px;
+  }
+
+  &.carousel-next-btn {
+    right: 10px;
+  }
+}
