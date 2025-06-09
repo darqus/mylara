@@ -77,7 +77,7 @@ export const useCarouselData = () => {
   void fetchData()
 
   return {
-    LANDING_CAROUSEL: carouselItems,
+    carouselItems,
     loading,
     error,
     refresh: fetchData,

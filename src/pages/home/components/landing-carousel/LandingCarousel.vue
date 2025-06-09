@@ -21,7 +21,7 @@ const touchStartX = ref(0)
 
 // Получаем данные из сервиса
 const {
-  LANDING_CAROUSEL: carouselItems, loading, error, refresh,
+  carouselItems, loading, error, refresh,
 } = useCarouselData()
 
 const openDialog = ({
