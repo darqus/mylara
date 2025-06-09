@@ -3,7 +3,7 @@ import { ref, } from 'vue'
 
 import { useQuasar, } from 'quasar'
 
-import './scss/landing-banner.scss'
+import './scss/landing-slider.scss'
 import { useSlides, } from './useSlides'
 
 const $q = useQuasar()
