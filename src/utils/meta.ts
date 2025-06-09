@@ -25,6 +25,12 @@ export const meta = {
       name: META.NAME.KEYWORDS,
       content: VITE_DESCRIPTION,
     },
+
+    // if site to be done, remove this
+    robots: {
+      name: 'robots',
+      content: 'noindex',
+    },
     equiv: META.EQUIV,
     noscript: META.NOSCRIPT,
   },
