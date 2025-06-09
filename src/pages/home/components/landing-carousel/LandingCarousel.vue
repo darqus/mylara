@@ -3,22 +3,21 @@ import {
   ref, computed, onMounted,
 } from 'vue'
 
-import { useQuasar, } from 'quasar'
+import { useDevice, } from 'src/composables/useDevice'
 
 import { LANDING_CAROUSEL, } from './carousel'
 import type { CarouselItem, } from './carousel'
 import './scss/landing-carousel.scss'
 
-const $q = useQuasar()
+const {
+  isMobile, 
+} = useDevice()
 const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
 const carouselRef = ref<HTMLElement | null>(null)
 const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref(0)
-
-// Проверка, является ли устройство мобильным
-const isMobile = computed(() => $q.screen.lt.sm)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
