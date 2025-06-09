@@ -5,9 +5,9 @@ import {
 
 import { useDevice, } from 'src/composables/useDevice'
 
-import { useCarouselData, } from './carousel'
-import type { CarouselItem, } from './carousel'
 import './scss/landing-carousel.scss'
+import { useCarouselData, } from './useCarousel'
+import type { CarouselItem, } from './useCarousel'
 
 const {
   isMobile,
