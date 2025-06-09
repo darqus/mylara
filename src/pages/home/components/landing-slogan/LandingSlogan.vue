@@ -1,9 +1,35 @@
 <script setup lang="ts">
-const SLOGAN = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+import { useSlogan, } from './useSlogan'
+
+const {
+  slogan, loading, error, 
+} = useSlogan()
 </script>
 
 <template>
-  <div class="q-pt-xl q-px-md">
-    {{ SLOGAN }}
+  <div class="q-pt-xl q-px-md relative-position">
+    <q-inner-loading :showing="loading">
+      <q-spinner-dots
+        color="primary"
+        size="40px"
+      />
+    </q-inner-loading>
+
+    <div
+      v-if="error"
+      class="text-center text-negative"
+    >
+      <q-icon
+        class="q-mr-xs"
+        color="negative"
+        name="error"
+        size="1rem"
+      />
+      {{ error }}
+    </div>
+
+    <div v-else>
+      {{ slogan }}
+    </div>
   </div>
 </template>
