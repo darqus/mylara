@@ -3,16 +3,22 @@ import {
   ref, computed, onMounted,
 } from 'vue'
 
+import { useQuasar, } from 'quasar'
+
 import { LANDING_CAROUSEL, } from './carousel'
 import type { CarouselItem, } from './carousel'
 import './scss/landing-carousel.scss'
 
+const $q = useQuasar()
 const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
 const carouselRef = ref<HTMLElement | null>(null)
 const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref(0)
+
+// Проверка, является ли устройство мобильным
+const isMobile = computed(() => $q.screen.lt.sm)
 
 const openDialog = ({
   id, imgLink, label, externalLink, info,
@@ -93,6 +99,7 @@ onMounted(() => {
 <template>
   <div class="carousel-wrapper">
     <q-btn
+      v-if="!isMobile"
       :disable="currentIndex === 0"
       class="carousel-nav-btn carousel-prev-btn"
       color="primary"
@@ -128,6 +135,7 @@ onMounted(() => {
     </div>
 
     <q-btn
+      v-if="!isMobile"
       :disable="currentIndex === LANDING_CAROUSEL.length - 1"
       class="carousel-nav-btn carousel-next-btn"
       color="primary"
