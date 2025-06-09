@@ -137,7 +137,7 @@ onMounted(() => {
           class="my-card"
         >
           <img
-            :src="item.imgLink"
+            :src="item.img"
             style="height: 180px; width: 100%; object-fit: cover;"
           >
           <q-card-section class="text-center">

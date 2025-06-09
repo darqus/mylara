@@ -10,7 +10,7 @@ import type { CarouselItem, } from './carousel'
 import './scss/landing-carousel.scss'
 
 const {
-  isMobile, 
+  isMobile,
 } = useDevice()
 const currentIndex = ref(0)
 const showDialog = ref(false)
@@ -20,10 +20,10 @@ const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref(0)
 
 const openDialog = ({
-  id, imgLink, label, externalLink, info,
+  id, img, label, link, info,
 }: CarouselItem) => {
   selectedItem.value = {
-    id, imgLink, label, externalLink, info,
+    id, img, label, link, info,
   }
   showDialog.value = true
   activeItemId.value = id
@@ -112,16 +112,16 @@ onMounted(() => {
       class="carousel-items-container q-py-lg q-my-sm"
     >
       <div
-        v-for="({ id, imgLink, label, externalLink, info }) in visibleItems"
+        v-for="({ id, img, label, link, info }) in visibleItems"
         :key="id"
         class="carousel-card-container"
       >
         <q-card
           :class="['cursor-pointer my-card', { 'active': activeItemId === id }]"
-          @click="openDialog({ id, imgLink, label, externalLink, info })"
+          @click="openDialog({ id, img, label, link, info })"
         >
           <img
-            :src="imgLink"
+            :src="img"
             style="height: 200px; object-fit: cover;"
           >
           <q-card-section class="text-center">
