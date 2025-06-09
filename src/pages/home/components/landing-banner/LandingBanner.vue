@@ -3,6 +3,7 @@ import { ref, } from 'vue'
 
 import { useQuasar, } from 'quasar'
 
+import './scss/landing-banner.scss'
 import { slides, } from './slides'
 
 const $q = useQuasar()
@@ -44,7 +45,3 @@ const slide = ref(1)
     </q-carousel-slide>
   </q-carousel>
 </template>
-
-<style lang="scss">
-@import './scss/landing-banner.scss';
-</style>
