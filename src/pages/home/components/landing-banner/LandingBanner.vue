@@ -46,5 +46,5 @@ const slide = ref(1)
 </template>
 
 <style lang="scss">
-@import './scss/landing-carousel.scss';
+@import './scss/landing-banner.scss';
 </style>
