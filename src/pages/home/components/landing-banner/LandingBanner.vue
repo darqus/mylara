@@ -28,9 +28,9 @@ const slide = ref(1)
     swipeable
   >
     <q-carousel-slide
-      v-for="{ id, image, title, subtitle } in slides"
+      v-for="{ id, img, title, subtitle } in slides"
       :key="id"
-      :img-src="image"
+      :img-src="img"
       :name="id"
     >
       <div class="absolute-bottom custom-caption">
