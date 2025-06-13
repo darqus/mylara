@@ -10,7 +10,7 @@ Push to the `main` branch to trigger GitHub Actions workflow that will:
 
 - Build the project
 - Deploy to the `gh-pages` branch
-- Make it available at `https://darqus.github.io/mylara/`
+- Make it available at `https://darqus.github.io/mylara/` `http://mylara.ru`
 
 ### Manual Deployment
 
