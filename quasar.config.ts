@@ -44,7 +44,7 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: '/mylara/',
+    publicPath: '/',
 
     // analyze: true,
     // env: {},

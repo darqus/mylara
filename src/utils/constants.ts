@@ -16,7 +16,7 @@ const VITE_KEYWORDS = getEnvVar('VITE_KEYWORDS', 'Косметика по ухо
 
 export const ROUTER_BASE = getEnvVar('VITE_ROUTER_BASE', '/')
 
-export const APP_BASE = getEnvVar('VITE_APP_BASE', '/mylara/')
+export const APP_BASE = getEnvVar('VITE_APP_BASE', '/')
 
 export const API_HOST = getEnvVar('VITE_API_HOST', '')
 
