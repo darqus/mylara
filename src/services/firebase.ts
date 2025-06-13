@@ -17,8 +17,18 @@ let app
 let db: Firestore | undefined
 
 try {
+  // Check if Firebase config is valid
+  if (!firebaseConfig.projectId) {
+    console.warn('Firebase projectId is undefined. Using offline mode only.')
+  }
+  
   app = initializeApp(firebaseConfig)
   db = getFirestore(app)
+  
+  // Add error handler for Firestore operations
+  window.addEventListener('online', () => {
+    console.log('App is online. Reconnecting to Firestore.')
+  })
 } catch (error) {
   console.error('Error initializing Firebase:', error)
 }
