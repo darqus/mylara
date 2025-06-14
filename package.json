@@ -6,7 +6,7 @@
   "author": "darqus",
   "license": "MIT",
   "type": "module",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "quasar dev",
     "build": "quasar build",
