@@ -47,7 +47,9 @@ export default defineConfig((/* ctx */) => ({
     publicPath: '/',
 
     // analyze: true,
-    // env: {},
+    env: {
+      FIREBASE_APPCHECK_DEBUG_TOKEN: true,
+    },
     // rawDefine: {}
     // ignorePublicFolder: true,
     // minify: false,
