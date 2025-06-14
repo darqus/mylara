@@ -37,19 +37,17 @@ export default defineConfig((/* ctx */) => ({
       // extendTsConfig (tsConfig) {}
     },
 
-    vueRouterMode: 'history', // available values: 'hash', 'history'
+    vueRouterMode: 'hash', // available values: 'hash', 'history'
     // vueRouterBase,
     // vueDevtools,
     // vueOptionsAPI: false,
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: '/',
+    publicPath: './',
 
     // analyze: true,
-    env: {
-      FIREBASE_APPCHECK_DEBUG_TOKEN: true,
-    },
+    // env: {},
     // rawDefine: {}
     // ignorePublicFolder: true,
     // minify: false,
