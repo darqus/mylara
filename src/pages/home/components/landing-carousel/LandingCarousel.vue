@@ -56,7 +56,7 @@ const scrollToCurrentItem = () => {
   const currentItem = items[currentIndex.value]
 
   if (container && currentItem) {
-    const itemWidth = currentItem.clientWidth || 0
+    const itemWidth = (currentItem.clientWidth !== 0) || 0
 
     container.scrollTo({
       left: itemWidth * currentIndex.value,
@@ -71,7 +71,6 @@ const handleTouchStart = (event: TouchEvent) => {
 }
 
 const handleTouchEnd = (event: TouchEvent, items: CarouselItem[]) => {
-
   if (event.changedTouches && event.changedTouches.length > 0) {
     touchEndX.value = event?.changedTouches[0]?.clientX
 
@@ -121,15 +120,22 @@ onMounted(() => {
         <div
           ref="carouselRef"
           class="carousel-items-container q-py-lg q-my-sm"
-          @touchend="(e) => handleTouchEnd(e, Array.isArray(items) ? items : [])"
+          @touchend="
+            (e) => handleTouchEnd(e, Array.isArray(items) ? items : [])
+          "
         >
           <div
-            v-for="{ id, img, label, link, info } in Array.isArray(items) ? items : []"
+            v-for="{ id, img, label, link, info } in Array.isArray(items)
+              ? items
+              : []"
             :key="id"
             class="carousel-card-container"
           >
             <q-card
-              :class="['cursor-pointer my-card', { active: activeItemId === id }]"
+              :class="[
+                'cursor-pointer my-card',
+                { active: activeItemId === id },
+              ]"
               @click="openDialog({ id, img, label, link, info })"
             >
               <img
@@ -147,7 +153,9 @@ onMounted(() => {
 
         <q-btn
           v-if="!isMobile"
-          :disable="currentIndex === (Array.isArray(items) ? items.length : 0) - 1"
+          :disable="
+            currentIndex === (Array.isArray(items) ? items.length : 0) - 1
+          "
           class="carousel-nav-btn carousel-next-btn"
           color="primary"
           icon="chevron_right"

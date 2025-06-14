@@ -16,19 +16,16 @@ type DataLoaderProps = {
   dataKey?: string
 }
 
-const props = withDefaults(
-  defineProps<DataLoaderProps>(),
-  {
-    error: false,
-    isEmpty: false,
-    loading: false,
-    emptyText: 'Нет доступных данных',
-    errorText: 'Произошла ошибка при загрузке данных',
-    loadingText: '',
-    fetchData: () => Promise.resolve({}),
-    dataKey: '',
-  }
-)
+const props = withDefaults(defineProps<DataLoaderProps>(), {
+  error: false,
+  isEmpty: false,
+  loading: false,
+  emptyText: 'Нет доступных данных',
+  errorText: 'Произошла ошибка при загрузке данных',
+  loadingText: '',
+  fetchData: () => Promise.resolve({}),
+  dataKey: '',
+})
 
 const emit = defineEmits([ 'retry', 'data-loaded', ])
 
@@ -43,12 +40,16 @@ const loadData = async (): Promise<void> => {
   try {
     const response = await props.fetchData()
 
-    internalData.value = props.dataKey && typeof response === 'object' && response !== null
-      ? (response as Record<string, unknown>)[props.dataKey]
-      : response
+    internalData.value =
+      (props.dataKey !== '') && typeof response === 'object' && response !== null
+        ? (response as Record<string, unknown>)[props.dataKey]
+        : response
     emit('data-loaded', internalData.value)
   } catch (error) {
-    internalError.value = error instanceof Error ? error.message : 'Произошла ошибка при загрузке данных'
+    internalError.value =
+      error instanceof Error
+        ? error.message
+        : 'Произошла ошибка при загрузке данных'
   } finally {
     internalLoading.value = false
   }
