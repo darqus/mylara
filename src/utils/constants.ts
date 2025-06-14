@@ -12,7 +12,10 @@ const getEnvVar = (key: string, defaultValue: string = ''): string => {
 const VITE_NAME_FULL = getEnvVar('VITE_NAME_FULL', 'MYLARA')
 const VITE_REDIRECT_PATH = getEnvVar('VITE_REDIRECT_PATH', '')
 const VITE_REDIRECT_PATH_DEV = getEnvVar('VITE_REDIRECT_PATH_DEV', '')
-const VITE_KEYWORDS = getEnvVar('VITE_KEYWORDS', 'Косметика по уходу за лицом')
+
+export const VITE_DESCRIPTION = getEnvVar('VITE_DESCRIPTION', '')
+
+export const VITE_KEYWORDS = getEnvVar('VITE_KEYWORDS', '')
 
 export const ROUTER_BASE = getEnvVar('VITE_ROUTER_BASE', '/')
 
