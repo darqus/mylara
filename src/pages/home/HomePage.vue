@@ -3,6 +3,7 @@ import { useMeta, } from 'quasar'
 
 import { SEO_HOME, } from 'src/utils/seo-constants'
 
+import type { MetaData, } from 'src/services/seo.service'
 import { SeoService, } from 'src/services/seo.service'
 
 import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
@@ -10,8 +11,7 @@ import LandingSlider from './components/landing-slider/LandingSlider.vue'
 import LandingSlogan from './components/landing-slogan/LandingSlogan.vue'
 
 // Устанавливаем метаданные для главной страницы
-
-useMeta(() => SeoService.setMeta(SEO_HOME))
+useMeta(() => SeoService.setMeta(SEO_HOME) as MetaData)
 </script>
 
 <template>
