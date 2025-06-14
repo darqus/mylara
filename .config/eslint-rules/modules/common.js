@@ -119,7 +119,12 @@ export const common = {
       warnOnUnassignedImports: true,
     },
   ],
-  'import/no-unresolved': 0,
+
+  'import/no-unresolved': [ 'error', {
+    commonjs: true,
+    caseSensitive: true,
+    ignore: [ '^src/', '^components/', '^boot/', '^layouts/', '^pages/', '^assets/', ],
+  }, ],
   'comma-dangle': [
     'error',
     {
@@ -205,7 +210,7 @@ export const common = {
     },
   ],
   eqeqeq: [ 'error', 'smart', ],
-  'prefer-promise-reject-errors': 'off',
+  'prefer-promise-reject-errors': 'error',
   quotes: [
     'error',
     'single',
