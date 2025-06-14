@@ -6,12 +6,14 @@ export const common = {
     {
       'newlines-between': 'always',
       groups: [
-        'builtin',
-        'external',
-        'internal',
-        [ 'sibling', 'parent', ],
         'index',
-        'unknown',
+        'sibling',
+        'parent',
+        'internal',
+        'external',
+        'builtin',
+        'object',
+        'type',
       ],
       pathGroups: [
         {
@@ -109,8 +111,13 @@ export const common = {
           group: 'internal',
           position: 'before',
         },
+        {
+          pattern: 'scss',
+          group: 'internal',
+          position: 'before',
+        },
       ],
-      pathGroupsExcludedImportTypes: [ 'vue', ],
+      pathGroupsExcludedImportTypes: [ 'vue', 'quasar', 'pinia', ],
       alphabetize: {
         order: 'asc',
         caseInsensitive: true,
@@ -123,7 +130,7 @@ export const common = {
   'import/no-unresolved': [ 'error', {
     commonjs: true,
     caseSensitive: true,
-    ignore: [ '^src/', '^components/', '^boot/', '^layouts/', '^pages/', '^assets/', ],
+    ignore: [ '@quasar', '^src/', '^components/', '^boot/', '^layouts/', '^pages/', '^assets/', ],
   }, ],
   'comma-dangle': [
     'error',
