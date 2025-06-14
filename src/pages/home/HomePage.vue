@@ -18,7 +18,7 @@ useMeta(() => SeoService.setMeta(SEO_HOME))
   <q-page>
     <LandingSlider />
     <div
-      class="q-mx-auto"
+      class="q-mx-auto q-pt-xl q-px-md"
       style="max-width: 1200px"
     >
       <LandingSlogan />

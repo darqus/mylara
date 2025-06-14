@@ -107,7 +107,7 @@ onMounted(() => {
   </div>
 
   <!-- Отображение контента или пустого состояния -->
-  <div v-if="!(loading || internalLoading) && !(error || internalError)">
+  <template v-if="!(loading || internalLoading) && !(error || internalError)">
     <!-- Отображение данных -->
     <template v-if="!$props['isEmpty'] && (internalData || $slots.content)">
       <slot
@@ -143,5 +143,5 @@ onMounted(() => {
         </q-card>
       </slot>
     </template>
-  </div>
+  </template>
 </template>

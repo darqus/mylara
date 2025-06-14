@@ -5,11 +5,9 @@ import { getSlogan, } from 'src/services/slogan.service'
 </script>
 
 <template>
-  <div class="q-pt-xl q-px-md relative-position">
-    <DataLoader
-      :fetch-data="getSlogan"
-      :is-empty="false"
-      data-key="title"
-    />
-  </div>
+  <DataLoader
+    :fetch-data="getSlogan"
+    :is-empty="false"
+    data-key="title"
+  />
 </template>

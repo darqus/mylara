@@ -152,7 +152,6 @@ onMounted(() => {
       </div>
     </template>
   </DataLoader>
-
   <q-dialog
     v-model="showDialog"
     @hide="activeItemId = null"
