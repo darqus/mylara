@@ -19,7 +19,8 @@ const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
 const carouselRef = ref<HTMLElement | null>(null)
 const activeItemId = ref<number | string | null>(null)
-const touchStartX = ref(0)
+const touchStartX = ref()
+const touchEndX = ref()
 
 const openDialog = ({
   id, img, label, link, info,
@@ -66,21 +67,25 @@ const scrollToCurrentItem = () => {
 
 // Обработчики touch-событий для свайпа
 const handleTouchStart = (event: TouchEvent) => {
-  touchStartX.value = event.touches[0].clientX
+  touchStartX.value = event?.touches[0]?.clientX
 }
 
 const handleTouchEnd = (event: TouchEvent, items: CarouselItem[]) => {
-  const touchEndX = event.changedTouches[0].clientX
-  const diffX = touchStartX.value - touchEndX
 
-  // Если свайп был достаточно длинным (более 50px)
-  if (Math.abs(diffX) > 50) {
-    if (diffX > 0) {
-      // Свайп влево - следующий элемент
-      nextItem(items)
-    } else {
-      // Свайп вправо - предыдущий элемент
-      prevItem()
+  if (event.changedTouches && event.changedTouches.length > 0) {
+    touchEndX.value = event?.changedTouches[0]?.clientX
+
+    const diffX = touchStartX.value - touchEndX.value
+
+    // Если свайп был достаточно длинным (более 50px)
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // Свайп влево - следующий элемент
+        nextItem(items)
+      } else {
+        // Свайп вправо - предыдущий элемент
+        prevItem()
+      }
     }
   }
 }
