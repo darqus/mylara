@@ -4,15 +4,11 @@ import { getSlides, } from 'src/services/slides.service'
 
 export const useSlides = () => {
   const {
-    data: slides, loading, error, refresh,
-  } = useDataFetching<
-    Slide[],
-    { slides: Slide[] }
-  >(
-    getSlides,
-    [],
-    'slides'
-  )
+    data: slides,
+    loading,
+    error,
+    refresh,
+  } = useDataFetching<Slide[], { slides: Slide[] }>(getSlides, [], 'slides')
 
   return {
     slides,

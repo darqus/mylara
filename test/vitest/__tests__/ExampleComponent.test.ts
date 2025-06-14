@@ -19,10 +19,12 @@ describe('example Component', () => {
         },
         todos: [
           {
-            id: 1, content: 'Hallo',
+            id: 1,
+            content: 'Hallo',
           },
           {
-            id: 2, content: 'Hoi',
+            id: 2,
+            content: 'Hoi',
           },
         ],
       },

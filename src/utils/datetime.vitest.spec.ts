@@ -55,7 +55,9 @@ describe('datetime utils', () => {
 
   describe('DATE_TIME_OPTIONS_PRESET', () => {
     it('should contain predefined format options', () => {
-      expect(DATE_TIME_OPTIONS_PRESET).toHaveProperty('formattedDateAndTimeMonthShort')
+      expect(DATE_TIME_OPTIONS_PRESET).toHaveProperty(
+        'formattedDateAndTimeMonthShort'
+      )
       expect(DATE_TIME_OPTIONS_PRESET).toHaveProperty('onlyDate')
       expect(DATE_TIME_OPTIONS_PRESET).toHaveProperty('onlyTime')
     })
@@ -162,11 +164,15 @@ describe('datetime utils', () => {
 
   describe('convertDateTimeToISO', () => {
     it('should convert date and time strings to ISO format', () => {
-      expect(convertDateTimeToISO('15.05.2023', '14:30')).toBe('2023-05-15T14:30:00.000Z')
+      expect(convertDateTimeToISO('15.05.2023', '14:30')).toBe(
+        '2023-05-15T14:30:00.000Z'
+      )
     })
 
     it('should handle single digit values with padding', () => {
-      expect(convertDateTimeToISO('5.6.2023', '9:5')).toBe('2023-06-05T09:05:00.000Z')
+      expect(convertDateTimeToISO('5.6.2023', '9:5')).toBe(
+        '2023-06-05T09:05:00.000Z'
+      )
     })
 
     it('should return empty string for invalid input', () => {
@@ -200,7 +206,7 @@ describe('datetime utils', () => {
   })
 
   describe('getTodayDateRange', () => {
-    it('should return today\'s date range in ISO format', () => {
+    it("should return today's date range in ISO format", () => {
       const result = getTodayDateRange()
       const today = adjustDateToTimezone()
       const datePrefix = today.toISOString().split('T')[0]
@@ -242,25 +248,37 @@ describe('datetime utils', () => {
 
   describe('getIsoDateFromIsoDateAndMinutes', () => {
     it('should add minutes to ISO date', () => {
-      const result = getIsoDateFromIsoDateAndMinutes('2023-05-15T12:00:00.000Z', 30)
+      const result = getIsoDateFromIsoDateAndMinutes(
+        '2023-05-15T12:00:00.000Z',
+        30
+      )
 
       expect(result).toBe('2023-05-15T12:30:00.000Z')
     })
 
     it('should subtract minutes when negative', () => {
-      const result = getIsoDateFromIsoDateAndMinutes('2023-05-15T12:00:00.000Z', -30)
+      const result = getIsoDateFromIsoDateAndMinutes(
+        '2023-05-15T12:00:00.000Z',
+        -30
+      )
 
       expect(result).toBe('2023-05-15T11:30:00.000Z')
     })
 
     it('should handle hour change', () => {
-      const result = getIsoDateFromIsoDateAndMinutes('2023-05-15T12:00:00.000Z', 60)
+      const result = getIsoDateFromIsoDateAndMinutes(
+        '2023-05-15T12:00:00.000Z',
+        60
+      )
 
       expect(result).toBe('2023-05-15T13:00:00.000Z')
     })
 
     it('should handle day change', () => {
-      const result = getIsoDateFromIsoDateAndMinutes('2023-05-15T23:45:00.000Z', 30)
+      const result = getIsoDateFromIsoDateAndMinutes(
+        '2023-05-15T23:45:00.000Z',
+        30
+      )
 
       expect(result).toBe('2023-05-16T00:15:00.000Z')
     })
@@ -275,7 +293,9 @@ describe('datetime utils', () => {
   describe('formatISOToInternationalDateTime', () => {
     // Этот тест может зависеть от локальных настроек, поэтому проверим общую структуру
     it('should format ISO date to international format', () => {
-      const formattedDate = formatISOToInternationalDateTime('2023-05-15T12:00:00.000Z')
+      const formattedDate = formatISOToInternationalDateTime(
+        '2023-05-15T12:00:00.000Z'
+      )
 
       expect(typeof formattedDate).toBe('string')
       expect(formattedDate.length).toBeGreaterThan(0)
@@ -283,9 +303,14 @@ describe('datetime utils', () => {
 
     it('should accept custom formatting options', () => {
       const options = {
-        year: 'numeric', month: 'long', day: 'numeric',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       } as Intl.DateTimeFormatOptions
-      const formattedDate = formatISOToInternationalDateTime('2023-05-15T12:00:00.000Z', options)
+      const formattedDate = formatISOToInternationalDateTime(
+        '2023-05-15T12:00:00.000Z',
+        options
+      )
 
       expect(typeof formattedDate).toBe('string')
 
@@ -344,7 +369,9 @@ describe('datetime utils', () => {
       expect(result).toContain('1 день 9 часов 0 минут')
 
       // Проверяем, что строка содержит ожидаемые части
-      expect(result).toMatch(/\d+ (день|дня|дней) \d+ (час|часа|часов) \d+ (минута|минуты|минут)/)
+      expect(result).toMatch(
+        /\d+ (день|дня|дней) \d+ (час|часа|часов) \d+ (минута|минуты|минут)/
+      )
     })
 
     it('should handle past date', () => {

@@ -159,8 +159,12 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for invalid date format', () => {
-      expect(dateFormatRule()('2023-01-01')).toBe('Введите дату в формате ДД.ММ.ГГГГ')
-      expect(dateFormatRule()('1.1.2023')).toBe('Введите дату в формате ДД.ММ.ГГГГ')
+      expect(dateFormatRule()('2023-01-01')).toBe(
+        'Введите дату в формате ДД.ММ.ГГГГ'
+      )
+      expect(dateFormatRule()('1.1.2023')).toBe(
+        'Введите дату в формате ДД.ММ.ГГГГ'
+      )
     })
 
     it('should use custom error message when provided', () => {
@@ -205,8 +209,12 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for multiple words or values with non-letters', () => {
-      expect(singleWordRule()('Test Test')).toBe('Должно содержать только одно слово (без пробелов)')
-      expect(singleWordRule()('Test123')).toBe('Должно содержать только одно слово (без пробелов)')
+      expect(singleWordRule()('Test Test')).toBe(
+        'Должно содержать только одно слово (без пробелов)'
+      )
+      expect(singleWordRule()('Test123')).toBe(
+        'Должно содержать только одно слово (без пробелов)'
+      )
     })
 
     it('should use custom error message when provided', () => {
@@ -278,8 +286,12 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for strings without uppercase letters', () => {
-      expect(hasUppercaseRule()('test')).toBe('Пароль должен содержать хотя бы одну заглавную букву')
-      expect(hasUppercaseRule()('123')).toBe('Пароль должен содержать хотя бы одну заглавную букву')
+      expect(hasUppercaseRule()('test')).toBe(
+        'Пароль должен содержать хотя бы одну заглавную букву'
+      )
+      expect(hasUppercaseRule()('123')).toBe(
+        'Пароль должен содержать хотя бы одну заглавную букву'
+      )
     })
 
     it('should use custom error message when provided', () => {
@@ -301,8 +313,12 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for strings without digits', () => {
-      expect(hasDigitRule()('test')).toBe('Пароль должен содержать хотя бы одну цифру')
-      expect(hasDigitRule()('Test')).toBe('Пароль должен содержать хотя бы одну цифру')
+      expect(hasDigitRule()('test')).toBe(
+        'Пароль должен содержать хотя бы одну цифру'
+      )
+      expect(hasDigitRule()('Test')).toBe(
+        'Пароль должен содержать хотя бы одну цифру'
+      )
     })
 
     it('should use custom error message when provided', () => {
@@ -326,9 +342,13 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for invalid phone numbers', () => {
-      expect(phoneRule()('1234567890')).toBe('Введите корректный номер телефона')
+      expect(phoneRule()('1234567890')).toBe(
+        'Введите корректный номер телефона'
+      )
       expect(phoneRule()('+7123')).toBe('Введите корректный номер телефона')
-      expect(phoneRule()('+712345678901')).toBe('Введите корректный номер телефона')
+      expect(phoneRule()('+712345678901')).toBe(
+        'Введите корректный номер телефона'
+      )
     })
 
     it('should use custom error message when provided', () => {
@@ -353,33 +373,47 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for invalid date format', () => {
-      expect(birthDateAgeRangeRule(18, 100)('2000-01-01')).toBe('Введите дату в формате ДД.ММ.ГГГГ')
+      expect(birthDateAgeRangeRule(18, 100)('2000-01-01')).toBe(
+        'Введите дату в формате ДД.ММ.ГГГГ'
+      )
     })
 
     it('should return error message for nonexistent dates', () => {
-      expect(birthDateAgeRangeRule(18, 100)('31.02.2000')).toBe('Введите корректную дату')
+      expect(birthDateAgeRangeRule(18, 100)('31.02.2000')).toBe(
+        'Введите корректную дату'
+      )
     })
 
     it('should return error message for ages below minimum', () => {
       // Someone who is 17 (born May 1, 2008)
-      expect(birthDateAgeRangeRule(18, 100)('01.05.2008')).toBe('Возраст не может быть меньше 18 лет')
+      expect(birthDateAgeRangeRule(18, 100)('01.05.2008')).toBe(
+        'Возраст не может быть меньше 18 лет'
+      )
 
       // Someone who is way too young (born in 2020)
-      expect(birthDateAgeRangeRule(18, 100)('01.01.2020')).toBe('Возраст не может быть меньше 18 лет')
+      expect(birthDateAgeRangeRule(18, 100)('01.01.2020')).toBe(
+        'Возраст не может быть меньше 18 лет'
+      )
     })
 
     it('should return error message for ages above maximum', () => {
       // Someone who is 100+ (born April 17, 1925)
-      expect(birthDateAgeRangeRule(18, 100)('17.04.1925')).toBe('Возраст не может быть больше 100 лет')
+      expect(birthDateAgeRangeRule(18, 100)('17.04.1925')).toBe(
+        'Возраст не может быть больше 100 лет'
+      )
 
       // Someone who is way too old (born in 1900)
-      expect(birthDateAgeRangeRule(18, 100)('01.01.1900')).toBe('Возраст не может быть больше 100 лет')
+      expect(birthDateAgeRangeRule(18, 100)('01.01.1900')).toBe(
+        'Возраст не может быть больше 100 лет'
+      )
     })
 
     it('should use custom error message when provided', () => {
       const customMsg = 'Некорректный возраст'
 
-      expect(birthDateAgeRangeRule(18, 100, customMsg)('01.01.2020')).toBe(customMsg)
+      expect(birthDateAgeRangeRule(18, 100, customMsg)('01.01.2020')).toBe(
+        customMsg
+      )
     })
   })
 })

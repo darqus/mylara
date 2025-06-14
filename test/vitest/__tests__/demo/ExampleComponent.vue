@@ -4,20 +4,20 @@ import {
 } from 'vue'
 
 type Todo = {
-  id: number;
-  content: string;
+  id: number
+  content: string
 }
 
 type Meta = {
-  totalCount: number;
+  totalCount: number
 }
 
 const props = withDefaults(
   defineProps<{
-    title: string;
-    todos?: Todo[];
-    meta: Meta;
-    active?: boolean;
+    title: string
+    todos?: Todo[]
+    meta: Meta
+    active?: boolean
   }>(),
   {
     todos: () => [],

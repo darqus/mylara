@@ -31,7 +31,9 @@ describe('incline', () => {
   })
 
   it('should throw error for negative numbers', () => {
-    expect(() => incline(-1, [ 'стол', 'стола', 'столов', ])).toThrow('Number must be non-negative')
+    expect(() => incline(-1, [ 'стол', 'стола', 'столов', ])).toThrow(
+      'Number must be non-negative'
+    )
   })
 })
 

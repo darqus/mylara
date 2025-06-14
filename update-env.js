@@ -7,14 +7,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // Получаем текущую дату и время в локальном часовом поясе
 const now = new Date()
-const buildDate = now.toLocaleString('ru-RU', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-}).replace(',', '')
+const buildDate = now
+  .toLocaleString('ru-RU', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
+  .replace(',', '')
 
 // Получаем версию из package.json
 const packageJsonPath = path.join(__dirname, 'package.json')
@@ -44,9 +46,15 @@ const envPath = path.join(__dirname, '.env')
 let envContent = fs.readFileSync(envPath, 'utf8')
 
 // Обновляем переменные
-envContent = envContent.replace(/VITE_BUILD_DATE=.*/, `VITE_BUILD_DATE=${buildDate}`)
+envContent = envContent.replace(
+  /VITE_BUILD_DATE=.*/,
+  `VITE_BUILD_DATE=${buildDate}`
+)
 envContent = envContent.replace(/VITE_VERSION=.*/, `VITE_VERSION=${version}`)
-envContent = envContent.replace(/VITE_APP_VERSION=.*/, `VITE_APP_VERSION=${version}`)
+envContent = envContent.replace(
+  /VITE_APP_VERSION=.*/,
+  `VITE_APP_VERSION=${version}`
+)
 
 // Записываем обновленный файл
 fs.writeFileSync(envPath, envContent)
@@ -61,4 +69,6 @@ try {
   console.error('Failed to commit version changes:', error.message)
 }
 
-console.warn(`Updated .env with build date: ${buildDate} and version: ${version}`)
+console.warn(
+  `Updated .env with build date: ${buildDate} and version: ${version}`
+)

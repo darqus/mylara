@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ref, computed, onMounted,
+  ref, computed, onMounted, 
 } from 'vue'
 
 import { useDevice, } from 'src/composables/useDevice'
@@ -10,7 +10,7 @@ import { useCarouselData, } from './useCarousel'
 import type { CarouselItem, } from './useCarousel'
 
 const {
-  isMobile,
+  isMobile, 
 } = useDevice()
 const currentIndex = ref(0)
 const showDialog = ref(false)
@@ -21,14 +21,18 @@ const touchStartX = ref(0)
 
 // Получаем данные из сервиса
 const {
-  carouselItems, loading, error, refresh,
+  carouselItems, loading, error, refresh, 
 } = useCarouselData()
 
 const openDialog = ({
-  id, img, label, link, info,
+  id, img, label, link, info, 
 }: CarouselItem) => {
   selectedItem.value = {
-    id, img, label, link, info,
+    id,
+    img,
+    label,
+    link,
+    info,
   }
   showDialog.value = true
   activeItemId.value = id
@@ -154,18 +158,18 @@ onMounted(() => {
         class="carousel-items-container q-py-lg q-my-sm"
       >
         <div
-          v-for="({ id, img, label, link, info }) in visibleItems"
+          v-for="{ id, img, label, link, info } in visibleItems"
           :key="id"
           class="carousel-card-container"
         >
           <q-card
-            :class="['cursor-pointer my-card', { 'active': activeItemId === id }]"
+            :class="['cursor-pointer my-card', { active: activeItemId === id }]"
             @click="openDialog({ id, img, label, link, info })"
           >
             <img
               :src="img"
-              style="height: 200px; object-fit: cover;"
-            >
+              style="height: 200px; object-fit: cover"
+            />
             <q-card-section class="text-center">
               <div class="text-subtitle2">
                 {{ label }}

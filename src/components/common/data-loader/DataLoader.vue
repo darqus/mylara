@@ -1,19 +1,22 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  error?: boolean;
-  isEmpty?: boolean;
-  loading?: boolean;
-  emptyText?: string;
-  errorText?: string;
-  loadingText?: string;
-}>(), {
-  error: false,
-  isEmpty: false,
-  loading: false,
-  emptyText: 'Нет доступных данных',
-  errorText: 'Произошла ошибка при загрузке данных',
-  loadingText: 'Загрузка данных...',
-})
+withDefaults(
+  defineProps<{
+    error?: boolean
+    isEmpty?: boolean
+    loading?: boolean
+    emptyText?: string
+    errorText?: string
+    loadingText?: string
+  }>(),
+  {
+    error: false,
+    isEmpty: false,
+    loading: false,
+    emptyText: 'Нет доступных данных',
+    errorText: 'Произошла ошибка при загрузке данных',
+    loadingText: 'Загрузка данных...',
+  }
+)
 
 defineEmits([ 'retry', ])
 </script>

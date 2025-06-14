@@ -1,7 +1,7 @@
 import path from 'path'
 
 import {
-  quasar, transformAssetUrls,
+  quasar, transformAssetUrls, 
 } from '@quasar/vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import type { PluginOption, } from 'vite'
@@ -21,18 +21,18 @@ export default defineConfig({
 
     // Add alias configuration for resolving paths
     alias: {
-      'src': path.resolve(__dirname, './src'),
+      src: path.resolve(__dirname, './src'),
     },
   },
   plugins: [
-  vue({
-    template: {
-      transformAssetUrls,
-    },
-  }) as unknown as PluginOption,
-  quasar({
-    sassVariables: 'src/quasar-variables.scss',
-  }) as unknown as PluginOption,
-  tsconfigPaths() as unknown as PluginOption,
+    vue({
+      template: {
+        transformAssetUrls,
+      },
+    }) as unknown as PluginOption,
+    quasar({
+      sassVariables: 'src/quasar-variables.scss',
+    }) as unknown as PluginOption,
+    tsconfigPaths() as unknown as PluginOption,
   ],
 })

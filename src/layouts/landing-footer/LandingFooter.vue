@@ -2,7 +2,6 @@
 import {
   APP_VERSION, BUILD_DATE,
 } from 'src/utils/meta'
-
 </script>
 
 <template>
@@ -17,9 +16,7 @@ import {
         width="50px"
       />
       <q-space />
-      <small>
-        v{{ APP_VERSION }} {{ BUILD_DATE }}
-      </small>
+      <small> v{{ APP_VERSION }} {{ BUILD_DATE }} </small>
     </q-toolbar>
   </q-footer>
 </template>

@@ -6,11 +6,11 @@ export { CarouselItem, }
 
 export const useCarouselData = () => {
   const {
-    data: carouselItems, loading, error, refresh,
-  } = useDataFetching<
-    CarouselItem[],
-    { items: CarouselItem[] }
-  >(
+    data: carouselItems,
+    loading,
+    error,
+    refresh,
+  } = useDataFetching<CarouselItem[], { items: CarouselItem[] }>(
     getCarouselItems,
     [],
     'items'

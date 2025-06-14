@@ -1,6 +1,6 @@
 import { META, } from 'src/utils/constants'
 import {
-  TITLE, DESCRIPTION,
+  TITLE, DESCRIPTION, 
 } from 'src/utils/meta'
 
 export type MetaData = {
@@ -21,7 +21,8 @@ export type MetaData = {
 
 export const DEFAULT_IMAGE = '/logo.svg'
 
-export const BASE_URL = typeof window !== 'undefined' ? window.location.origin : ''
+export const BASE_URL =
+  typeof window !== 'undefined' ? window.location.origin : ''
 
 /**
  * Сервис для управления SEO метаданными
@@ -42,44 +43,55 @@ export const SeoService = {
     // Добавляем базовые мета-теги
     meta.push(
       {
-        name: 'description', content: description,
+        name: 'description',
+        content: description,
       },
       {
-        name: 'keywords', content: keywords,
+        name: 'keywords',
+        content: keywords,
       }
     )
 
     // Добавляем robots мета-тег, если указан
     if (metaData.robots) {
       meta.push({
-        name: 'robots', content: metaData.robots,
+        name: 'robots',
+        content: metaData.robots,
       })
     }
 
     // Open Graph мета-теги
     const ogTitle = metaData.ogTitle || title
     const ogDescription = metaData.ogDescription || description
-    const ogImage = metaData.ogImage ? `${BASE_URL}${metaData.ogImage}` : `${BASE_URL}${DEFAULT_IMAGE}`
+    const ogImage = metaData.ogImage
+      ? `${BASE_URL}${metaData.ogImage}`
+      : `${BASE_URL}${DEFAULT_IMAGE}`
     const ogUrl = metaData.ogUrl || window.location.href
 
     meta.push(
       {
-        property: 'og:type', content: 'website',
+        property: 'og:type',
+        content: 'website',
       },
       {
-        property: 'og:title', content: ogTitle,
+        property: 'og:title',
+        content: ogTitle,
       },
       {
-        property: 'og:description', content: ogDescription,
+        property: 'og:description',
+        content: ogDescription,
       },
       {
-        property: 'og:image', content: ogImage,
+        property: 'og:image',
+        content: ogImage,
       },
       {
-        property: 'og:url', content: ogUrl,
+        property: 'og:url',
+        content: ogUrl,
       },
       {
-        property: 'og:site_name', content: META.NAME.APP,
+        property: 'og:site_name',
+        content: META.NAME.APP,
       }
     )
 
@@ -87,20 +99,26 @@ export const SeoService = {
     const twitterCard = metaData.twitterCard || 'summary_large_image'
     const twitterTitle = metaData.twitterTitle || title
     const twitterDescription = metaData.twitterDescription || description
-    const twitterImage = metaData.twitterImage ? `${BASE_URL}${metaData.twitterImage}` : ogImage
+    const twitterImage = metaData.twitterImage
+      ? `${BASE_URL}${metaData.twitterImage}`
+      : ogImage
 
     meta.push(
       {
-        name: 'twitter:card', content: twitterCard,
+        name: 'twitter:card',
+        content: twitterCard,
       },
       {
-        name: 'twitter:title', content: twitterTitle,
+        name: 'twitter:title',
+        content: twitterTitle,
       },
       {
-        name: 'twitter:description', content: twitterDescription,
+        name: 'twitter:description',
+        content: twitterDescription,
       },
       {
-        name: 'twitter:image', content: twitterImage,
+        name: 'twitter:image',
+        content: twitterImage,
       }
     )
 

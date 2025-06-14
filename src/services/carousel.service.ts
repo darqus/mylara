@@ -14,7 +14,9 @@ export type CarouselItem = {
  * Получает данные карусели из Firestore
  * @returns {Promise<CollectionResponse<CarouselItem>>} Массив элементов карусели и возможная ошибка
  */
-export const getCarouselItems = async (): Promise<CollectionResponse<CarouselItem>> => {
+export const getCarouselItems = async (): Promise<
+  CollectionResponse<CarouselItem>
+> => {
   return firestoreService.getCollection<CarouselItem>(
     'carousel',
     'Не удалось загрузить данные карусели'

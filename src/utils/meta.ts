@@ -2,7 +2,8 @@ import { META, } from './constants'
 
 const {
   VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE,
-} = import.meta.env
+} =
+  import.meta.env
 
 export const TITLE = `${VITE_NAME_FULL} | ${VITE_DESCRIPTION}`
 
@@ -40,10 +41,12 @@ export const META_UI_KIT = {
   title: `${META.TITLE} - UI Kit`,
   meta: {
     description: {
-      name: META.NAME.DESCRIPTION, content: `${META.TITLE} - UI Kit`,
+      name: META.NAME.DESCRIPTION,
+      content: `${META.TITLE} - UI Kit`,
     },
     keywords: {
-      name: META.NAME.KEYWORDS, content: META.KEYWORDS,
+      name: META.NAME.KEYWORDS,
+      content: META.KEYWORDS,
     },
     equiv: META.EQUIV,
   },
@@ -54,10 +57,12 @@ export const META_BLOGS = {
   title: `${META.TITLE} - Blogs`,
   meta: {
     description: {
-      name: META.NAME.DESCRIPTION, content: `${META.TITLE} - Blogs`,
+      name: META.NAME.DESCRIPTION,
+      content: `${META.TITLE} - Blogs`,
     },
     keywords: {
-      name: META.NAME.KEYWORDS, content: META.KEYWORDS,
+      name: META.NAME.KEYWORDS,
+      content: META.KEYWORDS,
     },
     equiv: META.EQUIV,
   },

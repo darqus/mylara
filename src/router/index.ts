@@ -21,7 +21,9 @@ import routes from './routes'
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
+    : process.env.VUE_ROUTER_MODE === 'history'
+      ? createWebHistory
+      : createWebHashHistory
 
   const Router = createRouter({
     scrollBehavior: (to, from, savedPosition) => {
@@ -29,7 +31,8 @@ export default route(function (/* { store, ssrContext } */) {
         return savedPosition
       } else {
         return {
-          left: 0, top: 0,
+          left: 0,
+          top: 0,
         }
       }
     },
@@ -59,9 +62,12 @@ export default route(function (/* { store, ssrContext } */) {
         const pageJsonLd = {
           '@context': 'https://schema.org',
           '@type': 'WebPage',
-          'url': window.location.href,
-          'name': document.title,
-          'description': document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+          url: window.location.href,
+          name: document.title,
+          description:
+            document
+              .querySelector('meta[name="description"]')
+              ?.getAttribute('content') || '',
         }
 
         app.config.globalProperties.$addJsonLd(pageJsonLd)

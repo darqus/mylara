@@ -43,7 +43,7 @@ const {
         'height-xs': $q.screen.xs,
         'height-sm': $q.screen.sm,
         'height-md': $q.screen.md,
-        'height-lg': $q.screen.lg || $q.screen.xl
+        'height-lg': $q.screen.lg || $q.screen.xl,
       }"
       class="bg-white text-white"
       transition-next="slide-left"

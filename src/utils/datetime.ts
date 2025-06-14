@@ -60,7 +60,9 @@ type TTodayYesterdayDate = {
  * @param date Дата или время в миллисекундах
  * @returns Скорректированная дата
  */
-export const adjustDateToTimezone = (date: Date | number = new Date()): Date => {
+export const adjustDateToTimezone = (
+  date: Date | number = new Date()
+): Date => {
   const currentDate = date instanceof Date ? date.getTime() : date
   const timeZoneOffset = new Date(currentDate).getTimezoneOffset()
 
@@ -199,9 +201,7 @@ export const subtractDays = (date: Date, days: number): Date => {
 export const getTodayYesterdayDate = (
   isoDateString?: string
 ): TTodayYesterdayDate => {
-  const currentTime = isoDateString
-    ? new Date(isoDateString)
-    : new Date()
+  const currentTime = isoDateString ? new Date(isoDateString) : new Date()
 
   const today = adjustDateToTimezone(currentTime)
   const yesterday = subtractDays(today, 1)
@@ -244,7 +244,14 @@ export const convertCustomFormatToIso = (
 
   const [ day, month, year, ] = customDate.split('.')
 
-  if (!day || !month || !year || isNaN(Number(day)) || isNaN(Number(month)) || isNaN(Number(year))) {
+  if (
+    !day ||
+    !month ||
+    !year ||
+    isNaN(Number(day)) ||
+    isNaN(Number(month)) ||
+    isNaN(Number(year))
+  ) {
     return null
   }
 
@@ -482,7 +489,10 @@ export const getTimeFromTimestamp = (time: number): string => {
  * @param maxAge Максимальный допустимый возраст (например, 100)
  * @returns Объект, содержащий минимальную и максимальную даты в формате YYYY/MM/DD
  */
-export const calculateRangeDateLimits = (minAge: number, maxAge: number): { minDate: string; maxDate: string } => {
+export const calculateRangeDateLimits = (
+  minAge: number,
+  maxAge: number
+): { minDate: string; maxDate: string } => {
   const today = new Date()
 
   // Максимальная дата рождения (для самого младшего допустимого возраста)

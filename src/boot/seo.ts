@@ -4,7 +4,7 @@ import { boot, } from 'quasar/wrappers'
 // и настраивает базовые SEO-функции
 
 export default boot(({
-  app,
+  app, 
 }) => {
   // Добавляем обработчик изменения маршрута для обновления канонического URL
   app.config.globalProperties.$updateCanonicalUrl = (path: string) => {
@@ -26,7 +26,9 @@ export default boot(({
   // Добавляем обработчик для структурированных данных JSON-LD
   app.config.globalProperties.$addJsonLd = (jsonLd: object) => {
     // Удаляем старые данные JSON-LD, если они существуют
-    const existingJsonLd = document.querySelector('script[type="application/ld+json"]')
+    const existingJsonLd = document.querySelector(
+      'script[type="application/ld+json"]'
+    )
 
     if (existingJsonLd) {
       existingJsonLd.remove()
@@ -44,21 +46,21 @@ export default boot(({
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    'name': 'MYLARA',
-    'url': 'https://mylara.ru',
-    'logo': 'https://mylara.ru/logo.svg',
-    'description': 'Косметика по уходу за лицом',
-    'address': {
+    name: 'MYLARA',
+    url: 'https://mylara.ru',
+    logo: 'https://mylara.ru/logo.svg',
+    description: 'Косметика по уходу за лицом',
+    address: {
       '@type': 'PostalAddress',
-      'streetAddress': 'ул. Мещанская, д. 9/14, строение 1',
-      'addressLocality': 'Москва',
-      'postalCode': '129090',
-      'addressCountry': 'RU',
+      streetAddress: 'ул. Мещанская, д. 9/14, строение 1',
+      addressLocality: 'Москва',
+      postalCode: '129090',
+      addressCountry: 'RU',
     },
-    'contactPoint': {
+    contactPoint: {
       '@type': 'ContactPoint',
-      'telephone': '+7-999-677-90-67',
-      'contactType': 'customer service',
+      telephone: '+7-999-677-90-67',
+      contactType: 'customer service',
     },
   }
 
