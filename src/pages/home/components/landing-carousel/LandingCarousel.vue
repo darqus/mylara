@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import {
-  ref, computed, onMounted, 
+  ref, onMounted,
 } from 'vue'
 
+import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
+
 import { useDevice, } from 'src/composables/useDevice'
+import { getCarouselItems, } from 'src/services/carousel.service'
+import type { CarouselItem, } from 'src/services/carousel.service'
 
 import './scss/landing-carousel.scss'
-import { useCarouselData, } from './useCarousel'
-import type { CarouselItem, } from './useCarousel'
 
 const {
-  isMobile, 
+  isMobile,
 } = useDevice()
 const currentIndex = ref(0)
 const showDialog = ref(false)
@@ -19,13 +21,8 @@ const carouselRef = ref<HTMLElement | null>(null)
 const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref(0)
 
-// Получаем данные из сервиса
-const {
-  carouselItems, loading, error, refresh, 
-} = useCarouselData()
-
 const openDialog = ({
-  id, img, label, link, info, 
+  id, img, label, link, info,
 }: CarouselItem) => {
   selectedItem.value = {
     id,
@@ -38,12 +35,8 @@ const openDialog = ({
   activeItemId.value = id
 }
 
-const visibleItems = computed(() => {
-  return carouselItems.value
-})
-
-const nextItem = () => {
-  if (currentIndex.value < carouselItems.value.length - 1) {
+const nextItem = (items: CarouselItem[]) => {
+  if (currentIndex.value < items.length - 1) {
     currentIndex.value++
     scrollToCurrentItem()
   }
@@ -76,7 +69,7 @@ const handleTouchStart = (event: TouchEvent) => {
   touchStartX.value = event.touches[0].clientX
 }
 
-const handleTouchEnd = (event: TouchEvent) => {
+const handleTouchEnd = (event: TouchEvent, items: CarouselItem[]) => {
   const touchEndX = event.changedTouches[0].clientX
   const diffX = touchStartX.value - touchEndX
 
@@ -84,7 +77,7 @@ const handleTouchEnd = (event: TouchEvent) => {
   if (Math.abs(diffX) > 50) {
     if (diffX > 0) {
       // Свайп влево - следующий элемент
-      nextItem()
+      nextItem(items)
     } else {
       // Свайп вправо - предыдущий элемент
       prevItem()
@@ -97,99 +90,68 @@ onMounted(() => {
     carouselRef.value.addEventListener('touchstart', handleTouchStart, {
       passive: true,
     })
-    carouselRef.value.addEventListener('touchend', handleTouchEnd, {
-      passive: true,
-    })
+
+    // touchend обработчик будет добавлен в шаблоне с передачей данных
   }
 })
 </script>
 
 <template>
-  <div class="carousel-wrapper relative-position">
-    <q-inner-loading :showing="loading">
-      <q-spinner-dots
-        color="primary"
-        size="40px"
-      />
-    </q-inner-loading>
-
-    <template v-if="error">
-      <div class="text-center q-pa-md">
-        <q-icon
-          color="negative"
-          name="error"
-          size="2rem"
-        />
-        <p class="text-negative">
-          {{ error }}
-        </p>
+  <DataLoader
+    :fetch-data="getCarouselItems"
+    data-key="items"
+  >
+    <template #content="{ data: items }">
+      <div class="carousel-wrapper relative-position">
         <q-btn
+          v-if="!isMobile"
+          :disable="currentIndex === 0"
+          class="carousel-nav-btn carousel-prev-btn"
           color="primary"
-          label="Повторить"
-          @click="refresh"
+          icon="chevron_left"
+          round
+          @click="prevItem"
         />
-      </div>
-    </template>
 
-    <template v-else-if="carouselItems.length === 0 && !loading">
-      <div class="text-center q-pa-md">
-        <q-icon
-          color="info"
-          name="info"
-          size="2rem"
-        />
-        <p>Нет доступных данных</p>
-      </div>
-    </template>
-
-    <template v-else>
-      <q-btn
-        v-if="!isMobile && !loading"
-        :disable="currentIndex === 0"
-        class="carousel-nav-btn carousel-prev-btn"
-        color="primary"
-        icon="chevron_left"
-        round
-        @click="prevItem"
-      />
-
-      <div
-        ref="carouselRef"
-        class="carousel-items-container q-py-lg q-my-sm"
-      >
         <div
-          v-for="{ id, img, label, link, info } in visibleItems"
-          :key="id"
-          class="carousel-card-container"
+          ref="carouselRef"
+          class="carousel-items-container q-py-lg q-my-sm"
+          @touchend="(e) => handleTouchEnd(e, Array.isArray(items) ? items : [])"
         >
-          <q-card
-            :class="['cursor-pointer my-card', { active: activeItemId === id }]"
-            @click="openDialog({ id, img, label, link, info })"
+          <div
+            v-for="{ id, img, label, link, info } in Array.isArray(items) ? items : []"
+            :key="id"
+            class="carousel-card-container"
           >
-            <img
-              :src="img"
-              style="height: 200px; object-fit: cover"
-            />
-            <q-card-section class="text-center">
-              <div class="text-subtitle2">
-                {{ label }}
-              </div>
-            </q-card-section>
-          </q-card>
+            <q-card
+              :class="['cursor-pointer my-card', { active: activeItemId === id }]"
+              @click="openDialog({ id, img, label, link, info })"
+            >
+              <img
+                :src="img"
+                style="height: 200px; object-fit: cover"
+              />
+              <q-card-section class="text-center">
+                <div class="text-subtitle2">
+                  {{ label }}
+                </div>
+              </q-card-section>
+            </q-card>
+          </div>
         </div>
-      </div>
 
-      <q-btn
-        v-if="!isMobile && !loading"
-        :disable="currentIndex === carouselItems.length - 1"
-        class="carousel-nav-btn carousel-next-btn"
-        color="primary"
-        icon="chevron_right"
-        round
-        @click="nextItem"
-      />
+        <q-btn
+          v-if="!isMobile"
+          :disable="currentIndex === (Array.isArray(items) ? items.length : 0) - 1"
+          class="carousel-nav-btn carousel-next-btn"
+          color="primary"
+          icon="chevron_right"
+          round
+          @click="nextItem(Array.isArray(items) ? items : [])"
+        />
+      </div>
     </template>
-  </div>
+  </DataLoader>
 
   <q-dialog
     v-model="showDialog"
