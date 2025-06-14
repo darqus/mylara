@@ -1,8 +1,4 @@
-import {
-  doc, getDoc, 
-} from 'firebase/firestore'
-
-import { getFirebaseDb, } from './firebase'
+import { firestoreService, } from './firestore.service'
 
 export type Slogan = {
   title: string
@@ -16,38 +12,14 @@ export const getSlogan = async (): Promise<{
   title: string;
   error: string | null;
 }> => {
-  const db = getFirebaseDb()
+  const result = await firestoreService.getDocument<Slogan>(
+    'slogan',
+    '1',
+    'Не удалось загрузить данные слогана'
+  )
 
-  if (!db) {
-    return {
-      title: '',
-      error: 'Firebase не инициализирован',
-    }
-  }
-
-  try {
-    const docRef = doc(db, 'slogan', '1')
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      const data = docSnap.data() as Slogan
-
-      return {
-        title: data.title,
-        error: null,
-      }
-    } else {
-      return {
-        title: '',
-        error: 'Слоган не найден',
-      }
-    }
-  } catch (err) {
-    console.error('Error fetching slogan data:', err)
-
-    return {
-      title: '',
-      error: 'Не удалось загрузить данные слогана',
-    }
+  return {
+    title: result.data?.title || '',
+    error: result.error,
   }
 }

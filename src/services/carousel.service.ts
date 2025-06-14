@@ -1,8 +1,4 @@
-import {
-  collection, getDocs, 
-} from 'firebase/firestore'
-
-import { getFirebaseDb, } from './firebase'
+import { firestoreService, } from './firestore.service'
 
 export type CarouselItem = {
   id: string
@@ -14,44 +10,14 @@ export type CarouselItem = {
 
 /**
  * Получает данные карусели из Firestore
- * @returns {Promise<CarouselItem[]>} Массив элементов карусели
+ * @returns {Promise<{items: CarouselItem[], error: string | null}>} Массив элементов карусели и возможная ошибка
  */
 export const getCarouselItems = async (): Promise<{
   items: CarouselItem[];
   error: string | null;
 }> => {
-  const db = getFirebaseDb()
-
-  if (!db) {
-    return {
-      items: [],
-      error: 'Firebase не инициализирован',
-    }
-  }
-
-  try {
-    const querySnapshot = await getDocs(collection(db, 'carousel'))
-    const items: CarouselItem[] = []
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data() as Omit<CarouselItem, 'id'>
-
-      items.push({
-        id: doc.id,
-        ...data,
-      })
-    })
-
-    return {
-      items,
-      error: null,
-    }
-  } catch (err) {
-    console.error('Error fetching carousel data:', err)
-
-    return {
-      items: [],
-      error: 'Не удалось загрузить данные карусели',
-    }
-  }
+  return firestoreService.getCollection<CarouselItem>(
+    'carousel',
+    'Не удалось загрузить данные карусели'
+  )
 }

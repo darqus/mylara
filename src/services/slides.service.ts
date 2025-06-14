@@ -1,11 +1,7 @@
-import {
-  collection, getDocs, 
-} from 'firebase/firestore'
-
-import { getFirebaseDb, } from './firebase'
+import { firestoreService, } from './firestore.service'
 
 export type Slide = {
-  id: number
+  id: string | number
   img: string
   title: string
   subtitle: string
@@ -19,38 +15,19 @@ export const getSlides = async (): Promise<{
   slides: Slide[];
   error: string | null;
 }> => {
-  const db = getFirebaseDb()
+  const result = await firestoreService.getCollection<Slide>(
+    'slides',
+    'Не удалось загрузить данные слайдов'
+  )
 
-  if (!db) {
-    return {
-      slides: [],
-      error: 'Firebase не инициализирован',
-    }
-  }
+  // Преобразуем id из string в number
+  const slides = result.items.map((slide) => ({
+    ...slide,
+    id: Number(slide.id),
+  }))
 
-  try {
-    const querySnapshot = await getDocs(collection(db, 'slides'))
-    const slides: Slide[] = []
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data() as Omit<Slide, 'id'>
-
-      slides.push({
-        id: Number(doc.id),
-        ...data,
-      })
-    })
-
-    return {
-      slides,
-      error: null,
-    }
-  } catch (err) {
-    console.error('Error fetching slides data:', err)
-
-    return {
-      slides: [],
-      error: 'Не удалось загрузить данные слайдов',
-    }
+  return {
+    slides,
+    error: result.error,
   }
 }
