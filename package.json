@@ -9,6 +9,8 @@
   "private": false,
   "scripts": {
     "dev": "quasar dev",
+    "lint": "eslint . --ext .js,.ts,.vue",
+    "lint:fix": "eslint . --ext .js,.ts,.vue --fix",
     "build": "quasar build",
     "format": "bash format.sh",
     "postinstall": "quasar prepare",
