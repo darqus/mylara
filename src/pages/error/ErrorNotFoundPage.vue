@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { useMeta, } from 'quasar'
 
-//
+import { SeoService, } from 'src/services/seo.service'
+
+// Устанавливаем метаданные для страницы 404
+useMeta(() => SeoService.setMeta({
+  title: '404 | Страница не найдена | MYLARA',
+  description: 'Запрашиваемая страница не найдена',
+  robots: 'noindex, nofollow',
+}))
 </script>
 
 <template>

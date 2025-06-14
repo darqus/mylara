@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="ru">
   <head>
     <title><%= productName %></title>
 
@@ -24,6 +24,21 @@
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
     />
+    
+    <!-- Базовые SEO мета-теги -->
+    <meta name="author" content="MYLARA" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph мета-теги для социальных сетей -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= productName %>" />
+    <meta property="og:description" content="<%= productDescription %>" />
+    <meta property="og:site_name" content="MYLARA" />
+    
+    <!-- Twitter мета-теги -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= productName %>" />
+    <meta name="twitter:description" content="<%= productDescription %>" />
 
     <link
       rel="icon"
