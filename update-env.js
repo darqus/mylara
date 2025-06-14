@@ -66,6 +66,7 @@ try {
   execSync('git push')
   console.warn(`Committed version changes: ${version}`)
 } catch (error) {
+  // amazonq-ignore-next-line
   console.error('Failed to commit version changes:', error.message)
 }
 
