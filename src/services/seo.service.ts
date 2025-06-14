@@ -61,12 +61,12 @@ export const SeoService = {
     }
 
     // Open Graph мета-теги
-    const ogTitle = metaData.ogTitle || title
-    const ogDescription = metaData.ogDescription || description
+    const ogTitle = metaData.ogTitle ?? title
+    const ogDescription = metaData.ogDescription ?? description
     const ogImage = metaData.ogImage
       ? `${BASE_URL}${metaData.ogImage}`
       : `${BASE_URL}${DEFAULT_IMAGE}`
-    const ogUrl = metaData.ogUrl || window.location.href
+    const ogUrl = metaData.ogUrl ?? window.location.href
 
     meta.push(
       {

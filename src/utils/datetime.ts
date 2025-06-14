@@ -44,7 +44,7 @@ enum E_ZONE_LIST {
 const TIME_ZONE: E_TIME_ZONE_LIST = E_TIME_ZONE_LIST.RU
 const ZONE: E_ZONE_LIST = E_ZONE_LIST.RU
 
-type T_OPTIONS = Intl.DateTimeFormatOptions
+type TOptions = Intl.DateTimeFormatOptions
 
 type TTodayYesterdayDate = {
   today: Date
@@ -69,7 +69,7 @@ export const adjustDateToTimezone = (
   return new Date(currentDate - timeZoneOffset * 60 * 1_000)
 }
 
-export const DATE_TIME_OPTIONS_PRESET: Record<string, T_OPTIONS> = {
+export const DATE_TIME_OPTIONS_PRESET: Record<string, TOptions> = {
   formattedDateAndTimeMonthShort: {
     year: E_OPTIONS_LIST.NUMERIC,
     month: E_OPTIONS_LIST.SHORT,

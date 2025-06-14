@@ -67,7 +67,7 @@ export default route(function (/* { store, ssrContext } */) {
           description:
             document
               .querySelector('meta[name="description"]')
-              ?.getAttribute('content') || '',
+              ?.getAttribute('content') ?? '',
         }
 
         app.config.globalProperties.$addJsonLd(pageJsonLd)
