@@ -2,11 +2,8 @@ import { ref, } from 'vue'
 
 import { getSlogan, } from 'src/services/slogan.service'
 
-// Fallback slogan if Firebase fails
-const fallbackSlogan = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-
 export const useSlogan = () => {
-  const slogan = ref(fallbackSlogan)
+  const slogan = ref('')
   const loading = ref(true)
   const error = ref<string | null>(null)
 
@@ -19,7 +16,6 @@ export const useSlogan = () => {
 
       if (result.error) {
         error.value = result.error
-        slogan.value = fallbackSlogan
       } else if (result.title) {
         slogan.value = result.title
       }
