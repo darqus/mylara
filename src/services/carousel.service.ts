@@ -1,3 +1,5 @@
+import type { CollectionResponse, } from 'src/types/api'
+
 import { firestoreService, } from './firestore.service'
 
 export type CarouselItem = {
@@ -10,12 +12,9 @@ export type CarouselItem = {
 
 /**
  * Получает данные карусели из Firestore
- * @returns {Promise<{items: CarouselItem[], error: string | null}>} Массив элементов карусели и возможная ошибка
+ * @returns {Promise<CollectionResponse<CarouselItem>>} Массив элементов карусели и возможная ошибка
  */
-export const getCarouselItems = async (): Promise<{
-  items: CarouselItem[];
-  error: string | null;
-}> => {
+export const getCarouselItems = async (): Promise<CollectionResponse<CarouselItem>> => {
   return firestoreService.getCollection<CarouselItem>(
     'carousel',
     'Не удалось загрузить данные карусели'

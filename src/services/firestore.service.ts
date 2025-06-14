@@ -1,3 +1,7 @@
+import type {
+  CollectionResponse, DocumentResponse,
+} from 'src/types/api'
+
 import {
   collection, getDocs, doc, getDoc,
 } from 'firebase/firestore'
@@ -17,10 +21,7 @@ export const firestoreService = {
   async getCollection<T>(
     collectionName: string,
     errorMessage = 'Не удалось загрузить данные'
-  ): Promise<{
-    items: T[];
-    error: string | null;
-  }> {
+  ): Promise<CollectionResponse<T>> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -68,10 +69,7 @@ export const firestoreService = {
     collectionName: string,
     docId: string,
     errorMessage = 'Не удалось загрузить данные'
-  ): Promise<{
-    data: T | null;
-    error: string | null;
-  }> {
+  ): Promise<DocumentResponse<T>> {
     const db = getFirebaseDb()
 
     if (!db) {

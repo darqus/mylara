@@ -1,3 +1,5 @@
+import type { SloganResponse, } from 'src/types/api'
+
 import { firestoreService, } from './firestore.service'
 
 export type Slogan = {
@@ -6,12 +8,9 @@ export type Slogan = {
 
 /**
  * Получает данные слогана из Firestore
- * @returns {Promise<{title: string, error: string | null}>} Текст слогана и возможная ошибка
+ * @returns {Promise<SloganResponse>} Текст слогана и возможная ошибка
  */
-export const getSlogan = async (): Promise<{
-  title: string;
-  error: string | null;
-}> => {
+export const getSlogan = async (): Promise<SloganResponse> => {
   const result = await firestoreService.getDocument<Slogan>(
     'slogan',
     '1',

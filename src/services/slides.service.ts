@@ -1,3 +1,5 @@
+import type { SlidesResponse, } from 'src/types/api'
+
 import { firestoreService, } from './firestore.service'
 
 export type Slide = {
@@ -9,12 +11,9 @@ export type Slide = {
 
 /**
  * Получает данные слайдов из Firestore
- * @returns {Promise<{slides: Slide[], error: string | null}>} Массив слайдов и возможная ошибка
+ * @returns {Promise<SlidesResponse>} Массив слайдов и возможная ошибка
  */
-export const getSlides = async (): Promise<{
-  slides: Slide[];
-  error: string | null;
-}> => {
+export const getSlides = async (): Promise<SlidesResponse> => {
   const result = await firestoreService.getCollection<Slide>(
     'slides',
     'Не удалось загрузить данные слайдов'
