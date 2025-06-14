@@ -15,7 +15,7 @@ export const useDataFetching = <T, R extends Record<string, unknown>>(
 ) => {
   const data = ref<T>(initialValue)
   const loading = ref(true)
-  const error = ref<string | null>(null)
+  const error = ref<ApiResponse['error']>(null)
 
   const fetchData = async () => {
     loading.value = true
