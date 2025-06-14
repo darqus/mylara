@@ -7,7 +7,7 @@ import { SeoService, } from 'src/services/seo.service'
 
 // Устанавливаем метаданные для страницы 404
 
-useMeta(() => SeoService.setMeta(SEO_404))
+useMeta(() => SeoService.setMeta(SEO_404) as unknown as Record<string, unknown>)
 </script>
 
 <template>
