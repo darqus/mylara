@@ -1,10 +1,10 @@
-import type {
-  CollectionResponse, DocumentResponse,
-} from 'src/types/api'
-
 import {
   collection, getDocs, doc, getDoc,
 } from 'firebase/firestore'
+
+import type {
+  CollectionResponse, DocumentResponse,
+} from 'src/types/api'
 
 import { getFirebaseDb, } from './firebase'
 

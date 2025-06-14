@@ -18,7 +18,7 @@ export const getSlogan = async (): Promise<SloganResponse> => {
   )
 
   return {
-    title: result.data?.title || '',
+    title: result.data?.title ?? '',
     error: result.error,
   }
 }

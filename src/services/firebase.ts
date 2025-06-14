@@ -1,6 +1,7 @@
 import { initializeApp, } from 'firebase/app'
-import type { Firestore, } from 'firebase/firestore'
 import { getFirestore, } from 'firebase/firestore'
+
+import type { Firestore, } from 'firebase/firestore'
 
 // Firebase конфигурация
 const firebaseConfig = {

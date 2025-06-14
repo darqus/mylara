@@ -380,10 +380,10 @@ export const getCurrentIsoDateTime = (
   date?: Date | null,
   onlyDate = false
 ): string => {
-  const today = adjustDateToTimezone(date || new Date())
+  const today = adjustDateToTimezone(date ?? new Date())
   const isoString = today.toISOString()
 
-  return onlyDate ? isoString.split('T')[0] || isoString : isoString
+  return onlyDate ? isoString.split('T')[0] ?? isoString : isoString
 }
 
 /**

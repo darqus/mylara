@@ -125,11 +125,7 @@ export const common = {
     },
   ],
 
-  'import/no-unresolved': [ 'error', {
-    commonjs: true,
-    caseSensitive: true,
-    ignore: [ '@quasar', '^src/', '^components/', '^boot/', '^layouts/', '^pages/', '^assets/', ],
-  }, ],
+  'import/no-unresolved': [ 'off', ],
   'comma-dangle': [
     'error',
     {

@@ -1,6 +1,6 @@
 import { META, } from 'src/utils/constants'
 import {
-  TITLE, DESCRIPTION, 
+  TITLE, DESCRIPTION,
 } from 'src/utils/meta'
 
 export type MetaData = {
@@ -36,9 +36,9 @@ export const SeoService = {
     const link = []
 
     // Базовые мета-теги
-    const title = metaData.title || TITLE
-    const description = metaData.description || DESCRIPTION
-    const keywords = metaData.keywords || META.KEYWORDS
+    const title = metaData.title ?? TITLE
+    const description = metaData.description ?? DESCRIPTION
+    const keywords = metaData.keywords ?? META.KEYWORDS
 
     // Добавляем базовые мета-теги
     meta.push(
@@ -96,9 +96,9 @@ export const SeoService = {
     )
 
     // Twitter мета-теги
-    const twitterCard = metaData.twitterCard || 'summary_large_image'
-    const twitterTitle = metaData.twitterTitle || title
-    const twitterDescription = metaData.twitterDescription || description
+    const twitterCard = metaData.twitterCard ?? 'summary_large_image'
+    const twitterTitle = metaData.twitterTitle ?? title
+    const twitterDescription = metaData.twitterDescription ?? description
     const twitterImage = metaData.twitterImage
       ? `${BASE_URL}${metaData.twitterImage}`
       : ogImage
