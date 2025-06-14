@@ -5,9 +5,6 @@ export const ts = {
   '@typescript-eslint/no-unsafe-member-access': 'off',
   '@typescript-eslint/no-unsafe-assignment': 'off',
   '@typescript-eslint/no-shadow': [ 'error', ],
-  '@typescript-eslint/no-unused-vars': [ 'error', {
-    argsIgnorePattern: '^_', varsIgnorePattern: '^_',
-  }, ],
   '@typescript-eslint/restrict-template-expressions': [ 'warn', {
     allowNumber: true,
   }, ],
@@ -44,7 +41,12 @@ export const ts = {
       format: [ 'PascalCase', ],
     },
   ],
-  '@typescript-eslint/no-unused-params': 'warn',
+  '@typescript-eslint/no-unused-vars': [ 'error', {
+    'vars': 'all',
+    'args': 'after-used',
+    'argsIgnorePattern': '^_',
+    'varsIgnorePattern': '^_',
+  }, ],
   '@typescript-eslint/no-floating-promises': 'warn',
   '@typescript-eslint/no-misused-promises': 'warn',
 }
