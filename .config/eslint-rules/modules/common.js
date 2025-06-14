@@ -6,14 +6,13 @@ export const common = {
     {
       'newlines-between': 'always',
       groups: [
-        'index',
-        'sibling',
-        'parent',
-        'internal',
-        'external',
         'builtin',
-        'object',
+        'external',
+        'internal',
+        [ 'parent', 'sibling', ],
+        'index',
         'type',
+        'object',
       ],
       pathGroups: [
         {
@@ -58,66 +57,65 @@ export const common = {
         },
         {
           pattern: '**/types/**',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: '**/routes/**',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: 'api',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: '**/services/api/**',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: '**/stores/**',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: '**/utils/**',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: 'module',
-          group: 'external',
-          position: 'before',
-        },
-        {
-          pattern: '**/components/common/**',
-          group: 'external',
-          position: 'before',
-        },
-        {
-          pattern: 'components',
-          group: 'external',
+          group: 'internal',
           position: 'before',
         },
         {
           pattern: '**/components/**',
-          group: 'external',
-          position: 'before',
-        },
-        {
-          pattern: '^[./]',
           group: 'internal',
           position: 'before',
         },
         {
-          pattern: 'scss',
+          pattern: 'components',
           group: 'internal',
           position: 'before',
+        },
+        {
+          pattern: 'src/**',
+          group: 'internal',
+        },
+        {
+          pattern: './**/*.scss',
+          group: 'index',
+          position: 'after',
+        },
+        {
+          pattern: '../**/*.scss',
+          group: 'parent',
+          position: 'after',
         },
       ],
-      pathGroupsExcludedImportTypes: [ 'vue', 'quasar', 'pinia', ],
+      pathGroupsExcludedImportTypes: [ 'vue', ],
       alphabetize: {
         order: 'asc',
         caseInsensitive: true,
