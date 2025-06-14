@@ -56,7 +56,7 @@ const scrollToCurrentItem = () => {
   const currentItem = items[currentIndex.value]
 
   if (container && currentItem) {
-    const itemWidth = (currentItem.clientWidth !== 0) || 0
+    const itemWidth = currentItem.clientWidth
 
     container.scrollTo({
       left: itemWidth * currentIndex.value,
