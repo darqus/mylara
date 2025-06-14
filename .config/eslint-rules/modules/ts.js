@@ -28,7 +28,7 @@ export const ts = {
     'ts-nocheck': 'allow-with-description',
     minimumDescriptionLength: 10,
   }, ],
-  '@typescript-eslint/explicit-module-boundary-types': 'warn',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
   '@typescript-eslint/naming-convention': [
     'warn',
     {
