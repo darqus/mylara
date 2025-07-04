@@ -41,7 +41,7 @@ const loadData = async (): Promise<void> => {
     const response = await props.fetchData()
 
     internalData.value =
-      (props.dataKey !== '') && typeof response === 'object' && response !== null
+      props.dataKey !== '' && typeof response === 'object' && response !== null
         ? (response as Record<string, unknown>)[props.dataKey]
         : response
     emit('data-loaded', internalData.value)

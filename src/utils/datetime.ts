@@ -1,7 +1,7 @@
 // Intl.DateTimeFormat().resolvedOptions()
 
 import {
-  INCLINE, incline,
+  INCLINE, incline, 
 } from './format'
 
 /* {
@@ -383,7 +383,7 @@ export const getCurrentIsoDateTime = (
   const today = adjustDateToTimezone(date ?? new Date())
   const isoString = today.toISOString()
 
-  return onlyDate ? isoString.split('T')[0] ?? isoString : isoString
+  return onlyDate ? (isoString.split('T')[0] ?? isoString) : isoString
 }
 
 /**

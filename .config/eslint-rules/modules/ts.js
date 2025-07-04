@@ -5,9 +5,12 @@ export const ts = {
   '@typescript-eslint/no-unsafe-member-access': 'off',
   '@typescript-eslint/no-unsafe-assignment': 'off',
   '@typescript-eslint/no-shadow': [ 'error', ],
-  '@typescript-eslint/restrict-template-expressions': [ 'warn', {
-    allowNumber: true,
-  }, ],
+  '@typescript-eslint/restrict-template-expressions': [
+    'warn',
+    {
+      allowNumber: true,
+    },
+  ],
   '@typescript-eslint/consistent-type-imports': 'error',
 
   '@typescript-eslint/no-empty-interface': [
@@ -23,11 +26,14 @@ export const ts = {
   '@typescript-eslint/prefer-nullish-coalescing': 'warn',
   '@typescript-eslint/strict-boolean-expressions': 'off',
   '@typescript-eslint/no-explicit-any': 'warn',
-  '@typescript-eslint/ban-ts-comment': [ 'error', {
-    'ts-ignore': 'allow-with-description',
-    'ts-nocheck': 'allow-with-description',
-    minimumDescriptionLength: 10,
-  }, ],
+  '@typescript-eslint/ban-ts-comment': [
+    'error',
+    {
+      'ts-ignore': 'allow-with-description',
+      'ts-nocheck': 'allow-with-description',
+      minimumDescriptionLength: 10,
+    },
+  ],
   '@typescript-eslint/explicit-module-boundary-types': 'off',
   '@typescript-eslint/naming-convention': [
     'warn',
@@ -41,12 +47,15 @@ export const ts = {
       format: [ 'PascalCase', ],
     },
   ],
-  '@typescript-eslint/no-unused-vars': [ 'error', {
-    'vars': 'all',
-    'args': 'after-used',
-    'argsIgnorePattern': '^_',
-    'varsIgnorePattern': '^_',
-  }, ],
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      vars: 'all',
+      args: 'after-used',
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+    },
+  ],
   '@typescript-eslint/no-floating-promises': 'warn',
   '@typescript-eslint/no-misused-promises': 'warn',
 }

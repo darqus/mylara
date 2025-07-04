@@ -1,7 +1,7 @@
 import { META, } from './constants'
 
 const {
-  VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE,
+  VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE, 
 } =
   import.meta.env
 

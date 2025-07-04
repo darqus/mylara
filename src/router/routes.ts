@@ -20,6 +20,31 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/admin',
+    children: [
+      {
+        path: 'login',
+        component: async () => await import('pages/admin/AdminLoginPage.vue'),
+      },
+      {
+        path: '',
+        component: async () => await import('layouts/AdminLayout.vue'),
+        children: [
+          {
+            path: '',
+            component: async () =>
+              await import('pages/admin/AdminDashboardPage.vue'),
+          },
+          {
+            path: 'collection/:collection',
+            component: async () =>
+              await import('pages/admin/AdminCollectionPage.vue'),
+          },
+        ],
+      },
+    ],
+  },
 ]
 
 export default routes

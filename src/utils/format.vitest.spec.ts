@@ -1,9 +1,9 @@
 import {
-  describe, it, expect,
+  describe, it, expect, 
 } from 'vitest'
 
 import {
-  incline, toCapitalCase, INCLINE,
+  incline, toCapitalCase, INCLINE, 
 } from './format'
 
 describe('incline', () => {

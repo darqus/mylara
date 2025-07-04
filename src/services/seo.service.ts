@@ -1,6 +1,6 @@
 import { META, } from 'src/utils/constants'
 import {
-  TITLE, DESCRIPTION,
+  TITLE, DESCRIPTION, 
 } from 'src/utils/meta'
 
 export type MetaData = {

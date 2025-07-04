@@ -1,9 +1,16 @@
 import {
-  collection, getDocs, doc, getDoc,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
 } from 'firebase/firestore'
 
 import type {
-  CollectionResponse, DocumentResponse,
+  CollectionResponse, DocumentResponse, 
 } from 'src/types/api'
 
 import { getFirebaseDb, } from './firebase'
@@ -102,6 +109,136 @@ export const firestoreService = {
       return {
         data: null,
         error: errorMessage,
+      }
+    }
+  },
+
+  /**
+   * Создает новый документ в коллекции
+   * @param collectionName Имя коллекции
+   * @param data Данные для создания
+   * @returns ID созданного документа и возможная ошибка
+   */
+  async createDocument<T>(
+    collectionName: string,
+    data: Omit<T, 'id' | 'createdAt' | 'updatedAt'>
+  ): Promise<{ id: string | null; error: string | null }> {
+    const db = getFirebaseDb()
+
+    if (!db) {
+      return {
+        id: null,
+        error: 'Firebase не инициализирован',
+      }
+    }
+
+    try {
+      const docData = {
+        ...data,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      }
+
+      const docRef = await addDoc(collection(db, collectionName), docData)
+
+      return {
+        id: docRef.id,
+        error: null,
+      }
+    } catch (err) {
+      console.error(`Error creating document in ${collectionName}:`, err)
+
+      return {
+        id: null,
+        error: 'Не удалось создать документ',
+      }
+    }
+  },
+
+  /**
+   * Обновляет документ в коллекции
+   * @param collectionName Имя коллекции
+   * @param docId ID документа
+   * @param data Данные для обновления
+   * @returns Результат операции
+   */
+  async updateDocument<T>(
+    collectionName: string,
+    docId: string,
+    data: Partial<Omit<T, 'id' | 'createdAt' | 'updatedAt'>>
+  ): Promise<{ success: boolean; error: string | null }> {
+    const db = getFirebaseDb()
+
+    if (!db) {
+      return {
+        success: false,
+        error: 'Firebase не инициализирован',
+      }
+    }
+
+    try {
+      const docRef = doc(db, collectionName, docId)
+      const updateData = {
+        ...data,
+        updatedAt: serverTimestamp(),
+      }
+
+      await updateDoc(docRef, updateData)
+
+      return {
+        success: true,
+        error: null,
+      }
+    } catch (err) {
+      console.error(
+        `Error updating document ${docId} in ${collectionName}:`,
+        err
+      )
+
+      return {
+        success: false,
+        error: 'Не удалось обновить документ',
+      }
+    }
+  },
+
+  /**
+   * Удаляет документ из коллекции
+   * @param collectionName Имя коллекции
+   * @param docId ID документа
+   * @returns Результат операции
+   */
+  async deleteDocument(
+    collectionName: string,
+    docId: string
+  ): Promise<{ success: boolean; error: string | null }> {
+    const db = getFirebaseDb()
+
+    if (!db) {
+      return {
+        success: false,
+        error: 'Firebase не инициализирован',
+      }
+    }
+
+    try {
+      const docRef = doc(db, collectionName, docId)
+
+      await deleteDoc(docRef)
+
+      return {
+        success: true,
+        error: null,
+      }
+    } catch (err) {
+      console.error(
+        `Error deleting document ${docId} from ${collectionName}:`,
+        err
+      )
+
+      return {
+        success: false,
+        error: 'Не удалось удалить документ',
       }
     }
   },

@@ -4,9 +4,10 @@ import {
   quasar, transformAssetUrls, 
 } from '@quasar/vite-plugin'
 import vue from '@vitejs/plugin-vue'
-import type { PluginOption, } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig, } from 'vitest/config'
+
+import type { PluginOption, } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({

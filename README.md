@@ -1,6 +1,30 @@
 # Mylara Landing Page
 
-A Quasar Framework app for Mylara landing page.
+A Quasar Framework app for Mylara landing page with comprehensive code formatting system.
+
+## 🎨 Code Formatting
+
+This project uses an advanced formatting system that integrates multiple tools:
+
+```bash
+# Quick start - validate and format your code
+yarn format:validate    # Check configuration
+yarn format:quick       # Fast formatting for development
+yarn format            # Full formatting with type checking
+```
+
+**Key features:**
+
+- ✅ **Prettier** - Code structure formatting
+- ✅ **ESLint** - Quality checks with custom rules from `.config/`
+- ✅ **Stylelint** - SCSS/CSS formatting and validation
+- ✅ **VS Code integration** - Auto-format on save
+- ✅ **TypeScript** - Full type checking
+
+📚 **Documentation:**
+
+- [Quick Guide](docs/format-quick-guide.md) - Essential commands
+- [Complete System](docs/format-system.md) - Full documentation
 
 ## Deploy to GitHub Pages
 
