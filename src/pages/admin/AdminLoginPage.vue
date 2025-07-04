@@ -30,7 +30,7 @@
                 filled
               >
                 <template #prepend>
-                  <q-icon name="email" />
+                  <q-icon name="o_email" />
                 </template>
               </q-input>
 
@@ -38,15 +38,22 @@
                 v-model="password"
                 :error="hasError && !password"
                 :error-message="errorMessage || 'Введите пароль'"
+                :type="getPasswordInputType()"
                 autocomplete="current-password"
                 class="q-mt-md"
                 label="Пароль"
-                type="password"
                 filled
                 @keyup.enter="handleLogin"
               >
                 <template #prepend>
-                  <q-icon name="lock" />
+                  <q-icon name="o_lock" />
+                </template>
+                <template #append>
+                  <q-icon
+                    :name="getPasswordToggleIcon()"
+                    class="cursor-pointer"
+                    @click="togglePassword"
+                  />
                 </template>
               </q-input>
 
@@ -124,11 +131,19 @@
                       val.length >= 6 ||
                       'Пароль должен содержать минимум 6 символов',
                   ]"
+                  :type="getRegisterPasswordInputType()"
                   class="q-mt-md"
                   label="Пароль"
-                  type="password"
                   filled
-                />
+                >
+                  <template #append>
+                    <q-icon
+                      :name="getRegisterPasswordToggleIcon()"
+                      class="cursor-pointer"
+                      @click="toggleRegisterPassword"
+                    />
+                  </template>
+                </q-input>
               </q-form>
             </q-card-section>
 
@@ -163,6 +178,7 @@ import { useQuasar, } from 'quasar'
 import type { QForm, } from 'quasar'
 
 import { useAdminAuth, } from 'src/composables/useAdminAuth'
+import { usePasswordVisibility, } from 'src/composables/usePasswordVisibility'
 
 defineOptions({
   name: 'AdminLoginPage',
@@ -173,6 +189,19 @@ const $q = useQuasar()
 const {
   login, register, loading,
 } = useAdminAuth()
+
+// Управление видимостью паролей
+const {
+  togglePasswordVisibility: togglePassword,
+  getInputType: getPasswordInputType,
+  getToggleIcon: getPasswordToggleIcon,
+} = usePasswordVisibility()
+
+const {
+  togglePasswordVisibility: toggleRegisterPassword,
+  getInputType: getRegisterPasswordInputType,
+  getToggleIcon: getRegisterPasswordToggleIcon,
+} = usePasswordVisibility()
 
 const formRef = ref<QForm>()
 const registerFormRef = ref<QForm>()
