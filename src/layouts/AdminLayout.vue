@@ -13,6 +13,13 @@
 
         <q-toolbar-title> Админка </q-toolbar-title>
 
+        <div
+          v-if="currentUser"
+          class="q-mr-md text-caption"
+        >
+          {{ currentUser.email }}
+        </div>
+
         <q-btn
           icon="logout"
           dense
@@ -65,9 +72,11 @@
 
 <script setup lang="ts">
 import {
-  ref, onMounted,
+  ref, onMounted, watch,
 } from 'vue'
 import { useRouter, } from 'vue-router'
+
+import { useQuasar, } from 'quasar'
 
 import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 
@@ -79,8 +88,9 @@ defineOptions({
 })
 
 const router = useRouter()
+const $q = useQuasar()
 const {
-  checkAuth, logout,
+  currentUser, isAuthenticated, logout, initAuth,
 } = useAdminAuth()
 
 const leftDrawerOpen = ref(false)
@@ -88,18 +98,44 @@ const version = '1.0.0'
 const collections = getAllCollections()
 
 onMounted(() => {
-  // Проверяем аутентификацию при загрузке
-  if (!checkAuth()) {
-    void router.push('/admin/login')
-  }
+  // Инициализируем слежение за аутентификацией
+  initAuth()
 })
+
+// Следим за изменениями аутентификации
+watch(
+  () => isAuthenticated.value,
+  (authenticated) => {
+    if (!authenticated) {
+      void router.push('/admin/login')
+    }
+  },
+  {
+    immediate: true,
+  }
+)
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-function handleLogout() {
-  logout()
-  void router.push('/admin/login')
+async function handleLogout() {
+  const result = await logout()
+
+  if (result.success) {
+    $q.notify({
+      type: 'positive',
+      message: 'Выход выполнен успешно',
+      position: 'top',
+    })
+
+    void router.push('/admin/login')
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: result.error ?? 'Произошла ошибка при выходе',
+      position: 'top',
+    })
+  }
 }
 </script>

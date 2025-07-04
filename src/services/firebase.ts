@@ -1,6 +1,12 @@
 import { initializeApp, } from 'firebase/app'
-import { getFirestore, } from 'firebase/firestore'
+import {
+  getAuth, connectAuthEmulator,
+} from 'firebase/auth'
+import {
+  getFirestore, connectFirestoreEmulator,
+} from 'firebase/firestore'
 
+import type { Auth, } from 'firebase/auth'
 import type { Firestore, } from 'firebase/firestore'
 
 // Firebase конфигурация
@@ -16,6 +22,7 @@ const firebaseConfig = {
 // Инициализация Firebase
 let app
 let db: Firestore | undefined
+let auth: Auth | undefined
 
 try {
   // Check if Firebase config is valid
@@ -25,8 +32,22 @@ try {
 
   app = initializeApp(firebaseConfig)
   db = getFirestore(app)
+  auth = getAuth(app)
+
+  // В режиме разработки можно подключиться к эмуляторам
+  if (
+    import.meta.env.DEV &&
+    import.meta.env.VITE_USE_FIREBASE_EMULATOR === 'true'
+  ) {
+    if (!firebaseConfig.projectId?.includes('demo-')) {
+      connectFirestoreEmulator(db, 'localhost', 8080)
+      connectAuthEmulator(auth, 'http://localhost:9099')
+    }
+  }
 } catch (error) {
   console.error('Error initializing Firebase:', error)
 }
 
 export const getFirebaseDb = () => db
+
+export const getFirebaseAuth = () => auth

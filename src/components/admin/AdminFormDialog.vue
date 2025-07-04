@@ -107,13 +107,13 @@
 
 <script setup lang="ts">
 import {
-  ref, watch, computed,
+  ref, watch, computed, 
 } from 'vue'
 
 import type { QForm, } from 'quasar'
 
 import type {
-  CollectionConfig, FormField,
+  CollectionConfig, FormField, 
 } from 'src/types/admin'
 
 defineOptions({

@@ -10,13 +10,43 @@ import {
 } from 'firebase/firestore'
 
 import type {
-  CollectionResponse, DocumentResponse, 
+  CollectionResponse, DocumentResponse,
 } from 'src/types/api'
 
-import { getFirebaseDb, } from './firebase'
+import {
+  getFirebaseDb, getFirebaseAuth,
+} from './firebase'
+
+/**
+ * Проверяет, аутентифицирован ли пользователь
+ */
+function checkAuth(): { isAuthenticated: boolean; error?: string } {
+  const auth = getFirebaseAuth()
+
+  if (!auth) {
+    return {
+      isAuthenticated: false,
+      error: 'Firebase Auth не инициализирован',
+    }
+  }
+
+  if (!auth.currentUser) {
+    return {
+      isAuthenticated: false,
+      error: 'Пользователь не аутентифицирован',
+    }
+  }
+
+  return {
+    isAuthenticated: true,
+  }
+}
 
 /**
  * Базовый сервис для работы с Firestore
+ * Следует правилам Firebase Security Rules:
+ * - Чтение доступно всем
+ * - Запись только аутентифицированным пользователям
  */
 export const firestoreService = {
   /**
@@ -115,6 +145,7 @@ export const firestoreService = {
 
   /**
    * Создает новый документ в коллекции
+   * Требует аутентификации согласно Firebase Security Rules
    * @param collectionName Имя коллекции
    * @param data Данные для создания
    * @returns ID созданного документа и возможная ошибка
@@ -129,6 +160,16 @@ export const firestoreService = {
       return {
         id: null,
         error: 'Firebase не инициализирован',
+      }
+    }
+
+    // Проверяем аутентификацию перед записью
+    const authCheck = checkAuth()
+
+    if (!authCheck.isAuthenticated) {
+      return {
+        id: null,
+        error: authCheck.error ?? 'Требуется аутентификация',
       }
     }
 
@@ -148,6 +189,18 @@ export const firestoreService = {
     } catch (err) {
       console.error(`Error creating document in ${collectionName}:`, err)
 
+      // Проверяем, не связана ли ошибка с правами доступа
+      if (err && typeof err === 'object' && 'code' in err) {
+        const errorCode = (err as { code: string }).code
+
+        if (errorCode === 'permission-denied') {
+          return {
+            id: null,
+            error: 'Недостаточно прав для создания документа',
+          }
+        }
+      }
+
       return {
         id: null,
         error: 'Не удалось создать документ',
@@ -157,6 +210,7 @@ export const firestoreService = {
 
   /**
    * Обновляет документ в коллекции
+   * Требует аутентификации согласно Firebase Security Rules
    * @param collectionName Имя коллекции
    * @param docId ID документа
    * @param data Данные для обновления
@@ -173,6 +227,16 @@ export const firestoreService = {
       return {
         success: false,
         error: 'Firebase не инициализирован',
+      }
+    }
+
+    // Проверяем аутентификацию перед записью
+    const authCheck = checkAuth()
+
+    if (!authCheck.isAuthenticated) {
+      return {
+        success: false,
+        error: authCheck.error ?? 'Требуется аутентификация',
       }
     }
 
@@ -195,6 +259,18 @@ export const firestoreService = {
         err
       )
 
+      // Проверяем, не связана ли ошибка с правами доступа
+      if (err && typeof err === 'object' && 'code' in err) {
+        const errorCode = (err as { code: string }).code
+
+        if (errorCode === 'permission-denied') {
+          return {
+            success: false,
+            error: 'Недостаточно прав для обновления документа',
+          }
+        }
+      }
+
       return {
         success: false,
         error: 'Не удалось обновить документ',
@@ -204,6 +280,7 @@ export const firestoreService = {
 
   /**
    * Удаляет документ из коллекции
+   * Требует аутентификации согласно Firebase Security Rules
    * @param collectionName Имя коллекции
    * @param docId ID документа
    * @returns Результат операции
@@ -221,6 +298,16 @@ export const firestoreService = {
       }
     }
 
+    // Проверяем аутентификацию перед записью
+    const authCheck = checkAuth()
+
+    if (!authCheck.isAuthenticated) {
+      return {
+        success: false,
+        error: authCheck.error ?? 'Требуется аутентификация',
+      }
+    }
+
     try {
       const docRef = doc(db, collectionName, docId)
 
@@ -235,6 +322,18 @@ export const firestoreService = {
         `Error deleting document ${docId} from ${collectionName}:`,
         err
       )
+
+      // Проверяем, не связана ли ошибка с правами доступа
+      if (err && typeof err === 'object' && 'code' in err) {
+        const errorCode = (err as { code: string }).code
+
+        if (errorCode === 'permission-denied') {
+          return {
+            success: false,
+            error: 'Недостаточно прав для удаления документа',
+          }
+        }
+      }
 
       return {
         success: false,
