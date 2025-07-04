@@ -35,3 +35,4 @@ yarn-error.log*
 # Linting cache files
 .eslintcache
 .stylelintcache
+.prettierCache
