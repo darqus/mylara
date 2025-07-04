@@ -27,6 +27,7 @@
                 error-message="Введите email"
                 label="Email"
                 type="email"
+                clearable
                 filled
               >
                 <template #prepend>
@@ -42,6 +43,7 @@
                 autocomplete="current-password"
                 class="q-mt-md"
                 label="Пароль"
+                clearable
                 filled
                 @keyup.enter="handleLogin"
               >
