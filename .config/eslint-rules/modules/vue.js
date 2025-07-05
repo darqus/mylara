@@ -90,7 +90,40 @@ export const vue = {
     },
   ],
 
-  // Disable conflicting rules for Vue files
-  'vue/html-indent': 'off', // Let Prettier handle this
-  'vue/html-closing-bracket-newline': 'off', // Let Prettier handle this
+  // Vue formatting rules for attributes
+  'vue/max-attributes-per-line': [
+    'error',
+    {
+      singleline: 1,
+      multiline: 1,
+    },
+  ],
+  'vue/first-attribute-linebreak': [
+    'error',
+    {
+      singleline: 'ignore',
+      multiline: 'below',
+    },
+  ],
+  'vue/html-closing-bracket-newline': [
+    'error',
+    {
+      singleline: 'never',
+      multiline: 'always',
+    },
+  ],
+  'vue/html-indent': [
+    'error',
+    2,
+    {
+      attribute: 1,
+      baseIndent: 1,
+      closeBracket: 0,
+      alignAttributesVertically: false,
+      ignores: [],
+    },
+  ],
+
+  // Disable conflicting Prettier rules for Vue files
+  'vue/html-closing-bracket-spacing': 'off', // Let Prettier handle this
 }
