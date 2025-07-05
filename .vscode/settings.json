@@ -4,6 +4,7 @@
       "source.fixAll.stylelint": "explicit"
     },
     "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[scss]": {
@@ -11,6 +12,7 @@
       "source.fixAll.stylelint": "explicit"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[html]": {
@@ -18,106 +20,99 @@
       "source.fixAll": "explicit",
       "source.fixAll.stylelint": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[javascript]": {
     "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "never",
       "source.organizeImports": "never"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[typescript]": {
     "editor.codeActionsOnSave": {
+      "source.fixAll.ts": "explicit",
+      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[typescript][vue]": {
     "editor.codeActionsOnSave": {
+      "source.fixAll.ts": "explicit",
+      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
+      "source.fixAll.ts": "explicit",
+      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[json]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[jsonc]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
   "[markdown]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.markdownlint": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
-  // General editor settings optimized for the project
   "css.validate": false,
-  "scss.validate": false,
   "editor.bracketPairColorization.enabled": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
-  },
-  // Auto-fix on save for all supported file types
-  "editor.codeActionsOnSaveTimeout": 3000,
-  // ESLint configuration
-  "eslint.enable": true,
   "eslint.format.enable": true,
-  "eslint.validate": ["javascript", "typescript", "vue"],
-  "eslint.workingDirectories": ["."],
-  "eslint.options": {
-    "configFile": "./eslint.config.js"
-  },
-  "eslint.codeActionsOnSave.mode": "all",
-  "eslint.run": "onType",
-  // Stylelint configuration
-  "stylelint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "scss.validate": false,
   "stylelint.packageManager": "yarn",
-  "stylelint.validate": ["css", "scss", "sass"],
-  "stylelint.configFile": "./stylelint.config.mjs",
-  // Prettier configuration
-  "prettier.enable": true,
-  "prettier.requireConfig": true,
-  "prettier.configPath": "./.prettierrc.json",
-  "prettier.ignorePath": "./.prettierignore",
-  // Package manager
+  "stylelint.validate": [
+    "html",
+    "scss"
+  ],
   "npm.packageManager": "yarn",
-  // TypeScript configuration
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.quoteStyle": "single",
-  "typescript.preferences.includePackageJsonAutoImports": "off",
-  // Git configuration
   "gitPrefix.replacement": "$1 | ",
-  // Project-specific spell checker words
   "cSpell.words": [
     "amazonq",
     "autogrow",
@@ -129,40 +124,5 @@
     "RUTUBE",
     "swipeable",
     "VITE"
-  ],
-  // File associations
-  "files.associations": {
-    "*.mts": "typescript",
-    "*.mjs": "javascript"
-  },
-  // Search exclusions for better performance
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/.quasar": true,
-    "**/.eslintcache": true,
-    "**/.stylelintcache": true,
-    "**/.prettierCache": true,
-    "**/yarn.lock": true
-  },
-  // File watcher exclusions for better performance
-  "files.watcherExclude": {
-    "**/node_modules/**": true,
-    "**/dist/**": true,
-    "**/.quasar/**": true,
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/*/**": true
-  },
-  // Auto-save configuration
-  "files.autoSave": "onFocusChange",
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true,
-  // Terminal configuration
-  "terminal.integrated.defaultProfile.linux": "bash",
-  // Vue-specific settings
-  "vetur.validation.template": false,
-  "vetur.validation.script": false,
-  "vetur.validation.style": false
+  ]
 }
