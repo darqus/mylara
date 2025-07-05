@@ -91,7 +91,8 @@
                   <span
                     v-if="field.required"
                     class="text-negative"
-                  >*</span>
+                    >*</span
+                  >
                 </div>
                 <ImageUploader
                   :model-value="
@@ -128,15 +129,11 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, watch, computed,
-} from 'vue'
+import { ref, watch, computed } from 'vue'
 
-import type { QForm, } from 'quasar'
+import type { QForm } from 'quasar'
 
-import type {
-  CollectionConfig, FormField,
-} from 'src/types/admin'
+import type { CollectionConfig, FormField } from 'src/types/admin'
 
 import ImageUploader from './ImageUploader.vue'
 
@@ -181,7 +178,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 // Следим за закрытием диалога
@@ -191,7 +188,7 @@ watch(
     if (!isOpen) {
       resetForm()
     }
-  }
+  },
 )
 
 function resetForm() {

@@ -66,9 +66,7 @@
           name="cloud_upload"
           size="48px"
         />
-        <div class="text-h6 text-grey-7 q-mt-sm">
-          Загрузить изображение
-        </div>
+        <div class="text-h6 text-grey-7 q-mt-sm">Загрузить изображение</div>
         <div class="text-caption text-grey-6">
           Перетащите файл сюда или нажмите для выбора
         </div>
@@ -114,12 +112,10 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, computed, watch,
-} from 'vue'
+import { ref, computed, watch } from 'vue'
 
-import { firebaseStorageService, } from 'src/services/firebase-storage.service'
-import type { ImageUploadOptions, } from 'src/services/firebase-storage.service'
+import { firebaseStorageService } from 'src/services/firebase-storage.service'
+import type { ImageUploadOptions } from 'src/services/firebase-storage.service'
 
 defineOptions({
   name: 'ImageUploader',
@@ -187,7 +183,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 function triggerFileInput() {
@@ -257,7 +253,7 @@ async function uploadFile(file: File) {
       options,
       (progress) => {
         uploadProgress.value = progress.percentage
-      }
+      },
     )
 
     if (result.error) {
@@ -314,7 +310,7 @@ function formatFileSize(bytes: number): string {
   }
 
   const k = 1024
-  const sizes = [ 'Bytes', 'KB', 'MB', 'GB', ]
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`

@@ -1,12 +1,8 @@
-import {
-  ref, computed,
-} from 'vue'
+import { ref, computed } from 'vue'
 
-import {
-  describe, it, expect, beforeEach, vi,
-} from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
-import { useTableSettings, } from 'src/composables/useTableSettings'
+import { useTableSettings } from 'src/composables/useTableSettings'
 
 // Мокаем LocalStorage от Quasar
 const mockLocalStorage = {
@@ -56,9 +52,7 @@ describe('useTableSettings (route switching)', () => {
     // Создаем реактивную переменную для имени коллекции
     const collectionName = ref('carousel')
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Проверяем начальные настройки для carousel
     expect(settings.value).toEqual({
@@ -82,8 +76,12 @@ describe('useTableSettings (route switching)', () => {
     })
 
     // Проверяем, что localStorage вызывался с правильными ключами
-    expect(mockLocalStorage.getItem).toHaveBeenCalledWith('table-settings-carousel')
-    expect(mockLocalStorage.getItem).toHaveBeenCalledWith('table-settings-slides')
+    expect(mockLocalStorage.getItem).toHaveBeenCalledWith(
+      'table-settings-carousel',
+    )
+    expect(mockLocalStorage.getItem).toHaveBeenCalledWith(
+      'table-settings-slides',
+    )
   })
 
   it('should use default settings when no data exists for new collection', () => {
@@ -103,9 +101,7 @@ describe('useTableSettings (route switching)', () => {
 
     const collectionName = ref('carousel')
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Проверяем настройки для carousel
     expect(settings.value).toEqual({
@@ -146,9 +142,7 @@ describe('useTableSettings (route switching)', () => {
 
     const collectionName = ref('carousel')
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Проверяем настройки для carousel
     expect(settings.value.page).toBe(2)
@@ -174,9 +168,7 @@ describe('useTableSettings (route switching)', () => {
 
     const collectionName = ref('test-collection')
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Изменяем настройки
     settings.value.page = 5
@@ -188,7 +180,7 @@ describe('useTableSettings (route switching)', () => {
       expect.objectContaining({
         page: 5,
         filter: 'new-filter',
-      })
+      }),
     )
   })
 
@@ -210,9 +202,7 @@ describe('useTableSettings (route switching)', () => {
     const baseCollection = ref('computed')
     const collectionName = computed(() => `${baseCollection.value}-collection`)
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Проверяем, что настройки загрузились корректно
     expect(settings.value).toEqual({

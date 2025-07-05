@@ -1,12 +1,10 @@
-import { ref, } from 'vue'
+import { ref } from 'vue'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
-import type {
-  TableState, CollectionConfig,
-} from 'src/types/admin'
+import type { TableState, CollectionConfig } from 'src/types/admin'
 
-import { firestoreService, } from 'src/services/firestore.service'
+import { firestoreService } from 'src/services/firestore.service'
 
 /**
  * Composable для управления коллекцией в админке
@@ -96,7 +94,7 @@ export function useAdminCollection(config: CollectionConfig) {
       const response = await firestoreService.updateDocument(
         config.name,
         id,
-        data
+        data,
       )
 
       if (response.error) {
@@ -128,7 +126,7 @@ export function useAdminCollection(config: CollectionConfig) {
   async function deleteItems(items: Array<Record<string, unknown>>) {
     try {
       const deletePromises = items.map((item) =>
-        firestoreService.deleteDocument(config.name, item.id as string)
+        firestoreService.deleteDocument(config.name, item.id as string),
       )
 
       const results = await Promise.all(deletePromises)

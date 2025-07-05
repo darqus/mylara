@@ -14,9 +14,7 @@
             size="50px"
             indeterminate
           />
-          <div class="text-body2 text-grey-8 q-mt-md">
-            Инициализация...
-          </div>
+          <div class="text-body2 text-grey-8 q-mt-md">Инициализация...</div>
         </div>
 
         <!-- Форма логина -->
@@ -26,9 +24,7 @@
           style="min-width: 400px"
         >
           <q-card-section class="text-center">
-            <div class="text-h4 text-grey-8 q-mb-md">
-              Админка
-            </div>
+            <div class="text-h4 text-grey-8 q-mb-md">Админка</div>
             <div class="text-subtitle1 text-grey-6">
               Вход в панель администратора
             </div>
@@ -119,9 +115,7 @@
         >
           <q-card style="min-width: 400px">
             <q-card-section>
-              <div class="text-h6">
-                Создание администратора
-              </div>
+              <div class="text-h6">Создание администратора</div>
               <div class="text-caption text-grey-6 q-mt-sm">
                 Эта опция доступна только для первоначальной настройки
               </div>
@@ -190,16 +184,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, onMounted,
-} from 'vue'
-import { useRouter, } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { useQuasar, } from 'quasar'
-import type { QForm, } from 'quasar'
+import { useQuasar } from 'quasar'
+import type { QForm } from 'quasar'
 
-import { useAdminAuth, } from 'src/composables/useAdminAuth'
-import { usePasswordVisibility, } from 'src/composables/usePasswordVisibility'
+import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
 
 defineOptions({
   name: 'AdminLoginPage',
@@ -207,9 +199,7 @@ defineOptions({
 
 const router = useRouter()
 const $q = useQuasar()
-const {
-  login, register, loading, isAuthenticated, initializing,
-} =
+const { login, register, loading, isAuthenticated, initializing } =
   useAdminAuth()
 
 // Управление видимостью паролей

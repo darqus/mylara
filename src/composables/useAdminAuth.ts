@@ -1,6 +1,4 @@
-import {
-  ref, computed,
-} from 'vue'
+import { ref, computed } from 'vue'
 
 import {
   signInWithEmailAndPassword,
@@ -9,9 +7,9 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 
-import { getFirebaseAuth, } from 'src/services/firebase'
+import { getFirebaseAuth } from 'src/services/firebase'
 
-import type { User, } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 
 // Используем отложенную инициализацию для избежания проблем с hoisting
 function createState() {
@@ -31,9 +29,7 @@ export function useAdminAuth() {
   // Инициализируем состояние только при первом вызове
   state ??= createState()
 
-  const {
-    currentUser, loading, initializing,
-  } = state
+  const { currentUser, loading, initializing } = state
   const isAuthenticated = computed(() => currentUser.value !== null)
 
   /**
@@ -61,8 +57,8 @@ export function useAdminAuth() {
    * Вход в админку через email и пароль
    */
   async function login(
-      email: string,
-      password: string
+    email: string,
+    password: string,
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 
@@ -79,7 +75,7 @@ export function useAdminAuth() {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       )
 
       currentUser.value = userCredential.user
@@ -133,8 +129,8 @@ export function useAdminAuth() {
    * Регистрация нового администратора (только для первоначальной настройки)
    */
   async function register(
-      email: string,
-      password: string
+    email: string,
+    password: string,
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 
@@ -151,7 +147,7 @@ export function useAdminAuth() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       )
 
       currentUser.value = userCredential.user

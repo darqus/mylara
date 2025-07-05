@@ -23,29 +23,22 @@
   },
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
-      "source.fixAll.stylelint": "never",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[typescript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.ts": "explicit",
-      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[typescript][vue]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.ts": "explicit",
-      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
@@ -54,12 +47,10 @@
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.ts": "explicit",
-      "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[json]": {
@@ -88,11 +79,11 @@
   "css.validate": false,
   "scss.validate": false,
   "editor.bracketPairColorization.enabled": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
   // ESLint configuration
@@ -120,6 +111,7 @@
   "stylelint.configFile": "./stylelint.config.mjs",
   // Prettier configuration
   "prettier.enable": true,
+  "prettier.requireConfig": true,
   "prettier.configPath": "./.prettierrc.json",
   "prettier.ignorePath": "./.prettierignore",
   // Package manager

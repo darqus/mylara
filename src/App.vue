@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { onMounted, } from 'vue'
+import { onMounted } from 'vue'
 
-import { useMeta, } from 'quasar'
+import { useMeta } from 'quasar'
 
-import { meta, } from 'src/utils/meta'
+import { meta } from 'src/utils/meta'
 
-import { useAdminAuth, } from 'src/composables/useAdminAuth'
+import { useAdminAuth } from 'src/composables/useAdminAuth'
 
 defineOptions({
   name: 'App',
 })
 
-const {
-  initAuth,
-} = useAdminAuth()
+const { initAuth } = useAdminAuth()
 
 onMounted(() => {
   // Инициализируем слежение за состоянием аутентификации

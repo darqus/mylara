@@ -1,8 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">
-      Панель администратора
-    </div>
+    <div class="text-h4 q-mb-md">Панель администратора</div>
 
     <div class="text-subtitle1 q-mb-lg text-grey-7">
       Добро пожаловать в админку для управления базой данных
@@ -61,17 +59,15 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, onMounted,
-} from 'vue'
-import { useRouter, } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
-import { formatRecordsCount, } from 'src/utils/pluralization'
+import { formatRecordsCount } from 'src/utils/pluralization'
 
-import { getAllCollections, } from 'src/services/admin-config.service'
-import { firestoreService, } from 'src/services/firestore.service'
+import { getAllCollections } from 'src/services/admin-config.service'
+import { firestoreService } from 'src/services/firestore.service'
 
 defineOptions({
   name: 'AdminDashboardPage',
@@ -106,7 +102,7 @@ async function loadCollectionStats() {
 
         return acc
       },
-      {} as Record<string, number>
+      {} as Record<string, number>,
     )
   } catch (error) {
     console.error('Ошибка загрузки статистики коллекций:', error)

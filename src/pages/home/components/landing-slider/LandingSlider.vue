@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { ref, } from 'vue'
+import { ref } from 'vue'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
 
-import { useImageErrorHandling, } from 'src/composables/useImageErrorHandling'
-import { getSlides, } from 'src/services/slides.service'
+import { useImageErrorHandling } from 'src/composables/useImageErrorHandling'
+import { getSlides } from 'src/services/slides.service'
 
 import './scss/landing-slider.scss'
 
 const $q = useQuasar()
 const slide = ref(1)
 
-const {
-  getSafeImageSrc,
-} = useImageErrorHandling()
+const { getSafeImageSrc } = useImageErrorHandling()
 </script>
 
 <template>

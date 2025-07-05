@@ -1,10 +1,8 @@
-import { ref, } from 'vue'
+import { ref } from 'vue'
 
-import {
-  describe, it, expect, beforeEach, vi,
-} from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
-import { useTableSettings, } from 'src/composables/useTableSettings'
+import { useTableSettings } from 'src/composables/useTableSettings'
 
 // Мокаем LocalStorage от Quasar
 const mockLocalStorage = {
@@ -56,9 +54,7 @@ describe('useTableSettings - Reactive Collection Name', () => {
     // Создаем реактивное имя коллекции
     const collectionName = ref('carousel')
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     // Проверяем, что загружены настройки для carousel
     expect(settings.value.page).toBe(2)
@@ -93,9 +89,7 @@ describe('useTableSettings - Reactive Collection Name', () => {
       filter: 'carousel computed',
     })
 
-    const {
-      settings,
-    } = useTableSettings(collectionName)
+    const { settings } = useTableSettings(collectionName)
 
     expect(settings.value.page).toBe(3)
     expect(settings.value.rowsPerPage).toBe(50)

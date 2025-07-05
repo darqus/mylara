@@ -30,9 +30,7 @@
           <q-tooltip>Выйти</q-tooltip>
         </q-btn>
 
-        <div class="q-ml-md">
-          Версия {{ version }}
-        </div>
+        <div class="q-ml-md">Версия {{ version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -43,9 +41,7 @@
       show-if-above
     >
       <q-list>
-        <q-item-label header>
-          Управление данными
-        </q-item-label>
+        <q-item-label header> Управление данными </q-item-label>
 
         <AdminMenuItem
           icon="o_settings"
@@ -80,19 +76,17 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, watch,
-} from 'vue'
-import { useRouter, } from 'vue-router'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
-import { APP_VERSION, } from 'src/utils/constants'
+import { APP_VERSION } from 'src/utils/constants'
 
 import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 
-import { useAdminAuth, } from 'src/composables/useAdminAuth'
-import { getAllCollections, } from 'src/services/admin-config.service'
+import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { getAllCollections } from 'src/services/admin-config.service'
 
 defineOptions({
   name: 'AdminLayout',
@@ -100,9 +94,7 @@ defineOptions({
 
 const router = useRouter()
 const $q = useQuasar()
-const {
-  currentUser, isAuthenticated, logout,
-} = useAdminAuth()
+const { currentUser, isAuthenticated, logout } = useAdminAuth()
 
 const leftDrawerOpen = ref(false)
 const version = APP_VERSION
@@ -118,7 +110,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 function toggleLeftDrawer() {

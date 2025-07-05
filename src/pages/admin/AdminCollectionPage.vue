@@ -187,22 +187,20 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref, onMounted, computed, watch,
-} from 'vue'
-import { useRoute, } from 'vue-router'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
-import type { TableState, } from 'src/types/admin'
+import type { TableState } from 'src/types/admin'
 
 import AdminFormDialog from 'src/components/admin/AdminFormDialog.vue'
 import ImageTableCell from 'src/components/admin/ImageTableCell.vue'
 import TableSettingsIndicator from 'src/components/admin/TableSettingsIndicator.vue'
 
-import { useTableSettings, } from 'src/composables/useTableSettings'
-import { getCollectionConfig, } from 'src/services/admin-config.service'
-import { firestoreService, } from 'src/services/firestore.service'
+import { useTableSettings } from 'src/composables/useTableSettings'
+import { getCollectionConfig } from 'src/services/admin-config.service'
+import { firestoreService } from 'src/services/firestore.service'
 
 defineOptions({
   name: 'AdminCollectionPage',
@@ -296,7 +294,7 @@ watch(
       // Загрузка данных новой коллекции
       void loadData()
     }
-  }
+  },
 )
 
 // Синхронизация фильтра с настройками
@@ -304,7 +302,7 @@ watch(
   () => tableState.value.filter,
   (newFilter) => {
     updateFilter(newFilter)
-  }
+  },
 )
 
 // Синхронизация пагинации с настройками
@@ -315,7 +313,7 @@ watch(
   },
   {
     deep: true,
-  }
+  },
 )
 
 function updateTableStateFromSettings() {
@@ -353,7 +351,7 @@ function updateTableStateFromSettings() {
 function performSearch(searchTerm: string) {
   if (!searchTerm.trim()) {
     // Если поисковый запрос пустой, показываем все элементы
-    filteredItems.value = [ ...allItems.value, ]
+    filteredItems.value = [...allItems.value]
   } else {
     const lowerSearchTerm = searchTerm.toLowerCase()
     const searchableFields =
@@ -368,7 +366,7 @@ function performSearch(searchTerm: string) {
         }
 
         const stringValue = String(
-          fieldValue as string | number | boolean
+          fieldValue as string | number | boolean,
         ).toLowerCase()
 
         return stringValue.includes(lowerSearchTerm)
@@ -394,7 +392,7 @@ function applySorting() {
   const sortBy = tableState.value.pagination.sortBy
   const descending = tableState.value.pagination.descending ?? false
 
-  const sortedItems = [ ...filteredItems.value, ].sort((a, b) => {
+  const sortedItems = [...filteredItems.value].sort((a, b) => {
     const aVal = a[sortBy]
     const bVal = b[sortBy]
 
@@ -498,9 +496,7 @@ function onRequest(props: {
     descending?: boolean
   }
 }) {
-  const {
-    page, rowsPerPage, sortBy, descending,
-  } = props.pagination
+  const { page, rowsPerPage, sortBy, descending } = props.pagination
 
   // Обновляем состояние пагинации
   tableState.value.pagination.page = page
@@ -536,7 +532,7 @@ function editItem(item: Record<string, unknown>) {
 
 function confirmDelete(item: Record<string, unknown>) {
   itemToDelete.value = item
-  tableState.value.selected = [ item, ]
+  tableState.value.selected = [item]
   showDeleteDialog.value = true
 }
 
@@ -574,7 +570,7 @@ async function handleSave(data: Record<string, unknown>) {
       const response = await firestoreService.updateDocument(
         collectionName.value,
         editingItem.value.id as string,
-        data
+        data,
       )
 
       if (response.error) {
@@ -596,7 +592,7 @@ async function handleSave(data: Record<string, unknown>) {
       // Создание
       const response = await firestoreService.createDocument(
         collectionName.value,
-        data
+        data,
       )
 
       if (response.error) {
@@ -630,7 +626,7 @@ async function handleDelete() {
     tableState.value.selected.length > 0
       ? tableState.value.selected
       : itemToDelete.value
-        ? [ itemToDelete.value, ]
+        ? [itemToDelete.value]
         : []
 
   if (itemsToDelete.length === 0) {
@@ -639,7 +635,7 @@ async function handleDelete() {
 
   try {
     const deletePromises = itemsToDelete.map((item) =>
-      firestoreService.deleteDocument(collectionName.value, item.id as string)
+      firestoreService.deleteDocument(collectionName.value, item.id as string),
     )
 
     const results = await Promise.all(deletePromises)
