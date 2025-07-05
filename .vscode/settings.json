@@ -34,7 +34,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[typescript][vue]": {
@@ -42,7 +42,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[vue]": {
@@ -50,7 +50,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[json]": {
@@ -89,15 +89,25 @@
   // ESLint configuration
   "eslint.enable": true,
   "eslint.format.enable": true,
-  "eslint.validate": ["javascript", "typescript", "vue"],
-  "eslint.workingDirectories": ["."],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "eslint.workingDirectories": [
+    "."
+  ],
   "eslint.options": {
     "configFile": "./eslint.config.js"
   },
   // Stylelint configuration
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
-  "stylelint.validate": ["css", "scss", "sass"],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "sass"
+  ],
   "stylelint.configFile": "./stylelint.config.mjs",
   // Prettier configuration
   "prettier.enable": true,
