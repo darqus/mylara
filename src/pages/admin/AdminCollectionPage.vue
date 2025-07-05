@@ -53,6 +53,18 @@
             />
           </div>
 
+          <div class="col-auto">
+            <q-btn
+              color="grey"
+              icon="settings_backup_restore"
+              padding="12px"
+              size="md"
+              @click="handleResetSettings"
+            >
+              <q-tooltip>Сбросить настройки таблицы</q-tooltip>
+            </q-btn>
+          </div>
+
           <div
             v-if="tableState.selected.length > 0"
             class="col-auto"
@@ -69,6 +81,7 @@
 
           <div class="col-auto text-grey-6">
             {{ searchInfo }}
+            <TableSettingsIndicator :settings="tableSettings" />
           </div>
         </div>
       </q-card-section>
@@ -185,7 +198,9 @@ import type { TableState, } from 'src/types/admin'
 
 import AdminFormDialog from 'src/components/admin/AdminFormDialog.vue'
 import ImageTableCell from 'src/components/admin/ImageTableCell.vue'
+import TableSettingsIndicator from 'src/components/admin/TableSettingsIndicator.vue'
 
+import { useTableSettings, } from 'src/composables/useTableSettings'
 import { getCollectionConfig, } from 'src/services/admin-config.service'
 import { firestoreService, } from 'src/services/firestore.service'
 
@@ -199,15 +214,30 @@ const route = useRoute()
 const collectionName = computed(() => route.params.collection as string)
 const config = computed(() => getCollectionConfig(collectionName.value))
 
+// Используем композабл для управления настройками таблицы
+const {
+  settings: tableSettings,
+  paginationSettings,
+  updatePagination,
+  updateFilter,
+  resetSettings,
+} = useTableSettings(collectionName.value)
+
 const tableState = ref<TableState>({
   items: [],
   loading: false,
   pagination: {
-    page: 1,
-    rowsPerPage: 10,
+    page: paginationSettings.value.page,
+    rowsPerPage: paginationSettings.value.rowsPerPage,
     rowsNumber: 0,
+    ...(paginationSettings.value.sortBy && {
+      sortBy: paginationSettings.value.sortBy,
+    }),
+    ...(paginationSettings.value.descending !== undefined && {
+      descending: paginationSettings.value.descending,
+    }),
   },
-  filter: '',
+  filter: tableSettings.value.filter,
   selected: [],
 })
 
@@ -239,6 +269,11 @@ const deleteDialogText = computed(() => {
 })
 
 onMounted(() => {
+  // Загружаем сохраненные настройки фильтра при монтировании
+  if (tableSettings.value.filter) {
+    tableState.value.filter = tableSettings.value.filter
+  }
+
   void loadData()
 })
 
@@ -267,7 +302,29 @@ watch(
   }
 )
 
+// Синхронизация фильтра с настройками
+watch(
+  () => tableState.value.filter,
+  (newFilter) => {
+    updateFilter(newFilter)
+  }
+)
+
+// Синхронизация пагинации с настройками
+watch(
+  () => tableState.value.pagination,
+  (newPagination) => {
+    updatePagination(newPagination)
+  },
+  {
+    deep: true,
+  }
+)
+
 function resetTableState() {
+  // Сбрасываем настройки к значениям по умолчанию
+  resetSettings()
+
   tableState.value = {
     items: [],
     loading: true, // Показываем загрузку при переключении коллекции
@@ -464,6 +521,9 @@ function onRequest(props: {
     // Применяем новую сортировку к текущим данным
     applySorting()
   }
+
+  // Обновляем настройки (это автоматически сохранится в localStorage)
+  updatePagination(props.pagination)
 }
 
 function editItem(item: Record<string, unknown>) {
@@ -481,6 +541,27 @@ function confirmDelete(item: Record<string, unknown>) {
 
 function confirmBulkDelete() {
   showDeleteDialog.value = true
+}
+
+function handleResetSettings() {
+  resetSettings()
+
+  // Обновляем состояние таблицы с новыми настройками
+  tableState.value.pagination = {
+    page: 1,
+    rowsPerPage: 10,
+    rowsNumber: tableState.value.pagination.rowsNumber,
+  }
+  tableState.value.filter = ''
+
+  // Применяем обновленные настройки
+  performSearch('')
+
+  $q.notify({
+    type: 'positive',
+    message: 'Настройки таблицы сброшены',
+    position: 'top',
+  })
 }
 
 async function handleSave(data: Record<string, unknown>) {
