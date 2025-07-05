@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import {
-  ref, onMounted, watch,
+  ref, watch,
 } from 'vue'
 import { useRouter, } from 'vue-router'
 
@@ -90,17 +90,12 @@ defineOptions({
 const router = useRouter()
 const $q = useQuasar()
 const {
-  currentUser, isAuthenticated, logout, initAuth,
+  currentUser, isAuthenticated, logout,
 } = useAdminAuth()
 
 const leftDrawerOpen = ref(false)
 const version = '1.0.0'
 const collections = getAllCollections()
-
-onMounted(() => {
-  // Инициализируем слежение за аутентификацией
-  initAuth()
-})
 
 // Следим за изменениями аутентификации
 watch(

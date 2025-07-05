@@ -1,3 +1,4 @@
+import { watch, } from 'vue'
 import {
   createMemoryHistory,
   createRouter,
@@ -6,6 +7,8 @@ import {
 } from 'vue-router'
 
 import { route, } from 'quasar/wrappers'
+
+import { useAdminAuth, } from 'src/composables/useAdminAuth'
 
 import routes from './routes'
 
@@ -42,6 +45,58 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  })
+
+  // Добавляем navigation guard для защиты админских маршрутов
+  Router.beforeEach((to, from, next) => {
+    // Проверяем, является ли маршрут админским (кроме логина)
+    if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
+      const {
+        isAuthenticated,
+        initializing,
+      } = useAdminAuth()
+
+      // Если еще идет инициализация, ждем ее завершения
+      if (initializing.value) {
+        // Используем watch для ожидания завершения инициализации
+        const unwatch = watch(
+          () => initializing.value,
+          (isInitializing: boolean) => {
+            if (!isInitializing) {
+              unwatch()
+
+              if (isAuthenticated.value) {
+                next()
+              } else {
+                next({
+                  path: '/admin/login',
+                  query: {
+                    redirect: to.fullPath,
+                  },
+                })
+              }
+            }
+          }
+        )
+
+        return
+      }
+
+      // Проверяем аутентификацию
+      if (!isAuthenticated.value) {
+        // Если пользователь не аутентифицирован, перенаправляем на логин с редиректом
+        next({
+          path: '/admin/login',
+          query: {
+            redirect: to.fullPath,
+          },
+        })
+
+        return
+      }
+    }
+
+    next()
   })
 
   // Обновляем канонический URL при изменении маршрута

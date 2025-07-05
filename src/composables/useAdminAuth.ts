@@ -15,6 +15,7 @@ import type { User, } from 'firebase/auth'
 
 const currentUser = ref<User | null>(null)
 const loading = ref(false)
+const initializing = ref(true)
 
 /**
  * Composable для аутентификации в админке через Firebase Auth
@@ -30,6 +31,7 @@ export function useAdminAuth() {
 
     if (!auth) {
       console.warn('Firebase Auth не инициализирован')
+      initializing.value = false
 
       return
     }
@@ -38,6 +40,7 @@ export function useAdminAuth() {
     onAuthStateChanged(auth, (user) => {
       currentUser.value = user
       loading.value = false
+      initializing.value = false
     })
   }
 
@@ -221,6 +224,7 @@ export function useAdminAuth() {
     currentUser,
     isAuthenticated,
     loading,
+    initializing,
     login,
     logout,
     register,

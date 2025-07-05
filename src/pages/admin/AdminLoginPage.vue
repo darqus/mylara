@@ -2,7 +2,26 @@
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
       <q-page class="flex flex-center bg-grey-1">
+        <!-- Показываем спиннер пока идет инициализация -->
+        <div
+          v-if="initializing"
+          class="text-center"
+        >
+          <q-circular-progress
+            :thickness="0.2"
+            class="q-ma-md"
+            color="primary"
+            size="50px"
+            indeterminate
+          />
+          <div class="text-body2 text-grey-8 q-mt-md">
+            Инициализация...
+          </div>
+        </div>
+
+        <!-- Форма логина -->
         <q-card
+          v-else
           class="q-pa-lg"
           style="min-width: 400px"
         >
@@ -189,7 +208,7 @@ defineOptions({
 const router = useRouter()
 const $q = useQuasar()
 const {
-  login, register, loading,
+  login, register, loading, isAuthenticated, initializing,
 } = useAdminAuth()
 
 // Управление видимостью паролей
@@ -220,6 +239,15 @@ const registerEmail = ref('')
 const registerPassword = ref('')
 
 onMounted(() => {
+  // Если пользователь уже аутентифицирован, перенаправляем в админку
+  if (isAuthenticated.value) {
+    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+
+    void router.push(redirectTo)
+
+    return
+  }
+
   // В реальном приложении здесь можно проверить, есть ли уже созданные пользователи
   // Для простоты показываем опцию регистрации всегда
   showRegistrationOption.value = true
@@ -248,7 +276,10 @@ async function handleLogin() {
       position: 'top',
     })
 
-    void router.push('/admin')
+    // Перенаправляем на исходную страницу или на админ дашборд
+    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+
+    void router.push(redirectTo)
   } else {
     hasError.value = true
     errorMessage.value = result.error ?? 'Произошла ошибка при входе'
@@ -284,7 +315,11 @@ async function handleRegister() {
     })
 
     showRegistrationDialog.value = false
-    void router.push('/admin')
+
+    // Перенаправляем на исходную страницу или на админ дашборд
+    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+
+    void router.push(redirectTo)
   } else {
     $q.notify({
       type: 'negative',
