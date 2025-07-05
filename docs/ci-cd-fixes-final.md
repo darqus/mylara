@@ -4,6 +4,39 @@
 
 ## ✅ Проблемы устранены
 
+### Последняя проблема: object-curly-newline в AdminCollectionPage.vue
+
+**Ошибки CI/CD:**
+
+```
+Error:   229:44  error  Unexpected line break after this opening brace   object-curly-newline
+Error:   231:5   error  Unexpected line break before this closing brace  object-curly-newline
+Error:   232:62  error  Unexpected line break after this opening brace   object-curly-newline
+Error:   234:5   error  Unexpected line break before this closing brace  object-curly-newline
+Error:   324:46  error  Unexpected line break after this opening brace   object-curly-newline
+Error:   326:7   error  Unexpected line break before this closing brace  object-curly-newline
+Error:   327:64  error  Unexpected line break after this opening brace   object-curly-newline
+Error:   329:7   error  Unexpected line break before this closing brace  object-curly-newline
+```
+
+**Причина:** Объекты с менее чем 6 свойствами остались в многострочном формате
+
+**Исправление:** Приведены к однострочному формату согласно правилу `minProperties: 6`
+
+**Было:**
+
+```typescript
+...(paginationSettings.value.sortBy && {
+  sortBy: paginationSettings.value.sortBy,
+}),
+```
+
+**Стало:**
+
+```typescript
+...(paginationSettings.value.sortBy && { sortBy: paginationSettings.value.sortBy }),
+```
+
 ### Ошибки в CI/CD которые были исправлены:
 
 #### 1. LandingCarousel.vue - object-curly-newline errors
