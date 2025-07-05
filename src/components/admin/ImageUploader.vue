@@ -145,7 +145,13 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
   disabled: false,
   maxSizeKB: 5000,
-  allowedTypes: () => [ 'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', ],
+  allowedTypes: () => [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/gif',
+    'image/webp',
+  ],
   path: 'images',
   placeholder: '',
 })

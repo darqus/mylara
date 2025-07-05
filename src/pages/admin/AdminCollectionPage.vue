@@ -302,7 +302,8 @@ function performSearch(searchTerm: string) {
   }
 
   const lowerSearchTerm = searchTerm.toLowerCase()
-  const searchableFields = config.value?.fields?.map((field) => field.name) ?? []
+  const searchableFields =
+    config.value?.fields?.map((field) => field.name) ?? []
 
   filteredItems.value = allItems.value.filter((item) => {
     return searchableFields.some((fieldName) => {
@@ -312,7 +313,9 @@ function performSearch(searchTerm: string) {
         return false
       }
 
-      const stringValue = String(fieldValue as string | number | boolean).toLowerCase()
+      const stringValue = String(
+        fieldValue as string | number | boolean
+      ).toLowerCase()
 
       return stringValue.includes(lowerSearchTerm)
     })

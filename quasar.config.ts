@@ -61,7 +61,8 @@ export default defineConfig((/* ctx */) => ({
 
       viteConf.build = viteConf.build ?? {}
       viteConf.build.rollupOptions = viteConf.build.rollupOptions ?? {}
-      viteConf.build.rollupOptions.output = viteConf.build.rollupOptions.output ?? {}
+      viteConf.build.rollupOptions.output =
+        viteConf.build.rollupOptions.output ?? {}
 
       // Более простое разделение чанков для избежания проблем с зависимостями
       if (!Array.isArray(viteConf.build.rollupOptions.output)) {

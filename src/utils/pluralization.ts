@@ -46,7 +46,10 @@ export function formatRecordsCount(count: number): string {
  * pluralize(2, ['файл', 'файла', 'файлов']) // 'файла'
  * pluralize(5, ['файл', 'файла', 'файлов']) // 'файлов'
  */
-export function pluralize(count: number, forms: [ string, string, string, ]): string {
+export function pluralize(
+    count: number,
+    forms: [string, string, string]
+): string {
   const lastDigit = count % 10
   const lastTwoDigits = count % 100
 
@@ -76,6 +79,9 @@ export function pluralize(count: number, forms: [ string, string, string, ]): st
  * formatCount(2, ['файл', 'файла', 'файлов']) // '2 файла'
  * formatCount(5, ['файл', 'файла', 'файлов']) // '5 файлов'
  */
-export function formatCount(count: number, forms: [ string, string, string, ]): string {
+export function formatCount(
+    count: number,
+    forms: [string, string, string]
+): string {
   return `${count} ${pluralize(count, forms)}`
 }

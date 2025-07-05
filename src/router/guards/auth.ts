@@ -1,7 +1,6 @@
 import { watch, } from 'vue'
 import type {
-  NavigationGuardNext,
-  RouteLocationNormalized,
+  NavigationGuardNext, RouteLocationNormalized,
 } from 'vue-router'
 
 import { useAdminAuth, } from 'src/composables/useAdminAuth'
@@ -18,8 +17,7 @@ export function adminAuthGuard(
   // Проверяем, является ли маршрут админским (кроме логина)
   if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
     const {
-      isAuthenticated,
-      initializing,
+      isAuthenticated, initializing,
     } = useAdminAuth()
 
     // Если еще идет инициализация, ждем ее завершения

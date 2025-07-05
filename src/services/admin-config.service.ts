@@ -36,7 +36,8 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         label: 'Название продукта',
         type: 'textarea',
         required: true,
-        placeholder: 'Крем - гель подтягивающий для век с ботулоподобным нейропептидом, 30 мл аромат Blanche (по мотивам BYREDO BLANCHE)',
+        placeholder:
+          'Крем - гель подтягивающий для век с ботулоподобным нейропептидом, 30 мл аромат Blanche (по мотивам BYREDO BLANCHE)',
       },
       {
         name: 'link',
@@ -53,7 +54,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => val ? val as string : '',
+        format: (val: unknown) => (val ? (val as string) : ''),
       },
       {
         name: 'info',
@@ -87,7 +88,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'link',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => val ? '🔗' : '',
+        format: (val: unknown) => (val ? '🔗' : ''),
       },
       {
         name: 'actions',
@@ -140,7 +141,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => val ? val as string : '',
+        format: (val: unknown) => (val ? (val as string) : ''),
       },
       {
         name: 'title',
@@ -185,7 +186,8 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         label: 'Текст слогана',
         type: 'textarea',
         required: true,
-        placeholder: '4673771782657 тоник-лосьон для лица Lorem ipsum dolor sit amet...',
+        placeholder:
+          '4673771782657 тоник-лосьон для лица Lorem ipsum dolor sit amet...',
       },
     ],
     columns: [

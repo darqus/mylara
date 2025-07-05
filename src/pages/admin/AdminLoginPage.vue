@@ -209,7 +209,8 @@ const router = useRouter()
 const $q = useQuasar()
 const {
   login, register, loading, isAuthenticated, initializing,
-} = useAdminAuth()
+} =
+  useAdminAuth()
 
 // Управление видимостью паролей
 const {
@@ -242,7 +243,8 @@ onMounted(() => {
   // Если пользователь уже аутентифицирован, перенаправляем в админку
   if (isAuthenticated.value) {
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
 
@@ -279,7 +281,8 @@ async function handleLogin() {
 
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
   } else {
@@ -320,7 +323,8 @@ async function handleRegister() {
 
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
   } else {

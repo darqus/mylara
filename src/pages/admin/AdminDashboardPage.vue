@@ -39,7 +39,9 @@
               <q-chip
                 v-if="collectionStats[collection.name] !== undefined"
                 :color="getColorForCollection(collection.name)"
-                :label="formatRecordsCount(collectionStats[collection.name] ?? 0)"
+                :label="
+                  formatRecordsCount(collectionStats[collection.name] ?? 0)
+                "
                 text-color="white"
                 dense
               />
@@ -117,8 +119,7 @@
 
 <script setup lang="ts">
 import {
-  ref,
-  onMounted,
+  ref, onMounted,
 } from 'vue'
 import { useRouter, } from 'vue-router'
 
@@ -158,11 +159,14 @@ async function loadCollectionStats() {
 
     const stats = await Promise.all(statsPromises)
 
-    collectionStats.value = stats.reduce((acc, stat) => {
-      acc[stat.name] = stat.count
+    collectionStats.value = stats.reduce(
+      (acc, stat) => {
+        acc[stat.name] = stat.count
 
-      return acc
-    }, {} as Record<string, number>)
+        return acc
+      },
+      {} as Record<string, number>
+    )
   } catch (error) {
     console.error('Ошибка загрузки статистики коллекций:', error)
     $q.notify({

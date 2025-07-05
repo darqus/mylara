@@ -15,7 +15,15 @@ export type BaseDocument = {
 export type FormField = {
   name: string
   label: string
-  type: 'text' | 'textarea' | 'number' | 'email' | 'url' | 'date' | 'boolean' | 'image'
+  type:
+    | 'text'
+    | 'textarea'
+    | 'number'
+    | 'email'
+    | 'url'
+    | 'date'
+    | 'boolean'
+    | 'image'
   required?: boolean
   placeholder?: string
   rules?: Array<(val: unknown) => boolean | string>

@@ -32,9 +32,7 @@ export function useAdminAuth() {
   state ??= createState()
 
   const {
-    currentUser,
-    loading,
-    initializing,
+    currentUser, loading, initializing,
   } = state
   const isAuthenticated = computed(() => currentUser.value !== null)
 

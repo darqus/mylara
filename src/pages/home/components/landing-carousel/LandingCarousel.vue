@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ref, onMounted,
+  ref, onMounted, 
 } from 'vue'
 
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
@@ -13,12 +13,11 @@ import type { CarouselItem, } from 'src/services/carousel.service'
 import './scss/landing-carousel.scss'
 
 const {
-  isMobile,
+  isMobile, 
 } = useDevice()
 
 const {
-  handleImageError,
-  handleImageLoad,
+  handleImageError, handleImageLoad, 
 } = useImageErrorHandling()
 const currentIndex = ref(0)
 const showDialog = ref(false)
@@ -29,7 +28,7 @@ const touchStartX = ref()
 const touchEndX = ref()
 
 const openDialog = ({
-  id, img, label, link, info,
+  id, img, label, link, info, 
 }: CarouselItem) => {
   selectedItem.value = {
     id,

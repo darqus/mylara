@@ -94,7 +94,9 @@
                   >*</span>
                 </div>
                 <ImageUploader
-                  :model-value="formData[field.name] ? String(formData[field.name]) : null"
+                  :model-value="
+                    formData[field.name] ? String(formData[field.name]) : null
+                  "
                   @update:model-value="formData[field.name] = $event"
                 />
               </div>
