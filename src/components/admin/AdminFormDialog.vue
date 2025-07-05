@@ -80,6 +80,24 @@
                 :model-value="Boolean(formData[field.name])"
                 @update:model-value="formData[field.name] = $event"
               />
+
+              <!-- Загрузка изображений -->
+              <div
+                v-else-if="field.type === 'image'"
+                class="q-mb-md"
+              >
+                <div class="text-subtitle2 q-mb-sm">
+                  {{ field.label }}
+                  <span
+                    v-if="field.required"
+                    class="text-negative"
+                  >*</span>
+                </div>
+                <ImageUploader
+                  :model-value="formData[field.name] ? String(formData[field.name]) : null"
+                  @update:model-value="formData[field.name] = $event"
+                />
+              </div>
             </div>
           </div>
         </q-form>
@@ -117,6 +135,8 @@ import type { QForm, } from 'quasar'
 import type {
   CollectionConfig, FormField,
 } from 'src/types/admin'
+
+import ImageUploader from './ImageUploader.vue'
 
 defineOptions({
   name: 'AdminFormDialog',

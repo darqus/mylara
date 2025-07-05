@@ -15,10 +15,17 @@ export type BaseDocument = {
 export type FormField = {
   name: string
   label: string
-  type: 'text' | 'textarea' | 'number' | 'email' | 'url' | 'date' | 'boolean'
+  type: 'text' | 'textarea' | 'number' | 'email' | 'url' | 'date' | 'boolean' | 'image'
   required?: boolean
   placeholder?: string
   rules?: Array<(val: unknown) => boolean | string>
+
+  // Дополнительные опции для изображений
+  imageOptions?: {
+    maxSizeKB?: number
+    allowedTypes?: string[]
+    path?: string
+  }
 }
 
 /**

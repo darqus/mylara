@@ -15,9 +15,14 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
       {
         name: 'img',
         label: 'Изображение',
-        type: 'url',
+        type: 'image',
         required: true,
-        placeholder: 'https://cdn.quasar.dev/img/parallax1.jpg',
+        placeholder: 'Загрузите изображение продукта',
+        imageOptions: {
+          maxSizeKB: 3000, // 3MB
+          allowedTypes: [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp', ],
+          path: 'carousel',
+        },
       },
       {
         name: 'info',
@@ -48,7 +53,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => val ? '🖼️' : '',
+        format: (val: unknown) => val ? val as string : '',
       },
       {
         name: 'info',
@@ -104,9 +109,14 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
       {
         name: 'img',
         label: 'Изображение',
-        type: 'url',
+        type: 'image',
         required: true,
-        placeholder: 'https://cdn.quasar.dev/img/mountains.jpg',
+        placeholder: 'Загрузите изображение слайда',
+        imageOptions: {
+          maxSizeKB: 3000, // 3MB
+          allowedTypes: [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp', ],
+          path: 'slides',
+        },
       },
       {
         name: 'title',
@@ -130,7 +140,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => val ? '🖼️' : '',
+        format: (val: unknown) => val ? val as string : '',
       },
       {
         name: 'title',

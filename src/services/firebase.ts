@@ -5,9 +5,13 @@ import {
 import {
   getFirestore, connectFirestoreEmulator,
 } from 'firebase/firestore'
+import {
+  getStorage, connectStorageEmulator,
+} from 'firebase/storage'
 
 import type { Auth, } from 'firebase/auth'
 import type { Firestore, } from 'firebase/firestore'
+import type { FirebaseStorage, } from 'firebase/storage'
 
 // Firebase конфигурация
 const firebaseConfig = {
@@ -23,6 +27,7 @@ const firebaseConfig = {
 let app
 let db: Firestore | undefined
 let auth: Auth | undefined
+let storage: FirebaseStorage | undefined
 
 try {
   // Check if Firebase config is valid
@@ -33,6 +38,7 @@ try {
   app = initializeApp(firebaseConfig)
   db = getFirestore(app)
   auth = getAuth(app)
+  storage = getStorage(app)
 
   // В режиме разработки можно подключиться к эмуляторам
   if (
@@ -42,6 +48,7 @@ try {
     if (!firebaseConfig.projectId?.includes('demo-')) {
       connectFirestoreEmulator(db, 'localhost', 8080)
       connectAuthEmulator(auth, 'http://localhost:9099')
+      connectStorageEmulator(storage, 'localhost', 9199)
     }
   }
 } catch (error) {
@@ -51,3 +58,5 @@ try {
 export const getFirebaseDb = () => db
 
 export const getFirebaseAuth = () => auth
+
+export const getFirebaseStorage = () => storage

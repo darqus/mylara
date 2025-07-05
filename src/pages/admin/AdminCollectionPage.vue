@@ -110,6 +110,15 @@
         </q-td>
       </template>
 
+      <template #body-cell-img="props">
+        <q-td :props="props">
+          <ImageTableCell
+            :alt="`Изображение ${props.row.id}`"
+            :image-url="props.value"
+          />
+        </q-td>
+      </template>
+
       <template #no-data>
         <div class="full-width row flex-center text-grey-7 q-gutter-sm">
           <q-icon
@@ -174,6 +183,7 @@ import { useQuasar, } from 'quasar'
 import type { TableState, } from 'src/types/admin'
 
 import AdminFormDialog from 'src/components/admin/AdminFormDialog.vue'
+import ImageTableCell from 'src/components/admin/ImageTableCell.vue'
 
 import { getCollectionConfig, } from 'src/services/admin-config.service'
 import { firestoreService, } from 'src/services/firestore.service'

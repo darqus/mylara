@@ -78,7 +78,7 @@
             </div>
 
             <!-- Показываем кнопку регистрации только если нет аутентифицированных пользователей -->
-            <div
+            <!-- <div
               v-if="showRegistrationOption"
               class="q-mt-md"
             >
@@ -89,7 +89,7 @@
                 flat
                 @click="showRegistrationDialog = true"
               />
-            </div>
+            </div> -->
           </q-card-section>
         </q-card>
 
