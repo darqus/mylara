@@ -39,7 +39,7 @@
               <q-chip
                 v-if="collectionStats[collection.name] !== undefined"
                 :color="getColorForCollection(collection.name)"
-                :label="`${collectionStats[collection.name]} записей`"
+                :label="formatRecordsCount(collectionStats[collection.name] ?? 0)"
                 text-color="white"
                 dense
               />
@@ -123,6 +123,8 @@ import {
 import { useRouter, } from 'vue-router'
 
 import { useQuasar, } from 'quasar'
+
+import { formatRecordsCount, } from 'src/utils/pluralization'
 
 import { getAllCollections, } from 'src/services/admin-config.service'
 import { firestoreService, } from 'src/services/firestore.service'
