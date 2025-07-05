@@ -169,4 +169,23 @@ yarn lint
 ./check-format-stability.sh
 ```
 
-**Итог**: Конфигурация ESLint полностью обновлена, все конфликты устранены, добавлены современные правила для улучшения качества кода.
+## 🚨 Исправленные ошибки CI/CD
+
+### Ошибки после добавления новых правил TypeScript:
+
+1. **src/utils/constants.ts** - `@typescript-eslint/prefer-optional-chain`
+
+   ```diff
+   - if (typeof import.meta !== 'undefined' && import.meta.env) {
+   -   return import.meta.env[key] ?? defaultValue
+   - }
+   + return import.meta?.env?.[key] ?? defaultValue
+   ```
+
+2. **src/utils/datetime.ts** - `@typescript-eslint/no-non-null-assertion`
+   ```diff
+   - options: Intl.DateTimeFormatOptions = DATE_TIME_OPTIONS_PRESET.formattedDateAndTimeMonthShort!
+   + options: Intl.DateTimeFormatOptions = DATE_TIME_OPTIONS_PRESET.formattedDateAndTimeMonthShort || {}
+   ```
+
+**Итог**: Конфигурация ESLint полностью обновлена, все конфликты устранены, добавлены современные правила для улучшения качества кода. ✅ CI/CD pipeline проходит без ошибок.

@@ -129,9 +129,7 @@ onMounted(() => {
             class="carousel-card-container"
           >
             <q-card
-              :class="[
-                { active: activeItemId === id },
-              ]"
+              :class="[{ active: activeItemId === id }]"
               class="cursor-pointer my-card"
               @click="openDialog({ id, img, label, link, info })"
             >

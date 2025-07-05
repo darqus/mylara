@@ -2,11 +2,7 @@
 
 // Безопасное получение переменных окружения
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    return import.meta.env[key] ?? defaultValue
-  }
-
-  return defaultValue
+  return import.meta?.env?.[key] ?? defaultValue
 }
 
 const VITE_NAME_FULL = getEnvVar('VITE_NAME_FULL', 'MYLARA')
