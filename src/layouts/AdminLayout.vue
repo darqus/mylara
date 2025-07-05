@@ -47,6 +47,14 @@
         </q-item-label>
 
         <AdminMenuItem
+          icon="home"
+          link="/admin"
+          title="На главную Админки"
+        />
+
+        <q-separator />
+
+        <AdminMenuItem
           v-for="collection in collections"
           :key="collection.name"
           :icon="collection.icon"
@@ -59,7 +67,7 @@
         <AdminMenuItem
           icon="home"
           link="/"
-          title="На главную"
+          title="На главную Лендинга"
         />
       </q-list>
     </q-drawer>
