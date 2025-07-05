@@ -38,7 +38,8 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
-      bordered
+      color="primary"
+      style="border-right: 1px solid var(--q-primary)"
       show-if-above
     >
       <q-list>
