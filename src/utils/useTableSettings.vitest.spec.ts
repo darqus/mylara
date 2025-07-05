@@ -168,7 +168,9 @@ describe('useTableSettings', () => {
       }
 
       importAllSettings(validSettings)
-      expect(mockLocalStorage.set).toHaveBeenCalledWith('table-settings-test', { page: 1 })
+      expect(mockLocalStorage.set).toHaveBeenCalledWith('table-settings-test', {
+        page: 1,
+      })
       expect(mockLocalStorage.set).not.toHaveBeenCalledWith(
         'other-key',
         expect.anything()

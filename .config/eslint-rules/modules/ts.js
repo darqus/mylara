@@ -16,6 +16,7 @@ export const ts = {
     { allowSingleExtends: true },
   ],
 
+  // Updated: prefer 'type' over 'interface' for consistency
   '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
   '@typescript-eslint/explicit-function-return-type': 'off',
   '@typescript-eslint/no-var-requires': 'off',
@@ -31,18 +32,25 @@ export const ts = {
     },
   ],
   '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+  // Updated: Remove interface prefix requirement since we prefer 'type'
   '@typescript-eslint/naming-convention': [
     'warn',
-    {
-      selector: 'interface',
-      format: ['PascalCase'],
-      prefix: ['I'],
-    },
     {
       selector: 'typeAlias',
       format: ['PascalCase'],
     },
+    {
+      selector: 'variable',
+      format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+      leadingUnderscore: 'allow',
+    },
+    {
+      selector: 'function',
+      format: ['camelCase', 'PascalCase'],
+    },
   ],
+
   '@typescript-eslint/no-unused-vars': [
     'error',
     {
@@ -54,4 +62,10 @@ export const ts = {
   ],
   '@typescript-eslint/no-floating-promises': 'warn',
   '@typescript-eslint/no-misused-promises': 'warn',
+
+  // Added: Modern TypeScript rules
+  '@typescript-eslint/prefer-readonly': 'warn',
+  '@typescript-eslint/prefer-optional-chain': 'error',
+  '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+  '@typescript-eslint/no-non-null-assertion': 'warn',
 }

@@ -222,7 +222,7 @@ function handleDrop(event: DragEvent) {
 
   const file = event.dataTransfer?.files[0]
 
-  if (file && file.type.startsWith('image/')) {
+  if (file?.type.startsWith('image/')) {
     void uploadFile(file)
   }
 }
@@ -315,7 +315,7 @@ function formatFileSize(bytes: number): string {
 function extractFileNameFromUrl(url: string): string {
   try {
     const urlObj = new URL(url)
-    const pathname = urlObj.pathname
+    const { pathname } = urlObj
     const segments = pathname.split('/')
 
     return segments[segments.length - 1] ?? 'image'

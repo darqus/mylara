@@ -257,7 +257,7 @@ export const convertCustomFormatToIso = (
  * @returns {string} The date string in custom format or empty string if invalid
  */
 export const convertDateToCustomFormat = (date: string): string => {
-  if (!date || !date.includes('-')) {
+  if (!date?.includes('-')) {
     return ''
   }
 
@@ -414,8 +414,8 @@ export const getCurrentMonthPrepositionalCase = (): string => {
   const month = new Intl.DateTimeFormat('ru', { month: 'long' }).format(date)
 
   return ['март', 'август'].includes(month)
-    ? month + 'е'
-    : month.slice(0, -1) + 'е'
+    ? `${month}е`
+    : `${month.slice(0, -1)}е`
 }
 
 /**

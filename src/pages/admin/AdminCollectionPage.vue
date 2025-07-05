@@ -226,8 +226,12 @@ const tableState = ref<TableState>({
     page: paginationSettings.value.page,
     rowsPerPage: paginationSettings.value.rowsPerPage,
     rowsNumber: 0,
-    ...(paginationSettings.value.sortBy && { sortBy: paginationSettings.value.sortBy }),
-    ...(paginationSettings.value.descending !== undefined && { descending: paginationSettings.value.descending }),
+    ...(paginationSettings.value.sortBy && {
+      sortBy: paginationSettings.value.sortBy,
+    }),
+    ...(paginationSettings.value.descending !== undefined && {
+      descending: paginationSettings.value.descending,
+    }),
   },
   filter: tableSettings.value.filter,
   selected: [],
@@ -317,8 +321,12 @@ function updateTableStateFromSettings() {
       page: paginationSettings.value.page,
       rowsPerPage: paginationSettings.value.rowsPerPage,
       rowsNumber: 0,
-      ...(paginationSettings.value.sortBy && { sortBy: paginationSettings.value.sortBy }),
-      ...(paginationSettings.value.descending !== undefined && { descending: paginationSettings.value.descending }),
+      ...(paginationSettings.value.sortBy && {
+        sortBy: paginationSettings.value.sortBy,
+      }),
+      ...(paginationSettings.value.descending !== undefined && {
+        descending: paginationSettings.value.descending,
+      }),
     },
     filter: tableSettings.value.filter,
     selected: [],
@@ -377,7 +385,7 @@ function applySorting() {
     return
   }
 
-  const sortBy = tableState.value.pagination.sortBy
+  const { sortBy } = tableState.value.pagination
   const descending = tableState.value.pagination.descending ?? false
 
   const sortedItems = [...filteredItems.value].sort((a, b) => {

@@ -21,7 +21,7 @@ const buildDate = now
 // Получаем версию из package.json
 const packageJsonPath = path.join(__dirname, 'package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
-let version = packageJson.version
+let { version } = packageJson
 
 // Инкремент патч-версии (третье число)
 const versionParts = version.split('.')

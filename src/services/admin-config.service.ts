@@ -66,7 +66,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => {
           const str = String(val)
 
-          return str.length > 35 ? str.substring(0, 35) + '...' : str
+          return str.length > 35 ? `${str.substring(0, 35)}...` : str
         },
       },
       {
@@ -79,7 +79,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => {
           const str = String(val)
 
-          return str.length > 30 ? str.substring(0, 30) + '...' : str
+          return str.length > 30 ? `${str.substring(0, 30)}...` : str
         },
       },
       {
@@ -161,7 +161,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => {
           const str = String(val)
 
-          return str.length > 40 ? str.substring(0, 40) + '...' : str
+          return str.length > 40 ? `${str.substring(0, 40)}...` : str
         },
       },
       {
@@ -201,7 +201,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => {
           const str = String(val)
 
-          return str.length > 100 ? str.substring(0, 100) + '...' : str
+          return str.length > 100 ? `${str.substring(0, 100)}...` : str
         },
       },
       {

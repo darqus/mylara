@@ -29,7 +29,9 @@ export function adminAuthGuard(
             } else {
               next({
                 path: '/admin/login',
-                query: { redirect: to.path === '/admin' ? '/admin' : to.fullPath },
+                query: {
+                  redirect: to.path === '/admin' ? '/admin' : to.fullPath,
+                },
               })
             }
           }

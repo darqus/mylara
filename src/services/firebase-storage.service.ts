@@ -47,7 +47,7 @@ export type ImageUploadOptions = {
  * Сервис для работы с Firebase Storage
  */
 export class FirebaseStorageService {
-  private storage: FirebaseStorage
+  private readonly storage: FirebaseStorage
 
   constructor() {
     if (!storage) {
@@ -204,13 +204,13 @@ export class FirebaseStorageService {
   private extractPathFromUrl(url: string): string | null {
     try {
       const urlObj = new URL(url)
-      const pathname = urlObj.pathname
+      const { pathname } = urlObj
 
       // Для Firebase Storage URL имеет формат:
       // /v0/b/{bucket}/o/{path}
       const match = pathname.match(/\/o\/(.+)/)
 
-      if (match && match[1]) {
+      if (match?.[1]) {
         return decodeURIComponent(match[1])
       }
 

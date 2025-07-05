@@ -88,7 +88,9 @@ const handleTouchEnd = (event: TouchEvent, items: CarouselItem[]) => {
 
 onMounted(() => {
   if (carouselRef.value) {
-    carouselRef.value.addEventListener('touchstart', handleTouchStart, { passive: true })
+    carouselRef.value.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    })
 
     // touchend обработчик будет добавлен в шаблоне с передачей данных
   }
@@ -128,9 +130,9 @@ onMounted(() => {
           >
             <q-card
               :class="[
-                'cursor-pointer my-card',
                 { active: activeItemId === id },
               ]"
+              class="cursor-pointer my-card"
               @click="openDialog({ id, img, label, link, info })"
             >
               <img

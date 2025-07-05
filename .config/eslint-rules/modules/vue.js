@@ -1,8 +1,8 @@
-// Vue-specific ESLint rules
+// Vue-specific ESLint rules - Updated for Vue 3 and modern practices
 
 export const vue = {
+  // NAMING AND CONVENTIONS
   'vue/v-on-event-hyphenation': ['error', 'always', { autofix: true }],
-  'vue/html-self-closing': ['error', { html: { void: 'any' } }],
   'vue/component-name-in-template-casing': [
     'error',
     'PascalCase',
@@ -11,6 +11,8 @@ export const vue = {
       ignores: [],
     },
   ],
+
+  // COMPONENT STRUCTURE
   'vue/attributes-order': [
     'error',
     {
@@ -29,18 +31,61 @@ export const vue = {
         'EVENTS',
         'CONTENT',
       ],
-
       alphabetical: true,
     },
   ],
 
-  // Additional Vue-specific rules that supplement the strongly-recommended preset
+  // TEMPLATE FORMATTING - Coordinated with Prettier
+  'vue/html-self-closing': [
+    'error',
+    {
+      html: { void: 'always', normal: 'always', component: 'always' },
+      svg: 'always',
+      math: 'always',
+    },
+  ],
+  'vue/max-attributes-per-line': [
+    'error',
+    {
+      singleline: 1,
+      multiline: 1,
+    },
+  ],
+  'vue/first-attribute-linebreak': [
+    'error',
+    {
+      singleline: 'ignore',
+      multiline: 'below',
+    },
+  ],
+  'vue/html-closing-bracket-newline': [
+    'error',
+    {
+      singleline: 'never',
+      multiline: 'always',
+    },
+  ],
+  'vue/html-indent': [
+    'error',
+    2,
+    {
+      attribute: 1,
+      baseIndent: 1,
+      closeBracket: 0,
+      alignAttributesVertically: false,
+      ignores: [],
+    },
+  ],
+
+  // COMPOSITION API AND MODERN VUE 3 RULES
   'vue/require-default-prop': 'error',
-  'vue/no-v-html': 'warn',
   'vue/require-explicit-emits': 'error',
-  'vue/script-indent': 'off', // Let Prettier handle indentation
-  'vue/no-template-shadow': 'error',
   'vue/no-unused-components': 'error',
+  'vue/no-template-shadow': 'error',
+  'vue/no-v-html': 'warn',
+  'vue/prefer-separate-static-class': 'warn',
+
+  // COMPONENT OPTIONS ORDER
   'vue/order-in-components': [
     'error',
     {
@@ -81,6 +126,8 @@ export const vue = {
       ],
     },
   ],
+
+  // TEMPLATE STRUCTURE
   'vue/block-tag-newline': [
     'error',
     {
@@ -90,41 +137,9 @@ export const vue = {
     },
   ],
 
-  // Vue formatting rules for attributes
-  'vue/max-attributes-per-line': [
-    'error',
-    {
-      singleline: 1,
-      multiline: 1,
-    },
-  ],
-  'vue/first-attribute-linebreak': [
-    'error',
-    {
-      singleline: 'ignore',
-      multiline: 'below',
-    },
-  ],
-  'vue/html-closing-bracket-newline': [
-    'error',
-    {
-      singleline: 'never',
-      multiline: 'always',
-    },
-  ],
-  'vue/html-indent': [
-    'error',
-    2,
-    {
-      attribute: 1,
-      baseIndent: 1,
-      closeBracket: 0,
-      alignAttributesVertically: false,
-      ignores: [],
-    },
-  ],
-  'vue/singleline-html-element-content-newline': 'off', // Disable to avoid conflicts with Prettier
-
-  // Disable conflicting Prettier rules for Vue files
+  // DISABLED RULES TO AVOID PRETTIER CONFLICTS
+  'vue/script-indent': 'off', // Let Prettier handle indentation
+  'vue/singleline-html-element-content-newline': 'off', // Conflicts with Prettier
   'vue/html-closing-bracket-spacing': 'off', // Let Prettier handle this
+  'vue/multiline-html-element-content-newline': 'off', // Let Prettier handle this
 }

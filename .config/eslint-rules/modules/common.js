@@ -180,13 +180,14 @@ export const common = {
     },
   ],
 
+  // FORMATTING RULES - These work together with Prettier
   'no-console': ['warn', { allow: ['warn', 'error'] }],
-  'arrow-parens': ['error', 'always'],
+  'arrow-parens': ['error', 'always'], // Matches Prettier config
   curly: 'error',
   'object-shorthand': ['error', 'always'],
-  'array-bracket-spacing': ['error', 'never'],
 
-  // https://eslint.org/docs/latest/rules/object-curly-spacing
+  // SPACING RULES - Carefully configured to work with Prettier
+  'array-bracket-spacing': ['error', 'never'], // Matches Prettier
   'object-curly-spacing': [
     'error',
     'always',
@@ -196,36 +197,68 @@ export const common = {
     },
   ],
 
-  // https://eslint.org/docs/rules/object-curly-newline
+  // NEWLINE RULES - Updated to prevent conflicts
   'object-curly-newline': [
     'error',
     {
       ImportDeclaration: {
         multiline: true,
         minProperties: 6,
+        consistent: true,
       },
       ExportDeclaration: {
         multiline: true,
         minProperties: 6,
+        consistent: true,
       },
       ObjectExpression: {
         multiline: true,
         minProperties: 6,
+        consistent: true,
       },
       ObjectPattern: {
         multiline: true,
         minProperties: 6,
+        consistent: true,
       },
     },
   ],
+
+  // QUALITY AND SAFETY RULES
   eqeqeq: ['error', 'smart'],
   'prefer-promise-reject-errors': 'error',
+  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  'no-useless-constructor': 'off', // Disabled for TypeScript compatibility
+  'no-shadow': 'off', // Use @typescript-eslint/no-shadow instead
+  'no-var': ['error'],
+  'prefer-const': ['error', { destructuring: 'all' }],
+  'no-unused-expressions': [
+    'error',
+    { allowShortCircuit: true, allowTernary: true },
+  ],
+  'no-param-reassign': ['error', { props: false }],
+
+  // MODERN JS FEATURES
+  'prefer-destructuring': [
+    'warn',
+    {
+      array: false,
+      object: true,
+    },
+    {
+      enforceForRenamedProperties: false,
+    },
+  ],
+  'prefer-template': 'warn',
+  'template-curly-spacing': ['error', 'never'],
+
+  // QUOTE RULES - Must match Prettier configuration
   quotes: [
     'error',
     'single',
     {
       avoidEscape: true,
-      allowTemplateLiterals: false,
+      allowTemplateLiterals: true, // Allow template literals for consistency
     },
   ],
   'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',

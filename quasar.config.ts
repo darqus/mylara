@@ -54,7 +54,11 @@ export default defineConfig((/* ctx */) => ({
     rawDefine: { VITE_APP_VERSION: JSON.stringify(packageJson.version) },
 
     // Настройки для правильной генерации модулей
-    viteVuePluginOptions: { template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('ion-') } } },
+    viteVuePluginOptions: {
+      template: {
+        compilerOptions: { isCustomElement: (tag) => tag.startsWith('ion-') },
+      },
+    },
 
     // ignorePublicFolder: true,
     // minify: false,
@@ -100,7 +104,9 @@ export default defineConfig((/* ctx */) => ({
       viteConf.build.minify = 'esbuild'
 
       // Консервативные настройки tree shaking
-      viteConf.build.rollupOptions.treeshake = { moduleSideEffects: 'no-external' }
+      viteConf.build.rollupOptions.treeshake = {
+        moduleSideEffects: 'no-external',
+      }
 
       // Настройки для предотвращения проблем с hoisting
       viteConf.build.rollupOptions.preserveEntrySignatures = 'strict'

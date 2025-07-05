@@ -66,9 +66,15 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
             settings.rowsPerPage > 0 && { rowsPerPage: settings.rowsPerPage }),
           ...(typeof settings.sortBy === 'string' &&
             settings.sortBy.length > 0 && { sortBy: settings.sortBy }),
-          ...(typeof settings.descending === 'boolean' && { descending: settings.descending }),
-          ...(typeof settings.filter === 'string' && { filter: settings.filter }),
-          ...(Array.isArray(settings.visibleColumns) && { visibleColumns: settings.visibleColumns }),
+          ...(typeof settings.descending === 'boolean' && {
+            descending: settings.descending,
+          }),
+          ...(typeof settings.filter === 'string' && {
+            filter: settings.filter,
+          }),
+          ...(Array.isArray(settings.visibleColumns) && {
+            visibleColumns: settings.visibleColumns,
+          }),
         }
       }
     } catch (error) {
