@@ -162,75 +162,35 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
     ],
   },
 
-  // Пример коллекции пользователей
-  users: {
-    name: 'users',
-    label: 'Пользователи',
-    icon: 'people',
+  // Коллекция slogan из slogan.service.ts
+  slogan: {
+    name: 'slogan',
+    label: 'Слоган',
+    icon: 'campaign',
     searchable: true,
-    sortable: true,
+    sortable: false,
     fields: [
       {
-        name: 'email',
-        label: 'Email',
-        type: 'email',
+        name: 'title',
+        label: 'Текст слогана',
+        type: 'textarea',
         required: true,
-        placeholder: 'user@example.com',
-      },
-      {
-        name: 'name',
-        label: 'Имя',
-        type: 'text',
-        required: true,
-        placeholder: 'Введите имя пользователя',
-      },
-      {
-        name: 'phone',
-        label: 'Телефон',
-        type: 'text',
-        placeholder: '+7 (999) 123-45-67',
-      },
-      {
-        name: 'role',
-        label: 'Роль',
-        type: 'text',
-        placeholder: 'user, admin, moderator',
-      },
-      {
-        name: 'active',
-        label: 'Активный',
-        type: 'boolean',
+        placeholder: '4673771782657 тоник-лосьон для лица Lorem ipsum dolor sit amet...',
       },
     ],
     columns: [
       {
-        name: 'email',
-        label: 'Email',
-        field: 'email',
+        name: 'title',
+        label: 'Текст слогана',
+        field: 'title',
         required: true,
         align: 'left',
-        sortable: true,
-      },
-      {
-        name: 'name',
-        label: 'Имя',
-        field: 'name',
-        align: 'left',
-        sortable: true,
-      },
-      {
-        name: 'role',
-        label: 'Роль',
-        field: 'role',
-        align: 'center',
-        sortable: true,
-      },
-      {
-        name: 'active',
-        label: 'Активный',
-        field: 'active',
-        align: 'center',
-        format: (val: unknown) => (val ? 'Да' : 'Нет'),
+        sortable: false,
+        format: (val: unknown) => {
+          const str = String(val)
+
+          return str.length > 100 ? str.substring(0, 100) + '...' : str
+        },
       },
       {
         name: 'actions',
