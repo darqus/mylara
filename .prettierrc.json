@@ -7,15 +7,23 @@
   "endOfLine": "auto",
   "useTabs": false,
   "tabWidth": 2,
-  "singleAttributePerLine": true,
+  "singleAttributePerLine": false,
   "singleQuote": true,
   "bracketSameLine": false,
   "printWidth": 80,
+  "arrowParens": "always",
   "overrides": [
     {
       "files": "*.scss",
       "options": {
         "singleQuote": false
+      }
+    },
+    {
+      "files": "*.vue",
+      "options": {
+        "vueIndentScriptAndStyle": false,
+        "singleAttributePerLine": false
       }
     }
   ]

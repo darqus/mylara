@@ -146,7 +146,7 @@ export const common = {
       VariableDeclarator: {
         var: 2,
         let: 2,
-        const: 3,
+        const: 2, // Changed from 3 to 2 for consistency
       },
       MemberExpression: 1,
       FunctionDeclaration: {
@@ -160,6 +160,23 @@ export const common = {
       ImportDeclaration: 1,
       flatTernaryExpressions: true,
       offsetTernaryExpressions: true,
+      ignoredNodes: [
+        'TemplateLiteral',
+        'ConditionalExpression > *',
+        'JSXElement',
+        'JSXElement > *',
+        'JSXAttribute',
+        'JSXIdentifier',
+        'JSXNamespacedName',
+        'JSXMemberExpression',
+        'JSXSpreadAttribute',
+        'JSXExpressionContainer',
+        'JSXOpeningElement',
+        'JSXClosingElement',
+        'JSXText',
+        'JSXEmptyExpression',
+        'JSXSpreadChild',
+      ],
     },
   ],
 
@@ -167,7 +184,7 @@ export const common = {
   'arrow-parens': ['error', 'always'],
   curly: 'error',
   'object-shorthand': ['error', 'always'],
-  'array-bracket-spacing': ['error', 'always'],
+  'array-bracket-spacing': ['error', 'never'],
 
   // https://eslint.org/docs/latest/rules/object-curly-spacing
   'object-curly-spacing': [
@@ -185,19 +202,19 @@ export const common = {
     {
       ImportDeclaration: {
         multiline: true,
-        minProperties: 2,
+        minProperties: 4,
       },
       ExportDeclaration: {
         multiline: true,
-        minProperties: 2,
+        minProperties: 4,
       },
       ObjectExpression: {
         multiline: true,
-        minProperties: 2,
+        minProperties: 4,
       },
       ObjectPattern: {
         multiline: true,
-        minProperties: 2,
+        minProperties: 4,
       },
     },
   ],

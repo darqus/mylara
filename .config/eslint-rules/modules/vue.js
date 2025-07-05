@@ -38,15 +38,7 @@ export const vue = {
   'vue/require-default-prop': 'error',
   'vue/no-v-html': 'warn',
   'vue/require-explicit-emits': 'error',
-  'vue/script-indent': [
-    'error',
-    2,
-    {
-      baseIndent: 0,
-      switchCase: 1,
-      ignores: [],
-    },
-  ],
+  'vue/script-indent': 'off', // Let Prettier handle indentation
   'vue/no-template-shadow': 'error',
   'vue/no-unused-components': 'error',
   'vue/order-in-components': [
@@ -97,4 +89,8 @@ export const vue = {
       maxEmptyLines: 0,
     },
   ],
+
+  // Disable conflicting rules for Vue files
+  'vue/html-indent': 'off', // Let Prettier handle this
+  'vue/html-closing-bracket-newline': 'off', // Let Prettier handle this
 }
