@@ -7,7 +7,5 @@ function onClick() {
 </script>
 
 <template>
-  <q-btn @click="onClick">
-    Click me!
-  </q-btn>
+  <q-btn @click="onClick">Click me!</q-btn>
 </template>

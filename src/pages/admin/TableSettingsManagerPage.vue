@@ -1,14 +1,10 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">
-      Управление настройками таблиц
-    </div>
+    <div class="text-h4 q-mb-md">Управление настройками таблиц</div>
 
     <q-card class="q-mb-md">
       <q-card-section>
-        <div class="text-h6 q-mb-md">
-          Информация о хранилище
-        </div>
+        <div class="text-h6 q-mb-md">Информация о хранилище</div>
 
         <div class="row q-gutter-md">
           <div class="col-12 col-md-6">
@@ -60,9 +56,7 @@
 
     <q-card>
       <q-card-section>
-        <div class="text-h6 q-mb-md">
-          Действия
-        </div>
+        <div class="text-h6 q-mb-md">Действия</div>
 
         <div class="row q-gutter-md">
           <q-btn
@@ -100,9 +94,7 @@
     <q-dialog v-model="showImportDialog">
       <q-card style="min-width: 400px">
         <q-card-section>
-          <div class="text-h6">
-            Импорт настроек
-          </div>
+          <div class="text-h6">Импорт настроек</div>
         </q-card-section>
 
         <q-card-section>

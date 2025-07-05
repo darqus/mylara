@@ -188,7 +188,7 @@
 
 <script setup lang="ts">
 import {
-  ref, onMounted, computed, watch
+  ref, onMounted, computed, watch 
 } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -487,7 +487,7 @@ function onRequest(props: {
   }
 }) {
   const {
-    page, rowsPerPage, sortBy, descending
+    page, rowsPerPage, sortBy, descending 
   } = props.pagination
 
   // Обновляем состояние пагинации

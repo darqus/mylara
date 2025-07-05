@@ -123,6 +123,7 @@ export const vue = {
       ignores: [],
     },
   ],
+  'vue/singleline-html-element-content-newline': 'off', // Disable to avoid conflicts with Prettier
 
   // Disable conflicting Prettier rules for Vue files
   'vue/html-closing-bracket-spacing': 'off', // Let Prettier handle this

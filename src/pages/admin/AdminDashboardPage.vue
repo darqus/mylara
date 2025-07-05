@@ -1,8 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">
-      Панель администратора
-    </div>
+    <div class="text-h4 q-mb-md">Панель администратора</div>
 
     <div class="text-subtitle1 q-mb-lg text-grey-7">
       Добро пожаловать в админку для управления базой данных
