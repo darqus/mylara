@@ -57,6 +57,38 @@
       "detail": "Run complete formatting: ESLint + Prettier + Stylelint + TypeScript check"
     },
     {
+      "label": "Vue: Fix Attributes Order",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "eslint",
+        "**/*.vue",
+        "--fix",
+        "--rule",
+        "vue/attributes-order:error"
+      ],
+      "group": "build",
+      "problemMatcher": ["$eslint-stylish"],
+      "isBackground": false,
+      "detail": "Fix Vue attributes order in all Vue files"
+    },
+    {
+      "label": "Vue: Fix Current File Attributes",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "eslint",
+        "${file}",
+        "--fix",
+        "--rule",
+        "vue/attributes-order:error"
+      ],
+      "group": "build",
+      "problemMatcher": ["$eslint-stylish"],
+      "isBackground": false,
+      "detail": "Fix Vue attributes order in current file"
+    },
+    {
       "label": "TypeScript: Check Types",
       "type": "shell",
       "command": "npx",

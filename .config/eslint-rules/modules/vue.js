@@ -12,28 +12,9 @@ export const vue = {
     },
   ],
 
-  // COMPONENT STRUCTURE
-  'vue/attributes-order': [
-    'error',
-    {
-      order: [
-        'DEFINITION',
-        'LIST_RENDERING',
-        'CONDITIONALS',
-        'RENDER_MODIFIERS',
-        'GLOBAL',
-        ['UNIQUE', 'SLOT'],
-        'TWO_WAY_BINDING',
-        'OTHER_DIRECTIVES',
-        'ATTR_DYNAMIC',
-        'ATTR_STATIC',
-        'ATTR_SHORTHAND_BOOL',
-        'EVENTS',
-        'CONTENT',
-      ],
-      alphabetical: true,
-    },
-  ],
+  // ATTRIBUTE ORGANIZATION
+  'vue/no-multiple-template-root': 'off', // Vue 3 allows multiple root elements
+  'vue/padding-line-between-blocks': ['error', 'always'],
 
   // TEMPLATE FORMATTING - Coordinated with Prettier
   'vue/html-self-closing': [
@@ -76,6 +57,10 @@ export const vue = {
       ignores: [],
     },
   ],
+
+  // DIRECTIVE FORMATTING (дополнительно к strongly-recommended)
+  'vue/v-bind-style': ['error', 'shorthand'],
+  'vue/v-on-style': ['error', 'shorthand'],
 
   // COMPOSITION API AND MODERN VUE 3 RULES
   'vue/require-default-prop': 'error',
