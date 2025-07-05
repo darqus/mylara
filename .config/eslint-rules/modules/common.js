@@ -202,19 +202,19 @@ export const common = {
     {
       ImportDeclaration: {
         multiline: true,
-        minProperties: 4,
+        minProperties: 6,
       },
       ExportDeclaration: {
         multiline: true,
-        minProperties: 4,
+        minProperties: 6,
       },
       ObjectExpression: {
         multiline: true,
-        minProperties: 4,
+        minProperties: 6,
       },
       ObjectPattern: {
         multiline: true,
-        minProperties: 4,
+        minProperties: 6,
       },
     },
   ],
