@@ -202,9 +202,7 @@ import { useTableSettings } from 'src/composables/useTableSettings'
 import { getCollectionConfig } from 'src/services/admin-config.service'
 import { firestoreService } from 'src/services/firestore.service'
 
-defineOptions({
-  name: 'AdminCollectionPage',
-})
+defineOptions({ name: 'AdminCollectionPage' })
 
 const $q = useQuasar()
 const route = useRoute()
@@ -294,7 +292,7 @@ watch(
       // Загрузка данных новой коллекции
       void loadData()
     }
-  },
+  }
 )
 
 // Синхронизация фильтра с настройками
@@ -302,7 +300,7 @@ watch(
   () => tableState.value.filter,
   (newFilter) => {
     updateFilter(newFilter)
-  },
+  }
 )
 
 // Синхронизация пагинации с настройками
@@ -311,9 +309,7 @@ watch(
   (newPagination) => {
     updatePagination(newPagination)
   },
-  {
-    deep: true,
-  },
+  { deep: true }
 )
 
 function updateTableStateFromSettings() {
@@ -366,7 +362,7 @@ function performSearch(searchTerm: string) {
         }
 
         const stringValue = String(
-          fieldValue as string | number | boolean,
+          fieldValue as string | number | boolean
         ).toLowerCase()
 
         return stringValue.includes(lowerSearchTerm)
@@ -524,9 +520,7 @@ function onRequest(props: {
 }
 
 function editItem(item: Record<string, unknown>) {
-  editingItem.value = {
-    ...item,
-  }
+  editingItem.value = { ...item }
   showCreateDialog.value = true
 }
 
@@ -570,7 +564,7 @@ async function handleSave(data: Record<string, unknown>) {
       const response = await firestoreService.updateDocument(
         collectionName.value,
         editingItem.value.id as string,
-        data,
+        data
       )
 
       if (response.error) {
@@ -592,7 +586,7 @@ async function handleSave(data: Record<string, unknown>) {
       // Создание
       const response = await firestoreService.createDocument(
         collectionName.value,
-        data,
+        data
       )
 
       if (response.error) {
@@ -635,7 +629,7 @@ async function handleDelete() {
 
   try {
     const deletePromises = itemsToDelete.map((item) =>
-      firestoreService.deleteDocument(collectionName.value, item.id as string),
+      firestoreService.deleteDocument(collectionName.value, item.id as string)
     )
 
     const results = await Promise.all(deletePromises)

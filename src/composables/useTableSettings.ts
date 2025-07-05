@@ -41,7 +41,7 @@ const defaultSettings: TableSettings = {
 export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
   // Создаем computed для реактивного storageKey
   const storageKey = computed(
-    () => `table-settings-${String(unref(collectionName))}`,
+    () => `table-settings-${String(unref(collectionName))}`
   )
 
   /**
@@ -60,17 +60,11 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
 
           // Валидируем и применяем сохраненные настройки
           ...(typeof settings.page === 'number' &&
-            settings.page > 0 && {
-              page: settings.page,
-            }),
+            settings.page > 0 && { page: settings.page }),
           ...(typeof settings.rowsPerPage === 'number' &&
-            settings.rowsPerPage > 0 && {
-              rowsPerPage: settings.rowsPerPage,
-            }),
+            settings.rowsPerPage > 0 && { rowsPerPage: settings.rowsPerPage }),
           ...(typeof settings.sortBy === 'string' &&
-            settings.sortBy.length > 0 && {
-              sortBy: settings.sortBy,
-            }),
+            settings.sortBy.length > 0 && { sortBy: settings.sortBy }),
           ...(typeof settings.descending === 'boolean' && {
             descending: settings.descending,
           }),
@@ -85,13 +79,11 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to load table settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
 
-    return {
-      ...defaultSettings,
-    }
+    return { ...defaultSettings }
   }
 
   /**
@@ -103,7 +95,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to save table settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
   }
@@ -117,7 +109,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to clear table settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
   }
@@ -142,7 +134,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to calculate storage size for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
 
@@ -163,7 +155,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
       const freshSettings = loadSettings()
 
       Object.assign(settings.value, freshSettings)
-    },
+    }
   )
 
   /**
@@ -174,9 +166,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
     (newSettings) => {
       saveSettings(newSettings)
     },
-    {
-      deep: true,
-    },
+    { deep: true }
   )
 
   /**
@@ -221,9 +211,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
    * Сбросить настройки к значениям по умолчанию
    */
   function resetSettings(): void {
-    settings.value = {
-      ...defaultSettings,
-    }
+    settings.value = { ...defaultSettings }
   }
 
   /**
@@ -268,7 +256,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
  */
 export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
   const storageKey = computed(
-    () => `column-settings-${String(unref(collectionName))}`,
+    () => `column-settings-${String(unref(collectionName))}`
   )
 
   /**
@@ -320,7 +308,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to load column settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
 
@@ -331,14 +319,14 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
    * Сохранить настройки колонок в localStorage
    */
   function saveColumnSettings(
-    settings: Record<string, { width?: number; visible?: boolean }>,
+    settings: Record<string, { width?: number; visible?: boolean }>
   ): void {
     try {
       LocalStorage.set(storageKey.value, settings)
     } catch (error) {
       console.warn(
         `Failed to save column settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
   }
@@ -357,7 +345,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
       const freshSettings = loadColumnSettings()
 
       columnSettings.value = freshSettings
-    },
+    }
   )
 
   /**
@@ -368,9 +356,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
     (newSettings) => {
       saveColumnSettings(newSettings)
     },
-    {
-      deep: true,
-    },
+    { deep: true }
   )
 
   /**
@@ -427,7 +413,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
     } catch (error) {
       console.warn(
         `Failed to clear column settings for ${String(unref(collectionName))}:`,
-        error,
+        error
       )
     }
   }
@@ -467,7 +453,7 @@ export function useTableSettingsManager() {
 
     return allKeys.filter(
       (key) =>
-        key.startsWith('table-settings-') || key.startsWith('column-settings-'),
+        key.startsWith('table-settings-') || key.startsWith('column-settings-')
     )
   }
 

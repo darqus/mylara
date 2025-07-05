@@ -1,4 +1,4 @@
-import type { CollectionConfig, } from 'src/types/admin'
+import type { CollectionConfig } from 'src/types/admin'
 
 /**
  * Конфигурация коллекций для админки
@@ -20,7 +20,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         placeholder: 'Загрузите изображение продукта',
         imageOptions: {
           maxSizeKB: 3000, // 3MB
-          allowedTypes: [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp', ],
+          allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
           path: 'carousel',
         },
       },
@@ -115,7 +115,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         placeholder: 'Загрузите изображение слайда',
         imageOptions: {
           maxSizeKB: 3000, // 3MB
-          allowedTypes: [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp', ],
+          allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
           path: 'slides',
         },
       },

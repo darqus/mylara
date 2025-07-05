@@ -1,6 +1,4 @@
-import {
-  describe, it, expect, beforeEach, vi, 
-} from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 import {
   useTableSettings,
@@ -19,9 +17,7 @@ const mockLocalStorage = {
   remove: vi.fn(),
 }
 
-vi.mock('quasar', () => ({
-  LocalStorage: mockLocalStorage,
-}))
+vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
 describe('useTableSettings', () => {
   beforeEach(() => {
@@ -32,9 +28,7 @@ describe('useTableSettings', () => {
     it('should return default settings when no data in localStorage', () => {
       mockLocalStorage.getItem.mockReturnValue(null)
 
-      const {
-        loadSettings, 
-      } = useTableSettings('test-collection')
+      const { loadSettings } = useTableSettings('test-collection')
       const settings = loadSettings()
 
       expect(settings).toEqual({
@@ -51,14 +45,12 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name', ],
+        visibleColumns: ['id', 'name'],
       }
 
       mockLocalStorage.getItem.mockReturnValue(validSettings)
 
-      const {
-        loadSettings, 
-      } = useTableSettings('test-collection')
+      const { loadSettings } = useTableSettings('test-collection')
       const settings = loadSettings()
 
       expect(settings).toEqual({
@@ -67,7 +59,7 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name', ],
+        visibleColumns: ['id', 'name'],
       })
     })
 
@@ -83,9 +75,7 @@ describe('useTableSettings', () => {
 
       mockLocalStorage.getItem.mockReturnValue(invalidSettings)
 
-      const {
-        loadSettings, 
-      } = useTableSettings('test-collection')
+      const { loadSettings } = useTableSettings('test-collection')
       const settings = loadSettings()
 
       expect(settings).toEqual({
@@ -101,9 +91,7 @@ describe('useTableSettings', () => {
         throw new Error('LocalStorage error')
       })
 
-      const {
-        loadSettings, 
-      } = useTableSettings('test-collection')
+      const { loadSettings } = useTableSettings('test-collection')
       const settings = loadSettings()
 
       expect(settings).toEqual({
@@ -121,12 +109,8 @@ describe('useTableSettings', () => {
           width: 100,
           visible: true,
         },
-        col2: {
-          width: 200,
-        },
-        col3: {
-          visible: false,
-        },
+        col2: { width: 200 },
+        col3: { visible: false },
         'invalid-col': {
           width: -1,
           visible: 'not-boolean',
@@ -135,9 +119,7 @@ describe('useTableSettings', () => {
 
       mockLocalStorage.getItem.mockReturnValue(validColumnSettings)
 
-      const {
-        columnSettings, 
-      } = useColumnSettings('test-collection')
+      const { columnSettings } = useColumnSettings('test-collection')
 
       // Проверяем, что валидные настройки загружены корректно
       expect(columnSettings.value).toEqual({
@@ -145,12 +127,8 @@ describe('useTableSettings', () => {
           width: 100,
           visible: true,
         },
-        col2: {
-          width: 200,
-        },
-        col3: {
-          visible: false,
-        },
+        col2: { width: 200 },
+        col3: { visible: false },
 
         // invalid-col should be filtered out due to invalid data
       })
@@ -166,9 +144,7 @@ describe('useTableSettings', () => {
         'table-settings-collection2',
       ])
 
-      const {
-        getAllTableSettingsKeys, 
-      } = useTableSettingsManager()
+      const { getAllTableSettingsKeys } = useTableSettingsManager()
       const keys = getAllTableSettingsKeys()
 
       expect(keys).toEqual([
@@ -179,9 +155,7 @@ describe('useTableSettings', () => {
     })
 
     it('should validate settings before importing', () => {
-      const {
-        importAllSettings, 
-      } = useTableSettingsManager()
+      const { importAllSettings } = useTableSettingsManager()
 
       // Test with null/undefined
       importAllSettings(null as unknown as Record<string, unknown>)
@@ -189,12 +163,8 @@ describe('useTableSettings', () => {
 
       // Test with valid settings
       const validSettings = {
-        'table-settings-test': {
-          page: 1,
-        },
-        'other-key': {
-          some: 'data',
-        }, // Should be ignored
+        'table-settings-test': { page: 1 },
+        'other-key': { some: 'data' }, // Should be ignored
       }
 
       importAllSettings(validSettings)

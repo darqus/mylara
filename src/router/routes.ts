@@ -1,6 +1,6 @@
-import { type RouteRecordRaw, } from 'vue-router'
+import { type RouteRecordRaw } from 'vue-router'
 
-import { ROUTER_BASE, } from 'src/utils/constants'
+import { ROUTER_BASE } from 'src/utils/constants'
 
 // import { ROUTER_BASE, } from 'src/utils/constants'
 

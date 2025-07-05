@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import {
-  APP_VERSION, BUILD_DATE, 
-} from 'src/utils/meta'
+import { APP_VERSION, BUILD_DATE } from 'src/utils/meta'
 </script>
 
 <template>

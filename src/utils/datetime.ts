@@ -1,8 +1,6 @@
 // Intl.DateTimeFormat().resolvedOptions()
 
-import {
-  INCLINE, incline, 
-} from './format'
+import { INCLINE, incline } from './format'
 
 /* {
   locale: "ru-RU",
@@ -132,15 +130,9 @@ export const DATE_TIME_OPTIONS_PRESET: Record<string, TOptions> = {
     month: E_OPTIONS_LIST.DIGIT,
     day: E_OPTIONS_LIST.DIGIT,
   },
-  onlyMonth: {
-    month: E_OPTIONS_LIST.LONG,
-  },
-  onlyDayMonth: {
-    day: E_OPTIONS_LIST.NUMERIC,
-  },
-  onlyDayWeek: {
-    weekday: E_OPTIONS_LIST.SHORT,
-  },
+  onlyMonth: { month: E_OPTIONS_LIST.LONG },
+  onlyDayMonth: { day: E_OPTIONS_LIST.NUMERIC },
+  onlyDayWeek: { weekday: E_OPTIONS_LIST.SHORT },
   onlyTime: {
     hour: E_OPTIONS_LIST.DIGIT,
     minute: E_OPTIONS_LIST.DIGIT,
@@ -242,7 +234,7 @@ export const convertCustomFormatToIso = (
     return null
   }
 
-  const [ day, month, year, ] = customDate.split('.')
+  const [day, month, year] = customDate.split('.')
 
   if (
     !day ||
@@ -270,7 +262,7 @@ export const convertDateToCustomFormat = (date: string): string => {
   }
 
   // Split the date string into day, month, and year
-  const [ year, month, day, ] = date.split('-')
+  const [year, month, day] = date.split('-')
 
   if (!year || !month || !day) {
     return ''
@@ -289,8 +281,8 @@ export const convertDateToCustomFormat = (date: string): string => {
  */
 export const convertDateTimeToISO = (date: string, time: string): string => {
   try {
-    const [ day, month, year, ] = date.split('.')
-    const [ hours, minutes, ] = time.split(':')
+    const [day, month, year] = date.split('.')
+    const [hours, minutes] = time.split(':')
 
     if (!day || !month || !year || !hours || !minutes) {
       return ''
@@ -325,7 +317,7 @@ export const isCorrectDate = (dateString: string): boolean => {
     return false
   }
 
-  const [ dayStr, monthStr, yearStr, ] = dateParts
+  const [dayStr, monthStr, yearStr] = dateParts
   const day = Number(dayStr)
   const month = Number(monthStr)
   const year = Number(yearStr)
@@ -419,11 +411,9 @@ export const getIsoDateFromIsoDateAndMinutes = (
 
 export const getCurrentMonthPrepositionalCase = (): string => {
   const date = new Date()
-  const month = new Intl.DateTimeFormat('ru', {
-    month: 'long',
-  }).format(date)
+  const month = new Intl.DateTimeFormat('ru', { month: 'long' }).format(date)
 
-  return [ 'март', 'август', ].includes(month)
+  return ['март', 'август'].includes(month)
     ? month + 'е'
     : month.slice(0, -1) + 'е'
 }

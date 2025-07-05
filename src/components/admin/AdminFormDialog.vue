@@ -137,9 +137,7 @@ import type { CollectionConfig, FormField } from 'src/types/admin'
 
 import ImageUploader from './ImageUploader.vue'
 
-defineOptions({
-  name: 'AdminFormDialog',
-})
+defineOptions({ name: 'AdminFormDialog' })
 
 type Props = {
   modelValue: boolean
@@ -168,17 +166,13 @@ watch(
   (newItem) => {
     if (newItem) {
       // Копируем данные для редактирования
-      formData.value = {
-        ...newItem,
-      }
+      formData.value = { ...newItem }
     } else {
       // Сбрасываем форму для создания нового элемента
       resetForm()
     }
   },
-  {
-    immediate: true,
-  },
+  { immediate: true }
 )
 
 // Следим за закрытием диалога
@@ -188,7 +182,7 @@ watch(
     if (!isOpen) {
       resetForm()
     }
-  },
+  }
 )
 
 function resetForm() {
@@ -292,9 +286,7 @@ async function handleSubmit() {
   }
 
   // Подготавливаем данные для сохранения
-  const dataToSave = {
-    ...formData.value,
-  }
+  const dataToSave = { ...formData.value }
 
   // Удаляем служебные поля при создании
   if (!isEditing.value) {

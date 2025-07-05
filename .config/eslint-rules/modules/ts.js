@@ -4,23 +4,19 @@ export const ts = {
   '@typescript-eslint/no-unsafe-return': 'off',
   '@typescript-eslint/no-unsafe-member-access': 'off',
   '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-shadow': [ 'error', ],
+  '@typescript-eslint/no-shadow': ['error'],
   '@typescript-eslint/restrict-template-expressions': [
     'warn',
-    {
-      allowNumber: true,
-    },
+    { allowNumber: true },
   ],
   '@typescript-eslint/consistent-type-imports': 'error',
 
   '@typescript-eslint/no-empty-interface': [
     'error',
-    {
-      allowSingleExtends: true,
-    },
+    { allowSingleExtends: true },
   ],
 
-  '@typescript-eslint/consistent-type-definitions': [ 'error', 'type', ],
+  '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
   '@typescript-eslint/explicit-function-return-type': 'off',
   '@typescript-eslint/no-var-requires': 'off',
   '@typescript-eslint/prefer-nullish-coalescing': 'warn',
@@ -39,12 +35,12 @@ export const ts = {
     'warn',
     {
       selector: 'interface',
-      format: [ 'PascalCase', ],
-      prefix: [ 'I', ],
+      format: ['PascalCase'],
+      prefix: ['I'],
     },
     {
       selector: 'typeAlias',
-      format: [ 'PascalCase', ],
+      format: ['PascalCase'],
     },
   ],
   '@typescript-eslint/no-unused-vars': [

@@ -4,11 +4,7 @@ export default {
     'stylelint-config-prettier-scss',
     'stylelint-config-recess-order',
   ],
-  overrides: [
-    {
-      files: [ 'src/*.scss', 'src/**/*.scss', ],
-    },
-  ],
+  overrides: [{ files: ['src/*.scss', 'src/**/*.scss'] }],
   rules: {
     'declaration-empty-line-before': 'never',
     'scss/at-each-key-value-single-line': true,

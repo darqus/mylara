@@ -17,9 +17,7 @@
             Сортировка: {{ settings.sortBy }}
             {{ settings.descending ? '(убыв.)' : '(возр.)' }}
           </li>
-          <li v-if="settings.filter">
-            Фильтр: "{{ settings.filter }}"
-          </li>
+          <li v-if="settings.filter">Фильтр: "{{ settings.filter }}"</li>
           <li>Записей на странице: {{ settings.rowsPerPage }}</li>
           <li v-if="settings.page > 1">
             Текущая страница: {{ settings.page }}
@@ -31,9 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, } from 'vue'
+import { computed } from 'vue'
 
-import type { TableSettings, } from 'src/composables/useTableSettings'
+import type { TableSettings } from 'src/composables/useTableSettings'
 
 type Props = {
   settings: TableSettings

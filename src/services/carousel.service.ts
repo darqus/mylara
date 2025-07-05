@@ -1,6 +1,6 @@
-import type { CollectionResponse, } from 'src/types/api'
+import type { CollectionResponse } from 'src/types/api'
 
-import { firestoreService, } from './firestore.service'
+import { firestoreService } from './firestore.service'
 
 export type CarouselItem = {
   id: string

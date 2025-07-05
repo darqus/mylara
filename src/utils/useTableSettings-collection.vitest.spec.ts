@@ -15,9 +15,7 @@ const mockLocalStorage = {
   remove: vi.fn(),
 }
 
-vi.mock('quasar', () => ({
-  LocalStorage: mockLocalStorage,
-}))
+vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
 describe('useTableSettings - Reactive Collection Name', () => {
   beforeEach(() => {
@@ -76,9 +74,7 @@ describe('useTableSettings - Reactive Collection Name', () => {
   })
 
   it('should work with computed collection name from route', () => {
-    const routeParams = ref({
-      collection: 'carousel',
-    })
+    const routeParams = ref({ collection: 'carousel' })
 
     // Имитируем computed из роутера
     const collectionName = () => routeParams.value.collection

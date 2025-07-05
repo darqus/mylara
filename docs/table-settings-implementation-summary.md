@@ -89,7 +89,7 @@ watch(
   (newSettings) => {
     saveSettings(newSettings)
   },
-  { deep: true },
+  { deep: true }
 )
 ```
 

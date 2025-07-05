@@ -7,9 +7,7 @@ import { meta } from 'src/utils/meta'
 
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 
-defineOptions({
-  name: 'App',
-})
+defineOptions({ name: 'App' })
 
 const { initAuth } = useAdminAuth()
 

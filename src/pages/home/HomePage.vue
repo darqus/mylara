@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useMeta, } from 'quasar'
+import { useMeta } from 'quasar'
 
-import { SEO_HOME, } from 'src/utils/seo-constants'
+import { SEO_HOME } from 'src/utils/seo-constants'
 
-import type { MetaData, } from 'src/services/seo.service'
-import { SeoService, } from 'src/services/seo.service'
+import type { MetaData } from 'src/services/seo.service'
+import { SeoService } from 'src/services/seo.service'
 
 import LandingCarousel from './components/landing-carousel/LandingCarousel.vue'
 import LandingSlider from './components/landing-slider/LandingSlider.vue'

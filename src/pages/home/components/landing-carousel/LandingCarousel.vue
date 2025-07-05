@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import {
-  ref, onMounted, 
-} from 'vue'
+import { ref, onMounted } from 'vue'
 
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
 
-import { useDevice, } from 'src/composables/useDevice'
-import { useImageErrorHandling, } from 'src/composables/useImageErrorHandling'
-import { getCarouselItems, } from 'src/services/carousel.service'
-import type { CarouselItem, } from 'src/services/carousel.service'
+import { useDevice } from 'src/composables/useDevice'
+import { useImageErrorHandling } from 'src/composables/useImageErrorHandling'
+import { getCarouselItems } from 'src/services/carousel.service'
+import type { CarouselItem } from 'src/services/carousel.service'
 
 import './scss/landing-carousel.scss'
 
-const {
-  isMobile, 
-} = useDevice()
+const { isMobile } = useDevice()
 
-const {
-  handleImageError, handleImageLoad, 
-} = useImageErrorHandling()
+const { handleImageError, handleImageLoad } = useImageErrorHandling()
 const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
@@ -27,9 +21,7 @@ const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref()
 const touchEndX = ref()
 
-const openDialog = ({
-  id, img, label, link, info, 
-}: CarouselItem) => {
+const openDialog = ({ id, img, label, link, info }: CarouselItem) => {
   selectedItem.value = {
     id,
     img,

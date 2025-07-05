@@ -94,7 +94,7 @@ export function useAdminCollection(config: CollectionConfig) {
       const response = await firestoreService.updateDocument(
         config.name,
         id,
-        data,
+        data
       )
 
       if (response.error) {
@@ -126,7 +126,7 @@ export function useAdminCollection(config: CollectionConfig) {
   async function deleteItems(items: Array<Record<string, unknown>>) {
     try {
       const deletePromises = items.map((item) =>
-        firestoreService.deleteDocument(config.name, item.id as string),
+        firestoreService.deleteDocument(config.name, item.id as string)
       )
 
       const results = await Promise.all(deletePromises)

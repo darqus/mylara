@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { installQuasarPlugin, } from '@quasar/quasar-app-extension-testing-unit-vitest'
-import { mount, } from '@vue/test-utils'
-import {
-  describe, expect, it, 
-} from 'vitest'
+import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 
 import ExampleComponent from './demo/ExampleComponent.vue'
 
@@ -14,9 +12,7 @@ describe('example Component', () => {
     const wrapper = mount(ExampleComponent, {
       props: {
         title: 'Hello',
-        meta: {
-          totalCount: 4,
-        },
+        meta: { totalCount: 4 },
         todos: [
           {
             id: 1,
@@ -39,9 +35,7 @@ describe('example Component', () => {
     const wrapper = mount(ExampleComponent, {
       props: {
         title: 'Hello',
-        meta: {
-          totalCount: 4,
-        },
+        meta: { totalCount: 4 },
       },
     })
 

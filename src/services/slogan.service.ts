@@ -1,6 +1,6 @@
-import type { SloganResponse, } from 'src/types/api'
+import type { SloganResponse } from 'src/types/api'
 
-import { firestoreService, } from './firestore.service'
+import { firestoreService } from './firestore.service'
 
 export type Slogan = {
   title: string

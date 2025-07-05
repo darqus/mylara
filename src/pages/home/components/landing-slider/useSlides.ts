@@ -1,6 +1,6 @@
-import { useDataFetching, } from 'src/composables/useDataFetching'
-import type { Slide, } from 'src/services/slides.service'
-import { getSlides, } from 'src/services/slides.service'
+import { useDataFetching } from 'src/composables/useDataFetching'
+import type { Slide } from 'src/services/slides.service'
+import { getSlides } from 'src/services/slides.service'
 
 export const useSlides = () => {
   const {

@@ -88,9 +88,7 @@ import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { getAllCollections } from 'src/services/admin-config.service'
 
-defineOptions({
-  name: 'AdminLayout',
-})
+defineOptions({ name: 'AdminLayout' })
 
 const router = useRouter()
 const $q = useQuasar()
@@ -108,9 +106,7 @@ watch(
       void router.push('/admin/login')
     }
   },
-  {
-    immediate: true,
-  },
+  { immediate: true }
 )
 
 function toggleLeftDrawer() {

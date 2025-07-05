@@ -10,7 +10,7 @@ import pluginPrettier from 'eslint-plugin-prettier'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
 
-import { rules, } from './.config/eslint-rules/index.js'
+import { rules } from './.config/eslint-rules/index.js'
 
 export default defineConfigWithVueTs(
   {
@@ -59,9 +59,7 @@ export default defineConfigWithVueTs(
       '**/*.vue',
     ],
     rules,
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
+    linterOptions: { reportUnusedDisableDirectives: true },
   },
 
   // https://github.com/vuejs/eslint-config-typescript
@@ -86,11 +84,7 @@ export default defineConfigWithVueTs(
   },
 
   {
-    files: [ 'src-pwa/custom-service-worker.ts', ],
-    languageOptions: {
-      globals: {
-        ...globals.serviceworker,
-      },
-    },
+    files: ['src-pwa/custom-service-worker.ts'],
+    languageOptions: { globals: { ...globals.serviceworker } },
   }
 )

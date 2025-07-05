@@ -15,9 +15,7 @@ const mockLocalStorage = {
   remove: vi.fn(),
 }
 
-vi.mock('quasar', () => ({
-  LocalStorage: mockLocalStorage,
-}))
+vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
 describe('useTableSettings (route switching)', () => {
   beforeEach(() => {
@@ -77,10 +75,10 @@ describe('useTableSettings (route switching)', () => {
 
     // Проверяем, что localStorage вызывался с правильными ключами
     expect(mockLocalStorage.getItem).toHaveBeenCalledWith(
-      'table-settings-carousel',
+      'table-settings-carousel'
     )
     expect(mockLocalStorage.getItem).toHaveBeenCalledWith(
-      'table-settings-slides',
+      'table-settings-slides'
     )
   })
 
@@ -180,7 +178,7 @@ describe('useTableSettings (route switching)', () => {
       expect.objectContaining({
         page: 5,
         filter: 'new-filter',
-      }),
+      })
     )
   })
 

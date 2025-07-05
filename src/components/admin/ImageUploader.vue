@@ -117,9 +117,7 @@ import { ref, computed, watch } from 'vue'
 import { firebaseStorageService } from 'src/services/firebase-storage.service'
 import type { ImageUploadOptions } from 'src/services/firebase-storage.service'
 
-defineOptions({
-  name: 'ImageUploader',
-})
+defineOptions({ name: 'ImageUploader' })
 
 type Props = {
   modelValue?: string | null
@@ -181,9 +179,7 @@ watch(
       resetPreview()
     }
   },
-  {
-    immediate: true,
-  },
+  { immediate: true }
 )
 
 function triggerFileInput() {
@@ -253,7 +249,7 @@ async function uploadFile(file: File) {
       options,
       (progress) => {
         uploadProgress.value = progress.percentage
-      },
+      }
     )
 
     if (result.error) {

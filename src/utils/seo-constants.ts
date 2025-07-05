@@ -1,8 +1,6 @@
-import type { MetaData, } from 'src/services/seo.service'
+import type { MetaData } from 'src/services/seo.service'
 
-import {
-  VITE_DESCRIPTION, VITE_KEYWORDS, 
-} from './constants'
+import { VITE_DESCRIPTION, VITE_KEYWORDS } from './constants'
 
 export const SEO_HOME: MetaData = {
   title: 'MYLARA | Косметика по уходу за лицом',

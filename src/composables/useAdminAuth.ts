@@ -58,7 +58,7 @@ export function useAdminAuth() {
    */
   async function login(
     email: string,
-    password: string,
+    password: string
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 
@@ -75,14 +75,12 @@ export function useAdminAuth() {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       )
 
       currentUser.value = userCredential.user
 
-      return {
-        success: true,
-      }
+      return { success: true }
     } catch (error: unknown) {
       let errorMessage = 'Произошла ошибка при входе'
 
@@ -130,7 +128,7 @@ export function useAdminAuth() {
    */
   async function register(
     email: string,
-    password: string,
+    password: string
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 
@@ -147,14 +145,12 @@ export function useAdminAuth() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       )
 
       currentUser.value = userCredential.user
 
-      return {
-        success: true,
-      }
+      return { success: true }
     } catch (error: unknown) {
       let errorMessage = 'Произошла ошибка при регистрации'
 
@@ -207,9 +203,7 @@ export function useAdminAuth() {
       await signOut(auth)
       currentUser.value = null
 
-      return {
-        success: true,
-      }
+      return { success: true }
     } catch (error) {
       console.error('Logout error:', error)
 

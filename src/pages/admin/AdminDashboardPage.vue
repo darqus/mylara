@@ -69,9 +69,7 @@ import { formatRecordsCount } from 'src/utils/pluralization'
 import { getAllCollections } from 'src/services/admin-config.service'
 import { firestoreService } from 'src/services/firestore.service'
 
-defineOptions({
-  name: 'AdminDashboardPage',
-})
+defineOptions({ name: 'AdminDashboardPage' })
 
 const $q = useQuasar()
 const router = useRouter()
@@ -102,7 +100,7 @@ async function loadCollectionStats() {
 
         return acc
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     )
   } catch (error) {
     console.error('Ошибка загрузки статистики коллекций:', error)

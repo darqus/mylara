@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import {
-  ref, onMounted, 
-} from 'vue'
+import { ref, onMounted } from 'vue'
 
 type DataResponse = Record<string, unknown>
 
@@ -27,7 +25,7 @@ const props = withDefaults(defineProps<DataLoaderProps>(), {
   dataKey: '',
 })
 
-const emit = defineEmits([ 'retry', 'data-loaded', ])
+const emit = defineEmits(['retry', 'data-loaded'])
 
 const internalLoading = ref(false)
 const internalError = ref('')

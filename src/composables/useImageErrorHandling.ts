@@ -1,4 +1,4 @@
-import { ref, } from 'vue'
+import { ref } from 'vue'
 
 export function useImageErrorHandling() {
   const failedImages = ref<Set<string>>(new Set())

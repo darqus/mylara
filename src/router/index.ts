@@ -5,9 +5,9 @@ import {
   createWebHistory,
 } from 'vue-router'
 
-import { route, } from 'quasar/wrappers'
+import { route } from 'quasar/wrappers'
 
-import { adminAuthGuard, } from './guards/auth'
+import { adminAuthGuard } from './guards/auth'
 import routes from './routes'
 
 /*

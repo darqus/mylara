@@ -36,7 +36,7 @@ watch(
   () => {
     const freshSettings = loadSettings()
     Object.assign(settings.value, freshSettings)
-  },
+  }
 )
 ```
 
@@ -70,14 +70,14 @@ useTableSettings(() => route.params.collection)
 
 ## Автоматические функции
 
-### При смене коллекции:
+### При смене коллекции
 
 1. ✅ Автоматически загружаются настройки новой коллекции
 2. ✅ Обновляется storageKey (`table-settings-${newCollection}`)
 3. ✅ Применяются корректные настройки пагинации, фильтров и сортировки
 4. ✅ Сохраняется состояние для каждой коллекции отдельно
 
-### Примеры ключей в localStorage:
+### Примеры ключей в localStorage
 
 - `table-settings-carousel` - настройки для коллекции carousel
 - `table-settings-slides` - настройки для коллекции slides

@@ -131,9 +131,7 @@ import { useQuasar } from 'quasar'
 
 import { useTableSettingsManager } from 'src/composables/useTableSettings'
 
-defineOptions({
-  name: 'TableSettingsManagerPage',
-})
+defineOptions({ name: 'TableSettingsManagerPage' })
 
 const $q = useQuasar()
 
@@ -177,9 +175,7 @@ function exportSettings() {
     const jsonString = JSON.stringify(exported, null, 2)
 
     // Создаем файл для скачивания
-    const blob = new Blob([jsonString], {
-      type: 'application/json',
-    })
+    const blob = new Blob([jsonString], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
 

@@ -1,21 +1,8 @@
 // Vue-specific ESLint rules
 
 export const vue = {
-  'vue/v-on-event-hyphenation': [
-    'error',
-    'always',
-    {
-      autofix: true,
-    },
-  ],
-  'vue/html-self-closing': [
-    'error',
-    {
-      html: {
-        void: 'any',
-      },
-    },
-  ],
+  'vue/v-on-event-hyphenation': ['error', 'always', { autofix: true }],
+  'vue/html-self-closing': ['error', { html: { void: 'any' } }],
   'vue/component-name-in-template-casing': [
     'error',
     'PascalCase',
@@ -33,7 +20,7 @@ export const vue = {
         'CONDITIONALS',
         'RENDER_MODIFIERS',
         'GLOBAL',
-        [ 'UNIQUE', 'SLOT', ],
+        ['UNIQUE', 'SLOT'],
         'TWO_WAY_BINDING',
         'OTHER_DIRECTIVES',
         'ATTR_DYNAMIC',
@@ -71,11 +58,11 @@ export const vue = {
         'key',
         'parent',
         'functional',
-        [ 'delimiters', 'comments', ],
-        [ 'components', 'directives', 'filters', ],
+        ['delimiters', 'comments'],
+        ['components', 'directives', 'filters'],
         'extends',
         'mixins',
-        [ 'provide', 'inject', ],
+        ['provide', 'inject'],
         'ROUTER_GUARDS',
         'layout',
         'middleware',
@@ -85,7 +72,7 @@ export const vue = {
         'loading',
         'inheritAttrs',
         'model',
-        [ 'props', 'propsData', ],
+        ['props', 'propsData'],
         'emits',
         'setup',
         'asyncData',
@@ -97,7 +84,7 @@ export const vue = {
         'watchQuery',
         'LIFECYCLE_HOOKS',
         'methods',
-        [ 'template', 'render', ],
+        ['template', 'render'],
         'renderError',
       ],
     },

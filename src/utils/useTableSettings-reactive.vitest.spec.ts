@@ -16,9 +16,7 @@ const mockLocalStorage = {
   remove: vi.fn(),
 }
 
-vi.mock('quasar', () => ({
-  LocalStorage: mockLocalStorage,
-}))
+vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
 describe('useTableSettings (reactive)', () => {
   beforeEach(() => {
@@ -87,12 +85,8 @@ describe('useTableSettings (reactive)', () => {
           width: 100,
           visible: true,
         },
-        col2: {
-          width: 200,
-        },
-        col3: {
-          visible: false,
-        },
+        col2: { width: 200 },
+        col3: { visible: false },
       }
 
       mockLocalStorage.getItem.mockReturnValue(validColumnSettings)
@@ -105,12 +99,8 @@ describe('useTableSettings (reactive)', () => {
           width: 100,
           visible: true,
         },
-        col2: {
-          width: 200,
-        },
-        col3: {
-          visible: false,
-        },
+        col2: { width: 200 },
+        col3: { visible: false },
       })
     })
   })

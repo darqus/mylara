@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import {
-  computed, ref, 
-} from 'vue'
+import { computed, ref } from 'vue'
 
 type Todo = {
   id: number
@@ -19,9 +17,7 @@ const props = withDefaults(
     meta: Meta
     active?: boolean
   }>(),
-  {
-    todos: () => [],
-  }
+  { todos: () => [] }
 )
 
 const clickCount = ref(0)

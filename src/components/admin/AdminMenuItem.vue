@@ -19,12 +19,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, } from 'vue'
-import { useRoute, } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-defineOptions({
-  name: 'AdminMenuItem',
-})
+defineOptions({ name: 'AdminMenuItem' })
 
 type Props = {
   title: string

@@ -193,9 +193,7 @@ import type { QForm } from 'quasar'
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
 
-defineOptions({
-  name: 'AdminLoginPage',
-})
+defineOptions({ name: 'AdminLoginPage' })
 
 const router = useRouter()
 const $q = useQuasar()

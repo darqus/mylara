@@ -9,13 +9,9 @@ import {
   serverTimestamp,
 } from 'firebase/firestore'
 
-import type {
-  CollectionResponse, DocumentResponse, 
-} from 'src/types/api'
+import type { CollectionResponse, DocumentResponse } from 'src/types/api'
 
-import {
-  getFirebaseDb, getFirebaseAuth, 
-} from './firebase'
+import { getFirebaseDb, getFirebaseAuth } from './firebase'
 
 /**
  * Проверяет, аутентифицирован ли пользователь
@@ -37,9 +33,7 @@ function checkAuth(): { isAuthenticated: boolean; error?: string } {
     }
   }
 
-  return {
-    isAuthenticated: true,
-  }
+  return { isAuthenticated: true }
 }
 
 /**

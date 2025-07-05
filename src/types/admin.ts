@@ -1,4 +1,4 @@
-import type { Timestamp, } from 'firebase/firestore'
+import type { Timestamp } from 'firebase/firestore'
 
 /**
  * Базовый тип для документа в Firestore

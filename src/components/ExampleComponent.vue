@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import {
-  computed, ref, 
-} from 'vue'
+import { computed, ref } from 'vue'
 
-import type {
-  Todo, Meta, 
-} from './models'
+import type { Todo, Meta } from './models'
 
 type Props = {
   title: string
@@ -14,9 +10,7 @@ type Props = {
   active: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  todos: () => [],
-})
+const props = withDefaults(defineProps<Props>(), { todos: () => [] })
 
 const clickCount = ref(0)
 

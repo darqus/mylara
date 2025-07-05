@@ -1,5 +1,5 @@
 export const common = {
-  semi: [ 'error', 'never', ],
+  semi: ['error', 'never'],
   'no-extra-semi': 'error',
   'import/order': [
     'error',
@@ -9,7 +9,7 @@ export const common = {
         'builtin',
         'external',
         'internal',
-        [ 'parent', 'sibling', ],
+        ['parent', 'sibling'],
         'index',
         'type',
         'object',
@@ -115,7 +115,7 @@ export const common = {
           position: 'after',
         },
       ],
-      pathGroupsExcludedImportTypes: [ 'vue', ],
+      pathGroupsExcludedImportTypes: ['vue'],
       alphabetize: {
         order: 'asc',
         caseInsensitive: true,
@@ -125,14 +125,14 @@ export const common = {
     },
   ],
 
-  'import/no-unresolved': [ 'off', ],
+  'import/no-unresolved': ['off'],
   'comma-dangle': [
     'error',
     {
-      arrays: 'always',
-      objects: 'always',
-      imports: 'always',
-      exports: 'always',
+      arrays: 'only-multiline',
+      objects: 'only-multiline',
+      imports: 'only-multiline',
+      exports: 'only-multiline',
       functions: 'never',
     },
   ],
@@ -153,12 +153,8 @@ export const common = {
         body: 1,
         parameters: 2,
       },
-      StaticBlock: {
-        body: 1,
-      },
-      CallExpression: {
-        arguments: 1,
-      },
+      StaticBlock: { body: 1 },
+      CallExpression: { arguments: 1 },
       ArrayExpression: 1,
       ObjectExpression: 1,
       ImportDeclaration: 1,
@@ -167,16 +163,11 @@ export const common = {
     },
   ],
 
-  'no-console': [
-    'warn',
-    {
-      allow: [ 'warn', 'error', ],
-    },
-  ],
-  'arrow-parens': [ 'error', 'always', ],
+  'no-console': ['warn', { allow: ['warn', 'error'] }],
+  'arrow-parens': ['error', 'always'],
   curly: 'error',
-  'object-shorthand': [ 'error', 'always', ],
-  'array-bracket-spacing': [ 'error', 'always', ],
+  'object-shorthand': ['error', 'always'],
+  'array-bracket-spacing': ['error', 'always'],
 
   // https://eslint.org/docs/latest/rules/object-curly-spacing
   'object-curly-spacing': [
@@ -202,15 +193,15 @@ export const common = {
       },
       ObjectExpression: {
         multiline: true,
-        minProperties: 1,
+        minProperties: 2,
       },
       ObjectPattern: {
         multiline: true,
-        minProperties: 1,
+        minProperties: 2,
       },
     },
   ],
-  eqeqeq: [ 'error', 'smart', ],
+  eqeqeq: ['error', 'smart'],
   'prefer-promise-reject-errors': 'error',
   quotes: [
     'error',
@@ -223,28 +214,28 @@ export const common = {
   'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   'no-useless-constructor': 'off',
   'no-shadow': 'off',
-  'no-var': [ 'error', ],
-  'lines-between-class-members': [ 'error', 'always', ],
+  'no-var': ['error'],
+  'lines-between-class-members': ['error', 'always'],
   'padding-line-between-statements': [
     'error',
     {
       blankLine: 'always',
       prev: '*',
-      next: [ 'return', 'export', 'const', 'let', ],
+      next: ['return', 'export', 'const', 'let'],
     },
     {
       blankLine: 'always',
-      prev: [ 'const', 'let', ],
+      prev: ['const', 'let'],
       next: '*',
     },
     {
       blankLine: 'any',
-      prev: [ 'const', 'let', ],
-      next: [ 'const', 'let', ],
+      prev: ['const', 'let'],
+      next: ['const', 'let'],
     },
     {
       blankLine: 'always',
-      prev: [ 'case', 'default', 'directive', ],
+      prev: ['case', 'default', 'directive'],
       next: '*',
     },
     {

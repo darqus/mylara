@@ -1,6 +1,6 @@
-import { computed, } from 'vue'
+import { computed } from 'vue'
 
-import { useQuasar, } from 'quasar'
+import { useQuasar } from 'quasar'
 
 export const useDevice = () => {
   const $q = useQuasar()
@@ -8,7 +8,5 @@ export const useDevice = () => {
   // Проверка, является ли устройство мобильным
   const isMobile = computed(() => $q.screen.lt.sm)
 
-  return {
-    isMobile,
-  }
+  return { isMobile }
 }

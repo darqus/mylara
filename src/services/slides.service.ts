@@ -1,6 +1,6 @@
-import type { SlidesResponse, } from 'src/types/api'
+import type { SlidesResponse } from 'src/types/api'
 
-import { firestoreService, } from './firestore.service'
+import { firestoreService } from './firestore.service'
 
 export type Slide = {
   id: string | number

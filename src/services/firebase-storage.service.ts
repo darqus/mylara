@@ -7,7 +7,7 @@ import {
   connectStorageEmulator,
 } from 'firebase/storage'
 
-import type { FirebaseStorage, } from 'firebase/storage'
+import type { FirebaseStorage } from 'firebase/storage'
 
 let storage: FirebaseStorage | undefined
 
@@ -68,9 +68,7 @@ export class FirebaseStorageService {
       const validationError = this.validateImageFile(file, options)
 
       if (validationError) {
-        return {
-          error: validationError,
-        }
+        return { error: validationError }
       }
 
       // Генерируем уникальное имя файла
@@ -87,15 +85,11 @@ export class FirebaseStorageService {
       // Получаем URL для загрузки
       const downloadURL = await getDownloadURL(snapshot.ref)
 
-      return {
-        url: downloadURL,
-      }
+      return { url: downloadURL }
     } catch (error) {
       console.error('Error uploading image:', error)
 
-      return {
-        error: 'Ошибка при загрузке изображения',
-      }
+      return { error: 'Ошибка при загрузке изображения' }
     }
   }
 
@@ -112,9 +106,7 @@ export class FirebaseStorageService {
       const validationError = this.validateImageFile(file, options)
 
       if (validationError) {
-        return {
-          error: validationError,
-        }
+        return { error: validationError }
       }
 
       // Для простоты используем обычную загрузку
@@ -134,9 +126,7 @@ export class FirebaseStorageService {
     } catch (error) {
       console.error('Error uploading image with progress:', error)
 
-      return {
-        error: 'Ошибка при загрузке изображения',
-      }
+      return { error: 'Ошибка при загрузке изображения' }
     }
   }
 
@@ -149,9 +139,7 @@ export class FirebaseStorageService {
       const path = this.extractPathFromUrl(url)
 
       if (!path) {
-        return {
-          error: 'Невозможно определить путь к файлу',
-        }
+        return { error: 'Невозможно определить путь к файлу' }
       }
 
       const fileRef = ref(this.storage, path)
@@ -162,9 +150,7 @@ export class FirebaseStorageService {
     } catch (error) {
       console.error('Error deleting image:', error)
 
-      return {
-        error: 'Ошибка при удалении изображения',
-      }
+      return { error: 'Ошибка при удалении изображения' }
     }
   }
 
