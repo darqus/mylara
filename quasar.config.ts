@@ -44,7 +44,7 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    // publicPath: '',
+    publicPath: '/',
 
     // analyze: true,
     // env: {},
@@ -56,6 +56,9 @@ export default defineConfig((/* ctx */) => ({
 
     // Консервативная настройка сборки для избежания циркулярных зависимостей
     extendViteConf(viteConf) {
+      // Ensure absolute paths for assets
+      viteConf.base = '/'
+
       viteConf.build = viteConf.build ?? {}
       viteConf.build.rollupOptions = viteConf.build.rollupOptions ?? {}
       viteConf.build.rollupOptions.output = viteConf.build.rollupOptions.output ?? {}
