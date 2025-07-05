@@ -90,14 +90,16 @@
         class="text-primary"
       >
         <q-btn
+          color="grey-6"
           label="Отмена"
-          flat
+          outline
           @click="$emit('cancel')"
         />
         <q-btn
           :loading="loading"
+          color="positive"
           label="Сохранить"
-          flat
+          outline
           @click="handleSubmit"
         />
       </q-card-actions>
