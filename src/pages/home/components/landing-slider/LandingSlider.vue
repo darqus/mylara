@@ -5,12 +5,17 @@ import { useQuasar, } from 'quasar'
 
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
 
+import { useImageErrorHandling, } from 'src/composables/useImageErrorHandling'
 import { getSlides, } from 'src/services/slides.service'
 
 import './scss/landing-slider.scss'
 
 const $q = useQuasar()
 const slide = ref(1)
+
+const {
+  getSafeImageSrc,
+} = useImageErrorHandling()
 </script>
 
 <template>
@@ -39,7 +44,7 @@ const slide = ref(1)
         <q-carousel-slide
           v-for="{ id, img, title, subtitle } in slides || []"
           :key="id"
-          :img-src="img"
+          :img-src="getSafeImageSrc(img)"
           :name="id"
         >
           <div class="absolute-bottom custom-caption">

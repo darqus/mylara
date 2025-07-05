@@ -24,6 +24,17 @@
   width: 300px;
   margin: 0 10px;
   scroll-snap-align: center;
+
+  img {
+    &[data-loaded="true"] {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &:not([data-loaded]) {
+      opacity: 0.8;
+    }
+  }
 }
 
 .carousel-nav-btn {
@@ -37,4 +48,10 @@
   &.carousel-next-btn {
     right: 10px;
   }
+}
+// Стили для fallback изображений
+.fallback-image {
+  border: 2px dashed #ccc;
+  opacity: 0.7;
+  filter: grayscale(50%);
 }

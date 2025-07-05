@@ -6,6 +6,7 @@ import {
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
 
 import { useDevice, } from 'src/composables/useDevice'
+import { useImageErrorHandling, } from 'src/composables/useImageErrorHandling'
 import { getCarouselItems, } from 'src/services/carousel.service'
 import type { CarouselItem, } from 'src/services/carousel.service'
 
@@ -14,6 +15,11 @@ import './scss/landing-carousel.scss'
 const {
   isMobile,
 } = useDevice()
+
+const {
+  handleImageError,
+  handleImageLoad,
+} = useImageErrorHandling()
 const currentIndex = ref(0)
 const showDialog = ref(false)
 const selectedItem = ref<CarouselItem | null>(null)
@@ -141,6 +147,8 @@ onMounted(() => {
               <img
                 :src="img"
                 style="height: 200px; object-fit: cover"
+                @error="handleImageError"
+                @load="handleImageLoad"
               />
               <q-card-section class="text-center">
                 <div class="text-subtitle2">
