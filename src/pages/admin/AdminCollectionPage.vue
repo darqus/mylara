@@ -34,6 +34,7 @@
               placeholder="Поиск по всем полям..."
               clearable
               filled
+              @clear="handleSearchClear"
               @update:model-value="performSearch(String($event || ''))"
             >
               <template #append>
@@ -310,6 +311,12 @@ function performSearch(searchTerm: string) {
   tableState.value.items = filteredItems.value
   tableState.value.pagination.rowsNumber = filteredItems.value.length
   tableState.value.pagination.page = 1 // Сбрасываем на первую страницу при поиске
+}
+
+// Обработчик очистки поля поиска
+function handleSearchClear() {
+  tableState.value.filter = ''
+  performSearch('')
 }
 
 async function loadData() {
