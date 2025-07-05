@@ -1,116 +1,3 @@
-<template>
-  <div class="image-uploader">
-    <!-- Область для перетаскивания файлов -->
-    <div
-      :class="{
-        'image-uploader__upload-area--dragover': isDragOver,
-        'image-uploader__upload-area--disabled': disabled,
-      }"
-      class="image-uploader__upload-area"
-      @click="triggerFileInput"
-      @dragenter.prevent="handleDragEnter"
-      @dragleave.prevent="handleDragLeave"
-      @dragover.prevent="handleDragOver"
-      @drop.prevent="handleDrop"
-    >
-      <!-- Скрытый input для выбора файлов -->
-      <input
-        ref="fileInput"
-        :disabled="disabled"
-        accept="image/*"
-        style="display: none"
-        type="file"
-        @change="handleFileSelect"
-      />
-
-      <!-- Предварительный просмотр изображения -->
-      <div
-        v-if="previewUrl"
-        class="image-uploader__preview"
-      >
-        <q-img
-          :alt="fileName"
-          :src="previewUrl"
-          class="rounded-borders"
-          style="max-width: 100%; max-height: 200px"
-        />
-        <div class="image-uploader__info">
-          <div class="text-caption text-grey-7">
-            {{ fileName }}
-          </div>
-          <div class="text-caption text-grey-6">
-            {{ formatFileSize(fileSize) }}
-          </div>
-        </div>
-        <q-btn
-          v-if="!disabled"
-          class="image-uploader__remove-btn"
-          color="negative"
-          icon="close"
-          size="sm"
-          dense
-          round
-          @click.stop="removeImage"
-        >
-          <q-tooltip>Удалить изображение</q-tooltip>
-        </q-btn>
-      </div>
-
-      <!-- Placeholder для загрузки -->
-      <div
-        v-else
-        class="image-uploader__placeholder"
-      >
-        <q-icon
-          color="grey-5"
-          name="cloud_upload"
-          size="48px"
-        />
-        <div class="text-h6 text-grey-7 q-mt-sm">Загрузить изображение</div>
-        <div class="text-caption text-grey-6">
-          Перетащите файл сюда или нажмите для выбора
-        </div>
-        <div class="text-caption text-grey-5 q-mt-sm">
-          Поддерживаемые форматы: JPG, PNG, GIF, WebP
-        </div>
-        <div class="text-caption text-grey-5">
-          Максимальный размер: {{ formatFileSize((maxSizeKB ?? 5000) * 1024) }}
-        </div>
-      </div>
-
-      <!-- Индикатор загрузки -->
-      <div
-        v-if="uploading"
-        class="image-uploader__overlay"
-      >
-        <q-circular-progress
-          :thickness="0.2"
-          :value="uploadProgress"
-          class="q-ma-md"
-          color="primary"
-          size="50px"
-          track-color="grey-3"
-        />
-        <div class="text-body2 text-grey-8">
-          Загрузка... {{ uploadProgress }}%
-        </div>
-      </div>
-    </div>
-
-    <!-- Сообщения об ошибках -->
-    <div
-      v-if="errorMessage"
-      class="text-negative q-mt-sm"
-    >
-      <q-icon
-        class="q-mr-xs"
-        name="error"
-      />
-      {{ errorMessage }}
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 
@@ -324,6 +211,119 @@ function extractFileNameFromUrl(url: string): string {
   }
 }
 </script>
+
+<template>
+  <div class="image-uploader">
+    <!-- Область для перетаскивания файлов -->
+    <div
+      :class="{
+        'image-uploader__upload-area--dragover': isDragOver,
+        'image-uploader__upload-area--disabled': disabled,
+      }"
+      class="image-uploader__upload-area"
+      @click="triggerFileInput"
+      @dragenter.prevent="handleDragEnter"
+      @dragleave.prevent="handleDragLeave"
+      @dragover.prevent="handleDragOver"
+      @drop.prevent="handleDrop"
+    >
+      <!-- Скрытый input для выбора файлов -->
+      <input
+        ref="fileInput"
+        :disabled="disabled"
+        accept="image/*"
+        style="display: none"
+        type="file"
+        @change="handleFileSelect"
+      />
+
+      <!-- Предварительный просмотр изображения -->
+      <div
+        v-if="previewUrl"
+        class="image-uploader__preview"
+      >
+        <q-img
+          :alt="fileName"
+          :src="previewUrl"
+          class="rounded-borders"
+          style="max-width: 100%; max-height: 200px"
+        />
+        <div class="image-uploader__info">
+          <div class="text-caption text-grey-7">
+            {{ fileName }}
+          </div>
+          <div class="text-caption text-grey-6">
+            {{ formatFileSize(fileSize) }}
+          </div>
+        </div>
+        <q-btn
+          v-if="!disabled"
+          class="image-uploader__remove-btn"
+          color="negative"
+          icon="close"
+          size="sm"
+          dense
+          round
+          @click.stop="removeImage"
+        >
+          <q-tooltip>Удалить изображение</q-tooltip>
+        </q-btn>
+      </div>
+
+      <!-- Placeholder для загрузки -->
+      <div
+        v-else
+        class="image-uploader__placeholder"
+      >
+        <q-icon
+          color="grey-5"
+          name="cloud_upload"
+          size="48px"
+        />
+        <div class="text-h6 text-grey-7 q-mt-sm">Загрузить изображение</div>
+        <div class="text-caption text-grey-6">
+          Перетащите файл сюда или нажмите для выбора
+        </div>
+        <div class="text-caption text-grey-5 q-mt-sm">
+          Поддерживаемые форматы: JPG, PNG, GIF, WebP
+        </div>
+        <div class="text-caption text-grey-5">
+          Максимальный размер: {{ formatFileSize((maxSizeKB ?? 5000) * 1024) }}
+        </div>
+      </div>
+
+      <!-- Индикатор загрузки -->
+      <div
+        v-if="uploading"
+        class="image-uploader__overlay"
+      >
+        <q-circular-progress
+          :thickness="0.2"
+          :value="uploadProgress"
+          class="q-ma-md"
+          color="primary"
+          size="50px"
+          track-color="grey-3"
+        />
+        <div class="text-body2 text-grey-8">
+          Загрузка... {{ uploadProgress }}%
+        </div>
+      </div>
+    </div>
+
+    <!-- Сообщения об ошибках -->
+    <div
+      v-if="errorMessage"
+      class="text-negative q-mt-sm"
+    >
+      <q-icon
+        class="q-mr-xs"
+        name="error"
+      />
+      {{ errorMessage }}
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 // Styles moved to /src/css/components/_image-uploader.scss

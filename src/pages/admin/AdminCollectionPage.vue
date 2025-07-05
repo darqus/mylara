@@ -1,191 +1,3 @@
-<template>
-  <q-page class="q-pa-md">
-    <div class="row items-center justify-between q-mb-md">
-      <div>
-        <div class="text-h4">
-          {{ config?.label || collectionName }}
-        </div>
-        <div class="text-subtitle1 text-grey-7">
-          Управление записями в коллекции
-        </div>
-      </div>
-
-      <q-btn
-        color="primary"
-        icon="add"
-        label="Создать запись"
-        @click="showCreateDialog = true"
-      />
-    </div>
-
-    <!-- Фильтры и поиск -->
-    <q-card
-      class="q-mb-md"
-      bordered
-      flat
-    >
-      <q-card-section>
-        <div class="row q-gutter-md items-center">
-          <div class="col-12 col-md-6">
-            <q-input
-              v-model="tableState.filter"
-              debounce="300"
-              label="Поиск"
-              placeholder="Поиск по всем полям..."
-              clearable
-              filled
-              @clear="handleSearchClear"
-              @update:model-value="performSearch(String($event || ''))"
-            >
-              <template #append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </div>
-
-          <div class="col-auto">
-            <q-btn
-              color="secondary"
-              icon="refresh"
-              padding="12px"
-              size="md"
-              @click="loadData"
-            />
-          </div>
-
-          <div class="col-auto">
-            <q-btn
-              color="grey"
-              icon="settings_backup_restore"
-              padding="12px"
-              size="md"
-              @click="handleResetSettings"
-            >
-              <q-tooltip>Сбросить настройки таблицы</q-tooltip>
-            </q-btn>
-          </div>
-
-          <div
-            v-if="tableState.selected.length > 0"
-            class="col-auto"
-          >
-            <q-btn
-              :label="`Удалить (${tableState.selected.length})`"
-              color="negative"
-              icon="delete"
-              padding="12px"
-              size="md"
-              @click="confirmBulkDelete"
-            />
-          </div>
-
-          <div class="col-auto text-grey-6">
-            {{ searchInfo }}
-            <TableSettingsIndicator :settings="tableSettings" />
-          </div>
-        </div>
-      </q-card-section>
-    </q-card>
-
-    <!-- Таблица данных -->
-    <q-table
-      v-model:pagination="tableState.pagination"
-      v-model:selected="tableState.selected"
-      :columns="config?.columns || []"
-      :loading="tableState.loading"
-      :rows="tableState.items"
-      row-key="id"
-      selection="multiple"
-      server-pagination
-      @request="onRequest"
-    >
-      <template #body-cell-actions="props">
-        <q-td :props="props">
-          <q-btn
-            color="primary"
-            icon="edit"
-            dense
-            flat
-            round
-            @click="editItem(props.row)"
-          >
-            <q-tooltip>Редактировать</q-tooltip>
-          </q-btn>
-          <q-btn
-            color="negative"
-            icon="delete"
-            dense
-            flat
-            round
-            @click="confirmDelete(props.row)"
-          >
-            <q-tooltip>Удалить</q-tooltip>
-          </q-btn>
-        </q-td>
-      </template>
-
-      <template #body-cell-img="props">
-        <q-td :props="props">
-          <ImageTableCell
-            :alt="`Изображение ${props.row.id}`"
-            :image-url="props.value"
-          />
-        </q-td>
-      </template>
-
-      <template #no-data>
-        <div class="full-width row flex-center text-grey-7 q-gutter-sm">
-          <q-icon
-            name="inbox"
-            size="2em"
-          />
-          <span>Нет данных для отображения</span>
-        </div>
-      </template>
-    </q-table>
-
-    <!-- Диалог создания/редактирования -->
-    <AdminFormDialog
-      v-model="showCreateDialog"
-      :config="config"
-      :item="editingItem"
-      :loading="formLoading"
-      @cancel="handleCancel"
-      @save="handleSave"
-    />
-
-    <!-- Диалог подтверждения удаления -->
-    <q-dialog v-model="showDeleteDialog">
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar
-            color="negative"
-            icon="warning"
-            text-color="white"
-          />
-          <span class="q-ml-sm">
-            {{ deleteDialogText }}
-          </span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn
-            label="Отмена"
-            flat
-            @click="showDeleteDialog = false"
-          />
-          <q-btn
-            color="negative"
-            label="Удалить"
-            flat
-            @click="handleDelete"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-  </q-page>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -657,3 +469,191 @@ async function handleDelete() {
   }
 }
 </script>
+
+<template>
+  <q-page class="q-pa-md">
+    <div class="row items-center justify-between q-mb-md">
+      <div>
+        <div class="text-h4">
+          {{ config?.label || collectionName }}
+        </div>
+        <div class="text-subtitle1 text-grey-7">
+          Управление записями в коллекции
+        </div>
+      </div>
+
+      <q-btn
+        color="primary"
+        icon="add"
+        label="Создать запись"
+        @click="showCreateDialog = true"
+      />
+    </div>
+
+    <!-- Фильтры и поиск -->
+    <q-card
+      class="q-mb-md"
+      bordered
+      flat
+    >
+      <q-card-section>
+        <div class="row q-gutter-md items-center">
+          <div class="col-12 col-md-6">
+            <q-input
+              v-model="tableState.filter"
+              debounce="300"
+              label="Поиск"
+              placeholder="Поиск по всем полям..."
+              clearable
+              filled
+              @clear="handleSearchClear"
+              @update:model-value="performSearch(String($event || ''))"
+            >
+              <template #append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+
+          <div class="col-auto">
+            <q-btn
+              color="secondary"
+              icon="refresh"
+              padding="12px"
+              size="md"
+              @click="loadData"
+            />
+          </div>
+
+          <div class="col-auto">
+            <q-btn
+              color="grey"
+              icon="settings_backup_restore"
+              padding="12px"
+              size="md"
+              @click="handleResetSettings"
+            >
+              <q-tooltip>Сбросить настройки таблицы</q-tooltip>
+            </q-btn>
+          </div>
+
+          <div
+            v-if="tableState.selected.length > 0"
+            class="col-auto"
+          >
+            <q-btn
+              :label="`Удалить (${tableState.selected.length})`"
+              color="negative"
+              icon="delete"
+              padding="12px"
+              size="md"
+              @click="confirmBulkDelete"
+            />
+          </div>
+
+          <div class="col-auto text-grey-6">
+            {{ searchInfo }}
+            <TableSettingsIndicator :settings="tableSettings" />
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+
+    <!-- Таблица данных -->
+    <q-table
+      v-model:pagination="tableState.pagination"
+      v-model:selected="tableState.selected"
+      :columns="config?.columns || []"
+      :loading="tableState.loading"
+      :rows="tableState.items"
+      row-key="id"
+      selection="multiple"
+      server-pagination
+      @request="onRequest"
+    >
+      <template #body-cell-actions="props">
+        <q-td :props="props">
+          <q-btn
+            color="primary"
+            icon="edit"
+            dense
+            flat
+            round
+            @click="editItem(props.row)"
+          >
+            <q-tooltip>Редактировать</q-tooltip>
+          </q-btn>
+          <q-btn
+            color="negative"
+            icon="delete"
+            dense
+            flat
+            round
+            @click="confirmDelete(props.row)"
+          >
+            <q-tooltip>Удалить</q-tooltip>
+          </q-btn>
+        </q-td>
+      </template>
+
+      <template #body-cell-img="props">
+        <q-td :props="props">
+          <ImageTableCell
+            :alt="`Изображение ${props.row.id}`"
+            :image-url="props.value"
+          />
+        </q-td>
+      </template>
+
+      <template #no-data>
+        <div class="full-width row flex-center text-grey-7 q-gutter-sm">
+          <q-icon
+            name="inbox"
+            size="2em"
+          />
+          <span>Нет данных для отображения</span>
+        </div>
+      </template>
+    </q-table>
+
+    <!-- Диалог создания/редактирования -->
+    <AdminFormDialog
+      v-model="showCreateDialog"
+      :config="config"
+      :item="editingItem"
+      :loading="formLoading"
+      @cancel="handleCancel"
+      @save="handleSave"
+    />
+
+    <!-- Диалог подтверждения удаления -->
+    <q-dialog v-model="showDeleteDialog">
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar
+            color="negative"
+            icon="warning"
+            text-color="white"
+          />
+          <span class="q-ml-sm">
+            {{ deleteDialogText }}
+          </span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn
+            label="Отмена"
+            flat
+            @click="showDeleteDialog = false"
+          />
+          <q-btn
+            color="negative"
+            label="Удалить"
+            flat
+            @click="handleDelete"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+  </q-page>
+</template>

@@ -1,134 +1,3 @@
-<template>
-  <q-dialog
-    :model-value="modelValue"
-    @update:model-value="$emit('update:modelValue', $event)"
-  >
-    <q-card style="min-width: 500px; max-width: 800px">
-      <q-card-section>
-        <div class="text-h6">
-          {{ isEditing ? 'Редактировать запись' : 'Создать запись' }}
-        </div>
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-        <q-form
-          ref="formRef"
-          @submit="handleSubmit"
-        >
-          <div class="row">
-            <div
-              v-for="field in config?.fields || []"
-              :key="field.name"
-              class="col-12"
-            >
-              <!-- Текстовые поля -->
-              <q-input
-                v-if="['text', 'email', 'url'].includes(field.type)"
-                :label="field.label"
-                :model-value="String(formData[field.name] || '')"
-                :placeholder="field.placeholder"
-                :required="field.required"
-                :rules="getFieldRules(field)"
-                :type="getInputType(field.type)"
-                filled
-                @update:model-value="formData[field.name] = $event"
-              />
-
-              <!-- Числовые поля -->
-              <q-input
-                v-else-if="field.type === 'number'"
-                :label="field.label"
-                :model-value="Number(formData[field.name] || 0)"
-                :placeholder="field.placeholder"
-                :required="field.required"
-                :rules="getFieldRules(field)"
-                type="number"
-                filled
-                @update:model-value="formData[field.name] = Number($event)"
-              />
-
-              <!-- Текстовая область -->
-              <q-input
-                v-else-if="field.type === 'textarea'"
-                :label="field.label"
-                :model-value="String(formData[field.name] || '')"
-                :placeholder="field.placeholder"
-                :required="field.required"
-                :rules="getFieldRules(field)"
-                rows="4"
-                type="textarea"
-                filled
-                @update:model-value="formData[field.name] = $event"
-              />
-
-              <!-- Дата -->
-              <q-input
-                v-else-if="field.type === 'date'"
-                :label="field.label"
-                :model-value="String(formData[field.name] || '')"
-                :required="field.required"
-                :rules="getFieldRules(field)"
-                type="date"
-                filled
-                @update:model-value="formData[field.name] = $event"
-              />
-
-              <!-- Булево значение -->
-              <q-checkbox
-                v-else-if="field.type === 'boolean'"
-                :label="field.label"
-                :model-value="Boolean(formData[field.name])"
-                @update:model-value="formData[field.name] = $event"
-              />
-
-              <!-- Загрузка изображений -->
-              <div
-                v-else-if="field.type === 'image'"
-                class="q-mb-md"
-              >
-                <div class="text-subtitle2 q-mb-sm">
-                  {{ field.label }}
-                  <span
-                    v-if="field.required"
-                    class="text-negative"
-                  >
-                    *
-                  </span>
-                </div>
-                <ImageUploader
-                  :model-value="
-                    formData[field.name] ? String(formData[field.name]) : null
-                  "
-                  @update:model-value="formData[field.name] = $event"
-                />
-              </div>
-            </div>
-          </div>
-        </q-form>
-      </q-card-section>
-
-      <q-card-actions
-        align="right"
-        class="text-primary"
-      >
-        <q-btn
-          color="grey-6"
-          label="Отмена"
-          outline
-          @click="$emit('cancel')"
-        />
-        <q-btn
-          :loading="loading"
-          color="positive"
-          label="Сохранить"
-          outline
-          @click="handleSubmit"
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-</template>
-
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 
@@ -299,3 +168,134 @@ async function handleSubmit() {
   emit('save', dataToSave)
 }
 </script>
+
+<template>
+  <q-dialog
+    :model-value="modelValue"
+    @update:model-value="$emit('update:modelValue', $event)"
+  >
+    <q-card style="min-width: 500px; max-width: 800px">
+      <q-card-section>
+        <div class="text-h6">
+          {{ isEditing ? 'Редактировать запись' : 'Создать запись' }}
+        </div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        <q-form
+          ref="formRef"
+          @submit="handleSubmit"
+        >
+          <div class="row">
+            <div
+              v-for="field in config?.fields || []"
+              :key="field.name"
+              class="col-12"
+            >
+              <!-- Текстовые поля -->
+              <q-input
+                v-if="['text', 'email', 'url'].includes(field.type)"
+                :label="field.label"
+                :model-value="String(formData[field.name] || '')"
+                :placeholder="field.placeholder"
+                :required="field.required"
+                :rules="getFieldRules(field)"
+                :type="getInputType(field.type)"
+                filled
+                @update:model-value="formData[field.name] = $event"
+              />
+
+              <!-- Числовые поля -->
+              <q-input
+                v-else-if="field.type === 'number'"
+                :label="field.label"
+                :model-value="Number(formData[field.name] || 0)"
+                :placeholder="field.placeholder"
+                :required="field.required"
+                :rules="getFieldRules(field)"
+                type="number"
+                filled
+                @update:model-value="formData[field.name] = Number($event)"
+              />
+
+              <!-- Текстовая область -->
+              <q-input
+                v-else-if="field.type === 'textarea'"
+                :label="field.label"
+                :model-value="String(formData[field.name] || '')"
+                :placeholder="field.placeholder"
+                :required="field.required"
+                :rules="getFieldRules(field)"
+                rows="4"
+                type="textarea"
+                filled
+                @update:model-value="formData[field.name] = $event"
+              />
+
+              <!-- Дата -->
+              <q-input
+                v-else-if="field.type === 'date'"
+                :label="field.label"
+                :model-value="String(formData[field.name] || '')"
+                :required="field.required"
+                :rules="getFieldRules(field)"
+                type="date"
+                filled
+                @update:model-value="formData[field.name] = $event"
+              />
+
+              <!-- Булево значение -->
+              <q-checkbox
+                v-else-if="field.type === 'boolean'"
+                :label="field.label"
+                :model-value="Boolean(formData[field.name])"
+                @update:model-value="formData[field.name] = $event"
+              />
+
+              <!-- Загрузка изображений -->
+              <div
+                v-else-if="field.type === 'image'"
+                class="q-mb-md"
+              >
+                <div class="text-subtitle2 q-mb-sm">
+                  {{ field.label }}
+                  <span
+                    v-if="field.required"
+                    class="text-negative"
+                  >
+                    *
+                  </span>
+                </div>
+                <ImageUploader
+                  :model-value="
+                    formData[field.name] ? String(formData[field.name]) : null
+                  "
+                  @update:model-value="formData[field.name] = $event"
+                />
+              </div>
+            </div>
+          </div>
+        </q-form>
+      </q-card-section>
+
+      <q-card-actions
+        align="right"
+        class="text-primary"
+      >
+        <q-btn
+          color="grey-6"
+          label="Отмена"
+          outline
+          @click="$emit('cancel')"
+        />
+        <q-btn
+          :loading="loading"
+          color="positive"
+          label="Сохранить"
+          outline
+          @click="handleSubmit"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+</template>

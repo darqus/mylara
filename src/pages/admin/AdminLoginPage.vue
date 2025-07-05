@@ -1,3 +1,147 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useQuasar } from 'quasar'
+import type { QForm } from 'quasar'
+
+import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
+
+defineOptions({ name: 'AdminLoginPage' })
+
+const router = useRouter()
+const $q = useQuasar()
+const { login, register, loading, isAuthenticated, initializing } =
+  useAdminAuth()
+
+// Управление видимостью паролей
+const {
+  togglePasswordVisibility: togglePassword,
+  getInputType: getPasswordInputType,
+  getToggleIcon: getPasswordToggleIcon,
+} = usePasswordVisibility()
+
+const {
+  togglePasswordVisibility: toggleRegisterPassword,
+  getInputType: getRegisterPasswordInputType,
+  getToggleIcon: getRegisterPasswordToggleIcon,
+} = usePasswordVisibility()
+
+const formRef = ref<QForm>()
+const registerFormRef = ref<QForm>()
+
+const email = ref('')
+const password = ref('')
+const hasError = ref(false)
+const errorMessage = ref('')
+
+const showRegistrationDialog = ref(false)
+const showRegistrationOption = ref(false)
+const registrationLoading = ref(false)
+const registerEmail = ref('')
+const registerPassword = ref('')
+
+onMounted(() => {
+  // Если пользователь уже аутентифицирован, перенаправляем в админку
+  if (isAuthenticated.value) {
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+
+    void router.push(redirectTo)
+
+    return
+  }
+
+  // В реальном приложении здесь можно проверить, есть ли уже созданные пользователи
+  // Для простоты показываем опцию регистрации всегда
+  showRegistrationOption.value = true
+})
+
+async function handleLogin() {
+  if (!formRef.value) {
+    return
+  }
+
+  const isValid = await formRef.value.validate()
+
+  if (!isValid) {
+    return
+  }
+
+  hasError.value = false
+  errorMessage.value = ''
+
+  const result = await login(email.value, password.value)
+
+  if (result.success) {
+    $q.notify({
+      type: 'positive',
+      message: 'Вход выполнен успешно',
+      position: 'top',
+    })
+
+    // Перенаправляем на исходную страницу или на админ дашборд
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+
+    void router.push(redirectTo)
+  } else {
+    hasError.value = true
+    errorMessage.value = result.error ?? 'Произошла ошибка при входе'
+
+    $q.notify({
+      type: 'negative',
+      message: result.error ?? 'Произошла ошибка при входе',
+      position: 'top',
+    })
+  }
+}
+
+async function handleRegister() {
+  if (!registerFormRef.value) {
+    return
+  }
+
+  const isValid = await registerFormRef.value.validate()
+
+  if (!isValid) {
+    return
+  }
+
+  registrationLoading.value = true
+
+  const result = await register(registerEmail.value, registerPassword.value)
+
+  if (result.success) {
+    $q.notify({
+      type: 'positive',
+      message: 'Администратор создан успешно',
+      position: 'top',
+    })
+
+    showRegistrationDialog.value = false
+
+    // Перенаправляем на исходную страницу или на админ дашборд
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo =
+      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+
+    void router.push(redirectTo)
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: result.error ?? 'Произошла ошибка при создании администратора',
+      position: 'top',
+    })
+  }
+
+  registrationLoading.value = false
+}
+</script>
+
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
@@ -182,147 +326,3 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-import { useQuasar } from 'quasar'
-import type { QForm } from 'quasar'
-
-import { useAdminAuth } from 'src/composables/useAdminAuth'
-import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
-
-defineOptions({ name: 'AdminLoginPage' })
-
-const router = useRouter()
-const $q = useQuasar()
-const { login, register, loading, isAuthenticated, initializing } =
-  useAdminAuth()
-
-// Управление видимостью паролей
-const {
-  togglePasswordVisibility: togglePassword,
-  getInputType: getPasswordInputType,
-  getToggleIcon: getPasswordToggleIcon,
-} = usePasswordVisibility()
-
-const {
-  togglePasswordVisibility: toggleRegisterPassword,
-  getInputType: getRegisterPasswordInputType,
-  getToggleIcon: getRegisterPasswordToggleIcon,
-} = usePasswordVisibility()
-
-const formRef = ref<QForm>()
-const registerFormRef = ref<QForm>()
-
-const email = ref('')
-const password = ref('')
-const hasError = ref(false)
-const errorMessage = ref('')
-
-const showRegistrationDialog = ref(false)
-const showRegistrationOption = ref(false)
-const registrationLoading = ref(false)
-const registerEmail = ref('')
-const registerPassword = ref('')
-
-onMounted(() => {
-  // Если пользователь уже аутентифицирован, перенаправляем в админку
-  if (isAuthenticated.value) {
-    const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
-
-    void router.push(redirectTo)
-
-    return
-  }
-
-  // В реальном приложении здесь можно проверить, есть ли уже созданные пользователи
-  // Для простоты показываем опцию регистрации всегда
-  showRegistrationOption.value = true
-})
-
-async function handleLogin() {
-  if (!formRef.value) {
-    return
-  }
-
-  const isValid = await formRef.value.validate()
-
-  if (!isValid) {
-    return
-  }
-
-  hasError.value = false
-  errorMessage.value = ''
-
-  const result = await login(email.value, password.value)
-
-  if (result.success) {
-    $q.notify({
-      type: 'positive',
-      message: 'Вход выполнен успешно',
-      position: 'top',
-    })
-
-    // Перенаправляем на исходную страницу или на админ дашборд
-    const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
-
-    void router.push(redirectTo)
-  } else {
-    hasError.value = true
-    errorMessage.value = result.error ?? 'Произошла ошибка при входе'
-
-    $q.notify({
-      type: 'negative',
-      message: result.error ?? 'Произошла ошибка при входе',
-      position: 'top',
-    })
-  }
-}
-
-async function handleRegister() {
-  if (!registerFormRef.value) {
-    return
-  }
-
-  const isValid = await registerFormRef.value.validate()
-
-  if (!isValid) {
-    return
-  }
-
-  registrationLoading.value = true
-
-  const result = await register(registerEmail.value, registerPassword.value)
-
-  if (result.success) {
-    $q.notify({
-      type: 'positive',
-      message: 'Администратор создан успешно',
-      position: 'top',
-    })
-
-    showRegistrationDialog.value = false
-
-    // Перенаправляем на исходную страницу или на админ дашборд
-    const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
-
-    void router.push(redirectTo)
-  } else {
-    $q.notify({
-      type: 'negative',
-      message: result.error ?? 'Произошла ошибка при создании администратора',
-      position: 'top',
-    })
-  }
-
-  registrationLoading.value = false
-}
-</script>

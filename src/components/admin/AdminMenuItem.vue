@@ -1,23 +1,3 @@
-<template>
-  <q-item
-    v-ripple
-    :active="isActive"
-    :class="{ 'admin-menu-item--active': isActive }"
-    :to="link"
-    active-class="text-primary bg-primary-1"
-    class="admin-menu-item"
-    clickable
-  >
-    <q-item-section avatar>
-      <q-icon :name="icon" />
-    </q-item-section>
-
-    <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-    </q-item-section>
-  </q-item>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -58,6 +38,26 @@ const isActive = computed(() => {
   return false
 })
 </script>
+
+<template>
+  <q-item
+    v-ripple
+    :active="isActive"
+    :class="{ 'admin-menu-item--active': isActive }"
+    :to="link"
+    active-class="text-primary bg-primary-1"
+    class="admin-menu-item"
+    clickable
+  >
+    <q-item-section avatar>
+      <q-icon :name="icon" />
+    </q-item-section>
+
+    <q-item-section>
+      <q-item-label>{{ title }}</q-item-label>
+    </q-item-section>
+  </q-item>
+</template>
 
 <style lang="scss">
 // Styles moved to /src/css/components/_admin-menu-item.scss

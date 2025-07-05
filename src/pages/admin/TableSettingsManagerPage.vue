@@ -1,3 +1,123 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+import { useQuasar } from 'quasar'
+
+import { useTableSettingsManager } from 'src/composables/useTableSettings'
+
+defineOptions({ name: 'TableSettingsManagerPage' })
+
+const $q = useQuasar()
+
+const {
+  getAllTableSettingsKeys,
+  clearAllTableSettings,
+  getTotalStorageSize,
+  exportAllSettings,
+  importAllSettings,
+} = useTableSettingsManager()
+
+const settingsKeys = ref<string[]>([])
+const totalStorageSize = ref(0)
+const showImportDialog = ref(false)
+const importData = ref('')
+
+onMounted(() => {
+  updateData()
+})
+
+function updateData() {
+  settingsKeys.value = getAllTableSettingsKeys()
+  totalStorageSize.value = getTotalStorageSize()
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes === 0) {
+    return '0 Bytes'
+  }
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+}
+
+function exportSettings() {
+  try {
+    const exported = exportAllSettings()
+    const jsonString = JSON.stringify(exported, null, 2)
+
+    // Создаем файл для скачивания
+    const blob = new Blob([jsonString], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+
+    link.href = url
+    link.download = `table-settings-${new Date().toISOString().split('T')[0]}.json`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+
+    $q.notify({
+      type: 'positive',
+      message: 'Настройки экспортированы',
+      position: 'top',
+    })
+  } catch (error) {
+    console.error('Export error:', error)
+    $q.notify({
+      type: 'negative',
+      message: 'Ошибка экспорта настроек',
+      position: 'top',
+    })
+  }
+}
+
+function importSettings() {
+  try {
+    const settings = JSON.parse(importData.value)
+
+    importAllSettings(settings)
+    updateData()
+    showImportDialog.value = false
+    importData.value = ''
+
+    $q.notify({
+      type: 'positive',
+      message: 'Настройки импортированы',
+      position: 'top',
+    })
+  } catch (error) {
+    console.error('Import error:', error)
+    $q.notify({
+      type: 'negative',
+      message: 'Ошибка импорта: неверный JSON',
+      position: 'top',
+    })
+  }
+}
+
+function clearAllSettings() {
+  $q.dialog({
+    title: 'Подтверждение',
+    message: 'Вы действительно хотите удалить все настройки таблиц?',
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    clearAllTableSettings()
+    updateData()
+
+    $q.notify({
+      type: 'positive',
+      message: 'Все настройки удалены',
+      position: 'top',
+    })
+  })
+}
+</script>
+
 <template>
   <q-page class="q-pa-md">
     <div class="text-h4 q-mb-md">Управление настройками таблиц</div>
@@ -123,123 +243,3 @@
     </q-dialog>
   </q-page>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
-import { useQuasar } from 'quasar'
-
-import { useTableSettingsManager } from 'src/composables/useTableSettings'
-
-defineOptions({ name: 'TableSettingsManagerPage' })
-
-const $q = useQuasar()
-
-const {
-  getAllTableSettingsKeys,
-  clearAllTableSettings,
-  getTotalStorageSize,
-  exportAllSettings,
-  importAllSettings,
-} = useTableSettingsManager()
-
-const settingsKeys = ref<string[]>([])
-const totalStorageSize = ref(0)
-const showImportDialog = ref(false)
-const importData = ref('')
-
-onMounted(() => {
-  updateData()
-})
-
-function updateData() {
-  settingsKeys.value = getAllTableSettingsKeys()
-  totalStorageSize.value = getTotalStorageSize()
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes === 0) {
-    return '0 Bytes'
-  }
-
-  const k = 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
-}
-
-function exportSettings() {
-  try {
-    const exported = exportAllSettings()
-    const jsonString = JSON.stringify(exported, null, 2)
-
-    // Создаем файл для скачивания
-    const blob = new Blob([jsonString], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-
-    link.href = url
-    link.download = `table-settings-${new Date().toISOString().split('T')[0]}.json`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
-
-    $q.notify({
-      type: 'positive',
-      message: 'Настройки экспортированы',
-      position: 'top',
-    })
-  } catch (error) {
-    console.error('Export error:', error)
-    $q.notify({
-      type: 'negative',
-      message: 'Ошибка экспорта настроек',
-      position: 'top',
-    })
-  }
-}
-
-function importSettings() {
-  try {
-    const settings = JSON.parse(importData.value)
-
-    importAllSettings(settings)
-    updateData()
-    showImportDialog.value = false
-    importData.value = ''
-
-    $q.notify({
-      type: 'positive',
-      message: 'Настройки импортированы',
-      position: 'top',
-    })
-  } catch (error) {
-    console.error('Import error:', error)
-    $q.notify({
-      type: 'negative',
-      message: 'Ошибка импорта: неверный JSON',
-      position: 'top',
-    })
-  }
-}
-
-function clearAllSettings() {
-  $q.dialog({
-    title: 'Подтверждение',
-    message: 'Вы действительно хотите удалить все настройки таблиц?',
-    cancel: true,
-    persistent: true,
-  }).onOk(() => {
-    clearAllTableSettings()
-    updateData()
-
-    $q.notify({
-      type: 'positive',
-      message: 'Все настройки удалены',
-      position: 'top',
-    })
-  })
-}
-</script>

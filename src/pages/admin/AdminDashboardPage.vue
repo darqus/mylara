@@ -1,63 +1,3 @@
-<template>
-  <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">Панель администратора</div>
-
-    <div class="text-subtitle1 q-mb-lg text-grey-7">
-      Добро пожаловать в админку для управления базой данных
-    </div>
-
-    <div class="row q-gutter-md">
-      <div
-        v-for="collection in collections"
-        :key="collection.name"
-        class="col-12 col-sm-6 col-md-3"
-      >
-        <q-card
-          v-ripple
-          class="admin-dashboard__card cursor-pointer"
-          clickable
-          @click="navigateToCollection(collection.name)"
-        >
-          <q-card-section class="text-center">
-            <q-icon
-              :name="collection.icon"
-              class="q-mb-md"
-              color="primary"
-              size="48px"
-            />
-            <div class="text-h6">
-              {{ collection.label }}
-            </div>
-            <div class="text-body2 text-grey-6 q-mb-sm">
-              Управление записями {{ collection.label.toLowerCase() }}
-            </div>
-
-            <!-- Статистика количества записей -->
-            <div class="q-mt-md">
-              <q-chip
-                v-if="collectionStats[collection.name] !== undefined"
-                :color="getColorForCollection(collection.name)"
-                :label="
-                  formatRecordsCount(collectionStats[collection.name] ?? 0)
-                "
-                text-color="white"
-                dense
-              />
-              <q-chip
-                v-else
-                color="grey-5"
-                label="Загрузка..."
-                text-color="white"
-                dense
-              />
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
-    </div>
-  </q-page>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -131,6 +71,66 @@ function navigateToCollection(collectionName: string) {
   void router.push(`/admin/collection/${collectionName}`)
 }
 </script>
+
+<template>
+  <q-page class="q-pa-md">
+    <div class="text-h4 q-mb-md">Панель администратора</div>
+
+    <div class="text-subtitle1 q-mb-lg text-grey-7">
+      Добро пожаловать в админку для управления базой данных
+    </div>
+
+    <div class="row q-gutter-md">
+      <div
+        v-for="collection in collections"
+        :key="collection.name"
+        class="col-12 col-sm-6 col-md-3"
+      >
+        <q-card
+          v-ripple
+          class="admin-dashboard__card cursor-pointer"
+          clickable
+          @click="navigateToCollection(collection.name)"
+        >
+          <q-card-section class="text-center">
+            <q-icon
+              :name="collection.icon"
+              class="q-mb-md"
+              color="primary"
+              size="48px"
+            />
+            <div class="text-h6">
+              {{ collection.label }}
+            </div>
+            <div class="text-body2 text-grey-6 q-mb-sm">
+              Управление записями {{ collection.label.toLowerCase() }}
+            </div>
+
+            <!-- Статистика количества записей -->
+            <div class="q-mt-md">
+              <q-chip
+                v-if="collectionStats[collection.name] !== undefined"
+                :color="getColorForCollection(collection.name)"
+                :label="
+                  formatRecordsCount(collectionStats[collection.name] ?? 0)
+                "
+                text-color="white"
+                dense
+              />
+              <q-chip
+                v-else
+                color="grey-5"
+                label="Загрузка..."
+                text-color="white"
+                dense
+              />
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+  </q-page>
+</template>
 
 <style lang="scss">
 // Styles moved to /src/css/components/_admin-dashboard.scss

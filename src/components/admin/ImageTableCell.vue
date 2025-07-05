@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+defineOptions({ name: 'ImageTableCell' })
+
+type Props = {
+  imageUrl?: string | null
+  alt?: string
+  size?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  imageUrl: null,
+  alt: 'Image',
+  size: 40,
+})
+
+const showDialog = ref(false)
+
+function showFullImage() {
+  if (props.imageUrl) {
+    showDialog.value = true
+  }
+}
+
+function downloadImage() {
+  if (!props.imageUrl) {
+    return
+  }
+
+  const link = document.createElement('a')
+
+  link.href = props.imageUrl
+  link.download = props.alt || 'image'
+  link.target = '_blank'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+</script>
+
 <template>
   <div class="image-table-cell">
     <q-img
@@ -83,47 +124,6 @@
     </q-dialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-defineOptions({ name: 'ImageTableCell' })
-
-type Props = {
-  imageUrl?: string | null
-  alt?: string
-  size?: number
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  imageUrl: null,
-  alt: 'Image',
-  size: 40,
-})
-
-const showDialog = ref(false)
-
-function showFullImage() {
-  if (props.imageUrl) {
-    showDialog.value = true
-  }
-}
-
-function downloadImage() {
-  if (!props.imageUrl) {
-    return
-  }
-
-  const link = document.createElement('a')
-
-  link.href = props.imageUrl
-  link.download = props.alt || 'image'
-  link.target = '_blank'
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-}
-</script>
 
 <style lang="scss">
 // Styles moved to /src/css/components/_image-table-cell.scss

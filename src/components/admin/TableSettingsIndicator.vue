@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import type { TableSettings } from 'src/composables/useTableSettings'
+
+type Props = {
+  settings: TableSettings
+}
+
+const props = defineProps<Props>()
+
+/**
+ * Проверяем, есть ли кастомные настройки
+ */
+const hasCustomSettings = computed(() => {
+  return (
+    (props.settings.sortBy ?? false) ||
+    (props.settings.filter ?? false) ||
+    props.settings.rowsPerPage !== 10 ||
+    props.settings.page > 1
+  )
+})
+</script>
+
 <template>
   <div
     v-if="hasCustomSettings"
@@ -27,27 +51,3 @@
     </q-tooltip>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-
-import type { TableSettings } from 'src/composables/useTableSettings'
-
-type Props = {
-  settings: TableSettings
-}
-
-const props = defineProps<Props>()
-
-/**
- * Проверяем, есть ли кастомные настройки
- */
-const hasCustomSettings = computed(() => {
-  return (
-    (props.settings.sortBy ?? false) ||
-    (props.settings.filter ?? false) ||
-    props.settings.rowsPerPage !== 10 ||
-    props.settings.page > 1
-  )
-})
-</script>

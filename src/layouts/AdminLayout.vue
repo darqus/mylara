@@ -1,3 +1,62 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useQuasar } from 'quasar'
+
+import { APP_VERSION } from 'src/utils/constants'
+
+import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
+
+import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { getAllCollections } from 'src/services/admin-config.service'
+
+defineOptions({ name: 'AdminLayout' })
+
+const router = useRouter()
+const $q = useQuasar()
+const { currentUser, isAuthenticated, logout } = useAdminAuth()
+
+const leftDrawerOpen = ref(false)
+const version = APP_VERSION
+const collections = getAllCollections()
+
+// Следим за изменениями аутентификации
+watch(
+  () => isAuthenticated.value,
+  (authenticated) => {
+    if (!authenticated) {
+      void router.push('/admin/login')
+    }
+  },
+  { immediate: true }
+)
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+async function handleLogout() {
+  const result = await logout()
+
+  if (result.success) {
+    $q.notify({
+      type: 'positive',
+      message: 'Выход выполнен успешно',
+      position: 'top',
+    })
+
+    void router.push('/admin/login')
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: result.error ?? 'Произошла ошибка при выходе',
+      position: 'top',
+    })
+  }
+}
+</script>
+
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
@@ -74,62 +133,3 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-
-import { useQuasar } from 'quasar'
-
-import { APP_VERSION } from 'src/utils/constants'
-
-import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
-
-import { useAdminAuth } from 'src/composables/useAdminAuth'
-import { getAllCollections } from 'src/services/admin-config.service'
-
-defineOptions({ name: 'AdminLayout' })
-
-const router = useRouter()
-const $q = useQuasar()
-const { currentUser, isAuthenticated, logout } = useAdminAuth()
-
-const leftDrawerOpen = ref(false)
-const version = APP_VERSION
-const collections = getAllCollections()
-
-// Следим за изменениями аутентификации
-watch(
-  () => isAuthenticated.value,
-  (authenticated) => {
-    if (!authenticated) {
-      void router.push('/admin/login')
-    }
-  },
-  { immediate: true }
-)
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
-
-async function handleLogout() {
-  const result = await logout()
-
-  if (result.success) {
-    $q.notify({
-      type: 'positive',
-      message: 'Выход выполнен успешно',
-      position: 'top',
-    })
-
-    void router.push('/admin/login')
-  } else {
-    $q.notify({
-      type: 'negative',
-      message: result.error ?? 'Произошла ошибка при выходе',
-      position: 'top',
-    })
-  }
-}
-</script>
