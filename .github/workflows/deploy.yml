@@ -61,6 +61,20 @@ jobs:
           cp public/404.html dist/spa/ || echo "404.html file not found"
           cp .nojekyll dist/spa/ || echo ".nojekyll file not found"
           cp _config.yml dist/spa/ || echo "_config.yml file not found"
+          cp public/.htaccess dist/spa/ || echo ".htaccess file not found"
+          cp public/mime.types dist/spa/ || echo "mime.types file not found"
+          cp -r _includes dist/spa/ || echo "_includes directory not found"
+      - name: Fix JavaScript file extensions and MIME types
+        run: |
+          # Ensure all JS files have correct extensions
+          find dist/spa/assets -name "*.js" -type f | while read file; do
+            if [[ ! "$file" =~ \.js$ ]]; then
+              mv "$file" "$file.js"
+            fi
+          done
+          # List all JS files for verification
+          echo "JavaScript files in build:"
+          find dist/spa/assets -name "*.js" -type f
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

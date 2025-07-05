@@ -1,0 +1,10 @@
+---
+layout: null
+---
+{%- capture assets_dir -%}{{ 'assets' | relative_url }}{%- endcapture -%}
+{%- assign js_files = site.static_files | where: "extname", ".js" -%}
+{%- for js_file in js_files -%}
+{%- if js_file.path contains '/assets/' -%}
+{{ js_file.path | relative_url }}
+{%- endif -%}
+{%- endfor -%}

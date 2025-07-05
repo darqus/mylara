@@ -55,6 +55,15 @@ export default defineConfig((/* ctx */) => ({
       VITE_APP_VERSION: JSON.stringify(packageJson.version),
     },
 
+    // Настройки для правильной генерации модулей
+    viteVuePluginOptions: {
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('ion-'),
+        },
+      },
+    },
+
     // ignorePublicFolder: true,
     // minify: false,
     // polyfillModulePreload: true,
@@ -65,7 +74,10 @@ export default defineConfig((/* ctx */) => ({
       // Ensure absolute paths for assets
       viteConf.base = '/'
 
+      // Настройки для правильной работы с GitHub Pages
       viteConf.build = viteConf.build ?? {}
+      viteConf.build.target = 'es2022'
+      viteConf.build.modulePreload = false
       viteConf.build.rollupOptions = viteConf.build.rollupOptions ?? {}
       viteConf.build.rollupOptions.output =
         viteConf.build.rollupOptions.output ?? {}
@@ -102,6 +114,14 @@ export default defineConfig((/* ctx */) => ({
 
       // Настройки для предотвращения проблем с hoisting
       viteConf.build.rollupOptions.preserveEntrySignatures = 'strict'
+
+      // Дополнительные настройки для GitHub Pages
+      if (!Array.isArray(viteConf.build.rollupOptions.output)) {
+        // Настройки для корректного именования JS модулей
+        viteConf.build.rollupOptions.output.entryFileNames = 'assets/[name]-[hash].js'
+        viteConf.build.rollupOptions.output.chunkFileNames = 'assets/[name]-[hash].js'
+        viteConf.build.rollupOptions.output.assetFileNames = 'assets/[name]-[hash][extname]'
+      }
     },
 
     // viteVuePluginOptions: {},

@@ -1,2 +1,36 @@
 # Принудительное использование HTTPS
 enforce_ssl: mylara.ru
+
+# Отключаем обработку Jekyll для статических ресурсов
+include:
+  - "_*"
+  - ".nojekyll"
+  - ".htaccess"
+
+# Исключаем файлы от обработки Jekyll
+exclude:
+  - "*.js.map"
+  - "node_modules/"
+  - "vendor/"
+  - "README.md"
+  - "package.json"
+  - "yarn.lock"
+
+# Настройки для правильной обработки MIME-типов
+plugins: []
+
+# Отключаем markdown процессор для JS/CSS файлов
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+
+# Настройки для статических файлов
+defaults:
+  - scope:
+      path: "assets"
+    values:
+      sitemap: false
+
+# Отключаем Jekyll обработку для всех файлов в директории assets
+keep_files:
+  - "assets"
