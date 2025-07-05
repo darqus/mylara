@@ -57,63 +57,6 @@
         </q-card>
       </div>
     </div>
-
-    <q-separator class="q-my-lg" />
-
-    <div class="text-h6 q-mb-md">
-      Быстрые действия
-    </div>
-
-    <div class="row q-gutter-md">
-      <q-btn
-        color="primary"
-        icon="add"
-        label="Создать коллекцию"
-        @click="showCreateCollectionDialog = true"
-      />
-      <q-btn
-        color="secondary"
-        icon="refresh"
-        label="Обновить данные"
-        @click="refreshData"
-      />
-    </div>
-
-    <!-- Диалог создания коллекции -->
-    <q-dialog v-model="showCreateCollectionDialog">
-      <q-card style="min-width: 400px">
-        <q-card-section>
-          <div class="text-h6">
-            Создать новую коллекцию
-          </div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          <q-input
-            v-model="newCollectionName"
-            label="Название коллекции"
-            placeholder="Введите название коллекции"
-            filled
-          />
-        </q-card-section>
-
-        <q-card-actions
-          align="right"
-          class="text-primary"
-        >
-          <q-btn
-            label="Отмена"
-            flat
-            @click="showCreateCollectionDialog = false"
-          />
-          <q-btn
-            label="Создать"
-            flat
-            @click="createCollection"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </q-page>
 </template>
 
@@ -138,8 +81,6 @@ const $q = useQuasar()
 const router = useRouter()
 
 const collections = getAllCollections()
-const showCreateCollectionDialog = ref(false)
-const newCollectionName = ref('')
 const collectionStats = ref<Record<string, number>>({})
 
 onMounted(async () => {
@@ -196,36 +137,6 @@ function navigateToCollection(collectionName: string) {
   void router.push(`/admin/collection/${collectionName}`)
 }
 
-function refreshData() {
-  void loadCollectionStats()
-  $q.notify({
-    type: 'positive',
-    message: 'Данные обновлены',
-    position: 'top',
-  })
-}
-
-function createCollection() {
-  if (!newCollectionName.value.trim()) {
-    $q.notify({
-      type: 'negative',
-      message: 'Введите название коллекции',
-      position: 'top',
-    })
-
-    return
-  }
-
-  // TODO: Реализовать создание коллекции
-  $q.notify({
-    type: 'info',
-    message: `Создание коллекции "${newCollectionName.value}" (в разработке)`,
-    position: 'top',
-  })
-
-  showCreateCollectionDialog.value = false
-  newCollectionName.value = ''
-}
 </script>
 
 <style lang="scss" scoped>
