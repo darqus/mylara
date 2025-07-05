@@ -157,7 +157,7 @@
 
 <script setup lang="ts">
 import {
-  ref, onMounted, computed,
+  ref, onMounted, computed, watch,
 } from 'vue'
 import { useRoute, } from 'vue-router'
 
@@ -209,6 +209,51 @@ const deleteDialogText = computed(() => {
 onMounted(() => {
   void loadData()
 })
+
+// Отслеживаем изменения коллекции и автоматически перезагружаем данные
+watch(
+  () => collectionName.value,
+  (newCollection, oldCollection) => {
+    // Проверяем, что коллекция действительно изменилась
+    if (newCollection !== oldCollection && newCollection) {
+      // Сброс состояния при переключении коллекции
+      resetTableState()
+
+      // Показываем уведомление о переключении
+      if (oldCollection && config.value?.label) {
+        $q.notify({
+          type: 'info',
+          message: `Переключено на: ${config.value.label}`,
+          position: 'top',
+          timeout: 1000,
+        })
+      }
+
+      // Загрузка данных новой коллекции
+      void loadData()
+    }
+  }
+)
+
+function resetTableState() {
+  tableState.value = {
+    items: [],
+    loading: true, // Показываем загрузку при переключении коллекции
+    pagination: {
+      page: 1,
+      rowsPerPage: 10,
+      rowsNumber: 0,
+    },
+    filter: '',
+    selected: [],
+  }
+
+  // Закрываем все диалоги
+  showCreateDialog.value = false
+  showDeleteDialog.value = false
+  editingItem.value = null
+  itemToDelete.value = null
+}
 
 async function loadData() {
   if (!config.value) {
