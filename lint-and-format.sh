@@ -30,7 +30,15 @@ else
 fi
 echo
 
-print_status "2. Запуск Prettier..."
+print_status "2. Исправление порядка блоков в Vue файлах..."
+if npx eslint "**/*.vue" --fix --rule "vue/block-order:error"; then
+    print_success "Порядок блоков Vue исправлен"
+else
+    print_error "Ошибки при исправлении порядка блоков Vue"
+fi
+echo
+
+print_status "3. Запуск Prettier..."
 if npx prettier --write "**/*.{js,ts,vue,json,md,scss,css,html}"; then
     print_success "Prettier завершен"
 else
@@ -38,7 +46,7 @@ else
 fi
 echo
 
-print_status "3. Запуск Stylelint с автофиксом..."
+print_status "4. Запуск Stylelint с автофиксом..."
 if npx stylelint "**/*.{css,scss,vue}" --fix; then
     print_success "Stylelint завершен"
 else
@@ -46,7 +54,7 @@ else
 fi
 echo
 
-print_status "4. Проверка типов TypeScript..."
+print_status "5. Проверка типов TypeScript..."
 if npx tsc --noEmit; then
     print_success "Проверка типов прошла успешно"
 else

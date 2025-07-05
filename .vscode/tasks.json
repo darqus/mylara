@@ -5,9 +5,15 @@
       "label": "ESLint: Fix All",
       "type": "shell",
       "command": "npx",
-      "args": ["eslint", ".", "--fix"],
+      "args": [
+        "eslint",
+        ".",
+        "--fix"
+      ],
       "group": "build",
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "isBackground": false,
       "detail": "Fix all ESLint issues automatically"
     },
@@ -15,9 +21,15 @@
       "label": "ESLint: Check Current File",
       "type": "shell",
       "command": "npx",
-      "args": ["eslint", "${file}", "--fix"],
+      "args": [
+        "eslint",
+        "${file}",
+        "--fix"
+      ],
       "group": "build",
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "isBackground": false,
       "detail": "Fix ESLint issues in the current file"
     },
@@ -25,7 +37,11 @@
       "label": "Prettier: Format All",
       "type": "shell",
       "command": "npx",
-      "args": ["prettier", "--write", "**/*.{js,ts,vue,json,md,scss,css,html}"],
+      "args": [
+        "prettier",
+        "--write",
+        "**/*.{js,ts,vue,json,md,scss,css,html}"
+      ],
       "group": "build",
       "isBackground": false,
       "detail": "Format all files with Prettier"
@@ -34,7 +50,11 @@
       "label": "Prettier: Format Current File",
       "type": "shell",
       "command": "npx",
-      "args": ["prettier", "--write", "${file}"],
+      "args": [
+        "prettier",
+        "--write",
+        "${file}"
+      ],
       "group": "build",
       "isBackground": false,
       "detail": "Format current file with Prettier"
@@ -43,7 +63,11 @@
       "label": "Stylelint: Fix All",
       "type": "shell",
       "command": "npx",
-      "args": ["stylelint", "**/*.{css,scss,vue}", "--fix"],
+      "args": [
+        "stylelint",
+        "**/*.{css,scss,vue}",
+        "--fix"
+      ],
       "group": "build",
       "isBackground": false,
       "detail": "Fix all Stylelint issues automatically"
@@ -68,7 +92,9 @@
         "vue/attributes-order:error"
       ],
       "group": "build",
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "isBackground": false,
       "detail": "Fix Vue attributes order in all Vue files"
     },
@@ -84,17 +110,60 @@
         "vue/attributes-order:error"
       ],
       "group": "build",
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "isBackground": false,
       "detail": "Fix Vue attributes order in current file"
+    },
+    {
+      "label": "Vue: Fix Block Order",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "eslint",
+        "**/*.vue",
+        "--fix",
+        "--rule",
+        "vue/block-order:error"
+      ],
+      "group": "build",
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "isBackground": false,
+      "detail": "Fix Vue block order (script → template → style) in all Vue files"
+    },
+    {
+      "label": "Vue: Fix Current File Block Order",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "eslint",
+        "${file}",
+        "--fix",
+        "--rule",
+        "vue/block-order:error"
+      ],
+      "group": "build",
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "isBackground": false,
+      "detail": "Fix Vue block order (script → template → style) in current file"
     },
     {
       "label": "TypeScript: Check Types",
       "type": "shell",
       "command": "npx",
-      "args": ["tsc", "--noEmit"],
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
       "group": "build",
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "isBackground": false,
       "detail": "Check TypeScript types without emitting files"
     }

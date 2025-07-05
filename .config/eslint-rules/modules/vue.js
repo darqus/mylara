@@ -110,15 +110,21 @@ export const vue = {
         'renderError',
       ],
     },
-  ],
-
-  // TEMPLATE STRUCTURE
+  ],  // TEMPLATE STRUCTURE
   'vue/block-tag-newline': [
     'error',
     {
       singleline: 'consistent',
       multiline: 'consistent',
       maxEmptyLines: 0,
+    },
+  ],
+  
+  // BLOCK ORDER - Enforce script → template → style order
+  'vue/block-order': [
+    'error',
+    {
+      order: ['script', 'template', 'style'],
     },
   ],
 
