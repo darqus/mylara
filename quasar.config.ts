@@ -3,6 +3,9 @@
 
 import { defineConfig, } from '#q-app/wrappers'
 
+// Импорт package.json для получения версии
+import packageJson from './package.json'
+
 // Используем прямой доступ к переменным окружения вместо импорта из constants
 
 export default defineConfig((/* ctx */) => ({
@@ -48,7 +51,10 @@ export default defineConfig((/* ctx */) => ({
 
     // analyze: true,
     // env: {},
-    // rawDefine: {}
+    rawDefine: {
+      VITE_APP_VERSION: JSON.stringify(packageJson.version),
+    },
+
     // ignorePublicFolder: true,
     // minify: false,
     // polyfillModulePreload: true,

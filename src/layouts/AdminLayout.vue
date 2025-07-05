@@ -78,6 +78,8 @@ import { useRouter, } from 'vue-router'
 
 import { useQuasar, } from 'quasar'
 
+import { APP_VERSION, } from 'src/utils/constants'
+
 import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 
 import { useAdminAuth, } from 'src/composables/useAdminAuth'
@@ -94,7 +96,7 @@ const {
 } = useAdminAuth()
 
 const leftDrawerOpen = ref(false)
-const version = '1.0.0'
+const version = APP_VERSION
 const collections = getAllCollections()
 
 // Следим за изменениями аутентификации

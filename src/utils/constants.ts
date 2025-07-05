@@ -25,6 +25,9 @@ export const API_HOST = getEnvVar('VITE_API_HOST', '')
 
 export const API_BASE_HOST = getEnvVar('VITE_API_BASE_HOST', '')
 
+// Версия приложения
+export const APP_VERSION = getEnvVar('VITE_APP_VERSION', '0.1.39')
+
 export const NO_IMG = 'img/no-image.svg'
 
 export const COMPONENT_KEY_DELIMITER = '-'
