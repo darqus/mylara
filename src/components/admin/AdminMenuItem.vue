@@ -3,7 +3,8 @@
     v-ripple
     :active="isActive"
     :to="link"
-    active-class="text-primary bg-grey-2"
+    active-class="text-primary bg-primary-1"
+    class="menu-item"
     clickable
   >
     <q-item-section avatar>
@@ -35,17 +36,48 @@ const route = useRoute()
 
 // Проверяем, является ли текущий пункт меню активным
 const isActive = computed(() => {
-  // Для главной страницы
+  // Для главной страницы лендинга
   if (props.link === '/' && route.path === '/') {
     return true
   }
 
-  // Для админских коллекций
+  // Для главной страницы админки
+  if (props.link === '/admin' && route.path === '/admin') {
+    return true
+  }
+
+  // Для админских коллекций - точное совпадение
   if (props.link.includes('/admin/collection/')) {
     return route.path === props.link
   }
 
-  // Для других ссылок
-  return route.path.startsWith(props.link) && props.link !== '/'
+  // Для других ссылок (исключаем корневые пути чтобы избежать ложных срабатываний)
+  if (props.link !== '/' && props.link !== '/admin') {
+    return route.path.startsWith(props.link)
+  }
+
+  return false
 })
 </script>
+
+<style lang="scss" scoped>
+.menu-item {
+  border-radius: 8px;
+  margin: 2px 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(var(--q-primary-rgb), 0.08);
+  }
+
+  &.q-item--active {
+    font-weight: 600;
+    border-left: 3px solid var(--q-primary);
+    background-color: rgba(var(--q-primary-rgb), 0.12);
+
+    .q-icon {
+      color: var(--q-primary);
+    }
+  }
+}
+</style>
