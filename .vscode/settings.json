@@ -86,6 +86,8 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  // Auto-fix on save for all supported file types
+  "editor.codeActionsOnSaveTimeout": 3000,
   // ESLint configuration
   "eslint.enable": true,
   "eslint.format.enable": true,
@@ -94,6 +96,8 @@
   "eslint.options": {
     "configFile": "./eslint.config.js"
   },
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.run": "onType",
   // Stylelint configuration
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
@@ -152,6 +156,9 @@
   },
   // Auto-save configuration
   "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
   // Terminal configuration
   "terminal.integrated.defaultProfile.linux": "bash",
   // Vue-specific settings

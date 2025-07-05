@@ -1,29 +1,13 @@
 import {
-  getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
-  connectStorageEmulator,
 } from 'firebase/storage'
 
+import { getFirebaseStorage } from './firebase'
+
 import type { FirebaseStorage } from 'firebase/storage'
-
-let storage: FirebaseStorage | undefined
-
-try {
-  storage = getStorage()
-
-  // В режиме разработки можно подключиться к эмулятору Storage
-  if (
-    import.meta.env.DEV &&
-    import.meta.env.VITE_USE_FIREBASE_EMULATOR === 'true'
-  ) {
-    connectStorageEmulator(storage, 'localhost', 9199)
-  }
-} catch (error) {
-  console.error('Error initializing Firebase Storage:', error)
-}
 
 export type UploadProgress = {
   percentage: number
@@ -50,6 +34,8 @@ export class FirebaseStorageService {
   private readonly storage: FirebaseStorage
 
   constructor() {
+    const storage = getFirebaseStorage()
+
     if (!storage) {
       throw new Error('Firebase Storage not initialized')
     }

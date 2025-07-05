@@ -160,7 +160,7 @@ export const DATE_TIME_OPTIONS_PRESET: Record<string, TOptions> = {
  */
 export const formatISOToInternationalDateTime = (
   isoDate: string,
-  options: Intl.DateTimeFormatOptions = DATE_TIME_OPTIONS_PRESET.formattedDateAndTimeMonthShort ||
+  options: Intl.DateTimeFormatOptions = DATE_TIME_OPTIONS_PRESET.formattedDateAndTimeMonthShort ??
     {}
 ): string => {
   // Create a new Date object from the ISO string

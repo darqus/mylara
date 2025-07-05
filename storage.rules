@@ -1,0 +1,40 @@
+// Firebase Storage Security Rules
+// Правила безопасности для Firebase Storage
+// Позволяют чтение всем пользователям и запись только аутентифицированным
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Правила для папки images
+    match /images/{allPaths=**} {
+      // Разрешить чтение всем
+      allow read: if true;
+
+      // Разрешить запись только аутентифицированным пользователям
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024  // максимум 5MB
+        && request.resource.contentType.matches('image/.*'); // только изображения
+    }
+
+    // Правила для папки carousel
+    match /carousel/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Правила для папки slides
+    match /slides/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Правила для других папок
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
