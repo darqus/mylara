@@ -31,9 +31,10 @@
               v-model="tableState.filter"
               debounce="300"
               label="Поиск"
+              placeholder="Поиск по всем полям..."
               clearable
               filled
-              @update:model-value="loadData"
+              @update:model-value="performSearch(String($event || ''))"
             >
               <template #append>
                 <q-icon name="search" />
@@ -64,6 +65,10 @@
               @click="confirmBulkDelete"
             />
           </div>
+
+          <div class="col-auto text-grey-6">
+            {{ searchInfo }}
+          </div>
         </div>
       </q-card-section>
     </q-card>
@@ -73,7 +78,6 @@
       v-model:pagination="tableState.pagination"
       v-model:selected="tableState.selected"
       :columns="config?.columns || []"
-      :filter="tableState.filter"
       :loading="tableState.loading"
       :rows="tableState.items"
       row-key="id"
@@ -195,11 +199,24 @@ const tableState = ref<TableState>({
   selected: [],
 })
 
+// Состояние для поиска
+const allItems = ref<Record<string, unknown>[]>([])
+const filteredItems = ref<Record<string, unknown>[]>([])
+
 const showCreateDialog = ref(false)
 const showDeleteDialog = ref(false)
 const formLoading = ref(false)
 const editingItem = ref<Record<string, unknown> | null>(null)
 const itemToDelete = ref<Record<string, unknown> | null>(null)
+
+// Вычисляемое свойство для отображения информации о поиске
+const searchInfo = computed(() => {
+  if (!tableState.value.filter.trim()) {
+    return `Всего записей: ${allItems.value.length}`
+  }
+
+  return `Найдено: ${filteredItems.value.length} из ${allItems.value.length}`
+})
 
 const deleteDialogText = computed(() => {
   if (tableState.value.selected.length > 1) {
@@ -251,11 +268,48 @@ function resetTableState() {
     selected: [],
   }
 
+  // Сбрасываем данные поиска
+  allItems.value = []
+  filteredItems.value = []
+
   // Закрываем все диалоги
   showCreateDialog.value = false
   showDeleteDialog.value = false
   editingItem.value = null
   itemToDelete.value = null
+}
+
+// Функция поиска по всем полям
+function performSearch(searchTerm: string) {
+  if (!searchTerm.trim()) {
+    // Если поисковый запрос пустой, показываем все элементы
+    filteredItems.value = [ ...allItems.value, ]
+    tableState.value.items = filteredItems.value
+    tableState.value.pagination.rowsNumber = filteredItems.value.length
+
+    return
+  }
+
+  const lowerSearchTerm = searchTerm.toLowerCase()
+  const searchableFields = config.value?.fields?.map((field) => field.name) ?? []
+
+  filteredItems.value = allItems.value.filter((item) => {
+    return searchableFields.some((fieldName) => {
+      const fieldValue = item[fieldName]
+
+      if (fieldValue === null || fieldValue === undefined) {
+        return false
+      }
+
+      const stringValue = String(fieldValue as string | number | boolean).toLowerCase()
+
+      return stringValue.includes(lowerSearchTerm)
+    })
+  })
+
+  tableState.value.items = filteredItems.value
+  tableState.value.pagination.rowsNumber = filteredItems.value.length
+  tableState.value.pagination.page = 1 // Сбрасываем на первую страницу при поиске
 }
 
 async function loadData() {
@@ -283,8 +337,11 @@ async function loadData() {
         position: 'top',
       })
     } else {
-      tableState.value.items = response.items
-      tableState.value.pagination.rowsNumber = response.items.length
+      // Сохраняем все данные для поиска
+      allItems.value = response.items
+
+      // Применяем текущий фильтр поиска
+      performSearch(tableState.value.filter)
     }
   } finally {
     tableState.value.loading = false
