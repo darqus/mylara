@@ -197,9 +197,7 @@ defineOptions({ name: 'AdminLoginPage' })
 
 const router = useRouter()
 const $q = useQuasar()
-const {
-  login, register, loading, isAuthenticated, initializing 
-} =
+const { login, register, loading, isAuthenticated, initializing } =
   useAdminAuth()
 
 // Управление видимостью паролей

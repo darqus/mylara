@@ -1,6 +1,4 @@
-import {
-  ref, computed, watch, unref 
-} from 'vue'
+import { ref, computed, watch, unref } from 'vue'
 import type { MaybeRefOrGetter } from 'vue'
 
 import { LocalStorage } from 'quasar'

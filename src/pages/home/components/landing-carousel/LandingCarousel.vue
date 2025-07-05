@@ -21,9 +21,7 @@ const activeItemId = ref<number | string | null>(null)
 const touchStartX = ref()
 const touchEndX = ref()
 
-const openDialog = ({
-  id, img, label, link, info 
-}: CarouselItem) => {
+const openDialog = ({ id, img, label, link, info }: CarouselItem) => {
   selectedItem.value = {
     id,
     img,
