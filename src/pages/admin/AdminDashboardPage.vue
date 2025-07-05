@@ -136,7 +136,6 @@ function getColorForCollection(name: string): string {
 function navigateToCollection(collectionName: string) {
   void router.push(`/admin/collection/${collectionName}`)
 }
-
 </script>
 
 <style lang="scss">

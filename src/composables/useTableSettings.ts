@@ -1,6 +1,7 @@
 import {
-  ref, computed, watch,
+  ref, computed, watch, unref,
 } from 'vue'
+import type { MaybeRefOrGetter, } from 'vue'
 
 import { LocalStorage, } from 'quasar'
 
@@ -40,24 +41,53 @@ const defaultSettings: TableSettings = {
 /**
  * Composable для работы с настройками таблиц в localStorage
  */
-export function useTableSettings(collectionName: string) {
-  const storageKey = `table-settings-${collectionName}`
+export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
+  // Создаем computed для реактивного storageKey
+  const storageKey = computed(() => `table-settings-${String(unref(collectionName))}`)
 
   /**
    * Загрузить настройки из localStorage
    */
   function loadSettings(): TableSettings {
     try {
-      const stored = LocalStorage.getItem(storageKey)
+      const stored = LocalStorage.getItem(storageKey.value)
 
-      if (stored && typeof stored === 'object') {
+      if (stored && typeof stored === 'object' && stored !== null) {
+        // Валидируем структуру данных
+        const settings = stored as Partial<TableSettings>
+
         return {
           ...defaultSettings,
-          ...stored,
+
+          // Валидируем и применяем сохраненные настройки
+          ...(typeof settings.page === 'number' &&
+            settings.page > 0 && {
+            page: settings.page,
+          }),
+          ...(typeof settings.rowsPerPage === 'number' &&
+            settings.rowsPerPage > 0 && {
+            rowsPerPage: settings.rowsPerPage,
+          }),
+          ...(typeof settings.sortBy === 'string' &&
+            settings.sortBy.length > 0 && {
+            sortBy: settings.sortBy,
+          }),
+          ...(typeof settings.descending === 'boolean' && {
+            descending: settings.descending,
+          }),
+          ...(typeof settings.filter === 'string' && {
+            filter: settings.filter,
+          }),
+          ...(Array.isArray(settings.visibleColumns) && {
+            visibleColumns: settings.visibleColumns,
+          }),
         }
       }
     } catch (error) {
-      console.warn(`Failed to load table settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to load table settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
 
     return {
@@ -70,9 +100,12 @@ export function useTableSettings(collectionName: string) {
    */
   function saveSettings(settings: TableSettings): void {
     try {
-      LocalStorage.set(storageKey, settings)
+      LocalStorage.set(storageKey.value, settings)
     } catch (error) {
-      console.warn(`Failed to save table settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to save table settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
   }
 
@@ -81,9 +114,12 @@ export function useTableSettings(collectionName: string) {
    */
   function clearSettings(): void {
     try {
-      LocalStorage.remove(storageKey)
+      LocalStorage.remove(storageKey.value)
     } catch (error) {
-      console.warn(`Failed to clear table settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to clear table settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
   }
 
@@ -91,7 +127,7 @@ export function useTableSettings(collectionName: string) {
    * Проверить наличие сохраненных настроек
    */
   function hasSettings(): boolean {
-    return LocalStorage.has(storageKey)
+    return LocalStorage.has(storageKey.value)
   }
 
   /**
@@ -99,13 +135,16 @@ export function useTableSettings(collectionName: string) {
    */
   function getStorageSize(): number {
     try {
-      const data = LocalStorage.getItem(storageKey)
+      const data = LocalStorage.getItem(storageKey.value)
 
       if (data) {
         return JSON.stringify(data).length
       }
     } catch (error) {
-      console.warn(`Failed to calculate storage size for ${collectionName}:`, error)
+      console.warn(
+        `Failed to calculate storage size for ${String(unref(collectionName))}:`,
+        error
+      )
     }
 
     return 0
@@ -115,6 +154,18 @@ export function useTableSettings(collectionName: string) {
    * Реактивные настройки таблицы
    */
   const settings = ref<TableSettings>(loadSettings())
+
+  /**
+   * Отслеживаем изменения названия коллекции и перезагружаем настройки
+   */
+  watch(
+    () => unref(collectionName),
+    () => {
+      const freshSettings = loadSettings()
+
+      Object.assign(settings.value, freshSettings)
+    }
+  )
 
   /**
    * Автоматическое сохранение при изменении настроек
@@ -187,6 +238,16 @@ export function useTableSettings(collectionName: string) {
     descending: settings.value.descending,
   }))
 
+  /**
+   * Принудительно перезагрузить настройки из localStorage
+   */
+  function reloadSettings(): void {
+    const freshSettings = loadSettings()
+
+    // Обновляем реактивные настройки
+    Object.assign(settings.value, freshSettings)
+  }
+
   return {
     settings,
     paginationSettings,
@@ -199,27 +260,67 @@ export function useTableSettings(collectionName: string) {
     getStorageSize,
     loadSettings,
     saveSettings,
+    reloadSettings,
   }
 }
 
 /**
  * Управление настройками колонок таблицы
  */
-export function useColumnSettings(collectionName: string) {
-  const storageKey = `column-settings-${collectionName}`
+export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
+  const storageKey = computed(() => `column-settings-${String(unref(collectionName))}`)
 
   /**
    * Загрузить настройки колонок из localStorage
    */
-  function loadColumnSettings(): Record<string, { width?: number; visible?: boolean }> {
+  function loadColumnSettings(): Record<
+    string,
+    { width?: number; visible?: boolean }
+    > {
     try {
-      const stored = LocalStorage.getItem(storageKey)
+      const stored = LocalStorage.getItem(storageKey.value)
 
-      if (stored && typeof stored === 'object') {
-        return stored as Record<string, { width?: number; visible?: boolean }>
+      if (stored && typeof stored === 'object' && stored !== null) {
+        const settings = stored as Record<string, unknown>
+        const validatedSettings: Record<
+          string,
+          { width?: number; visible?: boolean }
+        > = {}
+
+        // Валидируем каждую настройку колонки
+        Object.entries(settings).forEach(([ key, value, ]) => {
+          if (typeof value === 'object' && value !== null) {
+            const columnSetting = value as {
+              width?: unknown
+              visible?: unknown
+            }
+            const validatedSetting: { width?: number; visible?: boolean } = {}
+
+            if (
+              typeof columnSetting.width === 'number' &&
+              columnSetting.width > 0
+            ) {
+              validatedSetting.width = columnSetting.width
+            }
+
+            if (typeof columnSetting.visible === 'boolean') {
+              validatedSetting.visible = columnSetting.visible
+            }
+
+            // Добавляем настройку только если есть валидные свойства
+            if (Object.keys(validatedSetting).length > 0) {
+              validatedSettings[key] = validatedSetting
+            }
+          }
+        })
+
+        return validatedSettings
       }
     } catch (error) {
-      console.warn(`Failed to load column settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to load column settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
 
     return {}
@@ -228,11 +329,16 @@ export function useColumnSettings(collectionName: string) {
   /**
    * Сохранить настройки колонок в localStorage
    */
-  function saveColumnSettings(settings: Record<string, { width?: number; visible?: boolean }>): void {
+  function saveColumnSettings(
+      settings: Record<string, { width?: number; visible?: boolean }>
+  ): void {
     try {
-      LocalStorage.set(storageKey, settings)
+      LocalStorage.set(storageKey.value, settings)
     } catch (error) {
-      console.warn(`Failed to save column settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to save column settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
   }
 
@@ -240,6 +346,18 @@ export function useColumnSettings(collectionName: string) {
    * Реактивные настройки колонок
    */
   const columnSettings = ref(loadColumnSettings())
+
+  /**
+   * Отслеживаем изменения названия коллекции и перезагружаем настройки колонок
+   */
+  watch(
+    () => unref(collectionName),
+    () => {
+      const freshSettings = loadColumnSettings()
+
+      columnSettings.value = freshSettings
+    }
+  )
 
   /**
    * Автоматическое сохранение при изменении настроек колонок
@@ -295,7 +413,7 @@ export function useColumnSettings(collectionName: string) {
    * Проверить наличие сохраненных настроек колонок
    */
   function hasColumnSettings(): boolean {
-    return LocalStorage.has(storageKey)
+    return LocalStorage.has(storageKey.value)
   }
 
   /**
@@ -303,11 +421,24 @@ export function useColumnSettings(collectionName: string) {
    */
   function clearColumnSettings(): void {
     try {
-      LocalStorage.remove(storageKey)
+      LocalStorage.remove(storageKey.value)
       columnSettings.value = {}
     } catch (error) {
-      console.warn(`Failed to clear column settings for ${collectionName}:`, error)
+      console.warn(
+        `Failed to clear column settings for ${String(unref(collectionName))}:`,
+        error
+      )
     }
+  }
+
+  /**
+   * Принудительно перезагрузить настройки колонок из localStorage
+   */
+  function reloadColumnSettings(): void {
+    const freshSettings = loadColumnSettings()
+
+    // Полностью заменяем настройки колонок
+    columnSettings.value = freshSettings
   }
 
   return {
@@ -319,6 +450,7 @@ export function useColumnSettings(collectionName: string) {
     resetColumnSettings,
     hasColumnSettings,
     clearColumnSettings,
+    reloadColumnSettings,
   }
 }
 
@@ -332,8 +464,9 @@ export function useTableSettingsManager() {
   function getAllTableSettingsKeys(): string[] {
     const allKeys = LocalStorage.getAllKeys()
 
-    return allKeys.filter((key) =>
-      key.startsWith('table-settings-') || key.startsWith('column-settings-')
+    return allKeys.filter(
+      (key) =>
+        key.startsWith('table-settings-') || key.startsWith('column-settings-')
     )
   }
 
@@ -400,10 +533,22 @@ export function useTableSettingsManager() {
    * Импортировать настройки из объекта
    */
   function importAllSettings(settings: Record<string, unknown>): void {
+    if (!settings || typeof settings !== 'object') {
+      console.warn('Invalid settings object provided for import')
+
+      return
+    }
+
     Object.entries(settings).forEach(([ key, value, ]) => {
-      if (key.startsWith('table-settings-') || key.startsWith('column-settings-')) {
+      if (
+        key.startsWith('table-settings-') ||
+        key.startsWith('column-settings-')
+      ) {
         try {
-          LocalStorage.set(key, value)
+          // Валидируем данные перед сохранением
+          if (value !== null && value !== undefined) {
+            LocalStorage.set(key, value)
+          }
         } catch (error) {
           console.warn(`Failed to import ${key}:`, error)
         }

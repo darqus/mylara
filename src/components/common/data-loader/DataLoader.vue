@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ref, onMounted,
+  ref, onMounted, 
 } from 'vue'
 
 type DataResponse = Record<string, unknown>

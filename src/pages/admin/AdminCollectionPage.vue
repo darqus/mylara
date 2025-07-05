@@ -214,14 +214,14 @@ const route = useRoute()
 const collectionName = computed(() => route.params.collection as string)
 const config = computed(() => getCollectionConfig(collectionName.value))
 
-// Используем композабл для управления настройками таблицы
+// Используем композабл для управления настройками таблицы с реактивным именем коллекции
 const {
   settings: tableSettings,
   paginationSettings,
   updatePagination,
   updateFilter,
   resetSettings,
-} = useTableSettings(collectionName.value)
+} = useTableSettings(collectionName)
 
 const tableState = ref<TableState>({
   items: [],
@@ -269,11 +269,8 @@ const deleteDialogText = computed(() => {
 })
 
 onMounted(() => {
-  // Загружаем сохраненные настройки фильтра при монтировании
-  if (tableSettings.value.filter) {
-    tableState.value.filter = tableSettings.value.filter
-  }
-
+  // Загружаем настройки при монтировании компонента
+  updateTableStateFromSettings()
   void loadData()
 })
 
@@ -283,8 +280,8 @@ watch(
   (newCollection, oldCollection) => {
     // Проверяем, что коллекция действительно изменилась
     if (newCollection !== oldCollection && newCollection) {
-      // Сброс состояния при переключении коллекции
-      resetTableState()
+      // Загружаем настройки новой коллекции из localStorage
+      updateTableStateFromSettings()
 
       // Показываем уведомление о переключении
       if (oldCollection && config.value?.label) {
@@ -321,19 +318,23 @@ watch(
   }
 )
 
-function resetTableState() {
-  // Сбрасываем настройки к значениям по умолчанию
-  resetSettings()
-
+function updateTableStateFromSettings() {
+  // Обновляем состояние таблицы с загруженными настройками
   tableState.value = {
     items: [],
     loading: true, // Показываем загрузку при переключении коллекции
     pagination: {
-      page: 1,
-      rowsPerPage: 10,
+      page: paginationSettings.value.page,
+      rowsPerPage: paginationSettings.value.rowsPerPage,
       rowsNumber: 0,
+      ...(paginationSettings.value.sortBy && {
+        sortBy: paginationSettings.value.sortBy,
+      }),
+      ...(paginationSettings.value.descending !== undefined && {
+        descending: paginationSettings.value.descending,
+      }),
     },
-    filter: '',
+    filter: tableSettings.value.filter,
     selected: [],
   }
 

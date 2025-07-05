@@ -10,11 +10,11 @@ import {
 } from 'firebase/firestore'
 
 import type {
-  CollectionResponse, DocumentResponse,
+  CollectionResponse, DocumentResponse, 
 } from 'src/types/api'
 
 import {
-  getFirebaseDb, getFirebaseAuth,
+  getFirebaseDb, getFirebaseAuth, 
 } from './firebase'
 
 /**

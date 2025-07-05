@@ -84,7 +84,6 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
-
   // General editor settings optimized for the project
   "css.validate": false,
   "scss.validate": false,
@@ -96,7 +95,6 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "never"
   },
-
   // ESLint configuration
   "eslint.enable": true,
   "eslint.format.enable": true,
@@ -111,7 +109,6 @@
   "eslint.options": {
     "configFile": "./eslint.config.js"
   },
-
   // Stylelint configuration
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
@@ -121,24 +118,19 @@
     "sass"
   ],
   "stylelint.configFile": "./stylelint.config.mjs",
-
   // Prettier configuration
   "prettier.enable": true,
   "prettier.configPath": "./.prettierrc.json",
   "prettier.ignorePath": "./.prettierignore",
-
   // Package manager
   "npm.packageManager": "yarn",
-
   // TypeScript configuration
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.quoteStyle": "single",
   "typescript.preferences.includePackageJsonAutoImports": "off",
-
   // Git configuration
   "gitPrefix.replacement": "$1 | ",
-
   // Project-specific spell checker words
   "cSpell.words": [
     "amazonq",
@@ -152,13 +144,11 @@
     "swipeable",
     "VITE"
   ],
-
   // File associations
   "files.associations": {
     "*.mts": "typescript",
     "*.mjs": "javascript"
   },
-
   // Search exclusions for better performance
   "search.exclude": {
     "**/node_modules": true,
@@ -169,7 +159,6 @@
     "**/.prettierCache": true,
     "**/yarn.lock": true
   },
-
   // File watcher exclusions for better performance
   "files.watcherExclude": {
     "**/node_modules/**": true,
@@ -179,13 +168,10 @@
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true
   },
-
   // Auto-save configuration
   "files.autoSave": "onFocusChange",
-
   // Terminal configuration
   "terminal.integrated.defaultProfile.linux": "bash",
-
   // Vue-specific settings
   "vetur.validation.template": false,
   "vetur.validation.script": false,

@@ -4,9 +4,9 @@
     class="text-caption text-grey-6 q-ml-sm"
   >
     <q-icon
+      class="q-mr-xs"
       name="settings"
       size="12px"
-      class="q-mr-xs"
     />
     Настройки сохранены
     <q-tooltip>
@@ -20,9 +20,7 @@
           <li v-if="settings.filter">
             Фильтр: "{{ settings.filter }}"
           </li>
-          <li>
-            Записей на странице: {{ settings.rowsPerPage }}
-          </li>
+          <li>Записей на странице: {{ settings.rowsPerPage }}</li>
           <li v-if="settings.page > 1">
             Текущая страница: {{ settings.page }}
           </li>
@@ -37,7 +35,7 @@ import { computed, } from 'vue'
 
 import type { TableSettings, } from 'src/composables/useTableSettings'
 
-interface Props {
+type Props = {
   settings: TableSettings
 }
 
@@ -48,8 +46,8 @@ const props = defineProps<Props>()
  */
 const hasCustomSettings = computed(() => {
   return (
-    props.settings.sortBy ||
-    props.settings.filter ||
+    (props.settings.sortBy ?? false) ||
+    (props.settings.filter ?? false) ||
     props.settings.rowsPerPage !== 10 ||
     props.settings.page > 1
   )

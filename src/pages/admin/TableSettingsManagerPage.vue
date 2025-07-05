@@ -108,9 +108,9 @@
         <q-card-section>
           <q-input
             v-model="importData"
-            type="textarea"
             label="JSON данные"
             rows="10"
+            type="textarea"
             outlined
           />
         </q-card-section>
@@ -175,9 +175,7 @@ function formatBytes(bytes: number): string {
   }
 
   const k = 1024
-  const sizes = [
-    'Bytes', 'KB', 'MB', 'GB',
-  ]
+  const sizes = [ 'Bytes', 'KB', 'MB', 'GB', ]
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
@@ -189,9 +187,7 @@ function exportSettings() {
     const jsonString = JSON.stringify(exported, null, 2)
 
     // Создаем файл для скачивания
-    const blob = new Blob([
-      jsonString,
-    ], {
+    const blob = new Blob([ jsonString, ], {
       type: 'application/json',
     })
     const url = URL.createObjectURL(blob)
@@ -210,6 +206,7 @@ function exportSettings() {
       position: 'top',
     })
   } catch (error) {
+    console.error('Export error:', error)
     $q.notify({
       type: 'negative',
       message: 'Ошибка экспорта настроек',
@@ -233,6 +230,7 @@ function importSettings() {
       position: 'top',
     })
   } catch (error) {
+    console.error('Import error:', error)
     $q.notify({
       type: 'negative',
       message: 'Ошибка импорта: неверный JSON',

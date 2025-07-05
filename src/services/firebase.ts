@@ -1,12 +1,12 @@
 import { initializeApp, } from 'firebase/app'
 import {
-  getAuth, connectAuthEmulator,
+  getAuth, connectAuthEmulator, 
 } from 'firebase/auth'
 import {
-  getFirestore, connectFirestoreEmulator,
+  getFirestore, connectFirestoreEmulator, 
 } from 'firebase/firestore'
 import {
-  getStorage, connectStorageEmulator,
+  getStorage, connectStorageEmulator, 
 } from 'firebase/storage'
 
 import type { Auth, } from 'firebase/auth'
