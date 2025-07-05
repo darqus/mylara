@@ -15,7 +15,7 @@
           ref="formRef"
           @submit="handleSubmit"
         >
-          <div class="row q-gutter-md">
+          <div class="row">
             <div
               v-for="field in config?.fields || []"
               :key="field.name"
@@ -107,13 +107,13 @@
 
 <script setup lang="ts">
 import {
-  ref, watch, computed, 
+  ref, watch, computed,
 } from 'vue'
 
 import type { QForm, } from 'quasar'
 
 import type {
-  CollectionConfig, FormField, 
+  CollectionConfig, FormField,
 } from 'src/types/admin'
 
 defineOptions({
