@@ -5,6 +5,8 @@ import type { QForm } from 'quasar'
 
 import type { CollectionConfig, FormField } from 'src/types/admin'
 
+import Base64ImageUploader from 'src/components/common/Base64ImageUploader.vue'
+
 import ImageUploader from './ImageUploader.vue'
 
 defineOptions({ name: 'AdminFormDialog' })
@@ -29,6 +31,30 @@ const formRef = ref<QForm>()
 const formData = ref<Record<string, unknown>>({})
 
 const isEditing = computed(() => Boolean(props.item?.id))
+
+// Вспомогательная функция для получения base64 опций
+function getBase64ImageOptions(field: FormField) {
+  const options = field.base64ImageOptions ?? {}
+  const result: Record<string, unknown> = {
+    maxSizeKB: options.maxSizeKB ?? 2000,
+    quality: options.quality ?? 0.8,
+    showPreview: options.showPreview ?? true,
+    allowCopy: options.allowCopy ?? true,
+    placeholder: field.placeholder ?? `Загрузите ${field.label.toLowerCase()}`,
+  }
+
+  if (options.allowedTypes) {
+    result.allowedTypes = options.allowedTypes
+  }
+  if (options.maxWidth) {
+    result.maxWidth = options.maxWidth
+  }
+  if (options.maxHeight) {
+    result.maxHeight = options.maxHeight
+  }
+
+  return result
+}
 
 // Следим за изменениями элемента для редактирования
 watch(
@@ -270,6 +296,29 @@ async function handleSubmit() {
                   :model-value="
                     formData[field.name] ? String(formData[field.name]) : null
                   "
+                  @update:model-value="formData[field.name] = $event"
+                />
+              </div>
+
+              <!-- Загрузка Base64 изображений -->
+              <div
+                v-else-if="field.type === 'base64-image'"
+                class="q-mb-md"
+              >
+                <div class="text-subtitle2 q-mb-sm">
+                  {{ field.label }}
+                  <span
+                    v-if="field.required"
+                    class="text-negative"
+                  >
+                    *
+                  </span>
+                </div>
+                <Base64ImageUploader
+                  :model-value="
+                    formData[field.name] ? String(formData[field.name]) : null
+                  "
+                  v-bind="getBase64ImageOptions(field)"
                   @update:model-value="formData[field.name] = $event"
                 />
               </div>

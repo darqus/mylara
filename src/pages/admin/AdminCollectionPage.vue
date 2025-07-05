@@ -7,6 +7,7 @@ import { useQuasar } from 'quasar'
 import type { TableState } from 'src/types/admin'
 
 import AdminFormDialog from 'src/components/admin/AdminFormDialog.vue'
+import Base64ImageTableCell from 'src/components/admin/Base64ImageTableCell.vue'
 import ImageTableCell from 'src/components/admin/ImageTableCell.vue'
 import TableSettingsIndicator from 'src/components/admin/TableSettingsIndicator.vue'
 
@@ -21,6 +22,11 @@ const route = useRoute()
 
 const collectionName = computed(() => route.params.collection as string)
 const config = computed(() => getCollectionConfig(collectionName.value))
+
+// Функция для определения типа поля
+function getFieldType(fieldName: string): string | undefined {
+  return config.value?.fields.find((field) => field.name === fieldName)?.type
+}
 
 // Используем композабл для управления настройками таблицы с реактивным именем коллекции
 const {
@@ -55,6 +61,8 @@ const filteredItems = ref<Record<string, unknown>[]>([])
 
 const showCreateDialog = ref(false)
 const showDeleteDialog = ref(false)
+const showImageDialogState = ref(false)
+const selectedImageUrl = ref('')
 const formLoading = ref(false)
 const editingItem = ref<Record<string, unknown> | null>(null)
 const itemToDelete = ref<Record<string, unknown> | null>(null)
@@ -468,6 +476,12 @@ async function handleDelete() {
     itemToDelete.value = null
   }
 }
+
+// Функция для показа диалога с изображением
+function showImageDialog(imageUrl: string) {
+  selectedImageUrl.value = imageUrl
+  showImageDialogState.value = true
+}
 </script>
 
 <template>
@@ -598,9 +612,41 @@ async function handleDelete() {
 
       <template #body-cell-img="props">
         <q-td :props="props">
+          <Base64ImageTableCell
+            v-if="getFieldType('img') === 'base64-image'"
+            :alt="`Изображение ${props.row.id}`"
+            :base64-src="props.value"
+            show-as="image"
+            @click="showImageDialog(props.value)"
+          />
           <ImageTableCell
+            v-else
             :alt="`Изображение ${props.row.id}`"
             :image-url="props.value"
+          />
+        </q-td>
+      </template>
+
+      <template #body-cell-image="props">
+        <q-td :props="props">
+          <Base64ImageTableCell
+            :alt="`Изображение ${props.row.id}`"
+            :base64="props.value"
+            :clickable="true"
+            :size="60"
+            @click="showImageDialog(props.value)"
+          />
+        </q-td>
+      </template>
+
+      <template #body-cell-thumbnail="props">
+        <q-td :props="props">
+          <Base64ImageTableCell
+            :alt="`Миниатюра ${props.row.id}`"
+            :base64="props.value"
+            :clickable="true"
+            :size="40"
+            @click="showImageDialog(props.value)"
           />
         </q-td>
       </template>
@@ -653,6 +699,34 @@ async function handleDelete() {
             @click="handleDelete"
           />
         </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!-- Диалог просмотра изображения -->
+    <q-dialog
+      v-model="showImageDialogState"
+      maximized
+    >
+      <q-card class="bg-dark text-white">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Просмотр изображения</div>
+          <q-space />
+          <q-btn
+            v-close-popup
+            icon="close"
+            dense
+            flat
+            round
+          />
+        </q-card-section>
+
+        <q-card-section class="q-pt-none flex flex-center">
+          <img
+            :src="selectedImageUrl"
+            alt="Просмотр изображения"
+            style="max-width: 100%; max-height: 90vh; object-fit: contain"
+          />
+        </q-card-section>
       </q-card>
     </q-dialog>
   </q-page>

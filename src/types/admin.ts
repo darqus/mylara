@@ -24,6 +24,7 @@ export type FormField = {
     | 'date'
     | 'boolean'
     | 'image'
+    | 'base64-image'
   required?: boolean
   placeholder?: string
   rules?: Array<(val: unknown) => boolean | string>
@@ -33,6 +34,17 @@ export type FormField = {
     maxSizeKB?: number
     allowedTypes?: string[]
     path?: string
+  }
+
+  // Дополнительные опции для base64 изображений
+  base64ImageOptions?: {
+    maxSizeKB?: number
+    maxWidth?: number
+    maxHeight?: number
+    quality?: number
+    allowedTypes?: string[]
+    showPreview?: boolean
+    allowCopy?: boolean
   }
 }
 

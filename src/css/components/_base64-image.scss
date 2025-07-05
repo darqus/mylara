@@ -1,0 +1,48 @@
+// Base64Image component styles
+.base64-image {
+  position: relative;
+  display: inline-block;
+
+  &__img {
+    border-radius: 4px;
+  }
+
+  &--clickable {
+    cursor: pointer;
+
+    .base64-image__img {
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    text-align: center;
+    background-color: var(--q-grey-2);
+    border: 1px solid var(--q-grey-4);
+    border-radius: 4px;
+  }
+
+  &__fallback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+  }
+
+  &__info {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+}

@@ -15,13 +15,17 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
       {
         name: 'img',
         label: 'Изображение',
-        type: 'image',
+        type: 'base64-image',
         required: true,
         placeholder: 'Загрузите изображение продукта',
-        imageOptions: {
-          maxSizeKB: 3000, // 3MB
-          allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
-          path: 'carousel',
+        base64ImageOptions: {
+          maxSizeKB: 2000, // 2MB для base64
+          maxWidth: 1200,
+          maxHeight: 800,
+          quality: 0.85,
+          allowedTypes: ['image/jpeg', 'image/png', 'image/webp'],
+          showPreview: true,
+          allowCopy: false,
         },
       },
       {
@@ -110,13 +114,17 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
       {
         name: 'img',
         label: 'Изображение',
-        type: 'image',
+        type: 'base64-image',
         required: true,
         placeholder: 'Загрузите изображение слайда',
-        imageOptions: {
-          maxSizeKB: 3000, // 3MB
-          allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
-          path: 'slides',
+        base64ImageOptions: {
+          maxSizeKB: 2500, // 2.5MB для слайдов
+          maxWidth: 1920,
+          maxHeight: 1080,
+          quality: 0.9,
+          allowedTypes: ['image/jpeg', 'image/png', 'image/webp'],
+          showPreview: true,
+          allowCopy: false,
         },
       },
       {
