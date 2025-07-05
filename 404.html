@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>MYLARA</title>
+    <script>
+      // GitHub Pages SPA routing workaround
+      // This script takes the current location and redirects to the root with the path as a query parameter
+      // The main app will then handle the routing
+
+      var l = window.location
+
+      // Only redirect if this is not the root domain and not an asset request
+      if (
+        l.pathname !== '/' &&
+        !l.pathname.match(
+          /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/,
+        )
+      ) {
+        // Store the full URL in sessionStorage to be handled by the main app
+        sessionStorage.redirect = l.pathname + l.search + l.hash
+
+        // Redirect to root with a slight delay to ensure sessionStorage is set
+        setTimeout(function () {
+          l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/',
+          )
+        }, 10)
+      } else {
+        // If this is an asset request or root, don't redirect
+        document.write(
+          '<h1>404 - Page Not Found</h1><p>The requested resource was not found.</p>',
+        )
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
