@@ -82,21 +82,11 @@
       ;(function () {
         var redirect = sessionStorage.redirect
         delete sessionStorage.redirect
-        if (redirect && redirect !== location.href) {
+        if (
+          redirect &&
+          redirect !== location.pathname + location.search + location.hash
+        ) {
           history.replaceState(null, null, redirect)
-        }
-      })()
-
-      // Store the path for 404.html redirect
-      ;(function () {
-        var l = window.location
-        if (l.search && l.search[1] === '/') {
-          var decoded = decodeURIComponent(
-            l.search.slice(1).replace(/&/g, '?').replace(/~and~/g, '&'),
-          )
-          if (decoded !== l.pathname) {
-            sessionStorage.redirect = decoded
-          }
         }
       })()
     </script>
