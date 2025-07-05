@@ -21,7 +21,7 @@
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
     "update-env": "node update-env.js",
-    "deploy": "yarn update-env && yarn build && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
+    "deploy": "yarn update-env && yarn build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
