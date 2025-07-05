@@ -8,8 +8,6 @@ import {
 
 import { route, } from 'quasar/wrappers'
 
-import { useAdminAuth, } from 'src/composables/useAdminAuth'
-
 import routes from './routes'
 
 /*
@@ -48,9 +46,13 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   // Добавляем navigation guard для защиты админских маршрутов
-  Router.beforeEach((to, from, next) => {
+  Router.beforeEach(async (to, from, next) => {
     // Проверяем, является ли маршрут админским (кроме логина)
     if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
+      // Динамически импортируем composable только когда нужно
+      const {
+        useAdminAuth,
+      } = await import('src/composables/useAdminAuth')
       const {
         isAuthenticated,
         initializing,

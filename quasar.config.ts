@@ -54,72 +54,44 @@ export default defineConfig((/* ctx */) => ({
     // polyfillModulePreload: true,
     // distDir
 
-    // Оптимизация сборки для уменьшения размера чанков
+    // Консервативная настройка сборки для избежания циркулярных зависимостей
     extendViteConf(viteConf) {
       viteConf.build = viteConf.build ?? {}
       viteConf.build.rollupOptions = viteConf.build.rollupOptions ?? {}
       viteConf.build.rollupOptions.output = viteConf.build.rollupOptions.output ?? {}
 
-      // Настройка разделения кода на чанки
+      // Более простое разделение чанков для избежания проблем с зависимостями
       if (!Array.isArray(viteConf.build.rollupOptions.output)) {
         viteConf.build.rollupOptions.output.manualChunks = (id) => {
-          // Выносим node_modules в отдельные чанки
+          // Выносим node_modules в отдельные чанки только крупные библиотеки
           if (id.includes('node_modules')) {
             // Firebase в отдельный чанк
             if (id.includes('firebase')) {
               return 'firebase-vendor'
             }
 
-            // Vue и связанные библиотеки
-            if (id.includes('vue') || id.includes('@vue')) {
-              return 'vue-vendor'
-            }
-
-            // Quasar в отдельный чанк
-            if (id.includes('quasar')) {
-              return 'quasar-vendor'
-            }
-
-            // Остальные vendor библиотеки
+            // Все остальные vendor библиотеки в один чанк для избежания циркулярных зависимостей
             return 'vendor'
           }
 
-          // Админские страницы и компоненты в отдельный чанк
-          if (id.includes('src/pages/admin') ||
-              id.includes('src/layouts/AdminLayout') ||
-              id.includes('src/components/admin') ||
-              id.includes('src/composables/useAdmin') ||
-              id.includes('src/services/admin') ||
-              id.includes('src/services/firestore')) {
-            return 'admin'
-          }
-
-          // Общие компоненты
-          if (id.includes('src/components')) {
-            return 'components'
-          }
-
-          // Сервисы
-          if (id.includes('src/services')) {
-            return 'services'
-          }
+          // Оставляем пользовательский код в основном чанке
+          return undefined
         }
       }
 
-      // Увеличиваем лимит предупреждения до 1000 KB
+      // Увеличиваем лимит предупреждения
       viteConf.build.chunkSizeWarningLimit = 1000
 
-      // Дополнительные оптимизации
-      viteConf.build.minify = 'terser'
-      viteConf.build.terserOptions = {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
+      // Используем esbuild для более стабильной минификации
+      viteConf.build.minify = 'esbuild'
+
+      // Консервативные настройки tree shaking
+      viteConf.build.rollupOptions.treeshake = {
+        moduleSideEffects: 'no-external',
       }
 
-      // Включаем tree shaking
-      viteConf.build.rollupOptions.treeshake = true
+      // Настройки для предотвращения проблем с hoisting
+      viteConf.build.rollupOptions.preserveEntrySignatures = 'strict'
     },
 
     // viteVuePluginOptions: {},

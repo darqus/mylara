@@ -13,14 +13,29 @@ import { getFirebaseAuth, } from 'src/services/firebase'
 
 import type { User, } from 'firebase/auth'
 
-const currentUser = ref<User | null>(null)
-const loading = ref(false)
-const initializing = ref(true)
+// Используем отложенную инициализацию для избежания проблем с hoisting
+function createState() {
+  return {
+    currentUser: ref<User | null>(null),
+    loading: ref(false),
+    initializing: ref(true),
+  }
+}
+
+let state: ReturnType<typeof createState> | null = null
 
 /**
  * Composable для аутентификации в админке через Firebase Auth
  */
 export function useAdminAuth() {
+  // Инициализируем состояние только при первом вызове
+  state ??= createState()
+
+  const {
+    currentUser,
+    loading,
+    initializing,
+  } = state
   const isAuthenticated = computed(() => currentUser.value !== null)
 
   /**

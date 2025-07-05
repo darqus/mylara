@@ -20,10 +20,13 @@
       name="viewport"
       content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
     />
+    <!-- CSP temporarily disabled for debugging -->
+    <!--
     <meta
       http-equiv="Content-Security-Policy"
-      content="upgrade-insecure-requests"
+      content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; upgrade-insecure-requests"
     />
+    -->
 
     <!-- Базовые SEO мета-теги -->
     <meta
