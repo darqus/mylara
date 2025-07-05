@@ -47,7 +47,7 @@
         </q-item-label>
 
         <AdminMenuItem
-          icon="settings"
+          icon="o_settings"
           link="/admin"
           title="На главную Админки"
         />

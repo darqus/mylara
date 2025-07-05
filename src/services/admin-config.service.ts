@@ -8,7 +8,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
   carousel: {
     name: 'carousel',
     label: 'Продукты',
-    icon: 'inventory_2',
+    icon: 'o_inventory_2',
     searchable: true,
     sortable: true,
     fields: [
@@ -177,7 +177,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
   slogan: {
     name: 'slogan',
     label: 'Слоган',
-    icon: 'campaign',
+    icon: 'o_campaign',
     searchable: true,
     sortable: false,
     fields: [
