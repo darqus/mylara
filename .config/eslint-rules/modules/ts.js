@@ -67,5 +67,5 @@ export const ts = {
   '@typescript-eslint/prefer-readonly': 'warn',
   '@typescript-eslint/prefer-optional-chain': 'error',
   '@typescript-eslint/no-unnecessary-type-assertion': 'error',
-  '@typescript-eslint/no-non-null-assertion': 'warn',
+  '@typescript-eslint/no-non-null-assertion': 'error',
 }
