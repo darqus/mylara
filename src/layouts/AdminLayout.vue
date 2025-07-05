@@ -47,7 +47,7 @@
         </q-item-label>
 
         <AdminMenuItem
-          icon="o_home"
+          icon="settings"
           link="/admin"
           title="На главную Админки"
         />
@@ -65,7 +65,7 @@
         <q-separator />
 
         <AdminMenuItem
-          icon="home"
+          icon="o_home"
           link="/"
           title="На главную Лендинга"
         />
