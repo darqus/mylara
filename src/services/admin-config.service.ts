@@ -93,52 +93,45 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
     ],
   },
 
-  // Пример коллекции статей
-  articles: {
-    name: 'articles',
-    label: 'Статьи',
-    icon: 'article',
+  // Коллекция slides из slides.service.ts
+  slides: {
+    name: 'slides',
+    label: 'Слайды',
+    icon: 'slideshow',
     searchable: true,
     sortable: true,
     fields: [
+      {
+        name: 'img',
+        label: 'Изображение',
+        type: 'url',
+        required: true,
+        placeholder: 'https://cdn.quasar.dev/img/mountains.jpg',
+      },
       {
         name: 'title',
         label: 'Заголовок',
         type: 'text',
         required: true,
-        placeholder: 'Введите заголовок статьи',
+        placeholder: 'Mountains3',
       },
       {
-        name: 'content',
-        label: 'Содержание',
-        type: 'textarea',
+        name: 'subtitle',
+        label: 'Подзаголовок',
+        type: 'text',
         required: true,
-        placeholder: 'Введите текст статьи',
-      },
-      {
-        name: 'author',
-        label: 'Автор',
-        type: 'text',
-        placeholder: 'Имя автора',
-      },
-      {
-        name: 'published',
-        label: 'Опубликовано',
-        type: 'boolean',
-      },
-      {
-        name: 'publishDate',
-        label: 'Дата публикации',
-        type: 'date',
-      },
-      {
-        name: 'tags',
-        label: 'Теги',
-        type: 'text',
-        placeholder: 'Введите теги через запятую',
+        placeholder: 'Majestic peaks and valleys',
       },
     ],
     columns: [
+      {
+        name: 'img',
+        label: 'Изображение',
+        field: 'img',
+        align: 'center',
+        sortable: false,
+        format: (val: unknown) => val ? '🖼️' : '',
+      },
       {
         name: 'title',
         label: 'Заголовок',
@@ -148,37 +141,16 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         sortable: true,
       },
       {
-        name: 'author',
-        label: 'Автор',
-        field: 'author',
+        name: 'subtitle',
+        label: 'Подзаголовок',
+        field: 'subtitle',
+        required: true,
         align: 'left',
         sortable: true,
-      },
-      {
-        name: 'published',
-        label: 'Опубликовано',
-        field: 'published',
-        align: 'center',
-        format: (val: unknown) => (val ? 'Да' : 'Нет'),
-      },
-      {
-        name: 'publishDate',
-        label: 'Дата публикации',
-        field: 'publishDate',
-        align: 'center',
-        sortable: true,
         format: (val: unknown) => {
-          if (!val) {
-            return ''
-          }
+          const str = String(val)
 
-          const date = val as { toDate?: () => Date }
-
-          if (date.toDate) {
-            return date.toDate().toLocaleDateString('ru-RU')
-          }
-
-          return JSON.stringify(val)
+          return str.length > 40 ? str.substring(0, 40) + '...' : str
         },
       },
       {
