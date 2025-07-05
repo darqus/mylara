@@ -87,8 +87,9 @@ components/
     <label
       v-if="label"
       class="base-input__label"
-      >{{ label }}</label
     >
+      {{ label }}
+    </label>
     <input
       class="base-input__field"
       :value="modelValue"
@@ -99,8 +100,9 @@ components/
     <span
       v-if="errorMessage"
       class="base-input__error"
-      >{{ errorMessage }}</span
     >
+      {{ errorMessage }}
+    </span>
   </div>
 </template>
 

@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Админка </q-toolbar-title>
+        <q-toolbar-title>Админка</q-toolbar-title>
 
         <div
           v-if="currentUser"
@@ -41,7 +41,7 @@
       show-if-above
     >
       <q-list>
-        <q-item-label header> Управление данными </q-item-label>
+        <q-item-label header>Управление данными</q-item-label>
 
         <AdminMenuItem
           icon="o_settings"

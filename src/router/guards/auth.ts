@@ -8,9 +8,9 @@ import { useAdminAuth } from 'src/composables/useAdminAuth'
  * Uses static import since useAdminAuth is already loaded in App.vue
  */
 export function adminAuthGuard(
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
 ): void {
   // Проверяем, является ли маршрут админским (кроме логина)
   if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
@@ -29,9 +29,7 @@ export function adminAuthGuard(
             } else {
               next({
                 path: '/admin/login',
-                query: {
-                  redirect: to.path === '/admin' ? '/admin' : to.fullPath,
-                },
+                query: { redirect: to.path === '/admin' ? '/admin' : to.fullPath },
               })
             }
           }

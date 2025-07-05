@@ -1,6 +1,8 @@
 import { ref } from 'vue'
 
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import {
+  describe, it, expect, beforeEach, vi
+} from 'vitest'
 
 import { useTableSettings } from 'src/composables/useTableSettings'
 

@@ -124,9 +124,7 @@ export const META = {
   },
   TITLE: VITE_NAME_FULL,
   KEYWORDS: VITE_KEYWORDS,
-  NOSCRIPT: {
-    default: 'Это содержимое для браузеров без JS (или с отключенным JS)',
-  },
+  NOSCRIPT: { default: 'Это содержимое для браузеров без JS (или с отключенным JS)' },
   EQUIV: {
     'http-equiv': 'Content-Type',
     content: 'text/html; charset=UTF-8',

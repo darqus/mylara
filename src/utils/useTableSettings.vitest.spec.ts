@@ -1,4 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import {
+  describe, it, expect, beforeEach, vi
+} from 'vitest'
 
 import {
   useTableSettings,
@@ -168,9 +170,7 @@ describe('useTableSettings', () => {
       }
 
       importAllSettings(validSettings)
-      expect(mockLocalStorage.set).toHaveBeenCalledWith('table-settings-test', {
-        page: 1,
-      })
+      expect(mockLocalStorage.set).toHaveBeenCalledWith('table-settings-test', { page: 1 })
       expect(mockLocalStorage.set).not.toHaveBeenCalledWith(
         'other-key',
         expect.anything()

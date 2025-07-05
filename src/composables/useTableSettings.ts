@@ -1,4 +1,6 @@
-import { ref, computed, watch, unref } from 'vue'
+import {
+  ref, computed, watch, unref
+} from 'vue'
 import type { MaybeRefOrGetter } from 'vue'
 
 import { LocalStorage } from 'quasar'
@@ -7,6 +9,7 @@ import { LocalStorage } from 'quasar'
  * Настройки таблицы для сохранения в localStorage
  */
 export type TableSettings = {
+
   /** Текущая страница */
   page: number
 
@@ -65,15 +68,9 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
             settings.rowsPerPage > 0 && { rowsPerPage: settings.rowsPerPage }),
           ...(typeof settings.sortBy === 'string' &&
             settings.sortBy.length > 0 && { sortBy: settings.sortBy }),
-          ...(typeof settings.descending === 'boolean' && {
-            descending: settings.descending,
-          }),
-          ...(typeof settings.filter === 'string' && {
-            filter: settings.filter,
-          }),
-          ...(Array.isArray(settings.visibleColumns) && {
-            visibleColumns: settings.visibleColumns,
-          }),
+          ...(typeof settings.descending === 'boolean' && { descending: settings.descending }),
+          ...(typeof settings.filter === 'string' && { filter: settings.filter }),
+          ...(Array.isArray(settings.visibleColumns) && { visibleColumns: settings.visibleColumns }),
         }
       }
     } catch (error) {
@@ -265,7 +262,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
   function loadColumnSettings(): Record<
     string,
     { width?: number; visible?: boolean }
-  > {
+    > {
     try {
       const stored = LocalStorage.getItem(storageKey.value)
 
@@ -319,7 +316,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
    * Сохранить настройки колонок в localStorage
    */
   function saveColumnSettings(
-    settings: Record<string, { width?: number; visible?: boolean }>
+      settings: Record<string, { width?: number; visible?: boolean }>
   ): void {
     try {
       LocalStorage.set(storageKey.value, settings)

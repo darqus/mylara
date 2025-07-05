@@ -91,8 +91,9 @@
                   <span
                     v-if="field.required"
                     class="text-negative"
-                    >*</span
                   >
+                    *
+                  </span>
                 </div>
                 <ImageUploader
                   :model-value="

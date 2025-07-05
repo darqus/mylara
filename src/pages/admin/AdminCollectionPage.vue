@@ -139,7 +139,7 @@
             name="inbox"
             size="2em"
           />
-          <span> Нет данных для отображения </span>
+          <span>Нет данных для отображения</span>
         </div>
       </template>
     </q-table>
@@ -187,7 +187,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue'
+import {
+  ref, onMounted, computed, watch
+} from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useQuasar } from 'quasar'
@@ -226,12 +228,8 @@ const tableState = ref<TableState>({
     page: paginationSettings.value.page,
     rowsPerPage: paginationSettings.value.rowsPerPage,
     rowsNumber: 0,
-    ...(paginationSettings.value.sortBy && {
-      sortBy: paginationSettings.value.sortBy,
-    }),
-    ...(paginationSettings.value.descending !== undefined && {
-      descending: paginationSettings.value.descending,
-    }),
+    ...(paginationSettings.value.sortBy && { sortBy: paginationSettings.value.sortBy }),
+    ...(paginationSettings.value.descending !== undefined && { descending: paginationSettings.value.descending }),
   },
   filter: tableSettings.value.filter,
   selected: [],
@@ -321,12 +319,8 @@ function updateTableStateFromSettings() {
       page: paginationSettings.value.page,
       rowsPerPage: paginationSettings.value.rowsPerPage,
       rowsNumber: 0,
-      ...(paginationSettings.value.sortBy && {
-        sortBy: paginationSettings.value.sortBy,
-      }),
-      ...(paginationSettings.value.descending !== undefined && {
-        descending: paginationSettings.value.descending,
-      }),
+      ...(paginationSettings.value.sortBy && { sortBy: paginationSettings.value.sortBy }),
+      ...(paginationSettings.value.descending !== undefined && { descending: paginationSettings.value.descending }),
     },
     filter: tableSettings.value.filter,
     selected: [],
@@ -492,7 +486,9 @@ function onRequest(props: {
     descending?: boolean
   }
 }) {
-  const { page, rowsPerPage, sortBy, descending } = props.pagination
+  const {
+    page, rowsPerPage, sortBy, descending
+  } = props.pagination
 
   // Обновляем состояние пагинации
   tableState.value.pagination.page = page

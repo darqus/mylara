@@ -34,7 +34,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true
   },
   "[typescript][vue]": {
@@ -42,7 +42,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true
   },
   "[vue]": {
@@ -50,7 +50,7 @@
       "source.fixAll.eslint": "explicit",
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true
   },
   "[json]": {

@@ -1,6 +1,8 @@
 import { META } from './constants'
 
-const { VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE } =
+const {
+  VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE
+} =
   import.meta.env
 
 export const TITLE = `${VITE_NAME_FULL} | ${VITE_DESCRIPTION}`

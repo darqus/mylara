@@ -14,7 +14,9 @@
             size="50px"
             indeterminate
           />
-          <div class="text-body2 text-grey-8 q-mt-md">Инициализация...</div>
+          <div class="text-body2 text-grey-8 q-mt-md">
+            Инициализация...
+          </div>
         </div>
 
         <!-- Форма логина -->
@@ -24,7 +26,9 @@
           style="min-width: 400px"
         >
           <q-card-section class="text-center">
-            <div class="text-h4 text-grey-8 q-mb-md">Админка</div>
+            <div class="text-h4 text-grey-8 q-mb-md">
+              Админка
+            </div>
             <div class="text-subtitle1 text-grey-6">
               Вход в панель администратора
             </div>
@@ -115,7 +119,9 @@
         >
           <q-card style="min-width: 400px">
             <q-card-section>
-              <div class="text-h6">Создание администратора</div>
+              <div class="text-h6">
+                Создание администратора
+              </div>
               <div class="text-caption text-grey-6 q-mt-sm">
                 Эта опция доступна только для первоначальной настройки
               </div>
@@ -197,7 +203,9 @@ defineOptions({ name: 'AdminLoginPage' })
 
 const router = useRouter()
 const $q = useQuasar()
-const { login, register, loading, isAuthenticated, initializing } =
+const {
+  login, register, loading, isAuthenticated, initializing
+} =
   useAdminAuth()
 
 // Управление видимостью паролей
