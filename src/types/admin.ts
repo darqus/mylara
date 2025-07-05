@@ -81,6 +81,8 @@ export type TableState<T = Record<string, unknown>> = {
     page: number
     rowsPerPage: number
     rowsNumber: number
+    sortBy?: string
+    descending?: boolean
   }
   filter: string
   selected: T[]

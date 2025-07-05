@@ -83,6 +83,7 @@
       :rows="tableState.items"
       row-key="id"
       selection="multiple"
+      server-pagination
       @request="onRequest"
     >
       <template #body-cell-actions="props">
@@ -295,35 +296,98 @@ function performSearch(searchTerm: string) {
   if (!searchTerm.trim()) {
     // Если поисковый запрос пустой, показываем все элементы
     filteredItems.value = [ ...allItems.value, ]
+  } else {
+    const lowerSearchTerm = searchTerm.toLowerCase()
+    const searchableFields =
+      config.value?.fields?.map((field) => field.name) ?? []
+
+    filteredItems.value = allItems.value.filter((item) => {
+      return searchableFields.some((fieldName) => {
+        const fieldValue = item[fieldName]
+
+        if (fieldValue === null || fieldValue === undefined) {
+          return false
+        }
+
+        const stringValue = String(
+          fieldValue as string | number | boolean
+        ).toLowerCase()
+
+        return stringValue.includes(lowerSearchTerm)
+      })
+    })
+  }
+
+  // Применяем сортировку к отфильтрованным данным
+  applySorting()
+
+  tableState.value.pagination.rowsNumber = filteredItems.value.length
+  tableState.value.pagination.page = 1 // Сбрасываем на первую страницу при поиске
+}
+
+// Функция применения сортировки
+function applySorting() {
+  if (!tableState.value.pagination.sortBy) {
     tableState.value.items = filteredItems.value
-    tableState.value.pagination.rowsNumber = filteredItems.value.length
 
     return
   }
 
-  const lowerSearchTerm = searchTerm.toLowerCase()
-  const searchableFields =
-    config.value?.fields?.map((field) => field.name) ?? []
+  const sortBy = tableState.value.pagination.sortBy
+  const descending = tableState.value.pagination.descending ?? false
 
-  filteredItems.value = allItems.value.filter((item) => {
-    return searchableFields.some((fieldName) => {
-      const fieldValue = item[fieldName]
+  const sortedItems = [ ...filteredItems.value, ].sort((a, b) => {
+    const aVal = a[sortBy]
+    const bVal = b[sortBy]
 
-      if (fieldValue === null || fieldValue === undefined) {
-        return false
+    // Обработка null/undefined значений
+    if (aVal === null || aVal === undefined) {
+      if (bVal === null || bVal === undefined) {
+        return 0
       }
 
-      const stringValue = String(
-        fieldValue as string | number | boolean
-      ).toLowerCase()
+      return descending ? 1 : -1
+    }
+    if (bVal === null || bVal === undefined) {
+      return descending ? -1 : 1
+    }
 
-      return stringValue.includes(lowerSearchTerm)
+    // Сортировка строк
+    if (typeof aVal === 'string' && typeof bVal === 'string') {
+      const result = aVal.localeCompare(bVal, 'ru', {
+        numeric: true,
+        sensitivity: 'base',
+      })
+
+      return descending ? -result : result
+    }
+
+    // Сортировка чисел
+    if (typeof aVal === 'number' && typeof bVal === 'number') {
+      const result = aVal - bVal
+
+      return descending ? -result : result
+    }
+
+    // Сортировка дат
+    if (aVal instanceof Date && bVal instanceof Date) {
+      const result = aVal.getTime() - bVal.getTime()
+
+      return descending ? -result : result
+    }
+
+    // Общий случай - приведение к строке
+    const aStr = String(aVal as string | number | boolean)
+    const bStr = String(bVal as string | number | boolean)
+    const result = aStr.localeCompare(bStr, 'ru', {
+      numeric: true,
+      sensitivity: 'base',
     })
+
+    return descending ? -result : result
   })
 
-  tableState.value.items = filteredItems.value
-  tableState.value.pagination.rowsNumber = filteredItems.value.length
-  tableState.value.pagination.page = 1 // Сбрасываем на первую страницу при поиске
+  tableState.value.items = sortedItems
 }
 
 // Обработчик очистки поля поиска
@@ -360,7 +424,7 @@ async function loadData() {
       // Сохраняем все данные для поиска
       allItems.value = response.items
 
-      // Применяем текущий фильтр поиска
+      // Применяем текущий фильтр поиска и сортировку
       performSearch(tableState.value.filter)
     }
   } finally {
@@ -369,14 +433,37 @@ async function loadData() {
 }
 
 function onRequest(props: {
-  pagination: { page: number; rowsPerPage: number }
+  pagination: {
+    page: number
+    rowsPerPage: number
+    sortBy?: string
+    descending?: boolean
+  }
 }) {
   const {
-    page, rowsPerPage,
+    page, rowsPerPage, sortBy, descending,
   } = props.pagination
 
+  // Обновляем состояние пагинации
   tableState.value.pagination.page = page
   tableState.value.pagination.rowsPerPage = rowsPerPage
+
+  // Проверяем изменения сортировки
+  const sortChanged =
+    tableState.value.pagination.sortBy !== sortBy ||
+    tableState.value.pagination.descending !== descending
+
+  if (sortChanged) {
+    if (sortBy !== undefined) {
+      tableState.value.pagination.sortBy = sortBy
+    }
+    if (descending !== undefined) {
+      tableState.value.pagination.descending = descending
+    }
+
+    // Применяем новую сортировку к текущим данным
+    applySorting()
+  }
 }
 
 function editItem(item: Record<string, unknown>) {
