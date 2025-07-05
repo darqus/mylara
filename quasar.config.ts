@@ -54,7 +54,74 @@ export default defineConfig((/* ctx */) => ({
     // polyfillModulePreload: true,
     // distDir
 
-    // extendViteConf (viteConf) {},
+    // Оптимизация сборки для уменьшения размера чанков
+    extendViteConf(viteConf) {
+      viteConf.build = viteConf.build ?? {}
+      viteConf.build.rollupOptions = viteConf.build.rollupOptions ?? {}
+      viteConf.build.rollupOptions.output = viteConf.build.rollupOptions.output ?? {}
+
+      // Настройка разделения кода на чанки
+      if (!Array.isArray(viteConf.build.rollupOptions.output)) {
+        viteConf.build.rollupOptions.output.manualChunks = (id) => {
+          // Выносим node_modules в отдельные чанки
+          if (id.includes('node_modules')) {
+            // Firebase в отдельный чанк
+            if (id.includes('firebase')) {
+              return 'firebase-vendor'
+            }
+
+            // Vue и связанные библиотеки
+            if (id.includes('vue') || id.includes('@vue')) {
+              return 'vue-vendor'
+            }
+
+            // Quasar в отдельный чанк
+            if (id.includes('quasar')) {
+              return 'quasar-vendor'
+            }
+
+            // Остальные vendor библиотеки
+            return 'vendor'
+          }
+
+          // Админские страницы и компоненты в отдельный чанк
+          if (id.includes('src/pages/admin') ||
+              id.includes('src/layouts/AdminLayout') ||
+              id.includes('src/components/admin') ||
+              id.includes('src/composables/useAdmin') ||
+              id.includes('src/services/admin') ||
+              id.includes('src/services/firestore')) {
+            return 'admin'
+          }
+
+          // Общие компоненты
+          if (id.includes('src/components')) {
+            return 'components'
+          }
+
+          // Сервисы
+          if (id.includes('src/services')) {
+            return 'services'
+          }
+        }
+      }
+
+      // Увеличиваем лимит предупреждения до 1000 KB
+      viteConf.build.chunkSizeWarningLimit = 1000
+
+      // Дополнительные оптимизации
+      viteConf.build.minify = 'terser'
+      viteConf.build.terserOptions = {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      }
+
+      // Включаем tree shaking
+      viteConf.build.rollupOptions.treeshake = true
+    },
+
     // viteVuePluginOptions: {},
 
     vitePlugins: [
