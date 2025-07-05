@@ -241,7 +241,8 @@ const registerPassword = ref('')
 onMounted(() => {
   // Если пользователь уже аутентифицирован, перенаправляем в админку
   if (isAuthenticated.value) {
-    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
 
@@ -277,7 +278,8 @@ async function handleLogin() {
     })
 
     // Перенаправляем на исходную страницу или на админ дашборд
-    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
   } else {
@@ -317,7 +319,8 @@ async function handleRegister() {
     showRegistrationDialog.value = false
 
     // Перенаправляем на исходную страницу или на админ дашборд
-    const redirectTo = router.currentRoute.value.query.redirect as string ?? '/admin'
+    const redirectQuery = router.currentRoute.value.query.redirect as string
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
 
     void router.push(redirectTo)
   } else {

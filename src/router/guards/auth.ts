@@ -36,7 +36,7 @@ export function adminAuthGuard(
               next({
                 path: '/admin/login',
                 query: {
-                  redirect: to.fullPath,
+                  redirect: to.path === '/admin' ? '/admin' : to.fullPath,
                 },
               })
             }
@@ -55,7 +55,7 @@ export function adminAuthGuard(
       next({
         path: '/admin/login',
         query: {
-          redirect: to.fullPath,
+          redirect: to.path === '/admin' ? '/admin' : to.fullPath,
         },
       })
 
