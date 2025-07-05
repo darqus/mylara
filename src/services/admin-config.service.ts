@@ -4,82 +4,85 @@ import type { CollectionConfig, } from 'src/types/admin'
  * Конфигурация коллекций для админки
  */
 export const collectionsConfig: Record<string, CollectionConfig> = {
-  // Пример коллекции продуктов
-  products: {
-    name: 'products',
+  // Коллекция carousel из carousel.service.ts
+  carousel: {
+    name: 'carousel',
     label: 'Продукты',
     icon: 'inventory_2',
     searchable: true,
     sortable: true,
     fields: [
       {
-        name: 'name',
-        label: 'Название',
-        type: 'text',
-        required: true,
-        placeholder: 'Введите название продукта',
-      },
-      {
-        name: 'description',
-        label: 'Описание',
-        type: 'textarea',
-        placeholder: 'Введите описание продукта',
-      },
-      {
-        name: 'price',
-        label: 'Цена',
-        type: 'number',
-        required: true,
-        placeholder: '0',
-      },
-      {
-        name: 'category',
-        label: 'Категория',
-        type: 'text',
-        placeholder: 'Категория продукта',
-      },
-      {
-        name: 'available',
-        label: 'В наличии',
-        type: 'boolean',
-      },
-      {
-        name: 'imageUrl',
-        label: 'URL изображения',
+        name: 'img',
+        label: 'Изображение',
         type: 'url',
-        placeholder: 'https://example.com/image.jpg',
+        required: true,
+        placeholder: 'https://cdn.quasar.dev/img/parallax1.jpg',
+      },
+      {
+        name: 'info',
+        label: 'Информация',
+        type: 'text',
+        required: true,
+        placeholder: 'Инновационные технологические решения завтрашнего дня',
+      },
+      {
+        name: 'label',
+        label: 'Название продукта',
+        type: 'textarea',
+        required: true,
+        placeholder: 'Крем - гель подтягивающий для век с ботулоподобным нейропептидом, 30 мл аромат Blanche (по мотивам BYREDO BLANCHE)',
+      },
+      {
+        name: 'link',
+        label: 'Ссылка',
+        type: 'url',
+        required: true,
+        placeholder: 'https://example.com/tech',
       },
     ],
     columns: [
       {
-        name: 'name',
-        label: 'Название',
-        field: 'name',
+        name: 'img',
+        label: 'Изображение',
+        field: 'img',
+        align: 'center',
+        sortable: false,
+        format: (val: unknown) => val ? '🖼️' : '',
+      },
+      {
+        name: 'info',
+        label: 'Информация',
+        field: 'info',
         required: true,
         align: 'left',
         sortable: true,
+        format: (val: unknown) => {
+          const str = String(val)
+
+          return str.length > 35 ? str.substring(0, 35) + '...' : str
+        },
       },
       {
-        name: 'price',
-        label: 'Цена',
-        field: 'price',
-        align: 'right',
-        sortable: true,
-        format: (val: unknown) => `${String(val)} ₽`,
-      },
-      {
-        name: 'category',
-        label: 'Категория',
-        field: 'category',
+        name: 'label',
+        label: 'Название',
+        field: 'label',
+        required: true,
         align: 'left',
         sortable: true,
+        format: (val: unknown) => {
+          const str = String(val)
+
+          return str.length > 30 ? str.substring(0, 30) + '...' : str
+        },
       },
       {
-        name: 'available',
-        label: 'В наличии',
-        field: 'available',
+        name: 'link',
+        label: 'Ссылка',
+        field: 'link',
         align: 'center',
-        format: (val: unknown) => (val ? 'Да' : 'Нет'),
+        sortable: false,
+        format: (val: unknown) => val ? '🔗' : '',
       },
       {
         name: 'actions',
