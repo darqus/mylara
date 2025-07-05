@@ -118,9 +118,12 @@ export default defineConfig((/* ctx */) => ({
       // Дополнительные настройки для GitHub Pages
       if (!Array.isArray(viteConf.build.rollupOptions.output)) {
         // Настройки для корректного именования JS модулей
-        viteConf.build.rollupOptions.output.entryFileNames = 'assets/[name]-[hash].js'
-        viteConf.build.rollupOptions.output.chunkFileNames = 'assets/[name]-[hash].js'
-        viteConf.build.rollupOptions.output.assetFileNames = 'assets/[name]-[hash][extname]'
+        viteConf.build.rollupOptions.output.entryFileNames =
+          'assets/[name]-[hash].js'
+        viteConf.build.rollupOptions.output.chunkFileNames =
+          'assets/[name]-[hash].js'
+        viteConf.build.rollupOptions.output.assetFileNames =
+          'assets/[name]-[hash][extname]'
       }
     },
 
@@ -165,7 +168,7 @@ export default defineConfig((/* ctx */) => ({
     // directives: [],
 
     // Quasar plugins
-    plugins: [ 'Notify', 'Meta', ],
+    plugins: [ 'Notify', 'Meta', 'LocalStorage' ],
   },
 
   // animations: 'all', // --- includes all animations
