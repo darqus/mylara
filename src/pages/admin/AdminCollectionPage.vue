@@ -25,7 +25,7 @@
       flat
     >
       <q-card-section>
-        <div class="row q-gutter-md items-end">
+        <div class="row q-gutter-md items-center">
           <div class="col-12 col-md-6">
             <q-input
               v-model="tableState.filter"
@@ -45,7 +45,8 @@
             <q-btn
               color="secondary"
               icon="refresh"
-              label="Обновить"
+              padding="12px"
+              size="md"
               @click="loadData"
             />
           </div>
@@ -58,6 +59,8 @@
               :label="`Удалить (${tableState.selected.length})`"
               color="negative"
               icon="delete"
+              padding="12px"
+              size="md"
               @click="confirmBulkDelete"
             />
           </div>
