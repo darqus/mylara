@@ -3,10 +3,10 @@
     <!-- Область для перетаскивания файлов -->
     <div
       :class="{
-        'upload-area--dragover': isDragOver,
-        'upload-area--disabled': disabled,
+        'image-uploader__upload-area--dragover': isDragOver,
+        'image-uploader__upload-area--disabled': disabled,
       }"
-      class="upload-area"
+      class="image-uploader__upload-area"
       @click="triggerFileInput"
       @dragenter.prevent="handleDragEnter"
       @dragleave.prevent="handleDragLeave"
@@ -26,7 +26,7 @@
       <!-- Предварительный просмотр изображения -->
       <div
         v-if="previewUrl"
-        class="image-preview"
+        class="image-uploader__preview"
       >
         <q-img
           :alt="fileName"
@@ -34,7 +34,7 @@
           class="rounded-borders"
           style="max-width: 100%; max-height: 200px"
         />
-        <div class="image-info">
+        <div class="image-uploader__info">
           <div class="text-caption text-grey-7">
             {{ fileName }}
           </div>
@@ -44,7 +44,7 @@
         </div>
         <q-btn
           v-if="!disabled"
-          class="image-remove-btn"
+          class="image-uploader__remove-btn"
           color="negative"
           icon="close"
           size="sm"
@@ -59,7 +59,7 @@
       <!-- Placeholder для загрузки -->
       <div
         v-else
-        class="upload-placeholder"
+        class="image-uploader__placeholder"
       >
         <q-icon
           color="grey-5"
@@ -83,7 +83,7 @@
       <!-- Индикатор загрузки -->
       <div
         v-if="uploading"
-        class="upload-overlay"
+        class="image-uploader__overlay"
       >
         <q-circular-progress
           :thickness="0.2"
@@ -333,78 +333,6 @@ function extractFileNameFromUrl(url: string): string {
 }
 </script>
 
-<style scoped lang="scss">
-.image-uploader {
-  width: 100%;
-}
-
-.upload-area {
-  position: relative;
-  border: 2px dashed var(--q-primary);
-  border-radius: 8px;
-  padding: 24px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover:not(.upload-area--disabled) {
-    border-color: var(--q-secondary);
-    background-color: rgba(var(--q-primary-rgb), 0.05);
-  }
-
-  &--dragover {
-    border-color: var(--q-secondary);
-    background-color: rgba(var(--q-primary-rgb), 0.1);
-  }
-
-  &--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    border-color: var(--q-grey-5);
-  }
-}
-
-.upload-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-preview {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-}
-
-.image-info {
-  text-align: center;
-}
-
-.image-remove-btn {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-}
-
-.upload-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-}
+<style lang="scss">
+// Styles moved to /src/css/components/_image-uploader.scss
 </style>

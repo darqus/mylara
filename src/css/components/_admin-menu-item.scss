@@ -1,0 +1,20 @@
+// AdminMenuItem component styles
+.admin-menu-item {
+  margin: 2px 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(var(--q-primary-rgb), 0.08);
+  }
+
+  &--active {
+    font-weight: 600;
+    background-color: rgba(var(--q-primary-rgb), 0.12);
+    border-left: 3px solid var(--q-primary);
+
+    .q-icon {
+      color: var(--q-primary);
+    }
+  }
+}

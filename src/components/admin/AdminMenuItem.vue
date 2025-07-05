@@ -2,9 +2,10 @@
   <q-item
     v-ripple
     :active="isActive"
+    :class="{ 'admin-menu-item--active': isActive }"
     :to="link"
     active-class="text-primary bg-primary-1"
-    class="menu-item"
+    class="admin-menu-item"
     clickable
   >
     <q-item-section avatar>
@@ -60,24 +61,6 @@ const isActive = computed(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.menu-item {
-  border-radius: 8px;
-  margin: 2px 8px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: rgba(var(--q-primary-rgb), 0.08);
-  }
-
-  &.q-item--active {
-    font-weight: 600;
-    border-left: 3px solid var(--q-primary);
-    background-color: rgba(var(--q-primary-rgb), 0.12);
-
-    .q-icon {
-      color: var(--q-primary);
-    }
-  }
-}
+<style lang="scss">
+// Styles moved to /src/css/components/_admin-menu-item.scss
 </style>

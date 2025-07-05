@@ -16,7 +16,7 @@
       >
         <q-card
           v-ripple
-          class="admin-card cursor-pointer"
+          class="admin-dashboard__card cursor-pointer"
           clickable
           @click="navigateToCollection(collection.name)"
         >
@@ -139,15 +139,6 @@ function navigateToCollection(collectionName: string) {
 
 </script>
 
-<style lang="scss" scoped>
-.admin-card {
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-}
+<style lang="scss">
+// Styles moved to /src/css/components/_admin-dashboard.scss
 </style>
