@@ -1,1 +1,0 @@
-import{V as o,e as s}from"./services-Kju9QnnT.js";const e={title:"MYLARA | Косметика по уходу за лицом",description:s,keywords:o,ogImage:"/logo.svg"},t={title:"404 | Страница не найдена | MYLARA",description:"Запрашиваемая страница не найдена",robots:"noindex, nofollow"};export{e as S,t as a};
