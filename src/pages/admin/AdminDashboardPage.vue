@@ -8,9 +8,6 @@
       Добро пожаловать в админку для управления базой данных
     </div>
 
-    <!-- Статистика -->
-    <AdminStatsWidget class="q-mb-lg" />
-
     <div class="row q-gutter-md">
       <div
         v-for="collection in collections"
@@ -33,8 +30,26 @@
             <div class="text-h6">
               {{ collection.label }}
             </div>
-            <div class="text-body2 text-grey-6">
+            <div class="text-body2 text-grey-6 q-mb-sm">
               Управление записями {{ collection.label.toLowerCase() }}
+            </div>
+
+            <!-- Статистика количества записей -->
+            <div class="q-mt-md">
+              <q-chip
+                v-if="collectionStats[collection.name] !== undefined"
+                :color="getColorForCollection(collection.name)"
+                :label="`${collectionStats[collection.name]} записей`"
+                text-color="white"
+                dense
+              />
+              <q-chip
+                v-else
+                color="grey-5"
+                label="Загрузка..."
+                text-color="white"
+                dense
+              />
             </div>
           </q-card-section>
         </q-card>
@@ -101,14 +116,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, } from 'vue'
+import {
+  ref,
+  onMounted,
+} from 'vue'
 import { useRouter, } from 'vue-router'
 
 import { useQuasar, } from 'quasar'
 
-import AdminStatsWidget from 'src/components/admin/AdminStatsWidget.vue'
-
 import { getAllCollections, } from 'src/services/admin-config.service'
+import { firestoreService, } from 'src/services/firestore.service'
 
 defineOptions({
   name: 'AdminDashboardPage',
@@ -120,12 +137,61 @@ const router = useRouter()
 const collections = getAllCollections()
 const showCreateCollectionDialog = ref(false)
 const newCollectionName = ref('')
+const collectionStats = ref<Record<string, number>>({})
+
+onMounted(async () => {
+  await loadCollectionStats()
+})
+
+async function loadCollectionStats() {
+  try {
+    const statsPromises = collections.map(async (collection) => {
+      const response = await firestoreService.getCollection(collection.name)
+
+      return {
+        name: collection.name,
+        count: response.items.length,
+      }
+    })
+
+    const stats = await Promise.all(statsPromises)
+
+    collectionStats.value = stats.reduce((acc, stat) => {
+      acc[stat.name] = stat.count
+
+      return acc
+    }, {} as Record<string, number>)
+  } catch (error) {
+    console.error('Ошибка загрузки статистики коллекций:', error)
+    $q.notify({
+      type: 'negative',
+      message: 'Ошибка загрузки статистики',
+      position: 'top',
+    })
+  }
+}
+
+function getColorForCollection(name: string): string {
+  const colors = [
+    'primary',
+    'secondary',
+    'accent',
+    'positive',
+    'negative',
+    'info',
+    'warning',
+  ]
+  const index = name.length % colors.length
+
+  return colors[index] ?? 'primary'
+}
 
 function navigateToCollection(collectionName: string) {
   void router.push(`/admin/collection/${collectionName}`)
 }
 
 function refreshData() {
+  void loadCollectionStats()
   $q.notify({
     type: 'positive',
     message: 'Данные обновлены',
