@@ -1,4 +1,3 @@
-import { watch, } from 'vue'
 import {
   createMemoryHistory,
   createRouter,
@@ -8,6 +7,7 @@ import {
 
 import { route, } from 'quasar/wrappers'
 
+import { adminAuthGuard, } from './guards/auth'
 import routes from './routes'
 
 /*
@@ -46,60 +46,7 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   // Добавляем navigation guard для защиты админских маршрутов
-  Router.beforeEach(async (to, from, next) => {
-    // Проверяем, является ли маршрут админским (кроме логина)
-    if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
-      // Динамически импортируем composable только когда нужно
-      const {
-        useAdminAuth,
-      } = await import('src/composables/useAdminAuth')
-      const {
-        isAuthenticated,
-        initializing,
-      } = useAdminAuth()
-
-      // Если еще идет инициализация, ждем ее завершения
-      if (initializing.value) {
-        // Используем watch для ожидания завершения инициализации
-        const unwatch = watch(
-          () => initializing.value,
-          (isInitializing: boolean) => {
-            if (!isInitializing) {
-              unwatch()
-
-              if (isAuthenticated.value) {
-                next()
-              } else {
-                next({
-                  path: '/admin/login',
-                  query: {
-                    redirect: to.fullPath,
-                  },
-                })
-              }
-            }
-          }
-        )
-
-        return
-      }
-
-      // Проверяем аутентификацию
-      if (!isAuthenticated.value) {
-        // Если пользователь не аутентифицирован, перенаправляем на логин с редиректом
-        next({
-          path: '/admin/login',
-          query: {
-            redirect: to.fullPath,
-          },
-        })
-
-        return
-      }
-    }
-
-    next()
-  })
+  Router.beforeEach(adminAuthGuard)
 
   // Обновляем канонический URL при изменении маршрута
   Router.afterEach((to) => {
