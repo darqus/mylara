@@ -261,10 +261,8 @@ export const common = {
       allowTemplateLiterals: true, // Allow template literals for consistency
     },
   ],
-  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-  'no-useless-constructor': 'off',
-  'no-shadow': 'off',
-  'no-var': ['error'],
+
+  // SPACING AND STRUCTURE RULES
   'lines-between-class-members': ['error', 'always'],
   'padding-line-between-statements': [
     'error',
