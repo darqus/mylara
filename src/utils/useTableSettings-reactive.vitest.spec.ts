@@ -44,7 +44,7 @@ describe('useTableSettings (reactive)', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: ['id', 'name'],
+        visibleColumns: [ 'id', 'name' ],
       }
 
       mockLocalStorage.getItem.mockReturnValue(validSettings)
@@ -58,7 +58,7 @@ describe('useTableSettings (reactive)', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: ['id', 'name'],
+        visibleColumns: [ 'id', 'name' ],
       })
     })
 

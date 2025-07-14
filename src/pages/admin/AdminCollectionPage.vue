@@ -167,7 +167,7 @@ function updateTableStateFromSettings() {
 function performSearch(searchTerm: string) {
   if (!searchTerm.trim()) {
     // Если поисковый запрос пустой, показываем все элементы
-    filteredItems.value = [...allItems.value]
+    filteredItems.value = [ ...allItems.value ]
   } else {
     const lowerSearchTerm = searchTerm.toLowerCase()
     const searchableFields =
@@ -208,7 +208,7 @@ function applySorting() {
   const { sortBy } = tableState.value.pagination
   const descending = tableState.value.pagination.descending ?? false
 
-  const sortedItems = [...filteredItems.value].sort((a, b) => {
+  const sortedItems = [ ...filteredItems.value ].sort((a, b) => {
     const aVal = a[sortBy]
     const bVal = b[sortBy]
 
@@ -346,7 +346,7 @@ function editItem(item: Record<string, unknown>) {
 
 function confirmDelete(item: Record<string, unknown>) {
   itemToDelete.value = item
-  tableState.value.selected = [item]
+  tableState.value.selected = [ item ]
   showDeleteDialog.value = true
 }
 
@@ -440,7 +440,7 @@ async function handleDelete() {
     tableState.value.selected.length > 0
       ? tableState.value.selected
       : itemToDelete.value
-        ? [itemToDelete.value]
+        ? [ itemToDelete.value ]
         : []
 
   if (itemsToDelete.length === 0) {

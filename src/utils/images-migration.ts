@@ -43,7 +43,7 @@ export async function convertImageUrlToBase64(
     const blob = await response.blob()
 
     // Создаем File объект из Blob
-    const file = new File([blob], 'image.jpg', { type: blob.type })
+    const file = new File([ blob ], 'image.jpg', { type: blob.type })
 
     // Конвертируем в base64 с настройками сжатия
     const result = await fileToBase64(file, {

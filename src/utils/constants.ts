@@ -28,7 +28,7 @@ export const NO_IMG = 'img/no-image.svg'
 
 export const COMPONENT_KEY_DELIMITER = '-'
 
-export const OFFSET_POPUP_PROXY = [0, 5]
+export const OFFSET_POPUP_PROXY = [ 0, 5 ]
 
 export const CURRENT_YEAR = new Date().getFullYear()
 

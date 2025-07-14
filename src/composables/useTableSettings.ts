@@ -278,7 +278,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
         > = {}
 
         // Валидируем каждую настройку колонки
-        Object.entries(settings).forEach(([key, value]) => {
+        Object.entries(settings).forEach(([ key, value ]) => {
           if (typeof value === 'object' && value !== null) {
             const columnSetting = value as {
               width?: unknown
@@ -527,7 +527,7 @@ export function useTableSettingsManager() {
       return
     }
 
-    Object.entries(settings).forEach(([key, value]) => {
+    Object.entries(settings).forEach(([ key, value ]) => {
       if (
         key.startsWith('table-settings-') ||
         key.startsWith('column-settings-')

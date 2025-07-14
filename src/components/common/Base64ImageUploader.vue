@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
   disabled: false,
   maxSizeKB: 2000,
-  allowedTypes: () => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+  allowedTypes: () => [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp' ],
   maxWidth: 1920,
   maxHeight: 1080,
   quality: 0.8,
@@ -64,7 +64,7 @@ const hasImage = computed(() =>
 )
 
 const formattedAllowedTypes = computed(() => {
-  const types = props.allowedTypes || ['image/jpeg', 'image/png', 'image/webp']
+  const types = props.allowedTypes || [ 'image/jpeg', 'image/png', 'image/webp' ]
 
   return types
     .map((type) => type.split('/')[1]?.toUpperCase() ?? '')

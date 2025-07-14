@@ -24,28 +24,30 @@ export async function testBase64Image() {
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) {
-        const file = new File([blob], 'test.png', { type: 'image/png' })
+        const file = new File([ blob ], 'test.png', { type: 'image/png' })
 
         fileToBase64(file, {
           maxSizeKB: 1000,
           maxWidth: 200,
           maxHeight: 200,
           quality: 0.8,
-        }).then((result) => {
-          console.warn('Результат теста:', {
-            success: !!result,
-            isValid: result ? isValidBase64Image(result.base64) : false,
-            originalSize: formatFileSize(file.size),
-            compressedSize: result
-              ? formatFileSize(result.compressedSize)
-              : 'N/A',
-            dimensions: result ? `${result.width}x${result.height}` : 'N/A',
-          })
-
-          resolve(result)
-        }).catch(() => {
-          resolve(null)
         })
+          .then((result) => {
+            console.warn('Результат теста:', {
+              success: !!result,
+              isValid: result ? isValidBase64Image(result.base64) : false,
+              originalSize: formatFileSize(file.size),
+              compressedSize: result
+                ? formatFileSize(result.compressedSize)
+                : 'N/A',
+              dimensions: result ? `${result.width}x${result.height}` : 'N/A',
+            })
+
+            resolve(result)
+          })
+          .catch(() => {
+            resolve(null)
+          })
       } else {
         resolve(null)
       }

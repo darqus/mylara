@@ -95,21 +95,14 @@
   "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "eslint.format.enable": false,
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "vue"
-  ],
+  "eslint.validate": ["javascript", "typescript", "vue"],
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
   "eslint.codeActionsOnSave.mode": "problems",
   "scss.validate": false,
   "stylelint.packageManager": "yarn",
-  "stylelint.validate": [
-    "html",
-    "scss"
-  ],
+  "stylelint.validate": ["html", "scss"],
   "npm.packageManager": "yarn",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",

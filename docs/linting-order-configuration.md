@@ -80,7 +80,7 @@ import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
 export default defineConfigWithVueTs(
   // ...
-  prettierSkipFormatting,
+  prettierSkipFormatting
   // ...
 )
 ```

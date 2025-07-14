@@ -33,7 +33,7 @@ export function useBase64Image() {
   ): Promise<Base64ImageResult | null> {
     const {
       maxSizeKB = 5000,
-      allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+      allowedTypes = [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp' ],
       maxWidth,
       maxHeight,
       quality = 0.8,
@@ -244,7 +244,7 @@ export function useBase64Image() {
     }
 
     const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const sizes = [ 'Bytes', 'KB', 'MB', 'GB' ]
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`

@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<DataLoaderProps>(), {
   dataKey: '',
 })
 
-const emit = defineEmits(['retry', 'data-loaded'])
+const emit = defineEmits([ 'retry', 'data-loaded' ])
 
 const internalLoading = ref(false)
 const internalError = ref('')

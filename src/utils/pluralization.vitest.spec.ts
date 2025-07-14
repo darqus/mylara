@@ -59,7 +59,7 @@ describe('pluralization utils', () => {
   })
 
   describe('pluralize', () => {
-    const forms: [string, string, string] = ['файл', 'файла', 'файлов']
+    const forms: [string, string, string] = [ 'файл', 'файла', 'файлов' ]
 
     it('возвращает первую форму для 1', () => {
       expect(pluralize(1, forms)).toBe('файл')
@@ -90,7 +90,7 @@ describe('pluralization utils', () => {
   })
 
   describe('formatCount', () => {
-    const forms: [string, string, string] = ['товар', 'товара', 'товаров']
+    const forms: [string, string, string] = [ 'товар', 'товара', 'товаров' ]
 
     it('возвращает строку с числом и правильно склоненным словом', () => {
       expect(formatCount(1, forms)).toBe('1 товар')

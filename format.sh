@@ -96,16 +96,6 @@ npx stylelint \
 
 print_success "✅ Stylelint fixes applied"
 
-# Step 4: Final Prettier pass to ensure consistency
-print_step "🎨 Running final Prettier pass for consistency..."
-
-npx prettier \
-    --write \
-    "**/*.{ts,mts,js,mjs,cjs,vue,scss,css}" \
-    --config .prettierrc.json \
-    --ignore-path .prettierignore \
-    --log-level error
-
 print_success "✅ Final formatting pass completed"
 
 print_success "🎉 Comprehensive formatting completed successfully!"

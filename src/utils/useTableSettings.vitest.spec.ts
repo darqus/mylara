@@ -45,7 +45,7 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: ['id', 'name'],
+        visibleColumns: [ 'id', 'name' ],
       }
 
       mockLocalStorage.getItem.mockReturnValue(validSettings)
@@ -59,7 +59,7 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: ['id', 'name'],
+        visibleColumns: [ 'id', 'name' ],
       })
     })
 

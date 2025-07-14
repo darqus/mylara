@@ -84,7 +84,7 @@ export default defineConfigWithVueTs(
   },
 
   {
-    files: ['src-pwa/custom-service-worker.ts'],
+    files: [ 'src-pwa/custom-service-worker.ts' ],
     languageOptions: { globals: { ...globals.serviceworker } },
   }
 )
