@@ -168,18 +168,66 @@ onMounted(() => {
   >
     <q-card
       v-if="selectedItem"
-      style="max-width: 350px"
+      style="max-width: 400px; min-width: 300px"
     >
-      <q-card-section>
-        <div class="text-h6">
+      <!-- Изображение в заголовке карточки -->
+      <q-img
+        :src="selectedItem.img"
+        fit="cover"
+        style="height: 250px"
+        @error="handleImageError"
+      />
+
+      <!-- Описание -->
+      <q-card-section v-if="selectedItem.label">
+        <div class="text-body1">
           {{ selectedItem.label }}
         </div>
       </q-card-section>
 
-      <q-card-section class="q-pt-none">
-        {{ selectedItem.info }}
+      <!-- Подробное описание в аккордеоне -->
+      <q-card-section
+        v-if="selectedItem.info"
+        class="q-pt-none"
+      >
+        <q-expansion-item
+          header-class="text-primary"
+          icon="info"
+          label="Подробное описание"
+        >
+          <q-card>
+            <q-card-section class="text-grey-7">
+              <div class="text-body2">
+                {{ selectedItem.info }}
+              </div>
+
+              <!-- Дополнительные детали можно добавить здесь -->
+              <q-separator class="q-my-md" />
+
+              <div class="text-caption text-grey-6">
+                ID элемента: {{ selectedItem.id }}
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
       </q-card-section>
 
+      <!-- Ссылка, если есть -->
+      <q-card-section
+        v-if="selectedItem.link"
+        class="q-pt-none"
+      >
+        <q-btn
+          :href="selectedItem.link"
+          color="primary"
+          icon="open_in_new"
+          label="Перейти"
+          target="_blank"
+          outline
+        />
+      </q-card-section>
+
+      <!-- Действия -->
       <q-card-actions align="right">
         <q-btn
           v-close-popup
