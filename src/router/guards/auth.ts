@@ -1,7 +1,6 @@
 import { watch } from 'vue'
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-
 import { useAdminAuth } from 'src/composables/useAdminAuth'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 /**
  * Auth guard for admin routes

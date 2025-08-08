@@ -4,9 +4,9 @@ import { onMounted } from 'vue'
 import { useMeta } from 'quasar'
 
 import 'src/utils/images-migration'
-import { meta } from 'src/utils/meta'
 
 import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { meta } from 'src/utils/meta'
 
 defineOptions({ name: 'App' })
 

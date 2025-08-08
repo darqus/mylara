@@ -1,14 +1,14 @@
-import js from '@eslint/js'
-import pluginQuasar from '@quasar/app-vite/eslint'
 import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from '@vue/eslint-config-typescript'
+import js from '@eslint/js'
 import pluginImport from 'eslint-plugin-import'
 import pluginPrettier from 'eslint-plugin-prettier'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
+import pluginQuasar from '@quasar/app-vite/eslint'
 
 import { rules } from './.config/eslint-rules/index.js'
 
@@ -60,6 +60,17 @@ export default defineConfigWithVueTs(
     ],
     rules,
     linterOptions: { reportUnusedDisableDirectives: true },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+        node: {
+          extensions: [ '.js', '.jsx', '.ts', '.tsx', '.vue' ],
+        },
+      },
+    },
   },
 
   // https://github.com/vuejs/eslint-config-typescript

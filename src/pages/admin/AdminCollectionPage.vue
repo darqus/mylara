@@ -4,8 +4,6 @@ import { useRoute } from 'vue-router'
 
 import { useQuasar } from 'quasar'
 
-import type { TableState } from 'src/types/admin'
-
 import AdminFormDialog from 'src/components/admin/AdminFormDialog.vue'
 import Base64ImageTableCell from 'src/components/admin/Base64ImageTableCell.vue'
 import ImageTableCell from 'src/components/admin/ImageTableCell.vue'
@@ -14,6 +12,7 @@ import TableSettingsIndicator from 'src/components/admin/TableSettingsIndicator.
 import { useTableSettings } from 'src/composables/useTableSettings'
 import { getCollectionConfig } from 'src/services/admin-config.service'
 import { firestoreService } from 'src/services/firestore.service'
+import type { TableState } from 'src/types/admin'
 
 defineOptions({ name: 'AdminCollectionPage' })
 

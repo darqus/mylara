@@ -3,9 +3,8 @@ import { ref, watch, computed } from 'vue'
 
 import type { QForm } from 'quasar'
 
-import type { CollectionConfig, FormField } from 'src/types/admin'
-
 import Base64ImageUploader from 'src/components/common/Base64ImageUploader.vue'
+import type { CollectionConfig, FormField } from 'src/types/admin'
 
 import ImageUploader from './ImageUploader.vue'
 

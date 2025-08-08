@@ -1,7 +1,4 @@
-// Vue-specific ESLint rules - Updated for Vue 3 and modern practices
-
 export const vue = {
-  // NAMING AND CONVENTIONS
   'vue/v-on-event-hyphenation': [ 'error', 'always', { autofix: true } ],
   'vue/component-name-in-template-casing': [
     'error',
@@ -12,11 +9,9 @@ export const vue = {
     },
   ],
 
-  // ATTRIBUTE ORGANIZATION
-  'vue/no-multiple-template-root': 'off', // Vue 3 allows multiple root elements
+  'vue/no-multiple-template-root': 'off',
   'vue/padding-line-between-blocks': [ 'error', 'always' ],
 
-  // TEMPLATE FORMATTING - Coordinated with Prettier
   'vue/html-self-closing': [
     'error',
     {
@@ -58,11 +53,9 @@ export const vue = {
     },
   ],
 
-  // DIRECTIVE FORMATTING (дополнительно к strongly-recommended)
   'vue/v-bind-style': [ 'error', 'shorthand' ],
   'vue/v-on-style': [ 'error', 'shorthand' ],
 
-  // COMPOSITION API AND MODERN VUE 3 RULES
   'vue/require-default-prop': 'error',
   'vue/require-explicit-emits': 'error',
   'vue/no-unused-components': 'error',
@@ -70,7 +63,6 @@ export const vue = {
   'vue/no-v-html': 'warn',
   'vue/prefer-separate-static-class': 'warn',
 
-  // COMPONENT OPTIONS ORDER
   'vue/order-in-components': [
     'error',
     {
@@ -112,7 +104,6 @@ export const vue = {
     },
   ],
 
-  // TEMPLATE STRUCTURE
   'vue/block-tag-newline': [
     'error',
     {
@@ -122,7 +113,6 @@ export const vue = {
     },
   ],
 
-  // BLOCK ORDER - Enforce script → template → style order
   'vue/block-order': [
     'error',
     {
@@ -130,9 +120,8 @@ export const vue = {
     },
   ],
 
-  // DISABLED RULES TO AVOID PRETTIER CONFLICTS
-  'vue/script-indent': 'off', // Let Prettier handle indentation
-  'vue/singleline-html-element-content-newline': 'off', // Conflicts with Prettier
-  'vue/html-closing-bracket-spacing': 'off', // Let Prettier handle this
-  'vue/multiline-html-element-content-newline': 'off', // Let Prettier handle this
+  'vue/script-indent': 'off',
+  'vue/singleline-html-element-content-newline': 'off',
+  'vue/html-closing-bracket-spacing': 'off',
+  'vue/multiline-html-element-content-newline': 'off',
 }

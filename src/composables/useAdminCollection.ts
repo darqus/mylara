@@ -2,9 +2,8 @@ import { ref } from 'vue'
 
 import { useQuasar } from 'quasar'
 
-import type { TableState, CollectionConfig } from 'src/types/admin'
-
 import { firestoreService } from 'src/services/firestore.service'
+import type { TableState, CollectionConfig } from 'src/types/admin'
 
 /**
  * Composable для управления коллекцией в админке

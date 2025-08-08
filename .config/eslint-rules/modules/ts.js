@@ -20,7 +20,7 @@ export const ts = {
   '@typescript-eslint/consistent-type-definitions': [ 'error', 'type' ],
   '@typescript-eslint/explicit-function-return-type': 'off',
   '@typescript-eslint/no-var-requires': 'off',
-  '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+  '@typescript-eslint/prefer-nullish-coalescing': 'error',
   '@typescript-eslint/strict-boolean-expressions': 'off',
   '@typescript-eslint/no-explicit-any': 'warn',
   '@typescript-eslint/ban-ts-comment': [

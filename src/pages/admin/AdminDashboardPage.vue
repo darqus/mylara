@@ -4,10 +4,9 @@ import { useRouter } from 'vue-router'
 
 import { useQuasar } from 'quasar'
 
-import { formatRecordsCount } from 'src/utils/pluralization'
-
 import { getAllCollections } from 'src/services/admin-config.service'
 import { firestoreService } from 'src/services/firestore.service'
+import { formatRecordsCount } from 'src/utils/pluralization'
 
 defineOptions({ name: 'AdminDashboardPage' })
 

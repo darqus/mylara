@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useMeta } from 'quasar'
 
-import { SEO_404 } from 'src/utils/seo-constants'
-
 import { SeoService } from 'src/services/seo.service'
+import { SEO_404 } from 'src/utils/seo-constants'
 
 // Устанавливаем метаданные для страницы 404
 

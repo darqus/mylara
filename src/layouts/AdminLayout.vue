@@ -4,12 +4,11 @@ import { useRouter } from 'vue-router'
 
 import { useQuasar } from 'quasar'
 
-import { APP_VERSION } from 'src/utils/constants'
-
 import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { getAllCollections } from 'src/services/admin-config.service'
+import { APP_VERSION } from 'src/utils/constants'
 
 defineOptions({ name: 'AdminLayout' })
 
