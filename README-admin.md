@@ -129,7 +129,5 @@ myCollection: {
 ## Запуск
 
 ```bash
-yarn dev
-# или
 npm run dev
 ```
