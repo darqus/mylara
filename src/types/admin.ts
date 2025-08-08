@@ -60,6 +60,8 @@ export type TableColumn = {
   align?: 'left' | 'right' | 'center'
   sortable?: boolean
   format?: (val: unknown) => string
+  style?: string
+  headerStyle?: string
 }
 
 /**

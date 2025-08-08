@@ -6,10 +6,13 @@ import { useBase64Image } from 'src/composables/useBase64Image'
 defineOptions({ name: 'Base64ImageTableCell' })
 
 type Props = {
-  base64?: string | null
+  base64Src?: string | null
+  base64?: string | null // Для обратной совместимости
   alt?: string
   size?: number
   clickable?: boolean
+  showAs?: 'thumbnail' | 'image' | 'icon'
+  rounded?: boolean
 }
 
 type Emits = {
@@ -17,19 +20,32 @@ type Emits = {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  base64Src: null,
   base64: null,
-  alt: 'Image',
-  size: 40,
-  clickable: false,
+  alt: 'Изображение',
+  size: 60,
+  clickable: true,
+  showAs: 'thumbnail',
+  rounded: false,
 })
 
 const emit = defineEmits<Emits>()
 
 const { isValidBase64Image } = useBase64Image()
 
+// Используем base64Src с fallback на base64 для совместимости
+const imageSource = computed(() => props.base64Src ?? props.base64)
+
 const hasValidImage = computed(() =>
-  Boolean(props.base64 && isValidBase64Image(props.base64))
+  Boolean(imageSource.value && isValidBase64Image(imageSource.value))
 )
+
+const imageSize = computed(() => ({
+  width: `${props.size}px`,
+  height: `${props.size}px`,
+  minWidth: `${props.size}px`,
+  minHeight: `${props.size}px`,
+}))
 
 function handleClick() {
   if (props.clickable && hasValidImage.value) {
@@ -43,9 +59,13 @@ function handleClick() {
     <q-img
       v-if="hasValidImage"
       :alt="alt"
-      :src="base64 || undefined"
-      :style="{ width: `${size}px`, height: `${size}px` }"
-      class="base64-image-table-cell__thumbnail"
+      :class="{
+        'base64-image-table-cell__image--clickable': clickable,
+        'base64-image-table-cell__image--rounded': rounded,
+      }"
+      :src="imageSource || undefined"
+      :style="imageSize"
+      class="base64-image-table-cell__image"
       fit="cover"
       loading="lazy"
       @click="handleClick"
@@ -62,7 +82,10 @@ function handleClick() {
       </div>
 
       <template #error>
-        <div class="base64-image-table-cell__error">
+        <div
+          :style="imageSize"
+          class="base64-image-table-cell__error"
+        >
           <q-icon
             color="grey-5"
             name="broken_image"
@@ -74,32 +97,49 @@ function handleClick() {
 
     <div
       v-else
-      :style="{ width: `${size}px`, height: `${size}px` }"
+      :class="{
+        'base64-image-table-cell__placeholder--rounded': rounded,
+      }"
+      :style="imageSize"
       class="base64-image-table-cell__placeholder"
     >
       <q-icon
+        :name="showAs === 'icon' ? 'link' : 'image'"
         color="grey-5"
-        name="image"
         size="24px"
       />
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base64-image-table-cell {
-  &__thumbnail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &__image {
     position: relative;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: transform 0.2s ease;
+    border-radius: 6px;
+    // border: 1px solid var(--q-grey-4);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-    &:hover {
-      transform: scale(1.05);
+    &--clickable {
+      cursor: pointer;
 
-      .base64-image-table-cell__overlay {
-        opacity: 1;
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+        .base64-image-table-cell__overlay {
+          opacity: 1;
+        }
       }
+    }
+
+    &--rounded {
+      border-radius: 50%;
     }
   }
 
@@ -112,8 +152,8 @@ function handleClick() {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: inherit;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
@@ -125,11 +165,17 @@ function handleClick() {
     justify-content: center;
     background-color: var(--q-grey-2);
     border: 1px solid var(--q-grey-4);
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+
+    &--rounded {
+      border-radius: 50%;
+    }
   }
 
   &__error {
-    background-color: var(--q-grey-3);
+    background-color: var(--q-red-1);
+    border-color: var(--q-red-3);
   }
 }
 </style>

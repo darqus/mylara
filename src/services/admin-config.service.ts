@@ -59,35 +59,58 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         align: 'center',
         sortable: false,
         format: (val: unknown) => (val ? (val as string) : ''),
+        style: 'width: 80px; min-width: 80px;',
+        headerStyle: 'width: 80px; min-width: 80px;',
       },
       {
         name: 'label',
-        label: 'Название',
+        label: 'Название продукта',
         field: 'label',
         required: true,
         align: 'left',
         sortable: true,
+        style: 'max-width: 350px; white-space: normal; line-height: 1.4;',
+        headerStyle: 'width: 40%;',
         format: (val: unknown) => {
-          const str = String(val)
-
-          return str.length > 30 ? `${str.substring(0, 30)}...` : str
+          if (val === null || val === undefined) {
+            return ''
+          }
+          let str: string
+          if (typeof val === 'string') {
+            str = val
+          } else if (typeof val === 'number' || typeof val === 'boolean') {
+            str = String(val)
+          } else {
+            str = JSON.stringify(val)
+          }
+          return str.length > 60 ? `${str.substring(0, 60)}...` : str
         },
       },
       {
         name: 'info',
-        label: 'Информация',
+        label: 'Описание',
         field: 'info',
         required: true,
         align: 'left',
         sortable: true,
+        style: 'max-width: 280px; white-space: normal; line-height: 1.3;',
+        headerStyle: 'width: 30%;',
         format: (val: unknown) => {
-          const str = String(val)
-
+          if (val === null || val === undefined) {
+            return ''
+          }
+          let str: string
+          if (typeof val === 'string') {
+            str = val
+          } else if (typeof val === 'number' || typeof val === 'boolean') {
+            str = String(val)
+          } else {
+            str = JSON.stringify(val)
+          }
           // Удаляем HTML теги для отображения в таблице
-          const cleanText = str.replace(/<[^>]*>/g, '')
-
-          return cleanText.length > 35
-            ? `${cleanText.substring(0, 35)}...`
+          const cleanText = str.replace(/<[^>]*>/g, '').trim()
+          return cleanText.length > 80
+            ? `${cleanText.substring(0, 80)}...`
             : cleanText
         },
       },
@@ -97,6 +120,8 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'link',
         align: 'center',
         sortable: false,
+        style: 'width: 80px; min-width: 80px;',
+        headerStyle: 'width: 80px; min-width: 80px;',
         format: (val: unknown) => (val ? '🔗' : ''),
       },
       {
@@ -104,6 +129,8 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         label: 'Действия',
         field: 'actions',
         align: 'center',
+        style: 'width: 120px; min-width: 120px;',
+        headerStyle: 'width: 120px; min-width: 120px;',
       },
     ],
   },

@@ -579,6 +579,7 @@ function showImageDialog(imageUrl: string) {
       :columns="config?.columns || []"
       :loading="tableState.loading"
       :rows="tableState.items"
+      class="products-table"
       row-key="id"
       selection="multiple"
       server-pagination
@@ -613,16 +614,41 @@ function showImageDialog(imageUrl: string) {
         <q-td :props="props">
           <Base64ImageTableCell
             v-if="getFieldType('img') === 'base64-image'"
-            :alt="`Изображение ${props.row.id}`"
+            :alt="`${props.row.label || 'Продукт'} - изображение`"
             :base64-src="props.value"
-            show-as="image"
+            :clickable="true"
+            :size="70"
+            show-as="thumbnail"
             @click="showImageDialog(props.value)"
           />
           <ImageTableCell
             v-else
-            :alt="`Изображение ${props.row.id}`"
+            :alt="`${props.row.label || 'Продукт'} - изображение`"
             :image-url="props.value"
           />
+        </q-td>
+      </template>
+
+      <template #body-cell-link="props">
+        <q-td :props="props">
+          <div class="text-center">
+            <q-icon
+              v-if="props.value"
+              color="primary"
+              name="link"
+              size="20px"
+            >
+              <q-tooltip>{{ props.value }}</q-tooltip>
+            </q-icon>
+            <q-icon
+              v-else
+              color="grey-4"
+              name="link_off"
+              size="20px"
+            >
+              <q-tooltip>Нет ссылки</q-tooltip>
+            </q-icon>
+          </div>
         </q-td>
       </template>
 
@@ -730,3 +756,123 @@ function showImageDialog(imageUrl: string) {
     </q-dialog>
   </q-page>
 </template>
+
+<style lang="scss" scoped>
+.products-table {
+  // Улучшения для читаемости таблицы продуктов
+
+  // Заголовки таблицы
+  :deep(.q-table__top) {
+    padding: 12px 16px;
+  }
+
+  // Общие стили для ячеек таблицы
+  :deep(.q-td) {
+    padding: 12px 16px;
+    vertical-align: top;
+
+    // Улучшенная типографика
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  // Заголовки столбцов
+  :deep(.q-th) {
+    padding: 16px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--q-grey-8);
+    background-color: var(--q-grey-1);
+    border-bottom: 2px solid var(--q-grey-3);
+
+    &:first-child {
+      padding-left: 24px;
+    }
+
+    &:last-child {
+      padding-right: 24px;
+    }
+  }
+
+  // Стили для строк
+  :deep(.q-tr) {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--q-grey-1);
+    }
+
+    &.selected {
+      background-color: rgba(25, 118, 210, 0.05);
+    }
+  }
+
+  // Первая и последняя ячейка в строке
+  :deep(.q-td:first-child) {
+    padding-left: 24px;
+  }
+
+  :deep(.q-td:last-child) {
+    padding-right: 24px;
+  }
+
+  // Стили для ячейки с названием продукта
+  :deep(.q-td:has([data-label="Название продукта"])) {
+    font-weight: 500;
+    color: var(--q-grey-9);
+  }
+
+  // Стили для ячейки с описанием
+  :deep(.q-td:has([data-label="Описание"])) {
+    color: var(--q-grey-7);
+    font-size: 13px;
+  }
+
+  // Адаптивность для мобильных устройств
+  @media (max-width: 768px) {
+    :deep(.q-td),
+    :deep(.q-th) {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    :deep(.q-td:first-child),
+    :deep(.q-th:first-child) {
+      padding-left: 16px;
+    }
+
+    :deep(.q-td:last-child),
+    :deep(.q-th:last-child) {
+      padding-right: 16px;
+    }
+  }
+}
+
+// Дополнительные стили для улучшения читаемости
+.text-h4 {
+  color: var(--q-grey-9);
+  font-weight: 500;
+}
+
+.text-subtitle1 {
+  color: var(--q-grey-6);
+  font-weight: 400;
+}
+
+// Улучшенные стили для карточек
+.q-card {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--q-grey-3);
+}
+
+// Стили для поля поиска
+.q-input {
+  :deep(.q-field__control) {
+    height: 48px;
+  }
+
+  :deep(.q-field__marginal) {
+    height: 48px;
+  }
+}
+</style>
