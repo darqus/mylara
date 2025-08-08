@@ -23,17 +23,10 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
           maxWidth: 1200,
           maxHeight: 800,
           quality: 0.85,
-          allowedTypes: [ 'image/jpeg', 'image/png', 'image/webp' ],
+          allowedTypes: ['image/jpeg', 'image/png', 'image/webp'],
           showPreview: true,
           allowCopy: false,
         },
-      },
-      {
-        name: 'info',
-        label: 'Информация',
-        type: 'text',
-        required: true,
-        placeholder: 'Инновационные технологические решения завтрашнего дня',
       },
       {
         name: 'label',
@@ -42,6 +35,13 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: true,
         placeholder:
           'Крем - гель подтягивающий для век с ботулоподобным нейропептидом, 30 мл аромат Blanche (по мотивам BYREDO BLANCHE)',
+      },
+      {
+        name: 'info',
+        label: 'Информация',
+        type: 'text',
+        required: true,
+        placeholder: 'Инновационные технологические решения завтрашнего дня',
       },
       {
         name: 'link',
@@ -122,7 +122,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
           maxWidth: 1920,
           maxHeight: 1080,
           quality: 0.9,
-          allowedTypes: [ 'image/jpeg', 'image/png', 'image/webp' ],
+          allowedTypes: ['image/jpeg', 'image/png', 'image/webp'],
           showPreview: true,
           allowCopy: false,
         },
