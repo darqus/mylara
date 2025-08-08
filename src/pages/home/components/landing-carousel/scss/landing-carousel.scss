@@ -43,6 +43,20 @@
   flex-direction: column; /* Делаем карточки flex-контейнерами */
   width: 100%; /* Занимают всю доступную ширину контейнера */
 
+  .description-wrapper {
+    display: flex;
+    flex: 1; /* Занимает оставшееся пространство */
+    flex-direction: column;
+
+    .text-label {
+      flex-shrink: 0; /* Текст не сжимается */
+    }
+
+    .btn-more {
+      margin-top: auto; /* Кнопка прижимается к низу */
+    }
+  }
+
   .more-details-btn {
     transition: all 0.3s ease;
 

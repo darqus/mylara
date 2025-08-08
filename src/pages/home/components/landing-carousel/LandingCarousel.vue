@@ -139,20 +139,24 @@ onMounted(() => {
                 @error="handleImageError"
                 @load="handleImageLoad"
               />
-              <q-card-section class="text-center q-pb-sm">
-                <div class="text-subtitle2 q-mb-sm">
+              <q-card-section class="description-wrapper text-center q-pb-sm">
+                <div
+                  class="text-label text-subtitle2 q-mb-sm"
+                >
                   {{ label }}
                 </div>
-                <q-btn
-                  class="more-details-btn"
-                  color="primary"
-                  icon-right="arrow_forward"
-                  label="Подробнее"
-                  size="sm"
-                  no-caps
-                  outline
-                  @click.stop="openDialog({ id, img, label, link, info })"
-                />
+                <div class="btn-more">
+                  <q-btn
+                    class="more-details-btn"
+                    color="primary"
+                    icon-right="arrow_forward"
+                    label="Подробнее"
+                    size="sm"
+                    no-caps
+                    outline
+                    @click.stop="openDialog({ id, img, label, link, info })"
+                  />
+                </div>
               </q-card-section>
             </q-card>
           </div>
