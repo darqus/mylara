@@ -6,6 +6,12 @@ const openExternalLink = (url: string) => {
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
+// Function to clean phone number for tel: link
+const cleanPhoneNumber = (phone: string): string => {
+  // Remove all non-digit characters except + at the beginning
+  return phone.replace(/(?!^)\D/g, '')
+}
+
 // Social media links and QR codes from environment variables
 const socialMedia = [
   {
@@ -33,12 +39,14 @@ const contacts = [
   {
     icon: 'phone',
     label: 'Телефон',
-    value: import.meta.env.VITE_CONTACT_PHONE
+    value: import.meta.env.VITE_CONTACT_PHONE,
+    link: `tel:${cleanPhoneNumber(import.meta.env.VITE_CONTACT_PHONE)}`
   },
   {
     icon: 'email',
     label: 'Email',
-    value: import.meta.env.VITE_CONTACT_EMAIL
+    value: import.meta.env.VITE_CONTACT_EMAIL,
+    link: `mailto:${import.meta.env.VITE_CONTACT_EMAIL}`
   },
   {
     icon: 'location_on',
@@ -88,7 +96,19 @@ const contacts = [
               />
               <div>
                 <div class="text-caption text-grey-6">{{ contact.label }}</div>
-                <div class="text-body2">{{ contact.value }}</div>
+                <div
+                  v-if="contact.link"
+                  class="text-body2 text-primary cursor-pointer"
+                  @click="openExternalLink(contact.link)"
+                >
+                  {{ contact.value }}
+                </div>
+                <div
+                  v-else
+                  class="text-body2"
+                >
+                  {{ contact.value }}
+                </div>
               </div>
             </div>
           </div>
