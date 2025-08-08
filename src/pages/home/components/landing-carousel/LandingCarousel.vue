@@ -218,12 +218,10 @@ onMounted(() => {
         </div>
       </q-card-section>
 
-      <!-- Ссылка, если есть -->
-      <q-card-section
-        v-if="selectedItem.link"
-        class="q-pt-none"
-      >
+      <!-- Действия -->
+      <q-card-actions align="between">
         <q-btn
+          v-if="selectedItem.link"
           :href="selectedItem.link"
           color="primary"
           icon="open_in_new"
@@ -231,15 +229,12 @@ onMounted(() => {
           target="_blank"
           outline
         />
-      </q-card-section>
-
-      <!-- Действия -->
-      <q-card-actions align="right">
         <q-btn
           v-close-popup
-          color="primary"
+          color="red-3"
+          icon-right="close"
           label="Закрыть"
-          flat
+          outline
         />
       </q-card-actions>
     </q-card>
