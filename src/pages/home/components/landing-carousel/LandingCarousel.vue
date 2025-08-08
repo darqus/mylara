@@ -199,9 +199,12 @@ onMounted(() => {
         v-if="selectedItem.info"
         class="q-pt-none"
       >
-        <div class="text-body2 text-grey-7">
-          {{ selectedItem.info }}
-        </div>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          class="text-body2 text-grey-7"
+          v-html="selectedItem.info"
+        />
+        <!-- eslint-enable vue/no-v-html -->
 
         <!-- Дополнительные детали -->
         <q-separator class="q-my-md" />
