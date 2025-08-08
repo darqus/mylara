@@ -6,44 +6,44 @@ const openExternalLink = (url: string) => {
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
-// Social media links and QR codes
+// Social media links and QR codes from environment variables
 const socialMedia = [
   {
     name: 'Telegram',
     qrCode: 'qr-telegram.svg',
-    url: 'https://t.me/yourusername',
+    url: import.meta.env.VITE_SOCIAL_TELEGRAM_URL,
     color: '#0088cc'
   },
   {
     name: 'WhatsApp',
     qrCode: 'qr-whatsapp.svg',
-    url: 'https://wa.me/yourphonenumber',
+    url: import.meta.env.VITE_SOCIAL_WHATSAPP_URL,
     color: '#25D366'
   },
   {
     name: 'Instagram',
     qrCode: 'qr-instagram.svg',
-    url: 'https://instagram.com/yourusername',
+    url: import.meta.env.VITE_SOCIAL_INSTAGRAM_URL,
     color: '#E4405F'
   }
 ]
 
-// Contact information
+// Contact information from environment variables
 const contacts = [
   {
     icon: 'phone',
     label: 'Телефон',
-    value: '+7 (999) 123-45-67'
+    value: import.meta.env.VITE_CONTACT_PHONE
   },
   {
     icon: 'email',
     label: 'Email',
-    value: 'contact@example.com'
+    value: import.meta.env.VITE_CONTACT_EMAIL
   },
   {
     icon: 'location_on',
     label: 'Адрес',
-    value: 'г. Москва, ул. Примерная, д. 123'
+    value: import.meta.env.VITE_CONTACT_ADDRESS
   }
 ]
 </script>
