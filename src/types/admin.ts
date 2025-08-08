@@ -25,6 +25,7 @@ export type FormField = {
     | 'boolean'
     | 'image'
     | 'base64-image'
+    | 'editor'
   required?: boolean
   placeholder?: string
   rules?: Array<(val: unknown) => boolean | string>

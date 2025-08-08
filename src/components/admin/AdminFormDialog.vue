@@ -96,6 +96,10 @@ function resetForm() {
           formData.value[field.name] = 0
           break
 
+        case 'editor':
+          formData.value[field.name] = ''
+          break
+
         default:
           formData.value[field.name] = ''
       }
@@ -257,6 +261,35 @@ async function handleSubmit() {
                 filled
                 @update:model-value="formData[field.name] = $event"
               />
+
+              <!-- Редактор богатого текста -->
+              <div
+                v-else-if="field.type === 'editor'"
+                class="q-mb-md"
+              >
+                <div class="text-subtitle2 q-mb-sm">
+                  {{ field.label }}
+                  <span
+                    v-if="field.required"
+                    class="text-negative"
+                  >
+                    *
+                  </span>
+                </div>
+                <q-editor
+                  :model-value="String(formData[field.name] || '')"
+                  :placeholder="field.placeholder"
+                  :toolbar="[
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['quote', 'unordered', 'ordered'],
+                    ['left', 'center', 'right', 'justify'],
+                    ['undo', 'redo'],
+                    ['removeFormat', 'hr'],
+                  ]"
+                  min-height="200px"
+                  @update:model-value="formData[field.name] = $event"
+                />
+              </div>
 
               <!-- Дата -->
               <q-input

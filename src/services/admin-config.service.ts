@@ -39,7 +39,7 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
       {
         name: 'info',
         label: 'Информация',
-        type: 'text',
+        type: 'editor',
         required: true,
         placeholder: 'Инновационные технологические решения завтрашнего дня',
       },
@@ -83,7 +83,12 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => {
           const str = String(val)
 
-          return str.length > 35 ? `${str.substring(0, 35)}...` : str
+          // Удаляем HTML теги для отображения в таблице
+          const cleanText = str.replace(/<[^>]*>/g, '')
+
+          return cleanText.length > 35
+            ? `${cleanText.substring(0, 35)}...`
+            : cleanText
         },
       },
       {
