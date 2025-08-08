@@ -4,6 +4,7 @@ import { firestoreService } from './firestore.service'
 
 export type Slogan = {
   title: string
+  image?: string // Base64 изображение
 }
 
 /**
@@ -19,6 +20,7 @@ export const getSlogan = async (): Promise<SloganResponse> => {
 
   return {
     title: result.data?.title ?? '',
+    image: result.data?.image ?? '',
     error: result.error,
   }
 }

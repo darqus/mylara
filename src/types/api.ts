@@ -24,6 +24,7 @@ export type DocumentResponse<T> = {
  */
 export type SloganResponse = {
   title: string
+  image?: string // Base64 изображение
 } & ApiResponse
 
 /**

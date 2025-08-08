@@ -237,6 +237,13 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         placeholder:
           '4673771782657 тоник-лосьон для лица Lorem ipsum dolor sit amet...',
       },
+      {
+        name: 'image',
+        label: 'Изображение слогана',
+        type: 'base64-image',
+        required: false,
+        placeholder: 'Загрузите изображение для отображения рядом со слоганом',
+      },
     ],
     columns: [
       {
@@ -251,6 +258,13 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
 
           return str.length > 100 ? `${str.substring(0, 100)}...` : str
         },
+      },
+      {
+        name: 'image',
+        label: 'Изображение',
+        field: 'image',
+        align: 'center',
+        sortable: false,
       },
       {
         name: 'actions',
