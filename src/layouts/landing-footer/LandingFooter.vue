@@ -65,7 +65,7 @@ const contacts = [
     <div class="q-pa-md">
       <div class="row q-col-gutter-md">
         <!-- Logo and Company Info -->
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
           <div class="flex items-center q-mb-md">
             <q-img
               class="q-mr-sm"
@@ -116,7 +116,7 @@ const contacts = [
         </div>
 
         <!-- Social Media QR Codes -->
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-5">
           <div class="text-h6 text-weight-bold q-mb-md">Мы в соцсетях</div>
           <div class="row q-col-gutter-sm">
             <div
@@ -136,14 +136,14 @@ const contacts = [
                     :src="social.qrCode"
                     class="qr-code"
                     fit="contain"
-                    style="height: 80px; width: 80px;"
+                    style="height: 100px; width: 100px;"
                   >
                     <template #error>
-                      <div class="absolute-full flex flex-center bg-grey-3">
+                      <div class="absolute-full flex flex-center bg-grey-1">
                         <q-icon
                           :style="{ color: social.color }"
                           name="qr_code_2"
-                          size="32px"
+                          size="60px"
                         />
                       </div>
                     </template>
