@@ -85,6 +85,12 @@ function resetForm() {
 
   if (props.config?.fields) {
     props.config.fields.forEach((field) => {
+      // Устанавливаем значение по умолчанию, если оно есть
+      if (field.defaultValue !== undefined) {
+        formData.value[field.name] = field.defaultValue
+        return
+      }
+
       // Устанавливаем значения по умолчанию в зависимости от типа
       switch (field.type) {
         case 'boolean':
@@ -98,6 +104,17 @@ function resetForm() {
         case 'editor':
           formData.value[field.name] = ''
           break
+
+        case 'select': {
+          // Для select устанавливаем первое значение из опций, если нет defaultValue
+          const firstOption = field.options?.[0]
+          if (firstOption) {
+            formData.value[field.name] = firstOption.value
+          } else {
+            formData.value[field.name] = ''
+          }
+          break
+        }
 
         default:
           formData.value[field.name] = ''
@@ -307,6 +324,21 @@ async function handleSubmit() {
                 v-else-if="field.type === 'boolean'"
                 :label="field.label"
                 :model-value="Boolean(formData[field.name])"
+                @update:model-value="formData[field.name] = $event"
+              />
+
+              <!-- Выпадающий список -->
+              <q-select
+                v-else-if="field.type === 'select'"
+                :label="field.label"
+                :model-value="formData[field.name]"
+                :options="field.options || []"
+                :placeholder="field.placeholder"
+                :required="field.required"
+                :rules="getFieldRules(field)"
+                emit-value
+                filled
+                map-options
                 @update:model-value="formData[field.name] = $event"
               />
 

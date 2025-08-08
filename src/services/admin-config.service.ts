@@ -244,6 +244,18 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: false,
         placeholder: 'Загрузите изображение для отображения рядом со слоганом',
       },
+      {
+        name: 'layout',
+        label: 'Расположение текста',
+        type: 'select',
+        required: false,
+        options: [
+          { label: 'Текст слева, изображение справа', value: 'text-left' },
+          { label: 'Текст справа, изображение слева', value: 'text-right' },
+        ],
+        defaultValue: 'text-left',
+        placeholder: 'Выберите расположение текста относительно изображения',
+      },
     ],
     columns: [
       {
@@ -265,6 +277,21 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'image',
         align: 'center',
         sortable: false,
+      },
+      {
+        name: 'layout',
+        label: 'Расположение',
+        field: 'layout',
+        align: 'center',
+        sortable: false,
+        format: (val: unknown) => {
+          const layoutMap = {
+            'text-left': 'Текст слева',
+            'text-right': 'Текст справа',
+          }
+
+          return layoutMap[val as keyof typeof layoutMap] ?? 'Не указано'
+        },
       },
       {
         name: 'actions',

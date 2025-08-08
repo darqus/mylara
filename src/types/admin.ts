@@ -26,9 +26,14 @@ export type FormField = {
     | 'image'
     | 'base64-image'
     | 'editor'
+    | 'select'
   required?: boolean
   placeholder?: string
   rules?: Array<(val: unknown) => boolean | string>
+
+  // Опции для select полей
+  options?: Array<{ label: string; value: string | number }>
+  defaultValue?: string | number | boolean
 
   // Дополнительные опции для изображений
   imageOptions?: {

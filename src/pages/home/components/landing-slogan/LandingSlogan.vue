@@ -11,19 +11,28 @@ import type { SloganResponse } from 'src/types/api'
     :is-empty="false"
   >
     <template #content="{ data }">
-      <div class="row q-col-gutter-lg items-center">
+      <div
+        v-if="(data as SloganResponse)?.image"
+        :class="{
+          'reverse': (data as SloganResponse)?.layout === 'text-right'
+        }"
+        class="row q-col-gutter-lg items-center"
+      >
         <!-- Текст слогана -->
-        <div :class="(data as SloganResponse)?.image ? 'col-12 col-md-8' : 'col-12'">
-          <div class="text-h4 text-center text-md-left q-mb-md">
+        <div class="col-12 col-md-8">
+          <div
+            :class="{
+              'text-center text-md-left': (data as SloganResponse)?.layout === 'text-left',
+              'text-center text-md-right': (data as SloganResponse)?.layout === 'text-right'
+            }"
+            class="text-h4 q-mb-md"
+          >
             {{ (data as SloganResponse)?.title || '' }}
           </div>
         </div>
 
         <!-- Изображение слогана -->
-        <div
-          v-if="(data as SloganResponse)?.image"
-          class="col-12 col-md-4 text-center"
-        >
+        <div class="col-12 col-md-4 text-center">
           <q-img
             :src="(data as SloganResponse).image!"
             alt="Изображение слогана"
@@ -44,6 +53,16 @@ import type { SloganResponse } from 'src/types/api'
           </q-img>
         </div>
       </div>
+
+      <!-- Если нет изображения, показываем только текст -->
+      <div
+        v-else
+        class="text-center"
+      >
+        <div class="text-h4 q-mb-md">
+          {{ (data as SloganResponse)?.title || '' }}
+        </div>
+      </div>
     </template>
   </DataLoader>
 </template>
@@ -54,6 +73,16 @@ import type { SloganResponse } from 'src/types/api'
 
   &:hover {
     transform: scale(1.02);
+  }
+}
+
+// Реверсивный порядок колонок для layout='text-right'
+.reverse {
+  flex-direction: row-reverse;
+
+  // На мобильных устройствах возвращаем обычный порядок
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 }
 

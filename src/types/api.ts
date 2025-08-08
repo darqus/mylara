@@ -25,6 +25,7 @@ export type DocumentResponse<T> = {
 export type SloganResponse = {
   title: string
   image?: string // Base64 изображение
+  layout?: 'text-left' | 'text-right' // Расположение текста относительно изображения
 } & ApiResponse
 
 /**

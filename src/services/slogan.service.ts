@@ -5,6 +5,7 @@ import { firestoreService } from './firestore.service'
 export type Slogan = {
   title: string
   image?: string // Base64 изображение
+  layout?: 'text-left' | 'text-right' // Расположение текста относительно изображения
 }
 
 /**
@@ -21,6 +22,7 @@ export const getSlogan = async (): Promise<SloganResponse> => {
   return {
     title: result.data?.title ?? '',
     image: result.data?.image ?? '',
+    layout: result.data?.layout ?? 'text-left',
     error: result.error,
   }
 }
