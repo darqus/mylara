@@ -168,13 +168,12 @@ onMounted(() => {
   >
     <q-card
       v-if="selectedItem"
-      style="max-width: 400px; min-width: 300px"
+      style="min-width: 30vw; max-width: 50vw"
     >
       <!-- Изображение в заголовке карточки -->
       <q-img
         :src="selectedItem.img"
         fit="cover"
-        style="height: 250px"
         @error="handleImageError"
       />
 
