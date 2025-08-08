@@ -7,6 +7,7 @@
 
 .carousel-items-container {
   display: flex;
+  align-items: stretch; /* Элементы растягиваются по высоте */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Firefox */
@@ -20,8 +21,8 @@
 }
 
 .carousel-card-container {
-  flex: 0 0 auto;
-  width: 300px;
+  display: flex; /* Добавляем flex для растяжения карточек */
+  flex: 0 0 300px; /* Используем flex-basis вместо width для лучшей совместимости */
   margin: 0 10px;
   scroll-snap-align: center;
 
@@ -38,6 +39,10 @@
 }
 
 .carousel-item-card {
+  display: flex;
+  flex-direction: column; /* Делаем карточки flex-контейнерами */
+  width: 100%; /* Занимают всю доступную ширину контейнера */
+
   .more-details-btn {
     transition: all 0.3s ease;
 
