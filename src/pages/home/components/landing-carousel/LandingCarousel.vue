@@ -178,7 +178,7 @@ onMounted(() => {
   >
     <q-card
       v-if="selectedItem"
-      style="min-width: 30vw; max-width: 50vw"
+      style="width: clamp(300px, 50vw, 600px);"
     >
       <!-- Изображение в заголовке карточки -->
       <q-img
