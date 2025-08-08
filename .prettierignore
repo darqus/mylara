@@ -3,7 +3,7 @@
 **/node_modules
 **/tsconfig.json
 **/package.json
-**/yarn.lock
+**/package-lock.json
 **/quasar.testing.json
 **/quasar.extensions.json
 **/*.d.ts
@@ -23,8 +23,7 @@ quasar.config.*.temporary.compiled*
 # Log files
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+npm-debug.log*
 
 # Environment files
 .env*

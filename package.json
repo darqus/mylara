@@ -15,13 +15,12 @@
     "format": "bash format.sh",
     "format:quick": "bash format-quick.sh",
     "format:validate": "bash validate-config.sh",
-    "format:sync-vscode": "bash sync-vscode-settings.sh",
     "postinstall": "quasar prepare",
     "test:unit": "vitest",
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
     "update-env": "node update-env.js",
-    "deploy": "yarn update-env && yarn build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
+    "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
@@ -62,7 +61,6 @@
   },
   "engines": {
     "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "npm": ">= 6.13.4"
   }
 }

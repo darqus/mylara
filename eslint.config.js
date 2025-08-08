@@ -20,7 +20,7 @@ export default defineConfigWithVueTs(
       '**/node_modules',
       '**/tsconfig.json',
       '**/package.json',
-      '**/yarn.lock',
+      '**/package-lock.json',
       '**/quasar.testing.json',
       '**/quasar.extensions.json',
       'dist',

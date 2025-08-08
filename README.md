@@ -8,9 +8,9 @@ This project uses an advanced formatting system that integrates multiple tools:
 
 ```bash
 # Quick start - validate and format your code
-yarn format:validate    # Check configuration
-yarn format:quick       # Fast formatting for development
-yarn format            # Full formatting with type checking
+npm run format:validate    # Check configuration
+npm run format:quick       # Fast formatting for development
+npm run format            # Full formatting with type checking
 ```
 
 **Key features:**
@@ -48,18 +48,18 @@ gh auth login
 git config --global credential.helper store
 
 # Запустите скрипт деплоя
-yarn deploy
+npm run deploy
 ```
 
 ## Development
 
 ```bash
 # Install dependencies
-yarn
+npm install
 
 # Start development server
-yarn dev
+npm run dev
 
 # Build for production
-yarn build
+npm run build
 ```
