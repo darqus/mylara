@@ -481,6 +481,33 @@ function showImageDialog(imageUrl: string) {
   selectedImageUrl.value = imageUrl
   showImageDialogState.value = true
 }
+
+// Функция для очистки HTML контента для отображения в таблице
+function getCleanTextFromHtml(htmlContent: unknown): string {
+  if (!htmlContent) {
+    return ''
+  }
+
+  let str: string
+  if (typeof htmlContent === 'string') {
+    str = htmlContent
+  } else if (typeof htmlContent === 'number' || typeof htmlContent === 'boolean') {
+    str = String(htmlContent)
+  } else {
+    str = JSON.stringify(htmlContent)
+  }
+
+  // Удаляем HTML теги
+  let cleanText = str.replace(/<[^>]*>/g, '')
+
+  // Декодируем HTML entities используя DOM API
+  const textArea = document.createElement('textarea')
+  textArea.innerHTML = cleanText
+  cleanText = textArea.value.trim()
+
+  // Ограничиваем длину для отображения в таблице
+  return cleanText.length > 80 ? `${cleanText.substring(0, 80)}...` : cleanText
+}
 </script>
 
 <template>
@@ -648,6 +675,17 @@ function showImageDialog(imageUrl: string) {
             >
               <q-tooltip>Нет ссылки</q-tooltip>
             </q-icon>
+          </div>
+        </q-td>
+      </template>
+
+      <template #body-cell-info="props">
+        <q-td :props="props">
+          <div
+            :title="getCleanTextFromHtml(props.value)"
+            class="info-cell-content"
+          >
+            {{ getCleanTextFromHtml(props.value) }}
           </div>
         </q-td>
       </template>
@@ -874,5 +912,16 @@ function showImageDialog(imageUrl: string) {
   :deep(.q-field__marginal) {
     height: 48px;
   }
+}
+
+// Стили для улучшенного отображения поля информации
+.info-cell-content {
+  max-width: 280px;
+  line-height: 1.4;
+  color: var(--q-grey-7);
+  font-size: 13px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 </style>

@@ -107,8 +107,16 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
           } else {
             str = JSON.stringify(val)
           }
+
           // Удаляем HTML теги для отображения в таблице
-          const cleanText = str.replace(/<[^>]*>/g, '').trim()
+          let cleanText = str.replace(/<[^>]*>/g, '')
+
+          // Декодируем HTML entities используя DOM API
+          const textArea = document.createElement('textarea')
+          textArea.innerHTML = cleanText
+          cleanText = textArea.value
+
+          cleanText = cleanText.trim()
           return cleanText.length > 80
             ? `${cleanText.substring(0, 80)}...`
             : cleanText
