@@ -203,7 +203,7 @@ async function handleSubmit() {
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
   >
-    <q-card style="width: clamp(300px, 50vw, 600px);">
+    <q-card class="dialog-standard">
       <q-card-section>
         <div class="text-h6">
           {{ isEditing ? 'Редактировать запись' : 'Создать запись' }}

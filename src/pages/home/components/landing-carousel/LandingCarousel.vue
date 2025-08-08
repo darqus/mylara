@@ -182,7 +182,7 @@ onMounted(() => {
   >
     <q-card
       v-if="selectedItem"
-      style="width: clamp(300px, 50vw, 600px);"
+      class="dialog-standard"
     >
       <!-- Изображение в заголовке карточки -->
       <q-img

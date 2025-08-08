@@ -1,0 +1,5 @@
+// Общие стили для диалоговых окон
+
+.dialog-standard {
+  width: clamp(300px, 50vw, 600px);
+}
