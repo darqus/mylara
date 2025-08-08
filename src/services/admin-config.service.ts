@@ -61,19 +61,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         format: (val: unknown) => (val ? (val as string) : ''),
       },
       {
-        name: 'info',
-        label: 'Информация',
-        field: 'info',
-        required: true,
-        align: 'left',
-        sortable: true,
-        format: (val: unknown) => {
-          const str = String(val)
-
-          return str.length > 35 ? `${str.substring(0, 35)}...` : str
-        },
-      },
-      {
         name: 'label',
         label: 'Название',
         field: 'label',
@@ -84,6 +71,19 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
           const str = String(val)
 
           return str.length > 30 ? `${str.substring(0, 30)}...` : str
+        },
+      },
+      {
+        name: 'info',
+        label: 'Информация',
+        field: 'info',
+        required: true,
+        align: 'left',
+        sortable: true,
+        format: (val: unknown) => {
+          const str = String(val)
+
+          return str.length > 35 ? `${str.substring(0, 35)}...` : str
         },
       },
       {
