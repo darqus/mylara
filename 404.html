@@ -14,7 +14,7 @@
       if (
         l.pathname !== '/' &&
         !l.pathname.match(
-          /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/,
+          /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/
         )
       ) {
         // Store the full URL in sessionStorage to be handled by the main app
@@ -23,13 +23,13 @@
         // Redirect to root with a slight delay to ensure sessionStorage is set
         setTimeout(function () {
           l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/',
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
           )
         }, 10)
       } else {
         // If this is an asset request or root, don't redirect
         document.write(
-          '<h1>404 - Page Not Found</h1><p>The requested resource was not found.</p>',
+          '<h1>404 - Page Not Found</h1><p>The requested resource was not found.</p>'
         )
       }
     </script>
