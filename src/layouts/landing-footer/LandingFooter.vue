@@ -101,7 +101,7 @@ const contacts = [
             <div
               v-for="(social, index) in socialMedia"
               :key="index"
-              class="col-4 text-center"
+              class="col-4 col-sm-4 col-xs-12 text-center"
             >
               <q-card
                 class="cursor-pointer hover-card"
