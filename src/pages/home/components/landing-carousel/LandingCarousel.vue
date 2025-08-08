@@ -194,31 +194,21 @@ onMounted(() => {
         </div>
       </q-card-section>
 
-      <!-- Подробное описание в аккордеоне -->
+      <!-- Информация о элементе -->
       <q-card-section
         v-if="selectedItem.info"
         class="q-pt-none"
       >
-        <q-expansion-item
-          header-class="text-primary"
-          icon="info"
-          label="Подробное описание"
-        >
-          <q-card>
-            <q-card-section class="text-grey-7">
-              <div class="text-body2">
-                {{ selectedItem.info }}
-              </div>
+        <div class="text-body2 text-grey-7">
+          {{ selectedItem.info }}
+        </div>
 
-              <!-- Дополнительные детали можно добавить здесь -->
-              <q-separator class="q-my-md" />
+        <!-- Дополнительные детали -->
+        <q-separator class="q-my-md" />
 
-              <div class="text-caption text-grey-6">
-                ID элемента: {{ selectedItem.id }}
-              </div>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
+        <div class="text-caption text-grey-6">
+          ID элемента: {{ selectedItem.id }}
+        </div>
       </q-card-section>
 
       <!-- Ссылка, если есть -->
