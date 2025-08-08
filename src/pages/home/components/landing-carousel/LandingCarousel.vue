@@ -135,7 +135,7 @@ onMounted(() => {
             >
               <img
                 :src="img"
-                style="width: 100%; aspect-ratio: 4/3; object-fit: cover"
+                style="width: 100%; aspect-ratio: 3/4; object-fit: cover"
                 @error="handleImageError"
                 @load="handleImageLoad"
               />
