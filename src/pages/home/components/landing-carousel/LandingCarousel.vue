@@ -130,7 +130,7 @@ onMounted(() => {
           >
             <q-card
               :class="[{ active: activeItemId === id }]"
-              class="cursor-pointer my-card"
+              class="cursor-pointer my-card carousel-item-card"
               @click="openDialog({ id, img, label, link, info })"
             >
               <img
@@ -139,10 +139,20 @@ onMounted(() => {
                 @error="handleImageError"
                 @load="handleImageLoad"
               />
-              <q-card-section class="text-center">
-                <div class="text-subtitle2">
+              <q-card-section class="text-center q-pb-sm">
+                <div class="text-subtitle2 q-mb-sm">
                   {{ label }}
                 </div>
+                <q-btn
+                  class="more-details-btn"
+                  color="primary"
+                  icon-right="arrow_forward"
+                  label="Подробнее"
+                  size="sm"
+                  no-caps
+                  outline
+                  @click.stop="openDialog({ id, img, label, link, info })"
+                />
               </q-card-section>
             </q-card>
           </div>
