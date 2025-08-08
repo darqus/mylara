@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { APP_VERSION, BUILD_DATE } from 'src/utils/meta'
+import './scss/landing-footer.scss'
 
 // Function to open external links
 const openExternalLink = (url: string) => {
@@ -58,7 +59,7 @@ const contacts = [
 
 <template>
   <q-footer
-    class="bg-white text-primary"
+    class="landing-footer bg-white text-primary"
     elevated
   >
     <div class="q-pa-md">
@@ -178,26 +179,3 @@ const contacts = [
     </div>
   </q-footer>
 </template>
-
-<style scoped>
-.hover-card {
-  transition: all 0.3s ease;
-}
-
-.hover-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.qr-code {
-  border-radius: 4px;
-}
-
-.text-decoration-none {
-  text-decoration: none;
-}
-
-.text-decoration-none:hover {
-  text-decoration: underline;
-}
-</style>

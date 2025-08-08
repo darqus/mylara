@@ -1,0 +1,22 @@
+.landing-footer {
+  .hover-card {
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  .qr-code {
+    border-radius: 4px;
+  }
+
+  .text-decoration-none {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
