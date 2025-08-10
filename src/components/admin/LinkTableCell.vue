@@ -52,7 +52,7 @@ const displayText = computed(() => {
   }
 })
 
-const linkTarget = computed(() => props.openInNewTab ? '_blank' : '_self')
+const linkTarget = computed(() => (props.openInNewTab ? '_blank' : '_self'))
 </script>
 
 <template>
