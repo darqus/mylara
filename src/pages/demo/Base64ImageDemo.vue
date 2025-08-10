@@ -33,7 +33,7 @@ function handleUploadError(error: string) {
 </script>
 
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md base64-image-demo">
     <div class="row q-gutter-md">
       <div class="col-12">
         <h3 class="text-h3 q-mb-md">Base64 Image Demo</h3>

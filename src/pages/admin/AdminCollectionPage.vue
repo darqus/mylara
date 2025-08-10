@@ -512,7 +512,7 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
 </script>
 
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md admin-collection-page">
     <div class="row items-center justify-between q-mb-md">
       <div>
         <div class="text-h4">

@@ -1,11 +1,12 @@
-.carousel-wrapper {
+.landing-carousel {
+  .carousel-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-}
+  }
 
-.carousel-items-container {
+  .carousel-items-container {
   display: flex;
   align-items: stretch; /* Элементы растягиваются по высоте */
   overflow-x: auto;
@@ -18,9 +19,9 @@
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
-}
+  }
 
-.carousel-card-container {
+  .carousel-card-container {
   display: flex; /* Добавляем flex для растяжения карточек */
   flex: 0 0 300px; /* Используем flex-basis вместо width для лучшей совместимости */
   margin: 0 10px;
@@ -36,9 +37,9 @@
       opacity: 0.8;
     }
   }
-}
+  }
 
-.carousel-item-card {
+  .carousel-item-card {
   display: flex;
   flex-direction: column; /* Делаем карточки flex-контейнерами */
   width: 100%; /* Занимают всю доступную ширину контейнера */
@@ -68,9 +69,9 @@
       }
     }
   }
-}
+  }
 
-.carousel-nav-btn {
+  .carousel-nav-btn {
   position: absolute;
   z-index: 2;
 
@@ -81,10 +82,11 @@
   &.carousel-next-btn {
     right: 10px;
   }
-}
-// Стили для fallback изображений
-.fallback-image {
-  border: 2px dashed #ccc;
-  opacity: 0.7;
-  filter: grayscale(50%);
+  }
+  // Стили для fallback изображений
+  .fallback-image {
+    border: 2px dashed #ccc;
+    opacity: 0.7;
+    filter: grayscale(50%);
+  }
 }
