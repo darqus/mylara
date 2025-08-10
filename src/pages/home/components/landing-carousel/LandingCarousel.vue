@@ -225,13 +225,16 @@ onMounted(() => {
           icon="open_in_new"
           label="Перейти"
           target="_blank"
+          dense
+          no-caps
           outline
         />
         <q-btn
           v-close-popup
-          color="red-3"
+          color="red-6"
           icon-right="close"
-          label="Закрыть"
+          dense
+          no-caps
           outline
         />
       </q-card-actions>
