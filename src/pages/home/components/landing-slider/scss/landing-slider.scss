@@ -4,20 +4,21 @@
     text-align: center;
     background-color: rgba(0, 0, 0, 0.3);
   }
-}
-// Responsive banner heights
-.height-xs {
-  height: 300px;
-}
 
-.height-sm {
-  height: 400px;
-}
+  // Responsive banner heights scoped to the carousel element
+  &.height-xs {
+    height: 300px;
+  }
 
-.height-md {
-  height: 500px;
-}
+  &.height-sm {
+    height: 400px;
+  }
 
-.height-lg {
-  height: 600px;
+  &.height-md {
+    height: 500px;
+  }
+
+  &.height-lg {
+    height: 600px;
+  }
 }
