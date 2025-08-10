@@ -8,28 +8,22 @@
 
   .carousel-items-container {
     display: flex;
-    align-items: stretch;
-    /* Элементы растягиваются по высоте */
+    align-items: stretch; /* Элементы растягиваются по высоте */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    /* Firefox */
+    scrollbar-width: none; /* Firefox */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    /* IE and Edge */
+    -ms-overflow-style: none; /* IE and Edge */
 
     &::-webkit-scrollbar {
-      display: none;
-      /* Chrome, Safari, Opera */
+      display: none; /* Chrome, Safari, Opera */
     }
   }
 
   .carousel-card-container {
-    display: flex;
-    /* Добавляем flex для растяжения карточек */
-    flex: 0 0 300px;
-    /* Используем flex-basis вместо width для лучшей совместимости */
+    display: flex; /* Добавляем flex для растяжения карточек */
+    flex: 0 0 300px; /* Используем flex-basis вместо width для лучшей совместимости */
     margin: 0 10px;
     scroll-snap-align: center;
 
@@ -47,25 +41,20 @@
 
   .carousel-item-card {
     display: flex;
-    flex-direction: column;
-    /* Делаем карточки flex-контейнерами */
-    width: 100%;
-    /* Занимают всю доступную ширину контейнера */
+    flex-direction: column; /* Делаем карточки flex-контейнерами */
+    width: 100%; /* Занимают всю доступную ширину контейнера */
 
     .description-wrapper {
       display: flex;
-      flex: 1;
-      /* Занимает оставшееся пространство */
+      flex: 1; /* Занимает оставшееся пространство */
       flex-direction: column;
 
       .text-label {
-        flex-shrink: 0;
-        /* Текст не сжимается */
+        flex-shrink: 0; /* Текст не сжимается */
       }
 
       .btn-more {
-        margin-top: auto;
-        /* Кнопка прижимается к низу */
+        margin-top: auto; /* Кнопка прижимается к низу */
       }
     }
 
