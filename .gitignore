@@ -35,6 +35,3 @@ npm-error.log*
 .eslintcache
 .stylelintcache
 .prettierCache
-
-# MCP caches
-.mcp-cache/
