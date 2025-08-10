@@ -6,8 +6,8 @@ import {
   useTableSettingsManager,
 } from 'src/composables/useTableSettings'
 
-// Мокаем LocalStorage от Quasar
-const mockLocalStorage = {
+// Мокаем LocalStorage от Quasar (используем hoisted, чтобы избежать проблем с поднятием)
+const mockLocalStorage = vi.hoisted(() => ({
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
@@ -15,7 +15,7 @@ const mockLocalStorage = {
   has: vi.fn(),
   set: vi.fn(),
   remove: vi.fn(),
-}
+}))
 
 vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 

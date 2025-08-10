@@ -1,11 +1,11 @@
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 import { useTableSettings } from 'src/composables/useTableSettings'
 
-// Мокаем LocalStorage от Quasar
-const mockLocalStorage = {
+// Мокаем LocalStorage от Quasar (hoisted)
+const mockLocalStorage = vi.hoisted(() => ({
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
@@ -13,7 +13,7 @@ const mockLocalStorage = {
   has: vi.fn(),
   set: vi.fn(),
   remove: vi.fn(),
-}
+}))
 
 vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
@@ -22,7 +22,7 @@ describe('useTableSettings (route switching)', () => {
     vi.clearAllMocks()
   })
 
-  it('should load different settings when collection changes', () => {
+  it('should load different settings when collection changes', async () => {
     // Мокаем localStorage с разными настройками для разных коллекций
     mockLocalStorage.getItem.mockImplementation((key: string) => {
       if (key === 'table-settings-carousel') {
@@ -63,6 +63,7 @@ describe('useTableSettings (route switching)', () => {
 
     // Переключаемся на slides
     collectionName.value = 'slides'
+    await nextTick()
 
     // Проверяем, что настройки автоматически обновились
     expect(settings.value).toEqual({
@@ -82,7 +83,7 @@ describe('useTableSettings (route switching)', () => {
     )
   })
 
-  it('should use default settings when no data exists for new collection', () => {
+  it('should use default settings when no data exists for new collection', async () => {
     // Мокаем localStorage только для одной коллекции
     mockLocalStorage.getItem.mockImplementation((key: string) => {
       if (key === 'table-settings-carousel') {
@@ -110,6 +111,7 @@ describe('useTableSettings (route switching)', () => {
 
     // Переключаемся на коллекцию без сохраненных настроек
     collectionName.value = 'new-collection'
+    await nextTick()
 
     // Проверяем, что используются настройки по умолчанию
     expect(settings.value).toEqual({
@@ -119,7 +121,7 @@ describe('useTableSettings (route switching)', () => {
     })
   })
 
-  it('should preserve settings when switching back to previous collection', () => {
+  it('should preserve settings when switching back to previous collection', async () => {
     // Мокаем localStorage с настройками для двух коллекций
     const storageData: Record<string, unknown> = {
       'table-settings-carousel': {
@@ -148,6 +150,7 @@ describe('useTableSettings (route switching)', () => {
 
     // Переключаемся на slides
     collectionName.value = 'slides'
+    await nextTick()
 
     // Проверяем настройки для slides
     expect(settings.value.page).toBe(3)
@@ -155,13 +158,14 @@ describe('useTableSettings (route switching)', () => {
 
     // Возвращаемся к carousel
     collectionName.value = 'carousel'
+    await nextTick()
 
     // Проверяем, что настройки carousel восстановились
     expect(settings.value.page).toBe(2)
     expect(settings.value.filter).toBe('carousel-filter')
   })
 
-  it('should save settings for current collection when data changes', () => {
+  it('should save settings for current collection when data changes', async () => {
     mockLocalStorage.getItem.mockReturnValue(null)
 
     const collectionName = ref('test-collection')
@@ -172,6 +176,8 @@ describe('useTableSettings (route switching)', () => {
     settings.value.page = 5
     settings.value.filter = 'new-filter'
 
+    // Даем время watcher-у на сохранение и проверяем вызов
+    await nextTick()
     // Проверяем, что localStorage.set был вызван с правильным ключом
     expect(mockLocalStorage.set).toHaveBeenCalledWith(
       'table-settings-test-collection',
@@ -182,7 +188,7 @@ describe('useTableSettings (route switching)', () => {
     )
   })
 
-  it('should handle computed collection names', () => {
+  it('should handle computed collection names', async () => {
     // Мокаем localStorage
     mockLocalStorage.getItem.mockImplementation((key: string) => {
       if (key === 'table-settings-computed-collection') {
@@ -211,6 +217,7 @@ describe('useTableSettings (route switching)', () => {
 
     // Изменяем базовое значение
     baseCollection.value = 'new-computed'
+    await nextTick()
 
     // Проверяем, что используются настройки по умолчанию для новой коллекции
     expect(settings.value).toEqual({

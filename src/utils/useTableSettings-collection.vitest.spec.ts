@@ -4,8 +4,8 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 import { useTableSettings } from 'src/composables/useTableSettings'
 
-// Мокаем LocalStorage от Quasar
-const mockLocalStorage = {
+// Мокаем LocalStorage от Quasar (hoisted)
+const mockLocalStorage = vi.hoisted(() => ({
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
@@ -13,7 +13,7 @@ const mockLocalStorage = {
   has: vi.fn(),
   set: vi.fn(),
   remove: vi.fn(),
-}
+}))
 
 vi.mock('quasar', () => ({ LocalStorage: mockLocalStorage }))
 
