@@ -38,7 +38,10 @@ const routes: RouteRecordRaw[] = [
               await import('pages/admin/AdminDashboardPage.vue'),
           },
           {
-            path: ROUTE_PATH.ADMIN_COLLECTION_PATTERN.replace(`${ROUTE_PATH.ADMIN}/`, ''),
+            path: ROUTE_PATH.ADMIN_COLLECTION_PATTERN.replace(
+              `${ROUTE_PATH.ADMIN}/`,
+              ''
+            ),
             component: async () =>
               await import('pages/admin/AdminCollectionPage.vue'),
           },

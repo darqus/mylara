@@ -15,7 +15,7 @@ import type { SloganResponse } from 'src/types/api'
       <div
         v-if="(data as SloganResponse)?.image"
         :class="{
-          'reverse': (data as SloganResponse)?.layout === 'text-right'
+          reverse: (data as SloganResponse)?.layout === 'text-right',
         }"
         class="landing-slogan row q-col-gutter-lg items-center"
       >
@@ -23,8 +23,10 @@ import type { SloganResponse } from 'src/types/api'
         <div class="col-12 col-md-8">
           <div
             :class="{
-              'text-center text-md-left': (data as SloganResponse)?.layout === 'text-left',
-              'text-center text-md-right': (data as SloganResponse)?.layout === 'text-right'
+              'text-center text-md-left':
+                (data as SloganResponse)?.layout === 'text-left',
+              'text-center text-md-right':
+                (data as SloganResponse)?.layout === 'text-right',
             }"
             class="text-h4 q-mb-md"
           >
@@ -40,7 +42,7 @@ import type { SloganResponse } from 'src/types/api'
             class="slogan-image"
             fit="contain"
             ratio="1"
-            style="max-width: 300px; border-radius: 12px;"
+            style="max-width: 300px; border-radius: 12px"
           >
             <template #error>
               <div class="absolute-full flex flex-center bg-grey-2">

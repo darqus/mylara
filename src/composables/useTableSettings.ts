@@ -7,7 +7,6 @@ import { LocalStorage } from 'quasar'
  * Настройки таблицы для сохранения в localStorage
  */
 export type TableSettings = {
-
   /** Текущая страница */
   page: number
 

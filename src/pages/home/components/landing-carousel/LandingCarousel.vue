@@ -140,9 +140,7 @@ onMounted(() => {
                 @load="handleImageLoad"
               />
               <q-card-section class="description-wrapper text-center q-pb-sm">
-                <div
-                  class="text-label text-subtitle2 q-mb-sm"
-                >
+                <div class="text-label text-subtitle2 q-mb-sm">
                   {{ label }}
                 </div>
                 <div class="btn-more">

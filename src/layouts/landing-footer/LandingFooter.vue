@@ -19,20 +19,20 @@ const socialMedia = [
     name: 'Telegram',
     qrCode: 'qr-telegram.svg',
     url: import.meta.env.VITE_SOCIAL_TELEGRAM_URL,
-    color: '#0088cc'
+    color: '#0088cc',
   },
   {
     name: 'WhatsApp',
     qrCode: 'qr-whatsapp.svg',
     url: import.meta.env.VITE_SOCIAL_WHATSAPP_URL,
-    color: '#25D366'
+    color: '#25D366',
   },
   {
     name: 'Instagram',
     qrCode: 'qr-instagram.svg',
     url: import.meta.env.VITE_SOCIAL_INSTAGRAM_URL,
-    color: '#E4405F'
-  }
+    color: '#E4405F',
+  },
 ]
 
 // Contact information from environment variables
@@ -41,19 +41,19 @@ const contacts = [
     icon: 'phone',
     label: 'Телефон',
     value: import.meta.env.VITE_CONTACT_PHONE,
-    link: `tel:${cleanPhoneNumber(import.meta.env.VITE_CONTACT_PHONE)}`
+    link: `tel:${cleanPhoneNumber(import.meta.env.VITE_CONTACT_PHONE)}`,
   },
   {
     icon: 'email',
     label: 'Email',
     value: import.meta.env.VITE_CONTACT_EMAIL,
-    link: `mailto:${import.meta.env.VITE_CONTACT_EMAIL}`
+    link: `mailto:${import.meta.env.VITE_CONTACT_EMAIL}`,
   },
   {
     icon: 'location_on',
     label: 'Адрес',
-    value: import.meta.env.VITE_CONTACT_ADDRESS
-  }
+    value: import.meta.env.VITE_CONTACT_ADDRESS,
+  },
 ]
 </script>
 
@@ -136,7 +136,7 @@ const contacts = [
                     :src="social.qrCode"
                     class="qr-code"
                     fit="contain"
-                    style="width: 100px; height: 100px;"
+                    style="width: 100px; height: 100px"
                   >
                     <template #error>
                       <div class="absolute-full flex flex-center bg-grey-1">
@@ -150,7 +150,9 @@ const contacts = [
                   </q-img>
                 </q-card-section>
                 <q-card-section class="q-pa-xs">
-                  <div class="text-caption text-weight-medium">{{ social.name }}</div>
+                  <div class="text-caption text-weight-medium">
+                    {{ social.name }}
+                  </div>
                 </q-card-section>
               </q-card>
             </div>
@@ -168,12 +170,16 @@ const contacts = [
           <a
             class="text-primary text-decoration-none"
             href="#"
-          >Политика конфиденциальности</a>
+          >
+            Политика конфиденциальности
+          </a>
           <span class="q-mx-sm">|</span>
           <a
             class="text-primary text-decoration-none"
             href="#"
-          >Условия использования</a>
+          >
+            Условия использования
+          </a>
         </div>
       </div>
     </div>

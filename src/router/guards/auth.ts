@@ -13,7 +13,10 @@ export function adminAuthGuard(
     next: NavigationGuardNext
 ): void {
   // Проверяем, является ли маршрут админским (кроме логина)
-  if (to.path.startsWith(String(ROUTE_PATH.ADMIN)) && to.path !== String(ROUTE_PATH.ADMIN_LOGIN)) {
+  if (
+    to.path.startsWith(String(ROUTE_PATH.ADMIN)) &&
+    to.path !== String(ROUTE_PATH.ADMIN_LOGIN)
+  ) {
     const { isAuthenticated, initializing } = useAdminAuth()
 
     // Если еще идет инициализация, ждем ее завершения
@@ -30,7 +33,10 @@ export function adminAuthGuard(
               next({
                 path: String(ROUTE_PATH.ADMIN_LOGIN),
                 query: {
-                  redirect: to.path === String(ROUTE_PATH.ADMIN) ? String(ROUTE_PATH.ADMIN) : to.fullPath,
+                  redirect:
+                    to.path === String(ROUTE_PATH.ADMIN)
+                      ? String(ROUTE_PATH.ADMIN)
+                      : to.fullPath,
                 },
               })
             }
@@ -46,7 +52,12 @@ export function adminAuthGuard(
     if (!isAuthenticated.value) {
       next({
         path: String(ROUTE_PATH.ADMIN_LOGIN),
-        query: { redirect: to.path === String(ROUTE_PATH.ADMIN) ? String(ROUTE_PATH.ADMIN) : to.fullPath },
+        query: {
+          redirect:
+            to.path === String(ROUTE_PATH.ADMIN)
+              ? String(ROUTE_PATH.ADMIN)
+              : to.fullPath,
+        },
       })
 
       return

@@ -492,7 +492,10 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
   let str: string
   if (typeof htmlContent === 'string') {
     str = htmlContent
-  } else if (typeof htmlContent === 'number' || typeof htmlContent === 'boolean') {
+  } else if (
+    typeof htmlContent === 'number' ||
+    typeof htmlContent === 'boolean'
+  ) {
     str = String(htmlContent)
   } else {
     str = JSON.stringify(htmlContent)

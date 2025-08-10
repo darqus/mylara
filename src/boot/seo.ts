@@ -54,8 +54,7 @@ export default boot(({ app }) => {
   const orgStreetAddress =
     (env?.VITE_CONTACT_ADDRESS as string) ||
     'ул. Мещанская, д. 9/14, строение 1'
-  const orgAddressLocality =
-    (env?.VITE_ADDRESS_LOCALITY as string) || 'Москва'
+  const orgAddressLocality = (env?.VITE_ADDRESS_LOCALITY as string) || 'Москва'
   const orgPostalCode = (env?.VITE_POSTAL_CODE as string) || '129090'
   const orgAddressCountry = (env?.VITE_ADDRESS_COUNTRY as string) || 'RU'
   const orgTelephone = (env?.VITE_CONTACT_PHONE as string) || '+7-999-677-90-67'
