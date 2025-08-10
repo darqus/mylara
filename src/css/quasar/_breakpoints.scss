@@ -11,6 +11,31 @@ $breakpoint-lg-min: 1440px !default;
 $breakpoint-lg-max: 1919.99px !default;
 $breakpoint-xl-min: 1920px !default;
 
+$breakpoint-remainder: 0.02px !default;
+
+$breakpoints: (
+  xs: $breakpoint-xs-max,
+  sm: $breakpoint-sm-max,
+  md: $breakpoint-md-max,
+  lg: $breakpoint-lg-max,
+  xl: 2600px - $breakpoint-remainder,
+) !default;
+
+// Обратная совместимость со старым миксином
+@mixin breakpoint($size) {
+  @if $size == xs {
+    body.screen--xs & { @content; }
+  } @else if $size == sm {
+    body.screen--sm & { @content; }
+  } @else if $size == md {
+    body.screen--md & { @content; }
+  } @else if $size == lg {
+    body.screen--lg & { @content; }
+  } @else if $size == xl {
+    body.screen--xl & { @content; }
+  }
+}
+
 // Используйте новую систему breakpoints из /src/css/breakpoints.scss
 // Эта система основана на body classes Quasar и более производительна
 
