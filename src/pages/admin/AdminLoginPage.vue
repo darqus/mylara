@@ -7,6 +7,7 @@ import type { QForm } from 'quasar'
 
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
+import { ROUTE_PATH } from 'src/types/route-paths'
 
 defineOptions({ name: 'AdminLoginPage' })
 
@@ -47,7 +48,7 @@ onMounted(() => {
   if (isAuthenticated.value) {
     const redirectQuery = router.currentRoute.value.query.redirect as string
     const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
 
@@ -85,7 +86,7 @@ async function handleLogin() {
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
     const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
   } else {
@@ -127,7 +128,7 @@ async function handleRegister() {
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
     const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : '/admin'
+      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
   } else {

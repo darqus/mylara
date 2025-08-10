@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { ROUTE_PATH } from 'src/types/route-paths'
 
 defineOptions({ name: 'AdminMenuItem' })
 
@@ -16,22 +17,22 @@ const route = useRoute()
 // Проверяем, является ли текущий пункт меню активным
 const isActive = computed(() => {
   // Для главной страницы лендинга
-  if (props.link === '/' && route.path === '/') {
+  if (props.link === String(ROUTE_PATH.ROOT) && route.path === String(ROUTE_PATH.ROOT)) {
     return true
   }
 
   // Для главной страницы админки
-  if (props.link === '/admin' && route.path === '/admin') {
+  if (props.link === String(ROUTE_PATH.ADMIN) && route.path === String(ROUTE_PATH.ADMIN)) {
     return true
   }
 
   // Для админских коллекций - точное совпадение
-  if (props.link.includes('/admin/collection/')) {
+  if (props.link.includes(ROUTE_PATH.ADMIN_COLLECTION_PREFIX)) {
     return route.path === props.link
   }
 
   // Для других ссылок (исключаем корневые пути чтобы избежать ложных срабатываний)
-  if (props.link !== '/' && props.link !== '/admin') {
+  if (props.link !== String(ROUTE_PATH.ROOT) && props.link !== String(ROUTE_PATH.ADMIN)) {
     return route.path.startsWith(props.link)
   }
 

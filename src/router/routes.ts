@@ -1,5 +1,6 @@
 import { type RouteRecordRaw } from 'vue-router'
 
+import { ROUTE_PATH } from 'src/types/route-paths'
 import { ROUTER_BASE } from 'src/utils/constants'
 
 // import { ROUTER_BASE, } from 'src/utils/constants'
@@ -21,10 +22,10 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/admin',
+    path: ROUTE_PATH.ADMIN,
     children: [
       {
-        path: 'login',
+        path: ROUTE_PATH.ADMIN_LOGIN.replace(`${ROUTE_PATH.ADMIN}/`, ''),
         component: async () => await import('pages/admin/AdminLoginPage.vue'),
       },
       {
@@ -37,7 +38,7 @@ const routes: RouteRecordRaw[] = [
               await import('pages/admin/AdminDashboardPage.vue'),
           },
           {
-            path: 'collection/:collection',
+            path: ROUTE_PATH.ADMIN_COLLECTION_PATTERN.replace(`${ROUTE_PATH.ADMIN}/`, ''),
             component: async () =>
               await import('pages/admin/AdminCollectionPage.vue'),
           },

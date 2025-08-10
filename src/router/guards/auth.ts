@@ -1,5 +1,6 @@
 import { watch } from 'vue'
 import { useAdminAuth } from 'src/composables/useAdminAuth'
+import { ROUTE_PATH } from 'src/types/route-paths'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 /**
@@ -12,7 +13,7 @@ export function adminAuthGuard(
     next: NavigationGuardNext
 ): void {
   // Проверяем, является ли маршрут админским (кроме логина)
-  if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
+  if (to.path.startsWith(String(ROUTE_PATH.ADMIN)) && to.path !== String(ROUTE_PATH.ADMIN_LOGIN)) {
     const { isAuthenticated, initializing } = useAdminAuth()
 
     // Если еще идет инициализация, ждем ее завершения
@@ -27,9 +28,9 @@ export function adminAuthGuard(
               next()
             } else {
               next({
-                path: '/admin/login',
+                path: String(ROUTE_PATH.ADMIN_LOGIN),
                 query: {
-                  redirect: to.path === '/admin' ? '/admin' : to.fullPath,
+                  redirect: to.path === String(ROUTE_PATH.ADMIN) ? String(ROUTE_PATH.ADMIN) : to.fullPath,
                 },
               })
             }
@@ -44,8 +45,8 @@ export function adminAuthGuard(
     // Если инициализация завершена, проверяем аутентификацию
     if (!isAuthenticated.value) {
       next({
-        path: '/admin/login',
-        query: { redirect: to.path === '/admin' ? '/admin' : to.fullPath },
+        path: String(ROUTE_PATH.ADMIN_LOGIN),
+        query: { redirect: to.path === String(ROUTE_PATH.ADMIN) ? String(ROUTE_PATH.ADMIN) : to.fullPath },
       })
 
       return

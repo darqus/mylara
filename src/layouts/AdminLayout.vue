@@ -8,6 +8,7 @@ import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
 
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { getAllCollections } from 'src/services/admin-config.service'
+import { ROUTE_PATH } from 'src/types/route-paths'
 import { APP_VERSION } from 'src/utils/constants'
 
 defineOptions({ name: 'AdminLayout' })
@@ -25,7 +26,7 @@ watch(
   () => isAuthenticated.value,
   (authenticated) => {
     if (!authenticated) {
-      void router.push('/admin/login')
+      void router.push(ROUTE_PATH.ADMIN_LOGIN)
     }
   },
   { immediate: true }
@@ -45,7 +46,7 @@ async function handleLogout() {
       position: 'top',
     })
 
-    void router.push('/admin/login')
+    void router.push(ROUTE_PATH.ADMIN_LOGIN)
   } else {
     $q.notify({
       type: 'negative',
@@ -102,8 +103,8 @@ async function handleLogout() {
         <q-item-label header>Управление данными</q-item-label>
 
         <AdminMenuItem
+          :link="ROUTE_PATH.ADMIN"
           icon="o_settings"
-          link="/admin"
           title="На главную Админки"
         />
 
@@ -113,15 +114,15 @@ async function handleLogout() {
           v-for="collection in collections"
           :key="collection.name"
           :icon="collection.icon"
-          :link="`/admin/collection/${collection.name}`"
+          :link="`${ROUTE_PATH.ADMIN_COLLECTION_PREFIX}${collection.name}`"
           :title="collection.label"
         />
 
         <q-separator />
 
         <AdminMenuItem
+          :link="ROUTE_PATH.ROOT"
           icon="o_home"
-          link="/"
           title="На главную Лендинга"
         />
       </q-list>
