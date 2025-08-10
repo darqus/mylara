@@ -48,5 +48,5 @@
       "source.fixAll.stylelint": "explicit"
     }
   },
-  "cSpell.words": ["autogrow", "firestore", "ref"]
+  "cSpell.words": ["autogrow", "firestore", "ref", "VITE"]
 }
