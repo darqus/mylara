@@ -1,41 +1,33 @@
-/* quasar */
-/* https://quasar.dev/style/sass-scss-variables#variables-list */
+/* Quasar Breakpoints - стандартные значения */
+/* https://quasar.dev/style/breakpoints */
 
-/* figma */
+// Стандартные breakpoints Quasar
+$breakpoint-xs-max: 599.99px !default;
+$breakpoint-sm-min: 600px !default;
+$breakpoint-sm-max: 1023.99px !default;
+$breakpoint-md-min: 1024px !default;
+$breakpoint-md-max: 1439.99px !default;
+$breakpoint-lg-min: 1440px !default;
+$breakpoint-lg-max: 1919.99px !default;
+$breakpoint-xl-min: 1920px !default;
 
-$breakpoint-remainder: 0.02px !default;
+// Используйте новую систему breakpoints из /src/css/breakpoints.scss
+// Эта система основана на body classes Quasar и более производительна
 
-$breakpoint-xs: 768px - $breakpoint-remainder !default;
-$breakpoint-sm: 1024px - $breakpoint-remainder !default;
-$breakpoint-md: 1440px - $breakpoint-remainder !default;
-$breakpoint-lg: 1920px - $breakpoint-remainder !default;
+/* Миграция:
 
-$breakpoints: (
-  xs: $breakpoint-xs,
-  sm: $breakpoint-sm,
-  md: $breakpoint-md,
-  lg: $breakpoint-lg,
-  xl: 2600px - $breakpoint-remainder,
-);
-
-@mixin breakpoint($size) {
-  @media (min-width: map-get($breakpoints, $size)) {
-    @content;
-  }
+Старый способ:
+@media (max-width: 768px) {
+  // стили
 }
 
-/* use mobile first */
+Новый способ:
+@include screen-lt-md {
+  // стили
+}
 
-/* usage */
-
-/* .my-class {
-  background-color: $red;
-
-  @include breakpoint(md) {
-    background-color: $blue;
-  }
-
-  @include breakpoint(lg) {
-    background-color: $green;
-  }
-} */
+Доступные миксины:
+- @include screen-xs, screen-sm, screen-md, screen-lg, screen-xl
+- @include screen-lt-sm, screen-lt-md, screen-lt-lg, screen-lt-xl
+- @include screen-gt-xs, screen-gt-sm, screen-gt-md, screen-gt-lg
+*/

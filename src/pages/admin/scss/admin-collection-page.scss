@@ -61,7 +61,7 @@
       color: var(--q-grey-7);
     }
     // Адаптивность для мобильных устройств
-    @media (max-width: 768px) {
+    @include screen-lt-md {
       :deep(.q-td),
       :deep(.q-th) {
         padding: 8px 12px;

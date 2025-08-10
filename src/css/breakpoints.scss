@@ -1,0 +1,97 @@
+// Quasar Breakpoints System
+
+// Заменяет обычные @media queries на систему body classes Quasar
+
+// Миксины для точных breakpoints
+
+@mixin screen-xs {
+  body.screen--xs & {
+    @content;
+  }
+}
+
+@mixin screen-sm {
+  body.screen--sm & {
+    @content;
+  }
+}
+
+@mixin screen-md {
+  body.screen--md & {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  body.screen--lg & {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  body.screen--xl & {
+    @content;
+  }
+}
+
+// Миксины для диапазонов (меньше чем)
+@mixin screen-lt-sm {
+  body.screen--xs & {
+    @content;
+  }
+}
+
+@mixin screen-lt-md {
+  body.screen--xs &,
+  body.screen--sm & {
+    @content;
+  }
+}
+
+@mixin screen-lt-lg {
+  body.screen--xs &,
+  body.screen--sm &,
+  body.screen--md & {
+    @content;
+  }
+}
+
+@mixin screen-lt-xl {
+  body.screen--xs &,
+  body.screen--sm &,
+  body.screen--md &,
+  body.screen--lg & {
+    @content;
+  }
+}
+
+// Миксины для диапазонов (больше чем)
+@mixin screen-gt-xs {
+  body.screen--sm &,
+  body.screen--md &,
+  body.screen--lg &,
+  body.screen--xl & {
+    @content;
+  }
+}
+
+@mixin screen-gt-sm {
+  body.screen--md &,
+  body.screen--lg &,
+  body.screen--xl & {
+    @content;
+  }
+}
+
+@mixin screen-gt-md {
+  body.screen--lg &,
+  body.screen--xl & {
+    @content;
+  }
+}
+
+@mixin screen-gt-lg {
+  body.screen--xl & {
+    @content;
+  }
+}

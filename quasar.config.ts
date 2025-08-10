@@ -149,7 +149,11 @@ export default defineConfig((/* ctx */) => ({
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
   framework: {
-    config: {},
+    config: {
+      screen: {
+        bodyClasses: true // Включаем body classes для breakpoints
+      }
+    },
 
     // iconSet: 'material-icons', // Quasar icon set
     lang: 'ru', // Quasar language pack

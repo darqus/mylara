@@ -25,6 +25,8 @@ npm run format            # Full formatting with type checking
 
 - [Quick Guide](docs/format-quick-guide.md) - Essential commands
 - [Complete System](docs/format-system.md) - Full documentation
+- [Breakpoints System](docs/quasar-breakpoints-system.md) - Responsive design with Quasar
+- [Breakpoints Examples](docs/breakpoints-examples.md) - Practical usage examples
 
 ## Deploy to GitHub Pages
 
