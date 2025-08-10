@@ -1,0 +1,8 @@
+.link-table-cell {
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    color: var(--q-grey-6);
+  }
+}

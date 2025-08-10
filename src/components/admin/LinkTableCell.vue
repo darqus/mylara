@@ -90,13 +90,6 @@ const linkTarget = computed(() => (props.openInNewTab ? '_blank' : '_self'))
   </div>
 </template>
 
-<style lang="scss" scoped>
-.link-table-cell {
-  &__placeholder {
-    display: flex;
-    align-items: center;
-    padding: 4px 8px;
-    color: var(--q-grey-6);
-  }
-}
+<style lang="scss">
+// Styles moved to /src/css/components/_link-table-cell.scss
 </style>

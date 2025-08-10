@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
+import './scss/landing-slogan.scss'
 
 import { getSlogan } from 'src/services/slogan.service'
 import type { SloganResponse } from 'src/types/api'
@@ -67,31 +68,6 @@ import type { SloganResponse } from 'src/types/api'
   </DataLoader>
 </template>
 
-<style lang="scss" scoped>
-.slogan-image {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-}
-// Реверсивный порядок колонок для layout='text-right'
-.reverse {
-  flex-direction: row-reverse;
-  // На мобильных устройствах возвращаем обычный порядок
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-// Адаптивные стили
-@media (max-width: 768px) {
-  .text-h4 {
-    font-size: 1.5rem;
-    line-height: 1.3;
-  }
-
-  .slogan-image {
-    max-width: 250px !important;
-  }
-}
+<style lang="scss">
+// Styles moved to ./scss/landing-slogan.scss
 </style>

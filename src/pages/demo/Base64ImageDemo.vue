@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import Base64Image from 'src/components/common/Base64Image.vue'
 import Base64ImageUploader from 'src/components/common/Base64ImageUploader.vue'
+import './scss/base64-image-demo.scss'
 
 defineOptions({ name: 'Base64ImageDemo' })
 
@@ -263,18 +264,6 @@ function handleUploadError(error: string) {
   </q-page>
 </template>
 
-<style lang="scss" scoped>
-h6 {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-
-ul {
-  padding-left: 20px;
-  margin: 0;
-
-  li {
-    margin-bottom: 4px;
-  }
-}
+<style lang="scss">
+// Styles moved to ./scss/base64-image-demo.scss
 </style>

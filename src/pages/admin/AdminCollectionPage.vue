@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import './scss/admin-collection-page.scss'
 
 import { useQuasar } from 'quasar'
 
@@ -795,120 +796,6 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
   </q-page>
 </template>
 
-<style lang="scss" scoped>
-.products-table {
-  // Улучшения для читаемости таблицы продуктов
-  // Заголовки таблицы
-  :deep(.q-table__top) {
-    padding: 12px 16px;
-  }
-  // Общие стили для ячеек таблицы
-  :deep(.q-td) {
-    padding: 12px 16px;
-    // Улучшенная типографика
-    font-size: 14px;
-    line-height: 1.5;
-    vertical-align: top;
-  }
-  // Заголовки столбцов
-  :deep(.q-th) {
-    padding: 16px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--q-grey-8);
-    background-color: var(--q-grey-1);
-    border-bottom: 2px solid var(--q-grey-3);
-
-    &:first-child {
-      padding-left: 24px;
-    }
-
-    &:last-child {
-      padding-right: 24px;
-    }
-  }
-  // Стили для строк
-  :deep(.q-tr) {
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: var(--q-grey-1);
-    }
-
-    &.selected {
-      background-color: rgba(25, 118, 210, 0.05);
-    }
-  }
-  // Первая и последняя ячейка в строке
-  :deep(.q-td:first-child) {
-    padding-left: 24px;
-  }
-
-  :deep(.q-td:last-child) {
-    padding-right: 24px;
-  }
-  // Стили для ячейки с названием продукта
-  :deep(.q-td:has([data-label="Название продукта"])) {
-    font-weight: 500;
-    color: var(--q-grey-9);
-  }
-  // Стили для ячейки с описанием
-  :deep(.q-td:has([data-label="Описание"])) {
-    font-size: 13px;
-    color: var(--q-grey-7);
-  }
-  // Адаптивность для мобильных устройств
-  @media (max-width: 768px) {
-    :deep(.q-td),
-    :deep(.q-th) {
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-
-    :deep(.q-td:first-child),
-    :deep(.q-th:first-child) {
-      padding-left: 16px;
-    }
-
-    :deep(.q-td:last-child),
-    :deep(.q-th:last-child) {
-      padding-right: 16px;
-    }
-  }
-}
-// Дополнительные стили для улучшения читаемости
-.text-h4 {
-  font-weight: 500;
-  color: var(--q-grey-9);
-}
-
-.text-subtitle1 {
-  font-weight: 400;
-  color: var(--q-grey-6);
-}
-// Улучшенные стили для карточек
-.q-card {
-  border: 1px solid var(--q-grey-3);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-}
-// Стили для поля поиска
-.q-input {
-  :deep(.q-field__control) {
-    height: 48px;
-  }
-
-  :deep(.q-field__marginal) {
-    height: 48px;
-  }
-}
-// Стили для улучшенного отображения поля информации
-.info-cell-content {
-  max-width: 280px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--q-grey-7);
-  word-break: normal;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
+<style lang="scss">
+// Styles moved to ./scss/admin-collection-page.scss
 </style>
