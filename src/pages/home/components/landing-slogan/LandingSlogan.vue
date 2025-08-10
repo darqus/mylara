@@ -75,17 +75,14 @@ import type { SloganResponse } from 'src/types/api'
     transform: scale(1.02);
   }
 }
-
 // Реверсивный порядок колонок для layout='text-right'
 .reverse {
   flex-direction: row-reverse;
-
   // На мобильных устройствах возвращаем обычный порядок
   @media (max-width: 768px) {
     flex-direction: column;
   }
 }
-
 // Адаптивные стили
 @media (max-width: 768px) {
   .text-h4 {

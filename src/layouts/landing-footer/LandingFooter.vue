@@ -136,7 +136,7 @@ const contacts = [
                     :src="social.qrCode"
                     class="qr-code"
                     fit="contain"
-                    style="height: 100px; width: 100px;"
+                    style="width: 100px; height: 100px;"
                   >
                     <template #error>
                       <div class="absolute-full flex flex-center bg-grey-1">

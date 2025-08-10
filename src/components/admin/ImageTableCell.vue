@@ -88,7 +88,7 @@ function downloadImage() {
             :alt="alt"
             :src="imageUrl || undefined"
             fit="contain"
-            style="max-height: 80vh; max-width: 80vw"
+            style="max-width: 80vw; max-height: 80vh"
           >
             <template #error>
               <div class="image-table-cell__error-full">

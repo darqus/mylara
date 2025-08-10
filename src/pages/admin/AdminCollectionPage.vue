@@ -798,27 +798,23 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
 <style lang="scss" scoped>
 .products-table {
   // Улучшения для читаемости таблицы продуктов
-
   // Заголовки таблицы
   :deep(.q-table__top) {
     padding: 12px 16px;
   }
-
   // Общие стили для ячеек таблицы
   :deep(.q-td) {
     padding: 12px 16px;
-    vertical-align: top;
-
     // Улучшенная типографика
     font-size: 14px;
     line-height: 1.5;
+    vertical-align: top;
   }
-
   // Заголовки столбцов
   :deep(.q-th) {
     padding: 16px;
-    font-weight: 600;
     font-size: 14px;
+    font-weight: 600;
     color: var(--q-grey-8);
     background-color: var(--q-grey-1);
     border-bottom: 2px solid var(--q-grey-3);
@@ -831,7 +827,6 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
       padding-right: 24px;
     }
   }
-
   // Стили для строк
   :deep(.q-tr) {
     transition: background-color 0.2s ease;
@@ -844,7 +839,6 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
       background-color: rgba(25, 118, 210, 0.05);
     }
   }
-
   // Первая и последняя ячейка в строке
   :deep(.q-td:first-child) {
     padding-left: 24px;
@@ -853,19 +847,16 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
   :deep(.q-td:last-child) {
     padding-right: 24px;
   }
-
   // Стили для ячейки с названием продукта
   :deep(.q-td:has([data-label="Название продукта"])) {
     font-weight: 500;
     color: var(--q-grey-9);
   }
-
   // Стили для ячейки с описанием
   :deep(.q-td:has([data-label="Описание"])) {
-    color: var(--q-grey-7);
     font-size: 13px;
+    color: var(--q-grey-7);
   }
-
   // Адаптивность для мобильных устройств
   @media (max-width: 768px) {
     :deep(.q-td),
@@ -885,24 +876,21 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
     }
   }
 }
-
 // Дополнительные стили для улучшения читаемости
 .text-h4 {
-  color: var(--q-grey-9);
   font-weight: 500;
+  color: var(--q-grey-9);
 }
 
 .text-subtitle1 {
-  color: var(--q-grey-6);
   font-weight: 400;
+  color: var(--q-grey-6);
 }
-
 // Улучшенные стили для карточек
 .q-card {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--q-grey-3);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
-
 // Стили для поля поиска
 .q-input {
   :deep(.q-field__control) {
@@ -913,15 +901,14 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
     height: 48px;
   }
 }
-
 // Стили для улучшенного отображения поля информации
 .info-cell-content {
   max-width: 280px;
+  font-size: 13px;
   line-height: 1.4;
   color: var(--q-grey-7);
-  font-size: 13px;
+  word-break: normal;
+  overflow-wrap: anywhere;
   white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
 }
 </style>

@@ -246,7 +246,7 @@ function handleUploadError(error: string) {
             :src="selectedImage"
             alt="Полноразмерное изображение"
             fit="contain"
-            style="max-height: 90vh; max-width: 90vw"
+            style="max-width: 90vw; max-height: 90vh"
           />
         </q-card-section>
 
@@ -270,8 +270,8 @@ h6 {
 }
 
 ul {
-  margin: 0;
   padding-left: 20px;
+  margin: 0;
 
   li {
     margin-bottom: 4px;
