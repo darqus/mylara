@@ -20,7 +20,12 @@
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
     "update-env": "node update-env.js",
-    "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
+    "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa",
+    "prettier:check": "prettier --check \"**/*.{ts,mts,js,mjs,cjs,vue,scss,css,md,json}\" --config .prettierrc.json",
+    "prettier:write": "prettier --write \"**/*.{ts,mts,js,mjs,cjs,vue,scss,css,md,json}\" --config .prettierrc.json",
+    "stylelint": "stylelint \"**/*.{scss,css}\" --config stylelint.config.mjs",
+    "stylelint:fix": "stylelint --fix \"**/*.{scss,css}\" --config stylelint.config.mjs",
+    "lint:all": "npm run lint && npm run stylelint"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",

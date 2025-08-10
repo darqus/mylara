@@ -1,17 +1,51 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+
+  "eslint.format.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
+  "eslint.codeActionsOnSave.mode": "problems",
+
+  "stylelint.validate": ["css", "scss", "vue"],
+
   "editor.codeActionsOnSave": {
+    "source.fixAll.prettier": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
   "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
   },
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
   },
-  "cSpell.words": [
-    "autogrow",
-    "firestore"
-  ]
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    }
+  }
 }
