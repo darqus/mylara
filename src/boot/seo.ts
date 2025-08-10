@@ -41,23 +41,42 @@ export default boot(({ app }) => {
   }
 
   // Добавляем базовые структурированные данные для организации
+  const { env } = import.meta
+
+  const httpsProtocol = (env?.VITE_HTTPS_PROTOCOL as string) || 'https:'
+  const domain = (env?.VITE_DOMAIN as string) || 'mylara.ru'
+  const baseUrl = `${httpsProtocol}//${domain}`
+
+  const orgName = (env?.VITE_NAME_FULL as string) || 'MYLARA'
+  const orgDescription =
+    (env?.VITE_DESCRIPTION as string) || 'Косметика по уходу за лицом'
+  const orgLogo = `${baseUrl}/logo.svg`
+  const orgStreetAddress =
+    (env?.VITE_CONTACT_ADDRESS as string) ||
+    'ул. Мещанская, д. 9/14, строение 1'
+  const orgAddressLocality =
+    (env?.VITE_ADDRESS_LOCALITY as string) || 'Москва'
+  const orgPostalCode = (env?.VITE_POSTAL_CODE as string) || '129090'
+  const orgAddressCountry = (env?.VITE_ADDRESS_COUNTRY as string) || 'RU'
+  const orgTelephone = (env?.VITE_CONTACT_PHONE as string) || '+7-999-677-90-67'
+
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'MYLARA',
-    url: 'https://mylara.ru',
-    logo: 'https://mylara.ru/logo.svg',
-    description: 'Косметика по уходу за лицом',
+    name: orgName,
+    url: baseUrl,
+    logo: orgLogo,
+    description: orgDescription,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'ул. Мещанская, д. 9/14, строение 1',
-      addressLocality: 'Москва',
-      postalCode: '129090',
-      addressCountry: 'RU',
+      streetAddress: orgStreetAddress,
+      addressLocality: orgAddressLocality,
+      postalCode: orgPostalCode,
+      addressCountry: orgAddressCountry,
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+7-999-677-90-67',
+      telephone: orgTelephone,
       contactType: 'customer service',
     },
   }
