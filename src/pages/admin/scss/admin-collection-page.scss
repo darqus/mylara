@@ -1,4 +1,5 @@
-.products-table {
+.admin-collection-page {
+  .products-table {
   // Улучшения для читаемости таблицы продуктов
   // Заголовки таблицы
   :deep(.q-table__top) {
@@ -77,39 +78,41 @@
       padding-right: 16px;
     }
   }
-}
-// Дополнительные стили для улучшения читаемости
-.text-h4 {
-  font-weight: 500;
-  color: var(--q-grey-9);
-}
-
-.text-subtitle1 {
-  font-weight: 400;
-  color: var(--q-grey-6);
-}
-// Улучшенные стили для карточек
-.q-card {
-  border: 1px solid var(--q-grey-3);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-}
-// Стили для поля поиска
-.q-input {
-  :deep(.q-field__control) {
-    height: 48px;
   }
 
-  :deep(.q-field__marginal) {
-    height: 48px;
+  // Дополнительные стили для улучшения читаемости
+  .text-h4 {
+    font-weight: 500;
+    color: var(--q-grey-9);
   }
-}
-// Стили для улучшенного отображения поля информации
-.info-cell-content {
-  max-width: 280px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--q-grey-7);
-  word-break: normal;
-  overflow-wrap: anywhere;
-  white-space: normal;
+
+  .text-subtitle1 {
+    font-weight: 400;
+    color: var(--q-grey-6);
+  }
+  // Улучшенные стили для карточек
+  .q-card {
+    border: 1px solid var(--q-grey-3);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  }
+  // Стили для поля поиска
+  .q-input {
+    :deep(.q-field__control) {
+      height: 48px;
+    }
+
+    :deep(.q-field__marginal) {
+      height: 48px;
+    }
+  }
+  // Стили для улучшенного отображения поля информации
+  .info-cell-content {
+    max-width: 280px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--q-grey-7);
+    word-break: normal;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
 }

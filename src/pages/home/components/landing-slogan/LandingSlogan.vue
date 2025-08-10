@@ -17,7 +17,7 @@ import type { SloganResponse } from 'src/types/api'
         :class="{
           'reverse': (data as SloganResponse)?.layout === 'text-right'
         }"
-        class="row q-col-gutter-lg items-center"
+        class="landing-slogan row q-col-gutter-lg items-center"
       >
         <!-- Текст слогана -->
         <div class="col-12 col-md-8">

@@ -30,7 +30,7 @@ const { getSafeImageSrc } = useImageErrorHandling()
           'height-md': $q.screen.md,
           'height-lg': $q.screen.lg || $q.screen.xl,
         }"
-        class="bg-white text-white"
+        class="landing-slider bg-white text-white"
         transition-next="slide-left"
         transition-prev="slide-right"
         animated

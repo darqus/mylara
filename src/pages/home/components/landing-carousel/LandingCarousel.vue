@@ -103,7 +103,7 @@ onMounted(() => {
     data-key="items"
   >
     <template #content="{ data: items }">
-      <div class="carousel-wrapper relative-position">
+      <div class="landing-carousel carousel-wrapper relative-position">
         <q-btn
           v-if="!isMobile"
           :disable="currentIndex === 0"
