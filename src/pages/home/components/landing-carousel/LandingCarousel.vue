@@ -183,11 +183,11 @@ onMounted(() => {
       class="dialog-standard"
     >
       <!-- Изображение в заголовке карточки -->
-      <q-img
+      <!-- <q-img
         :src="selectedItem.img"
         fit="cover"
         @error="handleImageError"
-      />
+      /> -->
 
       <!-- Описание -->
       <q-card-section v-if="selectedItem.label">
