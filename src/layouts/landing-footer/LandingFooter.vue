@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { APP_VERSION, BUILD_DATE } from 'src/utils/meta'
+import { ref } from 'vue'
 import './scss/landing-footer.scss'
+import PrivacyPolicyDialog from 'src/components/common/PrivacyPolicyDialog.vue'
+import TermsOfUseDialog from 'src/components/common/TermsOfUseDialog.vue'
+import { APP_VERSION, BUILD_DATE } from 'src/utils/meta'
 
 // Function to open external links
 const openExternalLink = (url: string) => {
@@ -55,6 +58,10 @@ const contacts = [
     value: import.meta.env.VITE_CONTACT_ADDRESS,
   },
 ]
+
+// Modals
+const showPrivacyPolicy = ref(false)
+const showTermsOfUse = ref(false)
 </script>
 
 <template>
@@ -168,20 +175,23 @@ const contacts = [
         </div>
         <div class="text-caption text-grey-6">
           <a
-            class="text-primary text-decoration-none"
-            href="#"
+            class="text-primary text-decoration-none cursor-pointer"
+            @click="showPrivacyPolicy = true"
           >
             Политика конфиденциальности
           </a>
           <span class="q-mx-sm">|</span>
           <a
-            class="text-primary text-decoration-none"
-            href="#"
+            class="text-primary text-decoration-none cursor-pointer"
+            @click="showTermsOfUse = true"
           >
             Условия использования
           </a>
         </div>
       </div>
     </div>
+
+    <PrivacyPolicyDialog v-model="showPrivacyPolicy" />
+    <TermsOfUseDialog v-model="showTermsOfUse" />
   </q-footer>
 </template>
