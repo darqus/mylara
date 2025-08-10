@@ -20,7 +20,10 @@
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
     "update-env": "node update-env.js",
-    "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa"
+    "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa",
+    "mcp": "npx @eslint/mcp --config .cursor/mcp.json",
+    "mcp:context7": "npx -y @context7/mcp-server",
+    "mcp:cache:clear": "rimraf .mcp-cache/context7 || rm -rf .mcp-cache/context7"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
