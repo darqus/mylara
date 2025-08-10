@@ -4,9 +4,26 @@ export default {
     'stylelint-config-prettier-scss',
     'stylelint-config-recess-order',
   ],
-  overrides: [ { files: [ 'src/*.scss', 'src/**/*.scss' ] } ],
+  ignoreFiles: ['**/node_modules/**', '**/dist/**', '**/.quasar/**'],
+  // Ensure proper parsing for Vue SFCs and SCSS files
+  overrides: [
+    {
+      files: ['**/*.vue', '**/*.html'],
+      customSyntax: 'postcss-html',
+    },
+    {
+      files: ['**/*.{scss,sass}'],
+      customSyntax: 'postcss-scss',
+    },
+  ],
   rules: {
     'declaration-empty-line-before': 'never',
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['deep', 'global', 'slotted', 'v-deep'],
+      },
+    ],
     'scss/at-each-key-value-single-line': true,
     'scss/at-if-no-null': null,
     'scss/comment-no-empty': null,

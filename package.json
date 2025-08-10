@@ -23,8 +23,8 @@
     "deploy": "npm run update-env && npm run build && cp CNAME dist/spa/ && cp .nojekyll dist/spa/ && cp _config.yml dist/spa/ && gh-pages -d dist/spa",
     "prettier:check": "prettier --check \"**/*.{ts,mts,js,mjs,cjs,vue,scss,css,md,json}\" --config .prettierrc.json",
     "prettier:write": "prettier --write \"**/*.{ts,mts,js,mjs,cjs,vue,scss,css,md,json}\" --config .prettierrc.json",
-    "stylelint": "stylelint \"**/*.{scss,css}\" --config stylelint.config.mjs",
-    "stylelint:fix": "stylelint --fix \"**/*.{scss,css}\" --config stylelint.config.mjs",
+    "stylelint": "stylelint \"src/**/*.{scss,css,vue}\" --config stylelint.config.mjs",
+    "stylelint:fix": "stylelint --fix \"src/**/*.{scss,css,vue}\" --config stylelint.config.mjs",
     "lint:all": "npm run lint && npm run stylelint"
   },
   "dependencies": {
@@ -35,6 +35,7 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "postcss-html": "^1.7.0",
     "@eslint/js": "^9.31.0",
     "@quasar/app-vite": "^2.2.1",
     "@quasar/quasar-app-extension-testing-unit-vitest": "^1.2.3",

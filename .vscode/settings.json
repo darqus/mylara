@@ -1,37 +1,38 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-
+  "editor.formatOnSave": false,
   "eslint.format.enable": false,
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
   "eslint.codeActionsOnSave.mode": "problems",
-
   "stylelint.validate": ["css", "scss", "vue"],
-
-  "editor.codeActionsOnSave": {
-    "source.fixAll.prettier": "explicit",
-    "source.fixAll.eslint": "explicit"
-  },
-
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit"
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "never"
     }
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit"
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "never"
     }
   },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit"
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "never"
     }
   },
   "[scss]": {
@@ -47,5 +48,6 @@
       "source.fixAll.prettier": "explicit",
       "source.fixAll.stylelint": "explicit"
     }
-  }
+  },
+  "cSpell.words": ["autogrow", "firestore", "ref"]
 }
