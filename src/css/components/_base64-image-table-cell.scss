@@ -1,0 +1,66 @@
+// Base64ImageTableCell component styles (modular)
+.base64-image-table-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // Base overlay styles first to satisfy no-descending-specificity
+  &__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &__image {
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // border: 1px solid var(--q-grey-4);
+    transition: all 0.2s ease;
+
+    &--clickable {
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: scale(1.05);
+
+        .base64-image-table-cell__overlay {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--rounded {
+      border-radius: 50%;
+    }
+  }
+
+  &__placeholder,
+  &__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--q-grey-2);
+    border: 1px solid var(--q-grey-4);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+
+    &--rounded {
+      border-radius: 50%;
+    }
+  }
+
+  &__error {
+    background-color: var(--q-red-1);
+    border-color: var(--q-red-3);
+  }
+}
