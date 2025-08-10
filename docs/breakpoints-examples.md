@@ -5,10 +5,12 @@
 ### 1. Адаптивная таблица
 
 **Было:**
+
 ```scss
 .products-table {
   @media (max-width: 768px) {
-    :deep(.q-td), :deep(.q-th) {
+    :deep(.q-td),
+    :deep(.q-th) {
       padding: 8px 12px;
       font-size: 13px;
     }
@@ -17,10 +19,12 @@
 ```
 
 **Стало:**
+
 ```scss
 .products-table {
   @include screen-lt-md {
-    :deep(.q-td), :deep(.q-th) {
+    :deep(.q-td),
+    :deep(.q-th) {
       padding: 8px 12px;
       font-size: 13px;
     }
@@ -31,6 +35,7 @@
 ### 2. Адаптивный лендинг
 
 **Было:**
+
 ```scss
 .landing-slogan {
   &.reverse {
@@ -39,7 +44,7 @@
       flex-direction: column;
     }
   }
-  
+
   @media (max-width: 768px) {
     .text-h4 {
       font-size: 1.5rem;
@@ -49,6 +54,7 @@
 ```
 
 **Стало:**
+
 ```scss
 .landing-slogan {
   &.reverse {
@@ -57,7 +63,7 @@
       flex-direction: column;
     }
   }
-  
+
   @include screen-lt-md {
     .text-h4 {
       font-size: 1.5rem;
@@ -72,25 +78,25 @@
 .responsive-component {
   // Базовые стили для всех размеров
   padding: 16px;
-  
+
   // Только мобильные (xs: 0-599px)
   @include screen-xs {
     padding: 8px;
     font-size: 14px;
   }
-  
+
   // Только планшеты (sm: 600-1023px)
   @include screen-sm {
     padding: 12px;
     font-size: 16px;
   }
-  
+
   // Десктоп и больше (md+: 1024px+)
   @include screen-gt-sm {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   // Большие экраны (lg+: 1440px+)
   @include screen-gt-md {
     grid-template-columns: repeat(4, 1fr);
@@ -112,17 +118,17 @@
       width: 80%;
       height: 100vh;
       transition: left 0.3s ease;
-      
+
       &.open {
         left: 0;
       }
     }
-    
+
     .nav-toggle {
       display: block;
     }
   }
-  
+
   // Десктопная навигация (md+)
   @include screen-gt-sm {
     .nav-menu {
@@ -131,7 +137,7 @@
       width: auto;
       height: auto;
     }
-    
+
     .nav-toggle {
       display: none;
     }
@@ -145,22 +151,22 @@
 .product-grid {
   display: grid;
   gap: 16px;
-  
+
   // Мобильные: 1 колонка
   @include screen-xs {
     grid-template-columns: 1fr;
   }
-  
+
   // Планшеты: 2 колонки
   @include screen-sm {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   // Десктоп: 3 колонки
   @include screen-md {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   // Большие экраны: 4 колонки
   @include screen-gt-md {
     grid-template-columns: repeat(4, 1fr);
@@ -181,7 +187,7 @@
       <!-- Контент -->
     </div>
   </div>
-  
+
   <!-- Кастомные стили через SCSS миксины -->
   <div class="custom-component">
     <!-- Контент -->
@@ -211,10 +217,22 @@ body::before {
   color: white;
   padding: 4px 8px;
   z-index: 9999;
-  
-  @include screen-sm { content: 'sm'; background: orange; }
-  @include screen-md { content: 'md'; background: green; }
-  @include screen-lg { content: 'lg'; background: blue; }
-  @include screen-xl { content: 'xl'; background: purple; }
+
+  @include screen-sm {
+    content: 'sm';
+    background: orange;
+  }
+  @include screen-md {
+    content: 'md';
+    background: green;
+  }
+  @include screen-lg {
+    content: 'lg';
+    background: blue;
+  }
+  @include screen-xl {
+    content: 'xl';
+    background: purple;
+  }
 }
 ```

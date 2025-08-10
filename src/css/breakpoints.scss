@@ -99,14 +99,24 @@
 // Обратная совместимость со старым миксином
 @mixin breakpoint($size) {
   @if $size == xs {
-    @include screen-xs { @content; }
+    @include screen-xs {
+      @content;
+    }
   } @else if $size == sm {
-    @include screen-sm { @content; }
+    @include screen-sm {
+      @content;
+    }
   } @else if $size == md {
-    @include screen-md { @content; }
+    @include screen-md {
+      @content;
+    }
   } @else if $size == lg {
-    @include screen-lg { @content; }
+    @include screen-lg {
+      @content;
+    }
   } @else if $size == xl {
-    @include screen-xl { @content; }
+    @include screen-xl {
+      @content;
+    }
   }
 }

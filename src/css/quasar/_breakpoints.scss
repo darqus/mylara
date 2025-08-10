@@ -24,15 +24,25 @@ $breakpoints: (
 // Обратная совместимость со старым миксином
 @mixin breakpoint($size) {
   @if $size == xs {
-    body.screen--xs & { @content; }
+    body.screen--xs & {
+      @content;
+    }
   } @else if $size == sm {
-    body.screen--sm & { @content; }
+    body.screen--sm & {
+      @content;
+    }
   } @else if $size == md {
-    body.screen--md & { @content; }
+    body.screen--md & {
+      @content;
+    }
   } @else if $size == lg {
-    body.screen--lg & { @content; }
+    body.screen--lg & {
+      @content;
+    }
   } @else if $size == xl {
-    body.screen--xl & { @content; }
+    body.screen--xl & {
+      @content;
+    }
   }
 }
 

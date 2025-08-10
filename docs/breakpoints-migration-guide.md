@@ -4,32 +4,35 @@
 
 ### Таблица соответствий
 
-| Старый @media query | Новый миксин Quasar | Описание |
-|-------------------|-------------------|----------|
-| `@media (max-width: 599px)` | `@include screen-xs` | Только мобильные |
-| `@media (max-width: 768px)` | `@include screen-lt-md` | Мобильные + планшеты |
-| `@media (max-width: 1023px)` | `@include screen-lt-md` | До десктопа |
-| `@media (min-width: 600px)` | `@include screen-gt-xs` | От планшетов |
-| `@media (min-width: 1024px)` | `@include screen-gt-sm` | От десктопа |
-| `@media (min-width: 1440px)` | `@include screen-gt-md` | Большие экраны |
+| Старый @media query          | Новый миксин Quasar     | Описание             |
+| ---------------------------- | ----------------------- | -------------------- |
+| `@media (max-width: 599px)`  | `@include screen-xs`    | Только мобильные     |
+| `@media (max-width: 768px)`  | `@include screen-lt-md` | Мобильные + планшеты |
+| `@media (max-width: 1023px)` | `@include screen-lt-md` | До десктопа          |
+| `@media (min-width: 600px)`  | `@include screen-gt-xs` | От планшетов         |
+| `@media (min-width: 1024px)` | `@include screen-gt-sm` | От десктопа          |
+| `@media (min-width: 1440px)` | `@include screen-gt-md` | Большие экраны       |
 
 ### Автоматическая замена (regex)
 
 В VS Code используйте поиск и замену с регулярными выражениями:
 
 **Найти:**
+
 ```regex
 @media \(max-width: 768px\)
 ```
 
 **Заменить на:**
+
 ```scss
-@include screen-lt-md
+@include screen-lt-md;
 ```
 
 ## Пошаговая миграция
 
 ### 1. Включить body classes (уже сделано)
+
 ```typescript
 // quasar.config.ts
 framework: {
@@ -42,12 +45,14 @@ framework: {
 ```
 
 ### 2. Импортировать миксины
+
 ```scss
 // В начале SCSS файла
-@import "src/css/breakpoints";
+@import 'src/css/breakpoints';
 ```
 
 ### 3. Заменить @media queries
+
 ```scss
 // Было
 @media (max-width: 768px) {

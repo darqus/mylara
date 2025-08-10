@@ -151,8 +151,8 @@ export default defineConfig((/* ctx */) => ({
   framework: {
     config: {
       screen: {
-        bodyClasses: true // Включаем body classes для breakpoints
-      }
+        bodyClasses: true, // Включаем body classes для breakpoints
+      },
     },
 
     // iconSet: 'material-icons', // Quasar icon set
