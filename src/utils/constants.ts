@@ -39,7 +39,7 @@ export const REDIRECT_PATH =
     ? VITE_REDIRECT_PATH
     : VITE_REDIRECT_PATH_DEV
 
-const getPhoneLink = (str: string) => `tel:${str.replace(/\\D/g, '')}`
+const getPhoneLink = (str: string) => `tel:${str.replace(/\D/g, '')}`
 
 export const PHONES = {
   HOT_LINE: {
