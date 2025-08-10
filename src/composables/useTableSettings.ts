@@ -220,7 +220,7 @@ export function useTableSettings(collectionName: MaybeRefOrGetter<string>) {
   const paginationSettings = computed(() => ({
     page: settings.value.page,
     rowsPerPage: settings.value.rowsPerPage,
-    rowsNumber: 0, // Будет обновлено при загрузке данных
+    rowsNumber: undefined, // Будет обновлено при загрузке данных
     sortBy: settings.value.sortBy,
     descending: settings.value.descending,
   }))
