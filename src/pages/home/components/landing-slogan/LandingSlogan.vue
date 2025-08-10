@@ -15,45 +15,31 @@ import type { SloganResponse } from 'src/types/api'
       <div
         v-if="(data as SloganResponse)?.image"
         :class="{
-          reverse: (data as SloganResponse)?.layout === 'text-right',
+          'text-wrap-right': (data as SloganResponse)?.layout === 'text-right',
+          'text-wrap-left': (data as SloganResponse)?.layout === 'text-left',
         }"
-        class="landing-slogan row q-col-gutter-lg items-center"
+        class="landing-slogan"
       >
-        <!-- Текст слогана -->
-        <div class="col-12 col-md-8">
-          <div
-            :class="{
-              'text-center text-md-left':
-                (data as SloganResponse)?.layout === 'text-left',
-              'text-center text-md-right':
-                (data as SloganResponse)?.layout === 'text-right',
-            }"
-            class="text-h4 q-mb-md"
-          >
-            {{ (data as SloganResponse)?.title || '' }}
-          </div>
-        </div>
-
         <!-- Изображение слогана -->
-        <div class="col-12 col-md-4 text-center">
-          <q-img
-            :src="(data as SloganResponse).image!"
-            alt="Изображение слогана"
-            class="slogan-image"
-            fit="contain"
-            ratio="1"
-            style="max-width: 300px; border-radius: 12px"
-          >
-            <template #error>
-              <div class="absolute-full flex flex-center bg-grey-2">
-                <q-icon
-                  color="grey-5"
-                  name="image"
-                  size="60px"
-                />
-              </div>
-            </template>
-          </q-img>
+        <q-img
+          :src="(data as SloganResponse).image!"
+          alt="Изображение слогана"
+          class="slogan-image"
+        >
+          <template #error>
+            <div class="absolute-full flex flex-center bg-grey-2">
+              <q-icon
+                color="grey-5"
+                name="image"
+                size="60px"
+              />
+            </div>
+          </template>
+        </q-img>
+
+        <!-- Текст слогана -->
+        <div class="text-h4 slogan-text">
+          {{ (data as SloganResponse)?.title || '' }}
         </div>
       </div>
 
