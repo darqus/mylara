@@ -30,7 +30,6 @@ export default {
     'scss/comment-no-loud': null,
     'scss/dollar-variable-empty-line-before': null,
     'scss/dollar-variable-pattern': null,
-    'scss/double-slash-comment-empty-line-before': 'never',
     'scss/no-global-function-names': null,
     'scss/operator-no-unspaced': true,
     'scss/selector-nest-combinators': 'always',
