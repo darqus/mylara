@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+
 import type { QCard } from 'quasar'
 
 defineOptions({ name: 'PrivacyPolicyDialog' })

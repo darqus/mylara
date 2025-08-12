@@ -24,7 +24,7 @@ export async function testBase64Image() {
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) {
-        const file = new File([ blob ], 'test.png', { type: 'image/png' })
+        const file = new File([blob], 'test.png', { type: 'image/png' })
 
         fileToBase64(file, {
           maxSizeKB: 1000,
@@ -58,5 +58,5 @@ export async function testBase64Image() {
 // Экспортируем для использования в консоли браузера
 if (typeof window !== 'undefined') {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (window as any).testBase64Image = testBase64Image
+  ;(window as any).testBase64Image = testBase64Image
 }

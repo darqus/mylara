@@ -1,6 +1,8 @@
 import { watch } from 'vue'
+
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { ROUTE_PATH } from 'src/types/route-paths'
+
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 /**
@@ -8,9 +10,9 @@ import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
  * Uses static import since useAdminAuth is already loaded in App.vue
  */
 export function adminAuthGuard(
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
 ): void {
   // Проверяем, является ли маршрут админским (кроме логина)
   if (

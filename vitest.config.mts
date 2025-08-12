@@ -3,6 +3,7 @@ import path from 'path'
 import vue from '@vitejs/plugin-vue'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
+
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
 import type { PluginOption } from 'vite'

@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
-  useTableSettings,
   useColumnSettings,
+  useTableSettings,
 } from 'src/composables/useTableSettings'
 
 // Мокаем LocalStorage от Quasar (hoisted)
@@ -44,7 +44,7 @@ describe('useTableSettings (reactive)', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name' ],
+        visibleColumns: ['id', 'name'],
       }
 
       mockLocalStorage.getItem.mockReturnValue(validSettings)
@@ -58,7 +58,7 @@ describe('useTableSettings (reactive)', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name' ],
+        visibleColumns: ['id', 'name'],
       })
     })
 

@@ -8,7 +8,7 @@ export const vueAttributes = {
         'CONDITIONALS',
         'RENDER_MODIFIERS',
         'GLOBAL',
-        [ 'UNIQUE', 'SLOT' ],
+        ['UNIQUE', 'SLOT'],
         'TWO_WAY_BINDING',
         'OTHER_DIRECTIVES',
         'ATTR_DYNAMIC',
@@ -29,5 +29,17 @@ export const vueAttributes = {
     },
   ],
 
-  'vue/prop-name-casing': [ 'error', 'camelCase' ],
+  'vue/prop-name-casing': ['error', 'camelCase'],
+
+  // Ensure attributes are sorted within a single line when Prettier keeps them
+  // on the same line. This complements vue/max-attributes-per-line.
+  'vue/sort-keys': [
+    'off',
+    'asc',
+    {
+      natural: true,
+      caseSensitive: false,
+      minKeys: 2,
+    },
+  ],
 }

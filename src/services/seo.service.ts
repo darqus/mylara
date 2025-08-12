@@ -1,5 +1,5 @@
 import { META } from 'src/utils/constants'
-import { TITLE, DESCRIPTION } from 'src/utils/meta'
+import { DESCRIPTION, TITLE } from 'src/utils/meta'
 
 export type MetaData = {
   title?: string

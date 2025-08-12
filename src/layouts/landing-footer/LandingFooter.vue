@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+
 import './scss/landing-footer.scss'
 import PrivacyPolicyDialog from 'src/components/common/PrivacyPolicyDialog.vue'
 import TermsOfUseDialog from 'src/components/common/TermsOfUseDialog.vue'

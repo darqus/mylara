@@ -21,8 +21,8 @@ type CollectionItem = {
  * Конвертирует URL изображения в base64
  */
 export async function convertImageUrlToBase64(
-    imageUrl: string,
-    options?: {
+  imageUrl: string,
+  options?: {
     maxWidth?: number
     maxHeight?: number
     quality?: number
@@ -43,7 +43,7 @@ export async function convertImageUrlToBase64(
     const blob = await response.blob()
 
     // Создаем File объект из Blob
-    const file = new File([ blob ], 'image.jpg', { type: blob.type })
+    const file = new File([blob], 'image.jpg', { type: blob.type })
 
     // Конвертируем в base64 с настройками сжатия
     const result = await fileToBase64(file, {
@@ -64,8 +64,8 @@ export async function convertImageUrlToBase64(
  * Упрощенная функция для миграции коллекции
  */
 async function migrateCollection(
-    collectionName: string,
-    imageOptions: { maxWidth: number; maxHeight: number; quality: number }
+  collectionName: string,
+  imageOptions: { maxWidth: number; maxHeight: number; quality: number }
 ) {
   const { firestoreService } = await import('src/services/firestore.service')
 
@@ -155,7 +155,7 @@ export async function migrateAllImages() {
 // Добавляем функции в глобальный объект для использования в консоли
 if (typeof window !== 'undefined') {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (window as any).imagesMigration = {
+  ;(window as any).imagesMigration = {
     migrateCarouselImages,
     migrateSlidesImages,
     migrateAllImages,

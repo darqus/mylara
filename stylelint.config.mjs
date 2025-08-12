@@ -4,15 +4,15 @@ export default {
     'stylelint-config-prettier-scss',
     'stylelint-config-recess-order',
   ],
-  ignoreFiles: [ '**/node_modules/**', '**/dist/**', '**/.quasar/**' ],
+  ignoreFiles: ['**/node_modules/**', '**/dist/**', '**/.quasar/**'],
   // Ensure proper parsing for Vue SFCs and SCSS files
   overrides: [
     {
-      files: [ '**/*.vue', '**/*.html' ],
+      files: ['**/*.vue', '**/*.html'],
       customSyntax: 'postcss-html',
     },
     {
-      files: [ '**/*.{scss,sass}' ],
+      files: ['**/*.{scss,sass}'],
       customSyntax: 'postcss-scss',
     },
   ],
@@ -21,7 +21,7 @@ export default {
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        ignorePseudoClasses: [ 'deep', 'global', 'slotted', 'v-deep' ],
+        ignorePseudoClasses: ['deep', 'global', 'slotted', 'v-deep'],
       },
     ],
     'scss/at-each-key-value-single-line': true,

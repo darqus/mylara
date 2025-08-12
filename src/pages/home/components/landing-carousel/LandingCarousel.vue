@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
-
 import { useDevice } from 'src/composables/useDevice'
 import { useImageErrorHandling } from 'src/composables/useImageErrorHandling'
 import { getCarouselItems } from 'src/services/carousel.service'

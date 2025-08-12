@@ -15,10 +15,10 @@ export default defineConfig((/* ctx */) => ({
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli-vite/boot-files
-  boot: [ 'seo' ],
+  boot: ['seo'],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
-  css: [ 'app.scss' ],
+  css: ['app.scss'],
 
   // https://github.com/quasarframework/quasar/tree/dev/extras
   extras: [
@@ -29,7 +29,7 @@ export default defineConfig((/* ctx */) => ({
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
   build: {
     target: {
-      browser: [ 'es2022', 'firefox115', 'chrome115', 'safari14' ],
+      browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
       node: 'node20',
     },
 
@@ -166,7 +166,7 @@ export default defineConfig((/* ctx */) => ({
     // directives: [],
 
     // Quasar plugins
-    plugins: [ 'Notify', 'Meta', 'LocalStorage' ],
+    plugins: ['Notify', 'Meta', 'LocalStorage'],
   },
 
   // animations: 'all', // --- includes all animations
@@ -240,7 +240,7 @@ export default defineConfig((/* ctx */) => ({
     // extendPackageJson (json) {},
 
     // Electron preload scripts (if any) from /src-electron, WITHOUT file extension
-    preloadScripts: [ 'electron-preload' ],
+    preloadScripts: ['electron-preload'],
 
     // specify the debugging port to use for the Electron app when running in development mode
     inspectPort: 5858,

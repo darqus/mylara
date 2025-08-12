@@ -3,11 +3,13 @@ import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from '@vue/eslint-config-typescript'
+
 import js from '@eslint/js'
 import pluginImport from 'eslint-plugin-import'
 import pluginPrettier from 'eslint-plugin-prettier'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
+
 import pluginQuasar from '@quasar/app-vite/eslint'
 
 import { rules } from './.config/eslint-rules/index.js'
@@ -46,16 +48,23 @@ export default defineConfigWithVueTs(
       import: pluginImport,
       prettier: pluginPrettier,
     },
+    rules: {
+      // We run Prettier via CLI/extension; don't report formatting in ESLint
+      'prettier/prettier': 'off',
+    },
   },
 
   // Apply overrides to TypeScript and Vue files
   {
     files: [
       '**/*.ts',
+      '**/*.cts',
+      '**/*.tsx',
       '**/*.mts',
       '**/*.js',
-      '**/*.mjs',
       '**/*.cjs',
+      '**/*.jsx',
+      '**/*.mjs',
       '**/*.vue',
     ],
     rules,
@@ -67,7 +76,17 @@ export default defineConfigWithVueTs(
           project: './tsconfig.json',
         },
         node: {
-          extensions: [ '.js', '.jsx', '.ts', '.tsx', '.vue' ],
+          extensions: [
+            '.js',
+            '.jsx',
+            '.cjs',
+            '.mjs',
+            '.ts',
+            '.tsx',
+            '.cts',
+            '.mts',
+            '.vue',
+          ],
         },
       },
     },
@@ -95,7 +114,7 @@ export default defineConfigWithVueTs(
   },
 
   {
-    files: [ 'src-pwa/custom-service-worker.ts' ],
+    files: ['src-pwa/custom-service-worker.ts'],
     languageOptions: { globals: { ...globals.serviceworker } },
   }
 )

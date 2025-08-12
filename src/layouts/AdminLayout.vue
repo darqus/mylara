@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+
 import { useRouter } from 'vue-router'
 
 import { useQuasar } from 'quasar'
 
 import AdminMenuItem from 'src/components/admin/AdminMenuItem.vue'
-
 import { useAdminAuth } from 'src/composables/useAdminAuth'
 import { getAllCollections } from 'src/services/admin-config.service'
 import { ROUTE_PATH } from 'src/types/route-paths'

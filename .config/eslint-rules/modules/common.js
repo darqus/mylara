@@ -1,6 +1,9 @@
 export const common = {
-  semi: [ 'error', 'never' ],
-  'no-extra-semi': 'error',
+  // Defer all formatting concerns to Prettier to avoid conflicts
+  // and keep ESLint focused on code-quality rules.
+  semi: 'off',
+  'no-extra-semi': 'off',
+  // Enforce deterministic import ordering across JS/TS/Vue
   'import/order': [
     'error',
     {
@@ -8,10 +11,11 @@ export const common = {
         'builtin',
         'external',
         'internal',
-        [ 'parent', 'sibling' ],
+        ['parent', 'sibling'],
         'index',
         'type',
       ],
+      'newlines-between': 'always',
       pathGroups: [
         {
           pattern: 'vue',
@@ -49,7 +53,7 @@ export const common = {
           position: 'after',
         },
       ],
-      pathGroupsExcludedImportTypes: [ 'builtin' ],
+      pathGroupsExcludedImportTypes: ['builtin'],
       alphabetize: {
         order: 'asc',
         caseInsensitive: true,
@@ -57,70 +61,49 @@ export const common = {
     },
   ],
 
-  'import/no-unresolved': [ 'off' ],
-  'comma-dangle': [
+  // Keep a blank line after the last import group
+  'import/newline-after-import': ['error', { count: 1 }],
+
+  // Sort named import members without reordering whole declarations.
+  // This complements import/order and works in .js, .ts, and <script> in .vue.
+  'sort-imports': [
     'error',
     {
-      arrays: 'only-multiline',
-      objects: 'only-multiline',
-      imports: 'only-multiline',
-      exports: 'only-multiline',
-      functions: 'never',
+      ignoreCase: true,
+      ignoreDeclarationSort: true,
+      ignoreMemberSort: false,
+      memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      allowSeparatedGroups: false,
     },
   ],
+
+  'import/no-unresolved': ['off'],
+  // Formatting handled by Prettier
+  'comma-dangle': 'off',
 
   // https://eslint.org/docs/latest/rules/indent#rule-details
-  indent: [
-    'error',
-    2,
-    {
-      SwitchCase: 1,
-      VariableDeclarator: {
-        var: 2,
-        let: 2,
-        const: 2,
-      },
-      MemberExpression: 1,
-      FunctionDeclaration: {
-        body: 1,
-        parameters: 2,
-      },
-      CallExpression: { arguments: 1 },
-      ArrayExpression: 1,
-      ObjectExpression: 1,
-      ImportDeclaration: 1,
-      flatTernaryExpressions: true,
-      offsetTernaryExpressions: true,
-    },
-  ],
+  indent: 'off',
 
-  'no-console': [ 'warn', { allow: [ 'warn', 'error' ] } ],
-  'arrow-parens': [ 'error', 'always' ],
+  'no-console': ['warn', { allow: ['warn', 'error'] }],
+  'arrow-parens': 'off',
   curly: 'error',
-  'object-shorthand': [ 'error', 'always' ],
+  'object-shorthand': ['error', 'always'],
 
-  'array-bracket-spacing': [ 'error', 'always' ],
-  'object-curly-spacing': [
-    'error',
-    'always',
-    {
-      arraysInObjects: true,
-      objectsInObjects: true,
-    },
-  ],
+  'array-bracket-spacing': 'off',
+  'object-curly-spacing': 'off',
 
-  eqeqeq: [ 'error', 'smart' ],
+  eqeqeq: ['error', 'smart'],
   'prefer-promise-reject-errors': 'error',
   'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   'no-useless-constructor': 'off',
   'no-shadow': 'off',
-  'no-var': [ 'error' ],
-  'prefer-const': [ 'error', { destructuring: 'all' } ],
+  'no-var': ['error'],
+  'prefer-const': ['error', { destructuring: 'all' }],
   'no-unused-expressions': [
     'error',
     { allowShortCircuit: true, allowTernary: true },
   ],
-  'no-param-reassign': [ 'error', { props: false } ],
+  'no-param-reassign': ['error', { props: false }],
 
   'prefer-destructuring': [
     'warn',
@@ -133,24 +116,10 @@ export const common = {
     },
   ],
   'prefer-template': 'warn',
-  'template-curly-spacing': [ 'error', 'never' ],
+  'template-curly-spacing': 'off',
 
-  quotes: [
-    'error',
-    'single',
-    {
-      avoidEscape: true,
-      allowTemplateLiterals: true,
-    },
-  ],
+  quotes: 'off',
 
-  'lines-between-class-members': [ 'error', 'always' ],
-  'no-multiple-empty-lines': [
-    'error',
-    {
-      max: 1,
-      maxEOF: 0,
-      maxBOF: 0,
-    },
-  ],
+  'lines-between-class-members': 'off',
+  'no-multiple-empty-lines': 'off',
 }

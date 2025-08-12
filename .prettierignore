@@ -1,33 +1,12 @@
-**/.quasar
-**/dist
-**/node_modules
-**/tsconfig.json
-**/package.json
-**/package-lock.json
-**/quasar.testing.json
-**/quasar.extensions.json
-**/*.d.ts
-src/types/api-types.ts
-dist
-src-capacitor
-src-cordova
-.quasar
+# Build and dependency directories
 node_modules
-quasar.config.*.temporary.compiled*
-
-# Cache files
+.quasar
+dist
+coverage
 .eslintcache
 .stylelintcache
 .prettierCache
 
-# Log files
+# Generated files
+*.min.*
 *.log
-npm-debug.log*
-npm-debug.log*
-
-# Environment files
-.env*
-
-# OS files
-.DS_Store
-Thumbs.db

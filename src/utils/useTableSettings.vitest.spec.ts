@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
-  useTableSettings,
   useColumnSettings,
+  useTableSettings,
   useTableSettingsManager,
 } from 'src/composables/useTableSettings'
 
@@ -45,7 +45,7 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name' ],
+        visibleColumns: ['id', 'name'],
       }
 
       mockLocalStorage.getItem.mockReturnValue(validSettings)
@@ -59,7 +59,7 @@ describe('useTableSettings', () => {
         sortBy: 'name',
         descending: true,
         filter: 'test',
-        visibleColumns: [ 'id', 'name' ],
+        visibleColumns: ['id', 'name'],
       })
     })
 

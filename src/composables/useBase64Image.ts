@@ -28,12 +28,12 @@ export function useBase64Image() {
    * Преобразует файл изображения в base64
    */
   async function fileToBase64(
-      file: File,
-      options: Base64ImageOptions = {}
+    file: File,
+    options: Base64ImageOptions = {}
   ): Promise<Base64ImageResult | null> {
     const {
       maxSizeKB = 5000,
-      allowedTypes = [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp' ],
+      allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
       maxWidth,
       maxHeight,
       quality = 0.8,
@@ -163,10 +163,10 @@ export function useBase64Image() {
    * Вычисляет новые размеры изображения с сохранением пропорций
    */
   function calculateNewDimensions(
-      originalWidth: number,
-      originalHeight: number,
-      maxWidth?: number,
-      maxHeight?: number
+    originalWidth: number,
+    originalHeight: number,
+    maxWidth?: number,
+    maxHeight?: number
   ): { width: number; height: number } {
     let { width, height } = { width: originalWidth, height: originalHeight }
 
@@ -244,7 +244,7 @@ export function useBase64Image() {
     }
 
     const k = 1024
-    const sizes = [ 'Bytes', 'KB', 'MB', 'GB' ]
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`

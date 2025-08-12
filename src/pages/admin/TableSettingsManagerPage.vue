@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { useQuasar } from 'quasar'
 
@@ -37,7 +37,7 @@ function formatBytes(bytes: number): string {
   }
 
   const k = 1024
-  const sizes = [ 'Bytes', 'KB', 'MB', 'GB' ]
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
@@ -49,7 +49,7 @@ function exportSettings() {
     const jsonString = JSON.stringify(exported, null, 2)
 
     // Создаем файл для скачивания
-    const blob = new Blob([ jsonString ], { type: 'application/json' })
+    const blob = new Blob([jsonString], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
 

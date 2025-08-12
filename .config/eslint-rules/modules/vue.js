@@ -1,5 +1,5 @@
 export const vue = {
-  'vue/v-on-event-hyphenation': [ 'error', 'always', { autofix: true } ],
+  'vue/v-on-event-hyphenation': ['error', 'always', { autofix: true }],
   'vue/component-name-in-template-casing': [
     'error',
     'PascalCase',
@@ -10,7 +10,7 @@ export const vue = {
   ],
 
   'vue/no-multiple-template-root': 'off',
-  'vue/padding-line-between-blocks': [ 'error', 'always' ],
+  'vue/padding-line-between-blocks': ['error', 'always'],
 
   'vue/html-self-closing': [
     'error',
@@ -53,8 +53,8 @@ export const vue = {
     },
   ],
 
-  'vue/v-bind-style': [ 'error', 'shorthand' ],
-  'vue/v-on-style': [ 'error', 'shorthand' ],
+  'vue/v-bind-style': ['error', 'shorthand'],
+  'vue/v-on-style': ['error', 'shorthand'],
 
   'vue/require-default-prop': 'error',
   'vue/require-explicit-emits': 'error',
@@ -72,11 +72,11 @@ export const vue = {
         'key',
         'parent',
         'functional',
-        [ 'delimiters', 'comments' ],
-        [ 'components', 'directives', 'filters' ],
+        ['delimiters', 'comments'],
+        ['components', 'directives', 'filters'],
         'extends',
         'mixins',
-        [ 'provide', 'inject' ],
+        ['provide', 'inject'],
         'ROUTER_GUARDS',
         'layout',
         'middleware',
@@ -86,7 +86,7 @@ export const vue = {
         'loading',
         'inheritAttrs',
         'model',
-        [ 'props', 'propsData' ],
+        ['props', 'propsData'],
         'emits',
         'setup',
         'asyncData',
@@ -98,7 +98,7 @@ export const vue = {
         'watchQuery',
         'LIFECYCLE_HOOKS',
         'methods',
-        [ 'template', 'render' ],
+        ['template', 'render'],
         'renderError',
       ],
     },
@@ -116,7 +116,7 @@ export const vue = {
   'vue/block-order': [
     'error',
     {
-      order: [ 'script', 'template', 'style' ],
+      order: ['script', 'template', 'style'],
     },
   ],
 

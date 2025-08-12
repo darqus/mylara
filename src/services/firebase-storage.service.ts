@@ -1,8 +1,8 @@
 import {
+  deleteObject,
+  getDownloadURL,
   ref,
   uploadBytes,
-  getDownloadURL,
-  deleteObject,
 } from 'firebase/storage'
 
 import { getFirebaseStorage } from './firebase'

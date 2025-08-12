@@ -1,10 +1,10 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
 } from 'firebase/auth'
 
 import { getFirebaseAuth } from 'src/services/firebase'
@@ -57,8 +57,8 @@ export function useAdminAuth() {
    * Вход в админку через email и пароль
    */
   async function login(
-      email: string,
-      password: string
+    email: string,
+    password: string
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 
@@ -127,8 +127,8 @@ export function useAdminAuth() {
    * Регистрация нового администратора (только для первоначальной настройки)
    */
   async function register(
-      email: string,
-      password: string
+    email: string,
+    password: string
   ): Promise<{ success: boolean; error?: string }> {
     const auth = getFirebaseAuth()
 

@@ -1,21 +1,21 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import {
-  requiredRule,
-  emailRule,
-  minLengthRule,
-  maxLengthRule,
-  minRule,
-  maxRule,
-  dateFormatRule,
-  wordRule,
-  singleWordRule,
-  multipleWordsRule,
-  validDateRule,
-  hasUppercaseRule,
-  hasDigitRule,
-  phoneRule,
   birthDateAgeRangeRule,
+  dateFormatRule,
+  emailRule,
+  hasDigitRule,
+  hasUppercaseRule,
+  maxLengthRule,
+  maxRule,
+  minLengthRule,
+  minRule,
+  multipleWordsRule,
+  phoneRule,
+  requiredRule,
+  singleWordRule,
+  validDateRule,
+  wordRule,
 } from './rules'
 
 describe('Validation rules', () => {

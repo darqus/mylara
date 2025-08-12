@@ -1,17 +1,17 @@
 import {
+  addDoc,
   collection,
-  getDocs,
+  deleteDoc,
   doc,
   getDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
+  getDocs,
   serverTimestamp,
+  updateDoc,
 } from 'firebase/firestore'
 
 import type { CollectionResponse, DocumentResponse } from 'src/types/api'
 
-import { getFirebaseDb, getFirebaseAuth } from './firebase'
+import { getFirebaseAuth, getFirebaseDb } from './firebase'
 
 /**
  * Проверяет, аутентифицирован ли пользователь

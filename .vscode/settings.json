@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  // Let Prettier handle formatting; ESLint handles code-quality/organize imports
   "eslint.format.enable": false,
   "eslint.validate": [
     "javascript",
@@ -27,7 +28,7 @@
     }
   },
   "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.prettier": "explicit",
       "source.fixAll.eslint": "explicit",

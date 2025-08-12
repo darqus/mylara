@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 
 import { firestoreService } from 'src/services/firestore.service'
-import type { TableState, CollectionConfig } from 'src/types/admin'
+import type { CollectionConfig, TableState } from 'src/types/admin'
 
 /**
  * Composable для управления коллекцией в админке

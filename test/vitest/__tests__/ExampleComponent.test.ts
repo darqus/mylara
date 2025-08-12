@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { mount } from '@vue/test-utils'
+
 import { describe, expect, it } from 'vitest'
+
 import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'
 
 import ExampleComponent from './demo/ExampleComponent.vue'

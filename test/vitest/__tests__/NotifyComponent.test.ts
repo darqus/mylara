@@ -1,5 +1,7 @@
 import { mount } from '@vue/test-utils'
+
 import { describe, expect, it, vi } from 'vitest'
+
 import { Notify } from 'quasar'
 
 import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
 import './scss/landing-slogan.scss'
-
 import { getSlogan } from 'src/services/slogan.service'
 import type { SloganResponse } from 'src/types/api'
 </script>

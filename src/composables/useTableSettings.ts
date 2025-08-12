@@ -1,4 +1,4 @@
-import { ref, computed, watch, unref } from 'vue'
+import { computed, ref, unref, watch } from 'vue'
 import type { MaybeRefOrGetter } from 'vue'
 
 import { LocalStorage } from 'quasar'
@@ -265,7 +265,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
   function loadColumnSettings(): Record<
     string,
     { width?: number; visible?: boolean }
-    > {
+  > {
     try {
       const stored = LocalStorage.getItem(storageKey.value)
 
@@ -277,7 +277,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
         > = {}
 
         // Валидируем каждую настройку колонки
-        Object.entries(settings).forEach(([ key, value ]) => {
+        Object.entries(settings).forEach(([key, value]) => {
           if (typeof value === 'object' && value !== null) {
             const columnSetting = value as {
               width?: unknown
@@ -319,7 +319,7 @@ export function useColumnSettings(collectionName: MaybeRefOrGetter<string>) {
    * Сохранить настройки колонок в localStorage
    */
   function saveColumnSettings(
-      settings: Record<string, { width?: number; visible?: boolean }>
+    settings: Record<string, { width?: number; visible?: boolean }>
   ): void {
     try {
       LocalStorage.set(storageKey.value, settings)
@@ -526,7 +526,7 @@ export function useTableSettingsManager() {
       return
     }
 
-    Object.entries(settings).forEach(([ key, value ]) => {
+    Object.entries(settings).forEach(([key, value]) => {
       if (
         key.startsWith('table-settings-') ||
         key.startsWith('column-settings-')
