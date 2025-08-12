@@ -357,7 +357,8 @@ async function handleSubmit() {
                   </span>
                 </div>
                 <ImageUploader
-                  :model-value="formData[field.name] ? String(formData[field.name]) : null
+                  :model-value="
+                    formData[field.name] ? String(formData[field.name]) : null
                   "
                   @update:model-value="formData[field.name] = $event"
                 />
@@ -378,7 +379,8 @@ async function handleSubmit() {
                   </span>
                 </div>
                 <Base64ImageUploader
-                  :model-value="formData[field.name] ? String(formData[field.name]) : null
+                  :model-value="
+                    formData[field.name] ? String(formData[field.name]) : null
                   "
                   v-bind="getBase64ImageOptions(field)"
                   @update:model-value="formData[field.name] = $event"
