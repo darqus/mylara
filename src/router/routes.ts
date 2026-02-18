@@ -3,8 +3,6 @@ import { type RouteRecordRaw } from 'vue-router'
 import { ROUTE_PATH } from 'src/types/route-paths'
 import { ROUTER_BASE } from 'src/utils/constants'
 
-// import { ROUTER_BASE, } from 'src/utils/constants'
-
 const routes: RouteRecordRaw[] = [
   {
     path: ROUTER_BASE,

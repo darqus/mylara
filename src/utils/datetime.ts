@@ -204,11 +204,11 @@ export const getTodayYesterdayDate = (
 
   const todayShort = new Intl.DateTimeFormat(
     ZONE,
-    DATE_TIME_OPTIONS_PRESET.short
+    DATE_TIME_OPTIONS_PRESET.onlyDate
   ).format(new Date())
   const yesterdayShort = new Intl.DateTimeFormat(
     ZONE,
-    DATE_TIME_OPTIONS_PRESET.short
+    DATE_TIME_OPTIONS_PRESET.onlyDate
   ).format(subtractDays(new Date(), 1))
 
   const result = {

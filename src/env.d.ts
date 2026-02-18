@@ -6,3 +6,6 @@ declare namespace NodeJS {
     VUE_ROUTER_BASE: string | undefined
   }
 }
+
+// Глобальная переменная версии приложения, задаётся через rawDefine в quasar.config.ts
+declare const VITE_APP_VERSION: string

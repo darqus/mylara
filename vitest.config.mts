@@ -25,7 +25,7 @@ export default defineConfig({
   plugins: [
     vue({ template: { transformAssetUrls } }) as unknown as PluginOption,
     quasar({
-      sassVariables: 'src/quasar-variables.scss',
+      sassVariables: 'src/css/quasar.variables.scss',
     }) as unknown as PluginOption,
     tsconfigPaths() as unknown as PluginOption,
   ],

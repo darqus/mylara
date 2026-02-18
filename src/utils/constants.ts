@@ -21,8 +21,9 @@ export const API_HOST = getEnvVar('VITE_API_HOST', '')
 
 export const API_BASE_HOST = getEnvVar('VITE_API_BASE_HOST', '')
 
-// Версия приложения
-export const APP_VERSION = getEnvVar('VITE_APP_VERSION', '0.1.39')
+// Версия приложения (задаётся через rawDefine в quasar.config.ts)
+export const APP_VERSION =
+  typeof VITE_APP_VERSION !== 'undefined' ? VITE_APP_VERSION : '0.1.51'
 
 export const NO_IMG = 'img/no-image.svg'
 
