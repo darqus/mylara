@@ -4,33 +4,45 @@
     <meta charset="utf-8" />
     <title>MYLARA</title>
     <script>
-      // GitHub Pages SPA routing workaround
-      // This script takes the current location and redirects to the root with the path as a query parameter
-      // The main app will then handle the routing
+      // GitHub Pages SPA routing workaround.
+      // The app is served as a project site, so the base path is required here.
+      // Deep links are stored in sessionStorage and restored by index.html.
 
+      var base = '/mylara/'
       var l = window.location
+      var path = l.pathname
+      var isAsset = path.match(
+        /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/
+      )
 
-      // Only redirect if this is not the root domain and not an asset request
-      if (
-        l.pathname !== '/' &&
-        !l.pathname.match(
-          /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/
-        )
-      ) {
-        // Store the full URL in sessionStorage to be handled by the main app
-        sessionStorage.redirect = l.pathname + l.search + l.hash
-
-        // Redirect to root with a slight delay to ensure sessionStorage is set
-        setTimeout(function () {
-          l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
-          )
-        }, 10)
-      } else {
-        // If this is an asset request or root, don't redirect
+      function showNotFound() {
         document.write(
           '<h1>404 - Page Not Found</h1><p>The requested resource was not found.</p>'
         )
+      }
+
+      function redirectToBase() {
+        // Redirect to the app base with a slight delay to ensure sessionStorage is set
+        setTimeout(function () {
+          l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + base
+          )
+        }, 10)
+      }
+
+      if (isAsset || path === base) {
+        // Missing asset or missing index.html at the app root
+        showNotFound()
+      } else if (path === base.slice(0, -1)) {
+        // '/mylara' without the trailing slash -> canonical base
+        redirectToBase()
+      } else if (path.indexOf(base) === 0) {
+        // Deep link inside the app base -> restore it after the redirect
+        sessionStorage.redirect = path + l.search + l.hash
+        redirectToBase()
+      } else {
+        // Outside of the app base there is nothing to restore
+        showNotFound()
       }
     </script>
   </head>

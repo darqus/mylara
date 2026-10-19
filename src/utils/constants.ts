@@ -1,5 +1,3 @@
-// https://wiki.mylara.ru/pages/viewpage.action?pageId=63963614
-
 // Безопасное получение переменных окружения
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
   return import.meta?.env?.[key] ?? defaultValue
@@ -49,23 +47,11 @@ export const PHONES = {
   },
 }
 
-export const DOMAIN = 'mylara.ru'
+// Public URL of the site. The former mylara.ru domain is retired
+// (it does not resolve in DNS anymore), the site lives on GitHub Pages.
+export const SITE_URL = 'https://darqus.github.io/mylara'
 
-const getEmailLabel = (str: string) => `${str}@${DOMAIN}`
-const getEmailLink = (str: string) => `mailto:${getEmailLabel(str)}`
-
-export const getLink = (str: string) => `https://${DOMAIN}/${str}`
-
-export const EMAILS = {
-  INFO: {
-    LABEL: getEmailLabel('info'), // info@mylara.ru
-    LINK: getEmailLink('info'), // mailto:info@mylara.ru
-  },
-  SUPPORT: {
-    LABEL: getEmailLabel('support'), // support@mylara.ru
-    LINK: getEmailLink('support'), // mailto:support@mylara.ru
-  },
-}
+export const getLink = (str: string) => `${SITE_URL}/${str}`
 
 export const SOCIALS = {
   VK: 'https://vk.com/mylara',
@@ -105,12 +91,12 @@ export const COPYRIGHTS = `© 2019-${CURRENT_YEAR} mylara. Все права з�
 
 export const PRIVACY_POLICY = {
   LABEL: 'Политика конфиденциальности',
-  LINK: 'https://mylara.ru/site_privacy',
+  LINK: getLink('site_privacy'),
 }
 
 export const TERMS_OF_USE = {
   LABEL: 'Условия использования',
-  LINK: 'https://mylara.ru/site_terms',
+  LINK: getLink('site_terms'),
 }
 
 export const META = {

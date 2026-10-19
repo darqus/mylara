@@ -383,8 +383,18 @@ describe('Validation rules', () => {
     })
 
     it('should return error message for ages below minimum', () => {
-      // Someone who is 17 (born May 1, 2008)
-      expect(birthDateAgeRangeRule(18, 100)('01.05.2008')).toBe(
+      // Someone one year below the minimum age (computed from the current date
+      // so the test does not rot over time)
+      const underageBirthDate = new Date()
+      underageBirthDate.setFullYear(underageBirthDate.getFullYear() - 17)
+      const pad = (value: number) => String(value).padStart(2, '0')
+      const underageValue = [
+        pad(underageBirthDate.getDate()),
+        pad(underageBirthDate.getMonth() + 1),
+        underageBirthDate.getFullYear(),
+      ].join('.')
+
+      expect(birthDateAgeRangeRule(18, 100)(underageValue)).toBe(
         'Возраст не может быть меньше 18 лет'
       )
 

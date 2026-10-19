@@ -57,7 +57,10 @@ export default route(function (/* { store, ssrContext } */) {
       const app = (appElement as any)?.__vue_app__
 
       if (app?.config?.globalProperties?.$updateCanonicalUrl) {
-        app.config.globalProperties.$updateCanonicalUrl(to.fullPath)
+        // Router.resolve() returns the href including the history base (/mylara/)
+        app.config.globalProperties.$updateCanonicalUrl(
+          Router.resolve(to.fullPath).href
+        )
       }
 
       // Добавляем базовые структурированные данные для страницы

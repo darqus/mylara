@@ -43,9 +43,9 @@ export default boot(({ app }) => {
   // Добавляем базовые структурированные данные для организации
   const { env } = import.meta
 
-  const httpsProtocol = (env?.VITE_HTTPS_PROTOCOL as string) || 'https:'
-  const domain = (env?.VITE_DOMAIN as string) || 'mylara.ru'
-  const baseUrl = `${httpsProtocol}//${domain}`
+  // Public URL of the deployed site (GitHub Pages project site)
+  const baseUrl =
+    (env?.VITE_SITE_URL as string) || 'https://darqus.github.io/mylara'
 
   const orgName = (env?.VITE_NAME_FULL as string) || 'MYLARA'
   const orgDescription =

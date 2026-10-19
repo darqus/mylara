@@ -19,8 +19,13 @@ export type MetaData = {
 
 export const DEFAULT_IMAGE = '/logo.svg'
 
+// GitHub Pages project site is served from a sub-path (/mylara/), so absolute
+// asset URLs must be prefixed with the router base (same value Quasar injects
+// into process.env.VUE_ROUTER_BASE from build.publicPath).
+const ROUTER_BASE = (process.env.VUE_ROUTER_BASE ?? '/').replace(/\/$/, '')
+
 export const BASE_URL =
-  typeof window !== 'undefined' ? window.location.origin : ''
+  typeof window !== 'undefined' ? window.location.origin + ROUTER_BASE : ''
 
 /**
  * Сервис для управления SEO метаданными

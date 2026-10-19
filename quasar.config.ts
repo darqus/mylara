@@ -8,7 +8,7 @@ import packageJson from './package.json'
 
 // Используем прямой доступ к переменным окружения вместо импорта из constants
 
-export default defineConfig((/* ctx */) => ({
+export default defineConfig((ctx) => ({
   // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
   // preFetch: true,
 
@@ -47,7 +47,10 @@ export default defineConfig((/* ctx */) => ({
 
     // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-    publicPath: '/',
+    // The site is hosted on a GitHub Pages project site
+    // (https://darqus.github.io/mylara/), so production assets and the router
+    // base must use the repository path. The dev server keeps the root path.
+    publicPath: ctx.dev ? '/' : '/mylara/',
 
     // analyze: true,
     // env: {},
@@ -67,8 +70,9 @@ export default defineConfig((/* ctx */) => ({
 
     // Консервативная настройка сборки для избежания циркулярных зависимостей
     extendViteConf(viteConf) {
-      // Ensure absolute paths for assets
-      viteConf.base = '/'
+      // Do not override "viteConf.base" here: Quasar CLI derives it from
+      // build.publicPath (and the router base from the same value). Hardcoding
+      // '/' broke asset URLs on the GitHub Pages project site.
 
       // Настройки для правильной работы с GitHub Pages
       viteConf.build = viteConf.build ?? {}
