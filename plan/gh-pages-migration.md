@@ -353,8 +353,22 @@ to 0.1.53` proves the CI version bump is committed and pushed.
 
 Still user-side only: the browser-cached 301 to `http://mylara.ru/`. The server
 does not redirect (curl with browser headers and `Cache-Control: no-cache`
-returns 200), so opening `https://darqus.github.io/mylara/?x=1`, an incognito
-window or clearing site data for `darqus.github.io` resolves it.
+returns 200), and `mylara.ru` is NXDOMAIN on Cloudflare and Google DNS, so the
+stale redirect cannot lead anywhere.
+
+Chromium-based browsers (verified with Brave) keep the stale 301 in the disk
+cache indefinitely, because the old deployment answered without cache headers.
+Firefox solved it by dropping the entry, Brave did not. Fixes, in order of
+increasing effort:
+
+- open `https://darqus.github.io/mylara/index.html` or `…/mylara/?x=1` - a
+  different cache key, and the fresh 200 response (`cache-control: max-age=600`)
+  replaces the entry for the requested URL;
+- `brave://settings/clearBrowserData` -> time range "All time" -> "Cached
+  images and files" (plus "Browsing history", so the omnibox stops suggesting
+  `mylara.ru`);
+- F12 -> Network -> "Disable cache" to confirm the diagnosis (the request for
+  `/mylara/` shows `301` with `(disk cache)` while the cache is enabled).
 
 ## Status
 
