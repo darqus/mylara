@@ -217,11 +217,27 @@ question was whether the authorized-domains entry is needed at all. It is not:
 - README "Manual Deployment" section still describes the `gh-pages` branch
   flow, which does nothing while Pages source is "GitHub Actions".
 
+## Post-deploy verification (live, after push `4fa5a36`)
+
+- `https://darqus.github.io/mylara/` → 200, HTML references
+  `/mylara/assets/vendor-CQHuegr8.js`, `/mylara/assets/index-CZ8dkaRX.js`,
+  `/mylara/assets/index-DEOAWq4K.css`.
+- Those assets → **200** (before the fix the same files were requested from
+  `https://darqus.github.io/assets/...` → 404).
+- Deep link `https://darqus.github.io/mylara/site_privacy` → 404 status with our
+  SPA fallback (`var base = '/mylara/'`), so the route is restored in the
+  browser via `sessionStorage.redirect`.
+- `https://darqus.github.io/mylara/CNAME` → 404 (custom domain no longer
+  published), `sitemap.xml` → `https://darqus.github.io/mylara/`.
+- Observation (pre-existing): the workflow runs `npm run update-env`, which
+  commits a version bump and tries `git push`, but the job declares
+  `permissions: contents: read`, so that push always fails and `package.json`
+  versions are never persisted in the repo.
+
 ## Status
 
 - [x] Audit
 - [x] Plan approved
 - [x] Implementation
 - [x] Tests/build verification (build ✓, lint ✓, 139 unit tests ✓, dev server base check)
-- [ ] Post-deploy check on GitHub Pages (deep link `/mylara/<path>` → 404.html →
-      route restored; no `/assets/...` requests) — after the next push to `main`
+- [x] Post-deploy check on GitHub Pages (assets, deep link, CNAME, sitemap)
