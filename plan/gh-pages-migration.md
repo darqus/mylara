@@ -320,13 +320,51 @@ domain and its redirect, so both files were removed (build output untouched).
 `npm run deploy` (`gh-pages -d dist/spa`) does not delete files that are no
 longer built, so the stale files would otherwise have survived there forever.
 
+## Final verification (after the Pages source was switched to GitHub Actions)
+
+The switch was done in Settings -> Pages by the repository owner. Two side
+effects showed up and were handled:
+
+- Switching the source retires the previous (branch) deployment, so the site
+  answered `404 Site not found · GitHub Pages` until the next Actions deployment
+  published.
+- The run that started while the source was still a branch hung in
+  `Deploy to GitHub Pages`, holding the `pages` concurrency group while the
+  newer runs waited in the queue. `actions/deploy-pages` has a built-in
+  10-minute timeout, so it failed by itself and released the group. The job also
+  got `timeout-minutes: 20` so it can never block the group for the default
+  6 hours again.
+
+Live checks on `https://darqus.github.io/mylara/` (run `ecbaa54c`, all steps
+success, including `Verify the published site`):
+
+| Path | Result |
+| --- | --- |
+| `/mylara/`, `/mylara/index.html` | 200, built SPA (references `/mylara/assets/…`) |
+| `/mylara/assets/index-CBhgoM6c.js` | 200, `application/javascript` |
+| `/mylara/404.html` | 200 |
+| `/mylara/site_privacy` (deep link) | 404 + our SPA fallback (`var base = '/mylara/'`) |
+| `/mylara/package.json`, `/mylara/CNAME` | 404 — the raw repository is no longer published |
+| `/mylara/sitemap.xml`, `robots.txt`, `favicon.svg` | 200 with the expected content types |
+
+No `pages build and deployment` runs appear for the latest pushes, confirming
+that GitHub Actions is now the only publisher, and `9db75dd chore: bump version
+to 0.1.53` proves the CI version bump is committed and pushed.
+
+Still user-side only: the browser-cached 301 to `http://mylara.ru/`. The server
+does not redirect (curl with browser headers and `Cache-Control: no-cache`
+returns 200), so opening `https://darqus.github.io/mylara/?x=1`, an incognito
+window or clearing site data for `darqus.github.io` resolves it.
+
 ## Status
 
 - [x] Audit
 - [x] Plan approved
 - [x] Implementation
 - [x] Tests/build verification (build ✓, lint ✓, 139 unit tests ✓, dev server base check)
-- [x] Post-deploy check on GitHub Pages — passed at 17:57 UTC, then reverted by
-      the legacy branch deployment (see the regression section above)
-- [ ] Pages source switched to GitHub Actions + custom domain field emptied,
-      then re-verified (assets, deep link, no redirect)
+- [x] Post-deploy check on GitHub Pages (degenerated into the raw-repository
+      regression below, now fixed for good)
+- [x] Pages source switched to GitHub Actions (custom domain field already
+      empty) and re-verified: built bundle, assets, deep link, no redirect
+- [x] CI hardened: dead steps removed, version bump works, published site
+      verified after every deploy, job timeout added
