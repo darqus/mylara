@@ -234,10 +234,65 @@ question was whether the authorized-domains entry is needed at all. It is not:
   `permissions: contents: read`, so that push always fails and `package.json`
   versions are never persisted in the repo.
 
+## Regression found after the deploy: the published site is the raw repository
+
+While investigating the reported redirect
+`https://darqus.github.io/mylara/` → `http://mylara.ru/`, the live site was
+probed again and turned out to serve the **repository tree of `main`**, not the
+built artifact:
+
+- `/mylara/` is byte-identical to the repository `index.html` (2263 bytes,
+  sha1 `c1639cf5`): the unprocessed Quasar template with `<%= productName %>`
+  and no `<script>` tags at all → blank page.
+- Source files are publicly served: `/mylara/package.json`,
+  `/mylara/quasar.config.ts`, `/mylara/README.md`, `/mylara/cors.json`,
+  `/mylara/src/App.vue` → 200.
+- `/mylara/assets/...`, `/mylara/favicon.svg`, `/mylara/404.html` → 404.
+
+Cause (visible in the Actions API): every push starts **two** deployments into
+the same GitHub Pages site — `pages build and deployment` (event `dynamic`, the
+legacy "Deploy from a branch" build of `main` / `(root)`) and our
+`Deploy static content to Pages` workflow. They race, and the legacy build
+publishes the raw source tree: at 17:57 UTC the built artifact was live, a
+minute later the legacy build overwrote it. The Pages source must therefore be
+switched to **GitHub Actions**.
+
+### Redirect to `http://mylara.ru/`
+
+- The mechanism was reproduced on a third-party project site that still has a
+  custom domain: `https://jekyll.github.io/jekyll/` → `301 http://jekyllrb.com/`
+  (note the plain `http` scheme — same as the reported redirect).
+- GitHub Pages no longer redirects our URL: `curl` with browser-like
+  `Accept` / `Sec-Fetch-Mode: navigate` headers and `Cache-Control: no-cache`
+  returns 200, and `mylara.ru` appears nowhere in the published files or in any
+  bundle (0 occurrences).
+- Therefore the redirect is a **browser-cached 301** recorded while the custom
+  domain was still configured. A 301 is cached indefinitely; clearing site data
+  for `darqus.github.io`, an incognito window, or appending a query string
+  (new cache key) removes it.
+
+### Hazard left in the repository
+
+The `gh-pages` branch (legacy `npm run deploy` flow) still contains `CNAME` =
+`mylara.ru` and `_config.yml` with `enforce_ssl: mylara.ru`. Selecting that
+branch as the Pages source would bring the custom domain back, and the `deploy`
+script (`gh-pages -d dist/spa`) does not remove files that disappeared from the
+build, so the stale `CNAME` survives. Either delete the branch or clean it.
+
+### Required manual steps (repo admin, GitHub UI)
+
+1. Settings → Pages → Build and deployment → **Source = GitHub Actions**
+   (currently "Deploy from a branch" → `main` / `(root)`).
+2. Settings → Pages → **Custom domain: empty**, then Save.
+3. Clear cached redirects for `darqus.github.io` in the browser.
+
 ## Status
 
 - [x] Audit
 - [x] Plan approved
 - [x] Implementation
 - [x] Tests/build verification (build ✓, lint ✓, 139 unit tests ✓, dev server base check)
-- [x] Post-deploy check on GitHub Pages (assets, deep link, CNAME, sitemap)
+- [x] Post-deploy check on GitHub Pages — passed at 17:57 UTC, then reverted by
+      the legacy branch deployment (see the regression section above)
+- [ ] Pages source switched to GitHub Actions + custom domain field emptied,
+      then re-verified (assets, deep link, no redirect)
