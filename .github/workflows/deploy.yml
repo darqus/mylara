@@ -63,6 +63,39 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Ensure Pages is built from GitHub Actions
+        # The Pages publishing source is a repository setting. Switching it needs
+        # the "Administration: write" permission, which the Actions GITHUB_TOKEN
+        # cannot have, so this step is a no-op unless a personal access token
+        # (fine-grained: Pages write + Administration write, or classic: repo)
+        # is stored in the PAGES_ADMIN_TOKEN secret. Until then the setting has
+        # to be changed once in Settings -> Pages -> Build and deployment.
+        env:
+          PAGES_ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
+        run: |
+          set -uo pipefail
+          if [ -z "${PAGES_ADMIN_TOKEN}" ]; then
+            echo "::notice title=Pages source::PAGES_ADMIN_TOKEN is not set, skipping the Pages source check"
+            exit 0
+          fi
+
+          code=$(curl -sS -o /tmp/pages.json -w '%{http_code}' -X PUT \
+            -H "Authorization: Bearer ${PAGES_ADMIN_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" \
+            -d '{"build_type":"workflow"}')
+          echo "PUT /repos/${GITHUB_REPOSITORY}/pages -> HTTP ${code}"
+
+          if [ "$code" = '200' ] || [ "$code" = '204' ]; then
+            echo "Pages publishing source is GitHub Actions"
+            exit 0
+          fi
+
+          head -c 400 /tmp/pages.json || true
+          echo "::error title=Pages source::could not switch the Pages publishing source (HTTP ${code})"
+          exit 1
+
       - name: Build
         run: npm run build
         env:
