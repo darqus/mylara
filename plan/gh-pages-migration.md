@@ -286,6 +286,40 @@ build, so the stale `CNAME` survives. Either delete the branch or clean it.
 2. Settings → Pages → **Custom domain: empty**, then Save.
 3. Clear cached redirects for `darqus.github.io` in the browser.
 
+## CI/CD hardening (commit `751f705`)
+
+`.github/workflows/deploy.yml`:
+
+- Removed the dead steps: the `404.html` / `.nojekyll` / `.htaccess` /
+  `mime.types` / `_includes` copies are redundant (`public/` is copied into
+  `dist/spa` by the build) and the "Fix JavaScript file extensions" step never
+  matched anything.
+- Added a git identity and `permissions: contents: write`, because
+  `npm run update-env` commits the version bump and pushes it — without an
+  author and write permission that push always failed silently. Verified:
+  `8265cdf chore: bump version to 0.1.52` landed on `main` from CI.
+- Added a `Verify the published site` step: after the deployment it fetches the
+  site (with a cache-busting query and up to 5 retries), looks for the built
+  bundle reference and checks that the asset returns 200. When the site serves
+  the raw repository instead, it emits a warning annotation naming the exact
+  setting to change. This is the guard against the failure mode below.
+
+Could not be automated: switching the Pages publishing source. The REST endpoint
+`PUT /repos/{owner}/{repo}/pages` requires the fine-grained permissions
+`Pages: write` **and** `Administration: write`
+(<https://docs.github.com/en/rest/pages/pages?apiVersion=2022-11-28#update-information-about-a-github-pages-site>),
+and `Administration` is not available to the Actions `GITHUB_TOKEN` at all, so
+the switch has to be done in Settings -> Pages (or by a personal access token
+stored as a secret, which the workflow could then use to self-heal).
+
+### `gh-pages` branch cleanup (commit `cfca0aa` on that branch)
+
+`gh-pages` still carried `CNAME` = `mylara.ru` and `_config.yml` with
+`enforce_ssl: mylara.ru`. Publishing that branch would resurrect the dead custom
+domain and its redirect, so both files were removed (build output untouched).
+`npm run deploy` (`gh-pages -d dist/spa`) does not delete files that are no
+longer built, so the stale files would otherwise have survived there forever.
+
 ## Status
 
 - [x] Audit
