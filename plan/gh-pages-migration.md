@@ -370,6 +370,14 @@ increasing effort:
 - F12 -> Network -> "Disable cache" to confirm the diagnosis (the request for
   `/mylara/` shows `301` with `(disk cache)` while the cache is enabled).
 
+Resolved on 2026-10-19 with `brave://settings/clearBrowserData` (time range
+"All time", "Cached images and files" only). The stale entries were located
+beforehand in `~/.cache/BraveSoftware/Brave-Browser/Default/Cache/Cache_Data/`
+(`7eee4f53aa49818d_0` and `c63daf2649ced232_0`, both `HTTP/1.1 301` with
+`location: http://mylara.ru/` for `https://darqus.github.io/mylara/`), which
+proved the cause was the browser cache and not the deployed site. Firefox had
+already dropped the entry on its own.
+
 ## Status
 
 - [x] Audit
