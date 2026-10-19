@@ -31,6 +31,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Never let a deployment hold the "pages" concurrency group forever
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
