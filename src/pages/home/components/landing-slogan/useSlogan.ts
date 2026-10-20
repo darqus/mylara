@@ -1,5 +1,5 @@
-import { useDataFetching } from 'src/composables/useDataFetching'
-import { getSlogan } from 'src/services/slogan.service'
+import { useDataFetching } from '@/composables/useDataFetching'
+import { getSlogan } from '@/services/slogan.service'
 
 export const useSlogan = () => {
   const {

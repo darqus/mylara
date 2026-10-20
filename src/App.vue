@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { useMeta } from 'quasar'
 import { onMounted } from 'vue'
 
-import { useMeta } from 'quasar'
+import '@/utils/images-migration'
 
-import 'src/utils/images-migration'
-
-import { useAdminAuth } from 'src/composables/useAdminAuth'
-import { meta } from 'src/utils/meta'
+import { useAdminAuth } from '@/composables/useAdminAuth'
+import { meta } from '@/utils/meta'
 
 defineOptions({ name: 'App' })
 

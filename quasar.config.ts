@@ -1,7 +1,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
 
-import { defineConfig } from '#q-app/wrappers'
+import { defineConfig } from '#q-app'
 
 // Импорт package.json для получения версии
 import packageJson from './package.json'
@@ -30,7 +30,7 @@ export default defineConfig((ctx) => ({
   build: {
     target: {
       browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
-      node: 'node20',
+      node: 'node22',
     },
 
     typescript: {
@@ -53,8 +53,12 @@ export default defineConfig((ctx) => ({
     publicPath: ctx.dev ? '/' : '/mylara/',
 
     // analyze: true,
-    // env: {},
-    rawDefine: { VITE_APP_VERSION: JSON.stringify(packageJson.version) },
+    env: {
+      clientPrefix: ['VITE_', 'QCLI_'],
+    },
+    define: {
+      VITE_APP_VERSION: JSON.stringify(packageJson.version),
+    },
 
     // Настройки для правильной генерации модулей
     viteVuePluginOptions: {
@@ -128,21 +132,6 @@ export default defineConfig((ctx) => ({
     },
 
     // viteVuePluginOptions: {},
-
-    vitePlugins: [
-      [
-        'vite-plugin-checker',
-        {
-          // vueTsc: true,
-          eslint: {
-            lintCommand:
-              'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
-            useFlatConfig: true,
-          },
-        },
-        { server: false },
-      ],
-    ],
   },
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver

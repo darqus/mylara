@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { REGEXP } from './validation-patterns'
 
 /**
@@ -138,9 +137,9 @@ export const validDateRule =
 
     // Parse date parts
     const parts = val.split('.')
-    const day = parseInt(parts[0] || '', 10)
-    const month = parseInt(parts[1] || '', 10) - 1 // JS months are 0-based
-    const year = parseInt(parts[2] || '', 10)
+    const day = Number.parseInt(parts[0] || '', 10)
+    const month = Number.parseInt(parts[1] || '', 10) - 1 // JS months are 0-based
+    const year = Number.parseInt(parts[2] || '', 10)
 
     // Create date object and verify parts match (handles invalid dates like Feb 31)
     const date = new Date(year, month, day)
@@ -204,9 +203,9 @@ export const birthDateAgeRangeRule =
 
     // Parse date parts
     const parts = val.split('.')
-    const day = parseInt(parts[0] || '', 10)
-    const month = parseInt(parts[1] || '', 10) - 1 // JS months are 0-based
-    const year = parseInt(parts[2] || '', 10)
+    const day = Number.parseInt(parts[0] || '', 10)
+    const month = Number.parseInt(parts[1] || '', 10) - 1 // JS months are 0-based
+    const year = Number.parseInt(parts[2] || '', 10)
 
     // Create date object for birth date
     const birthDate = new Date(year, month, day)

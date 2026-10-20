@@ -18,15 +18,16 @@ import routes from './routes'
  * with the Router instance.
  */
 
-export default route(function (/* { store, ssrContext } */) {
-  const createHistory = process.env.SERVER
+export default route((/* { store, ssrContext } */) => {
+  const createHistory = import.meta.env.QUASAR_SERVER
     ? createMemoryHistory
-    : process.env.VUE_ROUTER_MODE === 'history'
+    : import.meta.env.VUE_ROUTER_MODE === 'history' ||
+        import.meta.env.VITE_ROUTER_MODE === 'history'
       ? createWebHistory
       : createWebHashHistory
 
   const Router = createRouter({
-    scrollBehavior: (to, from, savedPosition) => {
+    scrollBehavior: (_to, _from, savedPosition) => {
       if (savedPosition) {
         return savedPosition
       } else {
@@ -41,7 +42,12 @@ export default route(function (/* { store, ssrContext } */) {
     // Leave this as is and make changes in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
-    history: createHistory(process.env.VUE_ROUTER_BASE),
+    history: createHistory(
+      import.meta.env.BASE_URL ||
+        import.meta.env.VITE_ROUTER_BASE ||
+        import.meta.env.VUE_ROUTER_BASE ||
+        '/'
+    ),
   })
 
   // Добавляем navigation guard для защиты админских маршрутов
@@ -53,7 +59,7 @@ export default route(function (/* { store, ssrContext } */) {
     setTimeout(() => {
       // Получаем доступ к глобальным свойствам через app
       const appElement = document.querySelector('#q-app')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: Vue app instance is not typed on the DOM node
       const app = (appElement as any)?.__vue_app__
 
       if (app?.config?.globalProperties?.$updateCanonicalUrl) {

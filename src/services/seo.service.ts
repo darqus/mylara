@@ -1,5 +1,5 @@
-import { META } from 'src/utils/constants'
-import { DESCRIPTION, TITLE } from 'src/utils/meta'
+import { META } from '@/utils/constants'
+import { DESCRIPTION, TITLE } from '@/utils/meta'
 
 export type MetaData = {
   title?: string
@@ -21,8 +21,13 @@ export const DEFAULT_IMAGE = '/logo.svg'
 
 // GitHub Pages project site is served from a sub-path (/mylara/), so absolute
 // asset URLs must be prefixed with the router base (same value Quasar injects
-// into process.env.VUE_ROUTER_BASE from build.publicPath).
-const ROUTER_BASE = (process.env.VUE_ROUTER_BASE ?? '/').replace(/\/$/, '')
+// into build.publicPath / import.meta.env.BASE_URL).
+const ROUTER_BASE = (
+  import.meta.env.BASE_URL ||
+  import.meta.env.VITE_ROUTER_BASE ||
+  import.meta.env.VUE_ROUTER_BASE ||
+  '/'
+).replace(/\/$/, '')
 
 export const BASE_URL =
   typeof window !== 'undefined' ? window.location.origin + ROUTER_BASE : ''

@@ -1,6 +1,5 @@
-import { computed } from 'vue'
-
 import { useQuasar } from 'quasar'
+import { computed } from 'vue'
 
 export const useDevice = () => {
   const $q = useQuasar()

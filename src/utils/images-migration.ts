@@ -9,7 +9,7 @@
  * 3. Выполните: await window.imagesMigration.migrateAllImages()
  */
 
-import { useBase64Image } from 'src/composables/useBase64Image'
+import { useBase64Image } from '@/composables/useBase64Image'
 
 type CollectionItem = {
   id: string
@@ -67,7 +67,7 @@ async function migrateCollection(
   collectionName: string,
   imageOptions: { maxWidth: number; maxHeight: number; quality: number }
 ) {
-  const { firestoreService } = await import('src/services/firestore.service')
+  const { firestoreService } = await import('@/services/firestore.service')
 
   const response =
     await firestoreService.getCollection<CollectionItem>(collectionName)
@@ -83,7 +83,7 @@ async function migrateCollection(
 
   const { items } = response
 
-  // eslint-disable-next-line no-console
+  // biome-ignore lint/suspicious/noConsole: migration progress logging
   console.log(`Найдено ${items.length} записей в коллекции ${collectionName}`)
 
   for (const item of items) {
@@ -92,7 +92,7 @@ async function migrateCollection(
       typeof item.img === 'string' &&
       item.img.startsWith('http')
     ) {
-      // eslint-disable-next-line no-console
+      // biome-ignore lint/suspicious/noConsole: migration progress logging
       console.log(`Миграция изображения для записи ${item.id}...`)
 
       const base64Image = await convertImageUrlToBase64(item.img, imageOptions)
@@ -102,7 +102,7 @@ async function migrateCollection(
           ...item,
           img: base64Image,
         })
-        // eslint-disable-next-line no-console
+        // biome-ignore lint/suspicious/noConsole: migration progress logging
         console.log(`✅ Успешно обновлена запись ${item.id}`)
       } else {
         console.error(
@@ -112,7 +112,7 @@ async function migrateCollection(
     }
   }
 
-  // eslint-disable-next-line no-console
+  // biome-ignore lint/suspicious/noConsole: migration progress logging
   console.log(`🎉 Миграция коллекции ${collectionName} завершена!`)
 }
 
@@ -142,19 +142,19 @@ export async function migrateSlidesImages() {
  * Полная миграция обеих коллекций
  */
 export async function migrateAllImages() {
-  // eslint-disable-next-line no-console
+  // biome-ignore lint/suspicious/noConsole: migration progress logging
   console.log('🚀 Начинаем миграцию изображений в base64...')
 
   await migrateCarouselImages()
   await migrateSlidesImages()
 
-  // eslint-disable-next-line no-console
+  // biome-ignore lint/suspicious/noConsole: migration progress logging
   console.log('✅ Миграция всех изображений завершена!')
 }
 
 // Добавляем функции в глобальный объект для использования в консоли
 if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: expose migration helpers on window
   ;(window as any).imagesMigration = {
     migrateCarouselImages,
     migrateSlidesImages,

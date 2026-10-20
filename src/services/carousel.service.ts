@@ -1,4 +1,4 @@
-import type { CollectionResponse } from 'src/types/api'
+import type { CollectionResponse } from '@/types/api'
 
 import { firestoreService } from './firestore.service'
 

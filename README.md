@@ -4,27 +4,24 @@ A Quasar Framework app for Mylara landing page with comprehensive code formattin
 
 ## 🎨 Code Formatting
 
-This project uses an advanced formatting system that integrates multiple tools:
+This project uses [Biome](https://biomejs.dev) as its single formatter and
+linter for JavaScript, TypeScript, Vue and JSON:
 
 ```bash
-# Quick start - validate and format your code
-npm run format:validate    # Check configuration
-npm run format:quick       # Fast formatting for development
-npm run format            # Full formatting with type checking
+npm run lint          # biome check . - report problems
+npm run fix           # biome check --write --unsafe - format and fix
+npm run typecheck     # vue-tsc --noEmit - full type check
 ```
 
 **Key features:**
 
-- ✅ **Prettier** - Code structure formatting
-- ✅ **ESLint** - Quality checks with custom rules from `.config/`
-- ✅ **Stylelint** - SCSS/CSS formatting and validation
-- ✅ **VS Code integration** - Auto-format on save
-- ✅ **TypeScript** - Full type checking
+- ✅ **Biome** - Formatting, linting and import sorting
+- ✅ **VS Code integration** - Biome extension, auto-format on save
+- ✅ **TypeScript** - Type checking via `vue-tsc`
 
 📚 **Documentation:**
 
-- [Quick Guide](docs/format-quick-guide.md) - Essential commands
-- [Complete System](docs/format-system.md) - Full documentation
+- [Formatting](docs/formatting.md) - Biome usage and conventions
 - [Breakpoints System](docs/quasar-breakpoints-system.md) - Responsive design with Quasar
 - [Breakpoints Examples](docs/breakpoints-examples.md) - Practical usage examples
 

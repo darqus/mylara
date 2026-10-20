@@ -241,9 +241,9 @@ export const convertCustomFormatToIso = (
     !day ||
     !month ||
     !year ||
-    isNaN(Number(day)) ||
-    isNaN(Number(month)) ||
-    isNaN(Number(year))
+    Number.isNaN(Number(day)) ||
+    Number.isNaN(Number(month)) ||
+    Number.isNaN(Number(year))
   ) {
     return null
   }
@@ -294,7 +294,7 @@ export const convertDateTimeToISO = (date: string, time: string): string => {
     )
 
     // Проверяем, что дата действительна
-    if (isNaN(dateObj.getTime())) {
+    if (Number.isNaN(dateObj.getTime())) {
       return ''
     }
 
@@ -324,7 +324,7 @@ export const isCorrectDate = (dateString: string): boolean => {
   const year = Number(yearStr)
 
   // Проверяем, что год, месяц и день являются числами
-  if (isNaN(year) || isNaN(month) || isNaN(day)) {
+  if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
     return false
   }
 
@@ -394,7 +394,7 @@ export const getIsoDateFromIsoDateAndMinutes = (
     const date = new Date(isoDate)
 
     // Проверяем, что входная дата корректна
-    if (isNaN(date.getTime())) {
+    if (Number.isNaN(date.getTime())) {
       // Silently return the original input without console.error
       // to avoid test errors for expected invalid inputs
       return isoDate
@@ -435,7 +435,7 @@ export const getRemainingTime = (endDate: string): string => {
     const end = new Date(endDate)
 
     // Проверяем валидность входной даты
-    if (isNaN(end.getTime())) {
+    if (Number.isNaN(end.getTime())) {
       // Silently return default value without console.error
       // to avoid test errors for expected invalid inputs
       return '0 дней 0 часов 0 минут'
@@ -445,7 +445,7 @@ export const getRemainingTime = (endDate: string): string => {
     end.setHours(0, 0, 0, 0)
 
     // Получаем текущее время с учетом временной зоны
-    const now = new Date().getTime()
+    const now = Date.now()
     const diff = end.getTime() - now
 
     // Вычисляем дни, часы и минуты

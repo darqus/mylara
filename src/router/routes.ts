@@ -1,21 +1,20 @@
-import { type RouteRecordRaw } from 'vue-router'
-
-import { ROUTE_PATH } from 'src/types/route-paths'
-import { ROUTER_BASE } from 'src/utils/constants'
+import { ROUTE_PATH } from '@/types/route-paths'
+import { ROUTER_BASE } from '@/utils/constants'
+import type { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
     path: ROUTER_BASE,
-    component: async () => await import('layouts/LandingLayout.vue'),
+    component: async () => await import('@/layouts/LandingLayout.vue'),
     children: [
       {
         path: '',
-        component: async () => await import('pages/home/HomePage.vue'),
+        component: async () => await import('@/pages/home/HomePage.vue'),
       },
       {
         path: ':catchAll(.*)*',
         component: async () =>
-          await import('pages/error/ErrorNotFoundPage.vue'),
+          await import('@/pages/error/ErrorNotFoundPage.vue'),
       },
     ],
   },
@@ -24,16 +23,16 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ROUTE_PATH.ADMIN_LOGIN.replace(`${ROUTE_PATH.ADMIN}/`, ''),
-        component: async () => await import('pages/admin/AdminLoginPage.vue'),
+        component: async () => await import('@/pages/admin/AdminLoginPage.vue'),
       },
       {
         path: '',
-        component: async () => await import('layouts/AdminLayout.vue'),
+        component: async () => await import('@/layouts/AdminLayout.vue'),
         children: [
           {
             path: '',
             component: async () =>
-              await import('pages/admin/AdminDashboardPage.vue'),
+              await import('@/pages/admin/AdminDashboardPage.vue'),
           },
           {
             path: ROUTE_PATH.ADMIN_COLLECTION_PATTERN.replace(
@@ -41,7 +40,7 @@ const routes: RouteRecordRaw[] = [
               ''
             ),
             component: async () =>
-              await import('pages/admin/AdminCollectionPage.vue'),
+              await import('@/pages/admin/AdminCollectionPage.vue'),
           },
         ],
       },

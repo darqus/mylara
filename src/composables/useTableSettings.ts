@@ -1,7 +1,6 @@
-import { computed, ref, unref, watch } from 'vue'
-import type { MaybeRefOrGetter } from 'vue'
-
 import { LocalStorage } from 'quasar'
+import type { MaybeRefOrGetter } from 'vue'
+import { computed, ref, unref, watch } from 'vue'
 
 /**
  * Настройки таблицы для сохранения в localStorage

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import type { QCard } from 'quasar'
+import { ref } from 'vue'
 
 defineOptions({ name: 'TermsOfUseDialog' })
 
@@ -14,9 +13,7 @@ withDefaults(
   }
 )
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
+const emit = defineEmits<(e: 'update:modelValue', value: boolean) => void>()
 
 const cardRef = ref<QCard | null>(null)
 

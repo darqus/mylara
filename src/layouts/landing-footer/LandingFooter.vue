@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 import './scss/landing-footer.scss'
-import PrivacyPolicyDialog from 'src/components/common/PrivacyPolicyDialog.vue'
-import TermsOfUseDialog from 'src/components/common/TermsOfUseDialog.vue'
-import { APP_VERSION, BUILD_DATE } from 'src/utils/meta'
+import PrivacyPolicyDialog from '@/components/common/PrivacyPolicyDialog.vue'
+import TermsOfUseDialog from '@/components/common/TermsOfUseDialog.vue'
+import { APP_VERSION, BUILD_DATE } from '@/utils/meta'
 
 // Function to open external links
 const openExternalLink = (url: string) => {

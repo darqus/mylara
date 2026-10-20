@@ -1,141 +1,45 @@
-# Code Formatting & Linting Setup
+# Форматирование и линтинг
 
-This project uses a comprehensive code formatting and linting setup that enforces consistent code style across JavaScript, TypeScript, Vue, and SCSS files.
+В проекте единственный форматтер и линтер для JS/TS/Vue/JSON — [Biome](https://biomejs.dev).
+ESLint, Prettier и Stylelint удалены.
 
-## Configuration Files
-
-### ESLint Configuration
-
-- **Main config**: `eslint.config.js` - Modern flat config format
-- **Custom rules**: `.config/eslint-rules/` - Custom ESLint rules organized by modules:
-  - `index.js` - Main rules export
-  - `modules/common.js` - Common JavaScript/TypeScript rules
-  - `modules/ts.js` - TypeScript-specific rules
-  - `modules/vue.js` - Vue.js-specific rules
-
-### Prettier Configuration
-
-- **Config**: `.prettierrc.json` - Code formatting settings
-- **Ignore**: `.prettierignore` - Files to exclude from formatting
-
-### Stylelint Configuration
-
-- **Config**: `stylelint.config.mjs` - SCSS/CSS linting rules
-
-## Format Scripts
-
-### `./format.sh` - Full Formatting (Recommended)
-
-Complete formatting with TypeScript type checking:
+## Команды
 
 ```bash
-./format.sh
-# or
-npm run format
+npm run lint       # biome check .            — проверить и показать проблемы
+npm run fix        # biome check --write --unsafe --files-ignore-unknown=true . — формат + автофиксы
+npm run typecheck  # vue-tsc --noEmit         — проверка типов
 ```
 
-**What it does:**
+Проверка перед коммитом: `npm run fix && npm run typecheck && npm run test:unit:ci`.
 
-1. Runs Prettier to format all supported files
-2. Runs ESLint with full TypeScript type checking and auto-fixes
-3. Runs Stylelint to fix SCSS issues
-4. Uses caching for better performance
+## Конфигурация
 
-### `./format-quick.sh` - Quick Development Formatting
+- `biome.json` — единственный источник правил.
+  - Формат: 2 пробела, одинарные кавычки, без точек с запятой, trailing commas `es5`, `lineWidth: 80`.
+  - Импорты сортирует `assist.actions.source.organizeImports` (заменяет `import/order`).
+  - Кастомные правила проекта: `useConsistentTypeDefinitions` (`type`), `noConsole` (warn, разрешены warn/error),
+    `noExplicitAny` (warn), `noNonNullAssertion` (error), `noParameterAssign` (error), `useOptionalChain` (error) и т.д.
+- Глобальный `biome` установлен в `~/.local/bin/biome`. В `package.json` его нет намеренно — обновляется централизованно.
+  В CI используется пиннутая версия: `npm exec --yes --package=@biomejs/biome@<ver> -- biome check src/`.
 
-Faster formatting for development without heavy type checking:
+## Vue и SCSS
 
-```bash
-./format-quick.sh
-# or
-npm run format:quick
-```
+- В `.vue` Biome форматирует и линтит `<script>`; `<template>` и `<style>` не трогает (поддержка Vue в Biome
+  экспериментальная и намеренно не включается).
+- SCSS Biome не поддерживает. Форматируется встроенным форматтером VS Code (`vscode.css-language-features`,
+  см. `[scss]` в `.vscode/settings.json`); стилевая дисциплина — на ревью.
 
-**What it does:**
+## Ограничения по сравнению с прежним ESLint
 
-1. Runs Prettier to format all supported files
-2. Runs ESLint with syntax checking only (faster)
-3. Runs Stylelint to fix SCSS issues
-4. Uses caching for better performance
+- Кастомные группы `import/order` заменены встроенной сортировкой импортов Biome.
+- Type-aware правила (`no-floating-promises`, `no-misused-promises`, `no-unnecessary-type-assertion` и др.) отсутствуют —
+  типы проверяет `vue-tsc`.
+- Частые `vue/*` правила шаблона (`attributes-order`, `block-order`, `require-default-prop`, `no-v-html` и др.)
+  в Biome пока не реализованы.
 
-## Supported File Types
+## VS Code
 
-- **JavaScript**: `.js`, `.mjs`, `.cjs`
-- **TypeScript**: `.ts`, `.mts`
-- **Vue**: `.vue`
-- **Styles**: `.scss`
-
-## Key Features
-
-### Custom ESLint Rules
-
-The project uses custom ESLint rules defined in `.config/eslint-rules/`:
-
-- **Import ordering**: Enforces consistent import statement organization
-- **Indentation**: Custom indentation rules for different contexts
-- **Vue-specific**: Component ordering, template formatting
-- **TypeScript**: Type definitions, naming conventions
-- **Code style**: Semicolons, quotes, spacing, etc.
-
-### Performance Optimizations
-
-- **Caching**: Both ESLint and Stylelint use caching (`.eslintcache`, `.stylelintcache`)
-- **Incremental**: Only processes changed files when possible
-- **Parallel processing**: Tools run with optimal performance settings
-
-### IDE Integration
-
-The configuration works seamlessly with VS Code and other editors that support:
-
-- ESLint extension
-- Prettier extension
-- Stylelint extension
-
-## Manual Commands
-
-If you need to run tools individually:
-
-```bash
-# Prettier only
-npx prettier --write "**/*.{ts,mts,js,mjs,cjs,vue,scss}" --config .prettierrc.json
-
-# ESLint only
-npx eslint --fix "**/*.{ts,mts,js,mjs,cjs,vue}" --config eslint.config.js
-
-# Stylelint only
-npx stylelint --fix "**/*.scss" --config stylelint.config.mjs
-```
-
-## Cache Management
-
-Linting caches are stored in:
-
-- `.eslintcache` - ESLint cache
-- `.stylelintcache` - Stylelint cache
-
-These files are automatically ignored by git. To clear caches:
-
-```bash
-rm -f .eslintcache .stylelintcache
-```
-
-## Troubleshooting
-
-### Slow Performance
-
-- Use `./format-quick.sh` for faster development formatting
-- Clear caches if experiencing issues: `rm -f .eslintcache .stylelintcache`
-
-### Configuration Issues
-
-- Ensure all config files are properly formatted
-- Check that custom rules in `.config/eslint-rules/` are valid JavaScript
-- Verify that all required dependencies are installed
-
-### Rule Conflicts
-
-The order of operations prevents conflicts:
-
-1. Prettier formats first (structure/spacing)
-2. ESLint fixes code issues and applies custom rules
-3. Stylelint handles SCSS-specific formatting
+- Расширения: `biomejs.biome`, `vue.volar`.
+- Формат при сохранении и `source.organizeImports.biome` настроены в `.vscode/settings.json`.
+- Задачи `Typecheck`, `Lint + Fix`, `Full Check (Lint + Typecheck)` — в `.vscode/tasks.json`.

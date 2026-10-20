@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 import { useQuasar } from 'quasar'
-
-import { useTableSettingsManager } from 'src/composables/useTableSettings'
+import { useTableSettingsManager } from '@/composables/useTableSettings'
+import { onMounted, ref } from 'vue'
 
 defineOptions({ name: 'TableSettingsManagerPage' })
 
@@ -40,7 +38,7 @@ function formatBytes(bytes: number): string {
   const sizes = ['Bytes', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
 }
 
 function exportSettings() {

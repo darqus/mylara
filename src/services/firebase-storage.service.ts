@@ -1,13 +1,11 @@
+import type { FirebaseStorage } from 'firebase/storage'
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
 } from 'firebase/storage'
-
 import { getFirebaseStorage } from './firebase'
-
-import type { FirebaseStorage } from 'firebase/storage'
 
 export type UploadProgress = {
   percentage: number

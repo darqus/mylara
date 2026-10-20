@@ -34,7 +34,7 @@ export const CURRENT_YEAR = new Date().getFullYear()
 export const ID_PREFIX = '#'
 
 export const REDIRECT_PATH =
-  process.env.NODE_ENV === 'production'
+  import.meta.env.QUASAR_PROD
     ? VITE_REDIRECT_PATH
     : VITE_REDIRECT_PATH_DEV
 

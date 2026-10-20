@@ -1,7 +1,6 @@
+import { useAdminAuth } from '@/composables/useAdminAuth'
+import { ROUTE_PATH } from '@/types/route-paths'
 import { watch } from 'vue'
-
-import { useAdminAuth } from 'src/composables/useAdminAuth'
-import { ROUTE_PATH } from 'src/types/route-paths'
 
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
@@ -11,7 +10,7 @@ import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
  */
 export function adminAuthGuard(
   to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
+  _from: RouteLocationNormalized,
   next: NavigationGuardNext
 ): void {
   // Проверяем, является ли маршрут админским (кроме логина)

@@ -1,11 +1,10 @@
 <script setup lang="ts">
+import DataLoader from '@/components/common/data-loader/DataLoader.vue'
+import { useDevice } from '@/composables/useDevice'
+import { useImageErrorHandling } from '@/composables/useImageErrorHandling'
+import type { CarouselItem } from '@/services/carousel.service'
+import { getCarouselItems } from '@/services/carousel.service'
 import { onMounted, ref } from 'vue'
-
-import DataLoader from 'src/components/common/data-loader/DataLoader.vue'
-import { useDevice } from 'src/composables/useDevice'
-import { useImageErrorHandling } from 'src/composables/useImageErrorHandling'
-import { getCarouselItems } from 'src/services/carousel.service'
-import type { CarouselItem } from 'src/services/carousel.service'
 
 import './scss/landing-carousel.scss'
 
@@ -200,12 +199,10 @@ onMounted(() => {
         v-if="selectedItem.info"
         class="q-pt-none"
       >
-        <!-- eslint-disable vue/no-v-html -->
         <div
           class="text-body2 text-grey-7"
           v-html="selectedItem.info"
         />
-        <!-- eslint-enable vue/no-v-html -->
 
         <!-- Дополнительные детали -->
         <q-separator class="q-my-md" />

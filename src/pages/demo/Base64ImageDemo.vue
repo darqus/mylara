@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import Base64Image from '@/components/common/Base64Image.vue'
+import Base64ImageUploader from '@/components/common/Base64ImageUploader.vue'
 import { ref } from 'vue'
-
-import Base64Image from 'src/components/common/Base64Image.vue'
-import Base64ImageUploader from 'src/components/common/Base64ImageUploader.vue'
 import './scss/base64-image-demo.scss'
 
 defineOptions({ name: 'Base64ImageDemo' })

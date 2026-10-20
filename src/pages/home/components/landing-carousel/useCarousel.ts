@@ -1,8 +1,8 @@
-import { useDataFetching } from 'src/composables/useDataFetching'
-import type { CarouselItem } from 'src/services/carousel.service'
-import { getCarouselItems } from 'src/services/carousel.service'
+import { useDataFetching } from '@/composables/useDataFetching'
+import type { CarouselItem } from '@/services/carousel.service'
+import { getCarouselItems } from '@/services/carousel.service'
 
-export { CarouselItem }
+export type { CarouselItem }
 
 export const useCarouselData = () => {
   const {

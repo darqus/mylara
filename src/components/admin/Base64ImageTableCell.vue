@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import { useBase64Image } from '@/composables/useBase64Image'
 import { computed } from 'vue'
-
-import { useBase64Image } from 'src/composables/useBase64Image'
 
 defineOptions({ name: 'Base64ImageTableCell' })
 
@@ -15,9 +14,7 @@ type Props = {
   rounded?: boolean
 }
 
-type Emits = {
-  (e: 'click'): void
-}
+type Emits = (e: 'click') => void
 
 const props = withDefaults(defineProps<Props>(), {
   base64Src: null,

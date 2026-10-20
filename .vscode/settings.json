@@ -1,53 +1,41 @@
 {
   "editor.formatOnSave": true,
-  // Let Prettier handle formatting; ESLint handles code-quality/organize imports
-  "eslint.format.enable": false,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue"
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.biome": "explicit"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["/package.json"],
+      "url": "https://www.schemastore.org/package.json"
+    }
   ],
-  "eslint.codeActionsOnSave.mode": "problems",
-  "stylelint.validate": ["css", "scss", "vue"],
-  "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit",
-      "source.organizeImports": "never"
-    }
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit",
-      "source.organizeImports": "never"
-    }
-  },
+  "cSpell.words": [
+    "autogrow",
+    "darqus",
+    "firestore",
+    "mylara",
+    "nojekyll",
+    "ref",
+    "VITE"
+  ],
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
     "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
-      "source.fixAll.eslint": "explicit",
-      "source.organizeImports": "never"
+      "source.fixAll": "always",
+      "source.fixAll.biome": "always",
+      "source.organizeImports.biome": "always"
     }
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
-      "source.fixAll.stylelint": "explicit"
-    }
+    "editor.defaultFormatter": "vscode.css-language-features"
   },
   "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.prettier": "explicit",
-      "source.fixAll.stylelint": "explicit"
-    }
-  },
-  "cSpell.words": ["autogrow", "firestore", "ref", "VITE"]
+    "editor.defaultFormatter": "vscode.css-language-features"
+  }
 }

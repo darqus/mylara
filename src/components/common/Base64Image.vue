@@ -1,16 +1,13 @@
 <script setup lang="ts">
+import { useBase64Image } from '@/composables/useBase64Image'
 import { computed } from 'vue'
-
-import { useBase64Image } from 'src/composables/useBase64Image'
 
 defineOptions({ name: 'Base64Image' })
 
 type Props = {
   src?: string | null
   alt?: string
-  // eslint-disable-next-line vue/require-default-prop
   width?: number | string
-  // eslint-disable-next-line vue/require-default-prop
   height?: number | string
   fit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none'
   loading?: 'lazy' | 'eager'
@@ -31,9 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
   clickable: false,
 })
 
-type Emits = {
-  (e: 'click'): void
-}
+type Emits = (e: 'click') => void
 
 const emit = defineEmits<Emits>()
 

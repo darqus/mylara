@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'src/types/admin'
+import type { CollectionConfig } from '@/types/admin'
 
 /**
  * Конфигурация коллекций для админки

@@ -1,9 +1,9 @@
-import { boot } from 'quasar/wrappers'
+import { boot } from 'quasar/wrappers' // keep; type resolved via @quasar/app-vite types
 
 // Этот файл загружается при инициализации приложения
 // и настраивает базовые SEO-функции
 
-export default boot(({ app }) => {
+export default boot(({ app }: { app: any }) => {
   // Добавляем обработчик изменения маршрута для обновления канонического URL
   app.config.globalProperties.$updateCanonicalUrl = (path: string) => {
     // Удаляем старый канонический URL, если он существует

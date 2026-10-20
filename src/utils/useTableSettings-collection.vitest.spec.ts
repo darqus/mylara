@@ -1,8 +1,7 @@
-import { ref } from 'vue'
+import { useTableSettings } from '@/composables/useTableSettings'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-import { useTableSettings } from 'src/composables/useTableSettings'
+import { ref } from 'vue'
 
 // Мокаем LocalStorage от Quasar (hoisted)
 const mockLocalStorage = vi.hoisted(() => ({

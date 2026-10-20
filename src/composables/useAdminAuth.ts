@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import type { User } from 'firebase/auth'
 
 import {
   createUserWithEmailAndPassword,
@@ -7,9 +7,8 @@ import {
   signOut,
 } from 'firebase/auth'
 
-import { getFirebaseAuth } from 'src/services/firebase'
-
-import type { User } from 'firebase/auth'
+import { getFirebaseAuth } from '@/services/firebase'
+import { computed, ref } from 'vue'
 
 // Используем отложенную инициализацию для избежания проблем с hoisting
 function createState() {

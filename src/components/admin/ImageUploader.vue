@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import type { ImageUploadOptions } from '@/services/firebase-storage.service'
 
-import { firebaseStorageService } from 'src/services/firebase-storage.service'
-import type { ImageUploadOptions } from 'src/services/firebase-storage.service'
+import { firebaseStorageService } from '@/services/firebase-storage.service'
+import { computed, ref, watch } from 'vue'
 
 defineOptions({ name: 'ImageUploader' })
 
@@ -196,7 +196,7 @@ function formatFileSize(bytes: number): string {
   const sizes = ['Bytes', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
 }
 
 function extractFileNameFromUrl(url: string): string {

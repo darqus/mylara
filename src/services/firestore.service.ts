@@ -9,7 +9,7 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 
-import type { CollectionResponse, DocumentResponse } from 'src/types/api'
+import type { CollectionResponse, DocumentResponse } from '@/types/api'
 
 import { getFirebaseAuth, getFirebaseDb } from './firebase'
 

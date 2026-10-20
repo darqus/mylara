@@ -1,7 +1,7 @@
-import { execSync } from 'child_process'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { execSync } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -26,12 +26,12 @@ let { version } = packageJson
 // Инкремент патч-версии (третье число)
 const versionParts = version.split('.')
 
-versionParts[2] = parseInt(versionParts[2]) + 1
-if (parseInt(versionParts[2]) > 99) {
-  versionParts[1] = parseInt(versionParts[1]) + 1
+versionParts[2] = Number.parseInt(versionParts[2], 10) + 1
+if (Number.parseInt(versionParts[2], 10) > 99) {
+  versionParts[1] = Number.parseInt(versionParts[1], 10) + 1
   versionParts[2] = '0'
-  if (parseInt(versionParts[1]) > 99) {
-    versionParts[0] = parseInt(versionParts[0]) + 1
+  if (Number.parseInt(versionParts[1], 10) > 99) {
+    versionParts[0] = Number.parseInt(versionParts[0], 10) + 1
     versionParts[1] = '0'
   }
 }

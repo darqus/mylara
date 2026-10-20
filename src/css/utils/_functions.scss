@@ -1,6 +1,3 @@
-/* stylelint-disable scss/no-global-function-names */
-/* stylelint-disable function-no-unknown */
-/* stylelint-disable scss/at-if-no-null */
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.
 @mixin _assert-ascending($map, $map-name) {

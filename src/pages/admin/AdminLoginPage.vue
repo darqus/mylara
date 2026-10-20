@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
-import { useRouter } from 'vue-router'
-
-import { useQuasar } from 'quasar'
 import type { QForm } from 'quasar'
-
-import { useAdminAuth } from 'src/composables/useAdminAuth'
-import { usePasswordVisibility } from 'src/composables/usePasswordVisibility'
-import { ROUTE_PATH } from 'src/types/route-paths'
+import { useQuasar } from 'quasar'
+import { useAdminAuth } from '@/composables/useAdminAuth'
+import { usePasswordVisibility } from '@/composables/usePasswordVisibility'
+import { ROUTE_PATH } from '@/types/route-paths'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'AdminLoginPage' })
 

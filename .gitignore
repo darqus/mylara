@@ -30,8 +30,3 @@ npm-error.log*
 
 # local .env files
 .env.local
-
-# Linting cache files
-.eslintcache
-.stylelintcache
-.prettierCache

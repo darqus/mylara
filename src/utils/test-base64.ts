@@ -1,5 +1,5 @@
 // Тестовый файл для проверки composable useBase64Image
-import { useBase64Image } from 'src/composables/useBase64Image'
+import { useBase64Image } from '@/composables/useBase64Image'
 
 // Тест создания base64 из файла
 export async function testBase64Image() {
@@ -57,6 +57,6 @@ export async function testBase64Image() {
 
 // Экспортируем для использования в консоли браузера
 if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: expose helper in browser console
   ;(window as any).testBase64Image = testBase64Image
 }

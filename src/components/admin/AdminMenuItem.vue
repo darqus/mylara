@@ -1,9 +1,7 @@
 <script setup lang="ts">
+import { ROUTE_PATH } from '@/types/route-paths'
 import { computed } from 'vue'
-
 import { useRoute } from 'vue-router'
-
-import { ROUTE_PATH } from 'src/types/route-paths'
 
 defineOptions({ name: 'AdminMenuItem' })
 
