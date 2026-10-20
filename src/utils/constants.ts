@@ -1,23 +1,25 @@
-// Безопасное получение переменных окружения
-const getEnvVar = (key: string, defaultValue: string = ''): string => {
-  return import.meta?.env?.[key] ?? defaultValue
-}
+// NOTE: env access here MUST stay static (`import.meta.env.VITE_X`).
+// Dynamic access (`import.meta.env[key]`, spreading or destructuring the whole
+// object) stops Vite from replacing values at build time and forces the ENTIRE
+// client env (every VITE_* variable, including dev-only secrets) into the
+// bundle. Verified with a prod build: the whole env object was inlined into
+// dist/spa/assets/constants-*.js until this was fixed.
+const VITE_NAME_FULL: string = import.meta.env.VITE_NAME_FULL ?? 'MYLARA'
+const VITE_REDIRECT_PATH: string = import.meta.env.VITE_REDIRECT_PATH ?? ''
+const VITE_REDIRECT_PATH_DEV: string =
+  import.meta.env.VITE_REDIRECT_PATH_DEV ?? ''
 
-const VITE_NAME_FULL = getEnvVar('VITE_NAME_FULL', 'MYLARA')
-const VITE_REDIRECT_PATH = getEnvVar('VITE_REDIRECT_PATH', '')
-const VITE_REDIRECT_PATH_DEV = getEnvVar('VITE_REDIRECT_PATH_DEV', '')
+export const VITE_DESCRIPTION: string = import.meta.env.VITE_DESCRIPTION ?? ''
 
-export const VITE_DESCRIPTION = getEnvVar('VITE_DESCRIPTION', '')
+export const VITE_KEYWORDS: string = import.meta.env.VITE_KEYWORDS ?? ''
 
-export const VITE_KEYWORDS = getEnvVar('VITE_KEYWORDS', '')
+export const ROUTER_BASE: string = import.meta.env.VITE_ROUTER_BASE ?? '/'
 
-export const ROUTER_BASE = getEnvVar('VITE_ROUTER_BASE', '/')
+export const APP_BASE: string = import.meta.env.VITE_APP_BASE ?? '/'
 
-export const APP_BASE = getEnvVar('VITE_APP_BASE', '/')
+export const API_HOST: string = import.meta.env.VITE_API_HOST ?? ''
 
-export const API_HOST = getEnvVar('VITE_API_HOST', '')
-
-export const API_BASE_HOST = getEnvVar('VITE_API_BASE_HOST', '')
+export const API_BASE_HOST: string = import.meta.env.VITE_API_BASE_HOST ?? ''
 
 // Версия приложения (задаётся через rawDefine в quasar.config.ts)
 export const APP_VERSION =
@@ -33,10 +35,9 @@ export const CURRENT_YEAR = new Date().getFullYear()
 
 export const ID_PREFIX = '#'
 
-export const REDIRECT_PATH =
-  import.meta.env.QUASAR_PROD
-    ? VITE_REDIRECT_PATH
-    : VITE_REDIRECT_PATH_DEV
+export const REDIRECT_PATH = import.meta.env.QUASAR_PROD
+  ? VITE_REDIRECT_PATH
+  : VITE_REDIRECT_PATH_DEV
 
 const getPhoneLink = (str: string) => `tel:${str.replace(/\D/g, '')}`
 

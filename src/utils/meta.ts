@@ -1,7 +1,12 @@
 import { META } from './constants'
 
-const { VITE_NAME_FULL, VITE_DESCRIPTION, VITE_APP_VERSION, VITE_BUILD_DATE } =
-  import.meta.env
+// Static accesses on purpose: destructuring `import.meta.env` wholesale makes
+// Vite inline every VITE_* variable into the client bundle (see the note in
+// constants.ts).
+const VITE_NAME_FULL: string = import.meta.env.VITE_NAME_FULL ?? ''
+const VITE_DESCRIPTION: string = import.meta.env.VITE_DESCRIPTION ?? ''
+const VITE_APP_VERSION: string = import.meta.env.VITE_APP_VERSION ?? ''
+const VITE_BUILD_DATE: string = import.meta.env.VITE_BUILD_DATE ?? ''
 
 export const TITLE = `${VITE_NAME_FULL} | ${VITE_DESCRIPTION}`
 
