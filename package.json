@@ -17,6 +17,7 @@
     "test:unit": "vitest",
     "test:unit:ci": "vitest run",
     "inspect": "quasar inspect --depth",
+    "admin:claim": "node scripts/set-admin-claim.mjs",
     "update-env": "node update-env.js",
     "deploy": "npm run update-env && npm run build && cp .nojekyll dist/spa/ && gh-pages -d dist/spa"
   },
@@ -25,7 +26,7 @@
     "firebase": "^11.10.0",
     "quasar": "^2.35.2",
     "vue": "^3.5.44",
-    "vue-router": "^4.6.4"
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
     "@quasar/app-vite": "^3.10.3",
@@ -36,6 +37,7 @@
     "@vue/test-utils": "^2.5.1",
     "autoprefixer": "^10.6.1",
     "esbuild": "^0.28.2",
+    "firebase-admin": "^14.5.0",
     "gh-pages": "^6.1.1",
     "postcss": "^8.5.31",
     "typescript": "^5.9.3",
