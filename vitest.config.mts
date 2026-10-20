@@ -19,6 +19,11 @@ export default defineConfig({
 
     // Add alias configuration for resolving paths
     alias: { src: srcPath, '@': srcPath },
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      exclude: ['**/*.d.ts', '**/test/**', '**/*.config.*', '**/.quasar/**'],
+    },
   },
   resolve: {
     // tsconfig paths handled via alias
