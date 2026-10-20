@@ -7,9 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth'
-
-import { getFirebaseAuth } from '@/services/firebase'
 import { computed, ref } from 'vue'
+import { getFirebaseAuth } from '@/services/firebase'
 
 // Используем отложенную инициализацию для избежания проблем с hoisting
 function createState() {
@@ -31,7 +30,9 @@ export function useAdminAuth() {
   state ??= createState()
 
   const { currentUser, loading, initializing, isAdmin } = state
-  const isAuthenticated = computed(() => currentUser.value !== null && isAdmin.value)
+  const isAuthenticated = computed(
+    () => currentUser.value !== null && isAdmin.value
+  )
 
   async function refreshAdminClaim(user: User | null) {
     if (!user) {
@@ -78,6 +79,29 @@ export function useAdminAuth() {
     email: string,
     password: string
   ): Promise<{ success: boolean; error?: string }> {
+    // Dev fallback для локальной разработки
+    if (import.meta.env.DEV) {
+      const devEmail = import.meta.env.VITE_DEV_ADMIN_EMAIL as
+        | string
+        | undefined
+      const devPass = import.meta.env.VITE_DEV_ADMIN_PASSWORD as
+        | string
+        | undefined
+      if (devEmail && devPass && email === devEmail && password === devPass) {
+        // Создаем минимальный мок-пользователь для dev-режима
+        const mockUser = {
+          uid: 'dev-admin',
+          email: devEmail,
+          getIdTokenResult: async () => ({ claims: { admin: true } }),
+        } as unknown as User
+        currentUser.value = mockUser
+        isAdmin.value = true
+        loading.value = false
+
+        return { success: true }
+      }
+    }
+
     const auth = getFirebaseAuth()
 
     if (!auth) {
@@ -97,6 +121,18 @@ export function useAdminAuth() {
       )
 
       currentUser.value = userCredential.user
+      await refreshAdminClaim(userCredential.user)
+
+      if (!isAdmin.value) {
+        await signOut(auth)
+        currentUser.value = null
+        isAdmin.value = false
+
+        return {
+          success: false,
+          error: 'Доступ запрещен. У пользователя нет прав администратора',
+        }
+      }
 
       return { success: true }
     } catch (error: unknown) {
