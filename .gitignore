@@ -27,6 +27,7 @@ npm-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+*.log
 
 # local .env files
 .env.local
