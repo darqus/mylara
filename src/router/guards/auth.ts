@@ -49,7 +49,7 @@ export function adminAuthGuard(
       return
     }
 
-    // Если инициализация завершена, проверяем аутентификацию
+    // Если инициализация завершена, проверяем аутентификацию и права админа
     if (!isAuthenticated.value) {
       next({
         path: String(ROUTE_PATH.ADMIN_LOGIN),

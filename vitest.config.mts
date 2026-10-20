@@ -1,9 +1,10 @@
-import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import type { PluginOption } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
+
+const srcPath = fileURLToPath(new URL('./src', import.meta.url))
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,13 +18,15 @@ export default defineConfig({
     ],
 
     // Add alias configuration for resolving paths
-    alias: { src: path.resolve(__dirname, './src') },
+    alias: { src: srcPath, '@': srcPath },
+  },
+  resolve: {
+    // tsconfig paths handled via alias
   },
   plugins: [
     vue({ template: { transformAssetUrls } }) as unknown as PluginOption,
     quasar({
       sassVariables: 'src/css/quasar.variables.scss',
     }) as unknown as PluginOption,
-    tsconfigPaths() as unknown as PluginOption,
   ],
 })

@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Проверка, что пользователь аутентифицирован и имеет роль admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Админ имеет полный доступ ко всем коллекциям
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

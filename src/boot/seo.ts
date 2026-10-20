@@ -3,47 +3,40 @@ import { boot } from 'quasar/wrappers' // keep; type resolved via @quasar/app-vi
 // Этот файл загружается при инициализации приложения
 // и настраивает базовые SEO-функции
 
-export default boot(({ app }: { app: any }) => {
+export default boot((bootContext: { app?: any }) => {
+  const app = bootContext.app as any
+  const g = app?.config?.globalProperties
+
   // Добавляем обработчик изменения маршрута для обновления канонического URL
-  app.config.globalProperties.$updateCanonicalUrl = (path: string) => {
-    // Удаляем старый канонический URL, если он существует
-    const existingCanonical = document.querySelector('link[rel="canonical"]')
-
-    if (existingCanonical) {
-      existingCanonical.remove()
+  if (g) {
+    g.$updateCanonicalUrl = (path: string) => {
+      const existingCanonical = document.querySelector('link[rel="canonical"]')
+      if (existingCanonical) {
+        existingCanonical.remove()
+      }
+      const link = document.createElement('link')
+      link.rel = 'canonical'
+      link.href = window.location.origin + path
+      document.head.appendChild(link)
     }
 
-    // Создаем новый канонический URL
-    const link = document.createElement('link')
-
-    link.rel = 'canonical'
-    link.href = window.location.origin + path
-    document.head.appendChild(link)
-  }
-
-  // Добавляем обработчик для структурированных данных JSON-LD
-  app.config.globalProperties.$addJsonLd = (jsonLd: object) => {
-    // Удаляем старые данные JSON-LD, если они существуют
-    const existingJsonLd = document.querySelector(
-      'script[type="application/ld+json"]'
-    )
-
-    if (existingJsonLd) {
-      existingJsonLd.remove()
+    g.$addJsonLd = (jsonLd: object) => {
+      const existingJsonLd = document.querySelector(
+        'script[type="application/ld+json"]'
+      )
+      if (existingJsonLd) {
+        existingJsonLd.remove()
+      }
+      const script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.textContent = JSON.stringify(jsonLd)
+      document.head.appendChild(script)
     }
-
-    // Добавляем новые данные JSON-LD
-    const script = document.createElement('script')
-
-    script.type = 'application/ld+json'
-    script.textContent = JSON.stringify(jsonLd)
-    document.head.appendChild(script)
   }
 
   // Добавляем базовые структурированные данные для организации
   const { env } = import.meta
 
-  // Public URL of the deployed site (GitHub Pages project site)
   const baseUrl =
     (env?.VITE_SITE_URL as string) || 'https://darqus.github.io/mylara'
 
@@ -63,9 +56,9 @@ export default boot(({ app }: { app: any }) => {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: orgName,
+    description: orgDescription,
     url: baseUrl,
     logo: orgLogo,
-    description: orgDescription,
     address: {
       '@type': 'PostalAddress',
       streetAddress: orgStreetAddress,
@@ -80,5 +73,7 @@ export default boot(({ app }: { app: any }) => {
     },
   }
 
-  app.config.globalProperties.$addJsonLd(organizationJsonLd)
+  if (g && typeof g.$addJsonLd === 'function') {
+    ;(g.$addJsonLd as (jsonLd: object) => void)(organizationJsonLd)
+  }
 })

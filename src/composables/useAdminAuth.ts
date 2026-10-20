@@ -2,6 +2,7 @@ import type { User } from 'firebase/auth'
 
 import {
   createUserWithEmailAndPassword,
+  getIdTokenResult,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -16,6 +17,7 @@ function createState() {
     currentUser: ref<User | null>(null),
     loading: ref(false),
     initializing: ref(true),
+    isAdmin: ref(false),
   }
 }
 
@@ -28,8 +30,24 @@ export function useAdminAuth() {
   // Инициализируем состояние только при первом вызове
   state ??= createState()
 
-  const { currentUser, loading, initializing } = state
-  const isAuthenticated = computed(() => currentUser.value !== null)
+  const { currentUser, loading, initializing, isAdmin } = state
+  const isAuthenticated = computed(() => currentUser.value !== null && isAdmin.value)
+
+  async function refreshAdminClaim(user: User | null) {
+    if (!user) {
+      isAdmin.value = false
+
+      return
+    }
+
+    try {
+      const tokenResult = await getIdTokenResult(user)
+      isAdmin.value = tokenResult.claims.admin === true
+    } catch (error) {
+      console.error('Failed to get token claims:', error)
+      isAdmin.value = false
+    }
+  }
 
   /**
    * Инициализация слежения за состоянием аутентификации
@@ -47,6 +65,7 @@ export function useAdminAuth() {
     // Слушаем изменения состояния аутентификации
     onAuthStateChanged(auth, (user) => {
       currentUser.value = user
+      void refreshAdminClaim(user)
       loading.value = false
       initializing.value = false
     })
@@ -225,6 +244,7 @@ export function useAdminAuth() {
   return {
     currentUser,
     isAuthenticated,
+    isAdmin,
     loading,
     initializing,
     login,
