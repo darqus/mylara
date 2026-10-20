@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getAllCollections } from '@/services/admin-config.service'
 import { firestoreService } from '@/services/firestore.service'
 import { formatRecordsCount } from '@/utils/pluralization'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'AdminDashboardPage' })
 

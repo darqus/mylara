@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { QForm } from 'quasar'
+import { computed, ref, watch } from 'vue'
 import Base64ImageUploader from '@/components/common/Base64ImageUploader.vue'
 import type { CollectionConfig, FormField } from '@/types/admin'
-import { computed, ref, watch } from 'vue'
 
 import ImageUploader from './ImageUploader.vue'
 

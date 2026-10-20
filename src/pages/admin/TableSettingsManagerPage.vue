@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
-import { useTableSettingsManager } from '@/composables/useTableSettings'
 import { onMounted, ref } from 'vue'
+import { useTableSettingsManager } from '@/composables/useTableSettings'
 
 defineOptions({ name: 'TableSettingsManagerPage' })
 

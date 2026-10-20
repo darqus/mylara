@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import DataLoader from '@/components/common/data-loader/DataLoader.vue'
 import { useDevice } from '@/composables/useDevice'
 import { useImageErrorHandling } from '@/composables/useImageErrorHandling'
 import type { CarouselItem } from '@/services/carousel.service'
 import { getCarouselItems } from '@/services/carousel.service'
-import { onMounted, ref } from 'vue'
 
 import './scss/landing-carousel.scss'
 

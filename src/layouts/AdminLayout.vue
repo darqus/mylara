@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import AdminMenuItem from '@/components/admin/AdminMenuItem.vue'
 import { useAdminAuth } from '@/composables/useAdminAuth'
 import { getAllCollections } from '@/services/admin-config.service'
 import { ROUTE_PATH } from '@/types/route-paths'
 import { APP_VERSION } from '@/utils/constants'
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'AdminLayout' })
 

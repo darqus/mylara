@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TableSettings } from '@/composables/useTableSettings'
 import { computed } from 'vue'
+import type { TableSettings } from '@/composables/useTableSettings'
 
 type Props = {
   settings: TableSettings

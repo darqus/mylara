@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue'
 import {
   type Base64ImageOptions,
   useBase64Image,
 } from '@/composables/useBase64Image'
-import { computed, ref, watch } from 'vue'
 
 defineOptions({ name: 'Base64ImageUploader' })
 

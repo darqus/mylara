@@ -1,8 +1,8 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   useColumnSettings,
   useTableSettings,
 } from '@/composables/useTableSettings'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Мокаем LocalStorage от Quasar (hoisted)
 const mockLocalStorage = vi.hoisted(() => ({

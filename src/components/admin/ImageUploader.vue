@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { ImageUploadOptions } from '@/services/firebase-storage.service'
-
-import { firebaseStorageService } from '@/services/firebase-storage.service'
 import { computed, ref, watch } from 'vue'
+import type { ImageUploadOptions } from '@/services/firebase-storage.service'
+import { firebaseStorageService } from '@/services/firebase-storage.service'
 
 defineOptions({ name: 'ImageUploader' })
 
