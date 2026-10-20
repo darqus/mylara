@@ -3,8 +3,8 @@ import { boot } from 'quasar/wrappers' // keep; type resolved via @quasar/app-vi
 // Этот файл загружается при инициализации приложения
 // и настраивает базовые SEO-функции
 
-export default boot((bootContext: { app?: any }) => {
-  const app = bootContext.app as any
+export default boot((bootContext: { app?: unknown }) => {
+  const app = bootContext.app as { config?: { globalProperties?: Record<string, unknown> } } | undefined
   const g = app?.config?.globalProperties
 
   // Добавляем обработчик изменения маршрута для обновления канонического URL
