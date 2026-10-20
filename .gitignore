@@ -33,3 +33,6 @@ npm-error.log*
 .env.local
 plan/
 coverage/
+
+# service account keys for scripts/set-admin-claim.mjs
+.secrets/

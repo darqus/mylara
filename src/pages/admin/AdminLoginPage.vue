@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { QForm } from 'quasar'
 import { useQuasar } from 'quasar'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAdminAuth } from '@/composables/useAdminAuth'
 import { usePasswordVisibility } from '@/composables/usePasswordVisibility'
 import { ROUTE_PATH } from '@/types/route-paths'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'AdminLoginPage' })
 
@@ -77,7 +77,10 @@ async function handleLogin() {
   if (result.success) {
     $q.notify({
       type: 'positive',
-      message: 'Вход выполнен успешно',
+      // Dev fallback creates a mock user: reads work, Firestore writes do not
+      message: result.devFallback
+        ? 'Вход выполнен (dev-режим): запись в Firestore недоступна'
+        : 'Вход выполнен успешно',
       position: 'top',
     })
 

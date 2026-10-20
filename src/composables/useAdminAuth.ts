@@ -10,6 +10,17 @@ import {
 import { computed, ref } from 'vue'
 import { getFirebaseAuth } from '@/services/firebase'
 
+type AuthResult = {
+  success: boolean
+  error?: string
+  /**
+   * True when the dev-only fallback signed the user in instead of Firebase.
+   * A mock user has no real Firebase session, so Firestore writes stay
+   * blocked (firestore.service requires auth.currentUser).
+   */
+  devFallback?: boolean
+}
+
 // Используем отложенную инициализацию для избежания проблем с hoisting
 function createState() {
   return {
@@ -75,11 +86,11 @@ export function useAdminAuth() {
   /**
    * Вход в админку через email и пароль
    */
-  async function login(
-    email: string,
-    password: string
-  ): Promise<{ success: boolean; error?: string }> {
-    // Dev fallback для локальной разработки
+  async function login(email: string, password: string): Promise<AuthResult> {
+    // Dev-only fallback: a matching pair from VITE_DEV_ADMIN_* (stored in
+    // .env.local) signs a mock user in without talking to Firebase.
+    // It exists to keep local UI work possible while the real admin account
+    // is being set up (see docs/admin-claim.md).
     if (import.meta.env.DEV) {
       const devEmail = import.meta.env.VITE_DEV_ADMIN_EMAIL as
         | string
@@ -94,11 +105,17 @@ export function useAdminAuth() {
           email: devEmail,
           getIdTokenResult: async () => ({ claims: { admin: true } }),
         } as unknown as User
+
+        console.warn(
+          '[admin] Dev fallback login: no real Firebase session, ' +
+            'Firestore writes will be rejected'
+        )
+
         currentUser.value = mockUser
         isAdmin.value = true
         loading.value = false
 
-        return { success: true }
+        return { success: true, devFallback: true }
       }
     }
 
@@ -159,6 +176,20 @@ export function useAdminAuth() {
 
           case 'auth/too-many-requests':
             errorMessage = 'Слишком много попыток входа. Попробуйте позже'
+            break
+
+          // Firebase merges "unknown user" and "wrong password" into one code
+          // (email enumeration protection), so the two cannot be told apart.
+          case 'auth/invalid-credential':
+            errorMessage = 'Неверный email или пароль, либо аккаунт не найден'
+            break
+
+          case 'auth/operation-not-allowed':
+            errorMessage = 'Вход по email/паролю отключён в настройках Firebase'
+            break
+
+          case 'auth/network-request-failed':
+            errorMessage = 'Нет связи с Firebase. Проверьте соединение'
             break
 
           default:
