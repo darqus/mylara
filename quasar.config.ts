@@ -54,7 +54,8 @@ export default defineConfig((ctx) => ({
 
     // analyze: true,
     env: {
-      clientPrefix: ['VITE_', 'QCLI_'],
+      clientPrefix: ['VITE_', 'QCLI_', 'VUE_'],
+      VUE_ROUTER_MODE: 'history',
     },
     define: {
       VITE_APP_VERSION: JSON.stringify(packageJson.version),

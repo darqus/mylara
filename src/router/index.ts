@@ -22,7 +22,8 @@ export default route((/* { store, ssrContext } */) => {
   const createHistory = import.meta.env.QUASAR_SERVER
     ? createMemoryHistory
     : import.meta.env.VUE_ROUTER_MODE === 'history' ||
-        import.meta.env.VITE_ROUTER_MODE === 'history'
+        import.meta.env.VITE_ROUTER_MODE === 'history' ||
+        import.meta.env.DEV
       ? createWebHistory
       : createWebHashHistory
 
