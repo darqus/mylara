@@ -3,7 +3,7 @@ import type { QForm } from 'quasar'
 import { useQuasar } from 'quasar'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAdminAuth } from '@/composables/useAdminAuth'
+import { useAdminAuth, whenReady } from '@/composables/useAdminAuth'
 import { usePasswordVisibility } from '@/composables/usePasswordVisibility'
 import { ROUTE_PATH } from '@/types/route-paths'
 
@@ -41,8 +41,12 @@ const registrationLoading = ref(false)
 const registerEmail = ref('')
 const registerPassword = ref('')
 
-onMounted(() => {
-  // Если пользователь уже аутентифицирован, перенаправляем в админку
+onMounted(async () => {
+  // Auth is the single source of truth; the guard already enforces access,
+  // but we must also redirect an already-authenticated user who lands here
+  // without waiting for a snapshot that may not have settled yet.
+  await whenReady()
+
   if (isAuthenticated.value) {
     const redirectQuery = router.currentRoute.value.query.redirect as string
     const redirectTo =

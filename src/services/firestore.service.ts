@@ -13,6 +13,47 @@ import type { CollectionResponse, DocumentResponse } from '@/types/api'
 
 import { getFirebaseAuth, getFirebaseDb } from './firebase'
 
+type WriteResult = { success: boolean; error: string | null }
+type CreateResult = { id: string | null; error: string | null }
+
+/**
+ * Firestore error codes that mean "the signed-in user lacks permission".
+ * The admin UI shows this as an actionable hint instead of a generic failure.
+ */
+const PERMISSION_DENIED = 'permission-denied'
+
+/**
+ * Extracts the Firestore error code from an unknown thrown value.
+ */
+export function getFirestoreErrorCode(err: unknown): string | null {
+  if (err && typeof err === 'object' && 'code' in err) {
+    const code = (err as { code: unknown }).code
+
+    return typeof code === 'string' ? code : null
+  }
+
+  return null
+}
+
+/**
+ * Maps a thrown Firestore error to a user-facing message.
+ *
+ * @param err - Value thrown by the Firebase SDK
+ * @param fallback - Message used when the error is not recognised
+ * @param permissionMessage - Message used for `permission-denied`
+ */
+export function mapFirestoreError(
+  err: unknown,
+  fallback: string,
+  permissionMessage?: string
+): string {
+  if (permissionMessage && getFirestoreErrorCode(err) === PERMISSION_DENIED) {
+    return permissionMessage
+  }
+
+  return fallback
+}
+
 /**
  * Проверяет, аутентифицирован ли пользователь
  */
@@ -47,12 +88,12 @@ export const firestoreService = {
    * Получает коллекцию документов из Firestore
    * @param collectionName Имя коллекции
    * @param errorMessage Сообщение об ошибке
-   * @returns Массив документов и возможная ошибка
+   * @returns Массив документов (каждый с полем `id`) и возможная ошибка
    */
-  async getCollection<T>(
+  async getCollection<T extends Record<string, unknown>>(
     collectionName: string,
     errorMessage = 'Не удалось загрузить данные'
-  ): Promise<CollectionResponse<T>> {
+  ): Promise<CollectionResponse<T & { id: string }>> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -64,16 +105,12 @@ export const firestoreService = {
 
     try {
       const querySnapshot = await getDocs(collection(db, collectionName))
-      const items: T[] = []
-
-      querySnapshot.forEach((docSnapshot) => {
-        const data = docSnapshot.data() as Omit<T, 'id'>
-
-        items.push({
+      const items: Array<T & { id: string }> = querySnapshot.docs.map(
+        (docSnapshot) => ({
+          ...(docSnapshot.data() as T),
           id: docSnapshot.id,
-          ...data,
-        } as T)
-      })
+        })
+      )
 
       return {
         items,
@@ -94,13 +131,13 @@ export const firestoreService = {
    * @param collectionName Имя коллекции
    * @param docId ID документа
    * @param errorMessage Сообщение об ошибке
-   * @returns Данные документа и возможная ошибка
+   * @returns Данные документа (вместе с полем `id`) и возможная ошибка
    */
-  async getDocument<T>(
+  async getDocument<T extends Record<string, unknown>>(
     collectionName: string,
     docId: string,
     errorMessage = 'Не удалось загрузить данные'
-  ): Promise<DocumentResponse<T>> {
+  ): Promise<DocumentResponse<T & { id: string }>> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -115,17 +152,20 @@ export const firestoreService = {
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        const data = docSnap.data() as T
+        const data = {
+          ...(docSnap.data() as T),
+          id: docSnap.id,
+        }
 
         return {
           data,
           error: null,
         }
-      } else {
-        return {
-          data: null,
-          error: 'Документ не найден',
-        }
+      }
+
+      return {
+        data: null,
+        error: 'Документ не найден',
       }
     } catch (err) {
       console.error(`Error fetching ${collectionName}/${docId} data:`, err)
@@ -147,7 +187,7 @@ export const firestoreService = {
   async createDocument<T>(
     collectionName: string,
     data: Omit<T, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<{ id: string | null; error: string | null }> {
+  ): Promise<CreateResult> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -183,21 +223,13 @@ export const firestoreService = {
     } catch (err) {
       console.error(`Error creating document in ${collectionName}:`, err)
 
-      // Проверяем, не связана ли ошибка с правами доступа
-      if (err && typeof err === 'object' && 'code' in err) {
-        const errorCode = (err as { code: string }).code
-
-        if (errorCode === 'permission-denied') {
-          return {
-            id: null,
-            error: 'Недостаточно прав для создания документа',
-          }
-        }
-      }
-
       return {
         id: null,
-        error: 'Не удалось создать документ',
+        error: mapFirestoreError(
+          err,
+          'Не удалось создать документ',
+          'Недостаточно прав для создания документа'
+        ),
       }
     }
   },
@@ -214,7 +246,7 @@ export const firestoreService = {
     collectionName: string,
     docId: string,
     data: Partial<Omit<T, 'id' | 'createdAt' | 'updatedAt'>>
-  ): Promise<{ success: boolean; error: string | null }> {
+  ): Promise<WriteResult> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -253,21 +285,13 @@ export const firestoreService = {
         err
       )
 
-      // Проверяем, не связана ли ошибка с правами доступа
-      if (err && typeof err === 'object' && 'code' in err) {
-        const errorCode = (err as { code: string }).code
-
-        if (errorCode === 'permission-denied') {
-          return {
-            success: false,
-            error: 'Недостаточно прав для обновления документа',
-          }
-        }
-      }
-
       return {
         success: false,
-        error: 'Не удалось обновить документ',
+        error: mapFirestoreError(
+          err,
+          'Не удалось обновить документ',
+          'Недостаточно прав для обновления документа'
+        ),
       }
     }
   },
@@ -282,7 +306,7 @@ export const firestoreService = {
   async deleteDocument(
     collectionName: string,
     docId: string
-  ): Promise<{ success: boolean; error: string | null }> {
+  ): Promise<WriteResult> {
     const db = getFirebaseDb()
 
     if (!db) {
@@ -317,21 +341,13 @@ export const firestoreService = {
         err
       )
 
-      // Проверяем, не связана ли ошибка с правами доступа
-      if (err && typeof err === 'object' && 'code' in err) {
-        const errorCode = (err as { code: string }).code
-
-        if (errorCode === 'permission-denied') {
-          return {
-            success: false,
-            error: 'Недостаточно прав для удаления документа',
-          }
-        }
-      }
-
       return {
         success: false,
-        error: 'Не удалось удалить документ',
+        error: mapFirestoreError(
+          err,
+          'Не удалось удалить документ',
+          'Недостаточно прав для удаления документа'
+        ),
       }
     }
   },

@@ -104,3 +104,91 @@ export const formatNumberToCurrency = (number: number): string => {
 
   return formatter.format(number)
 }
+
+/**
+ * Named HTML entities that JSON.stringify / innerHTML would otherwise leak as
+ * raw text. Kept short on purpose: only the entities that realistically reach
+ * the admin table cells.
+ */
+const HTML_ENTITIES: Record<string, string> = {
+  '&nbsp;': ' ',
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&apos;': "'",
+}
+
+const HTML_ENTITY_PATTERN = /&(?:[a-zA-Z]+|#\d+|#x[\da-fA-F]+);/g
+
+/**
+ * Converts an arbitrary Firestore value to a display string.
+ *
+ * Firestore fields are untyped at runtime, so a column may hold a string, a
+ * number, a boolean or a nested object. Objects/arrays are stringified.
+ *
+ * @param value - Raw field value
+ * @returns A string representation (empty string for null/undefined)
+ */
+export const stringifyValue = (value: unknown): string => {
+  if (value === null || value === undefined) {
+    return ''
+  }
+
+  if (typeof value === 'string') {
+    return value
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value)
+  }
+
+  try {
+    return JSON.stringify(value)
+  } catch {
+    return String(value)
+  }
+}
+
+/**
+ * Strips HTML tags and decodes common entities into plain text.
+ *
+ * Deliberately avoids `document.createElement('textarea')` so the helper also
+ * works in non-DOM environments (tests, SSR-safe code).
+ *
+ * @param input - HTML string (or any value)
+ * @returns Plain text without tags or entities
+ */
+export const htmlToText = (input: unknown): string => {
+  const raw = stringifyValue(input)
+
+  if (!raw) {
+    return ''
+  }
+
+  const withoutTags = raw.replace(/<[^>]*>/g, '')
+
+  return withoutTags.replace(HTML_ENTITY_PATTERN, (entity) => {
+    if (entity in HTML_ENTITIES) {
+      return HTML_ENTITIES[entity] ?? entity
+    }
+
+    // Numeric entities: &#39; / &#x27;
+    const numeric = entity.startsWith('&#x')
+      ? Number.parseInt(entity.slice(3, -1), 16)
+      : Number.parseInt(entity.slice(2, -1), 10)
+
+    return Number.isNaN(numeric) ? entity : String.fromCodePoint(numeric)
+  })
+}
+
+/**
+ * Truncates a string to `maxLength`, appending an ellipsis when cut.
+ *
+ * @param input - Source string
+ * @param maxLength - Maximum length before truncation
+ * @returns The original string or its truncated form
+ */
+export const truncate = (input: string, maxLength: number): string =>
+  input.length > maxLength ? `${input.substring(0, maxLength)}...` : input

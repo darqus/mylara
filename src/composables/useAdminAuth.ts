@@ -34,6 +34,89 @@ function createState() {
 let state: ReturnType<typeof createState> | null = null
 
 /**
+ * Single in-flight initialization promise.
+ *
+ * Every consumer (router guard, App.vue, layouts, pages) awaits the same
+ * promise instead of watching `initializing` on its own. That removes the
+ * class of bugs where two places each "wait for auth" and fire duplicate
+ * redirects or duplicate navigation guards.
+ */
+let readiness: Promise<void> | null = null
+
+/**
+ * Reads the `admin` custom claim and mirrors it into `isAdmin`.
+ *
+ * Module-scoped because it is needed both by the initial handshake inside
+ * `whenReady()` and by `login()`/`register()` after a fresh sign-in.
+ */
+async function refreshAdminClaim(
+  user: User | null,
+  isAdmin: { value: boolean }
+): Promise<void> {
+  if (!user) {
+    isAdmin.value = false
+
+    return
+  }
+
+  try {
+    const tokenResult = await getIdTokenResult(user)
+    isAdmin.value = tokenResult.claims.admin === true
+  } catch (error) {
+    console.error('Failed to get token claims:', error)
+    isAdmin.value = false
+  }
+}
+
+/**
+ * Resolves once the initial Firebase auth state has settled.
+ *
+ * Idempotent: the first call starts `onAuthStateChanged`, later calls reuse the
+ * same promise. Never rejects — auth failures still count as "settled".
+ * This is the ONLY place that subscribes to Firebase auth, so no consumer can
+ * accidentally install a second listener or a second redirect.
+ */
+function whenReady(): Promise<void> {
+  readiness ??= new Promise<void>((resolve) => {
+    state ??= createState()
+
+    const { currentUser, loading, initializing, isAdmin } = state
+    const auth = getFirebaseAuth()
+
+    if (!auth) {
+      console.warn('Firebase Auth не инициализирован')
+      initializing.value = false
+      resolve()
+
+      return
+    }
+
+    let settled = false
+
+    const settle = (user: User | null) => {
+      if (settled) {
+        return
+      }
+
+      settled = true
+      currentUser.value = user
+      loading.value = false
+      initializing.value = false
+      resolve()
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      settle(user)
+      // Keep `isAdmin` in sync on every later change (refresh, sign-out),
+      // not only during the first handshake.
+      void refreshAdminClaim(user, isAdmin)
+    })
+  })
+
+  return readiness
+}
+
+/**
  * Composable для аутентификации в админке через Firebase Auth
  */
 export function useAdminAuth() {
@@ -45,42 +128,14 @@ export function useAdminAuth() {
     () => currentUser.value !== null && isAdmin.value
   )
 
-  async function refreshAdminClaim(user: User | null) {
-    if (!user) {
-      isAdmin.value = false
-
-      return
-    }
-
-    try {
-      const tokenResult = await getIdTokenResult(user)
-      isAdmin.value = tokenResult.claims.admin === true
-    } catch (error) {
-      console.error('Failed to get token claims:', error)
-      isAdmin.value = false
-    }
-  }
-
   /**
-   * Инициализация слежения за состоянием аутентификации
+   * Инициализация слежения за состоянием аутентификации.
+   *
+   * Тонкая обёртка над `whenReady()` — оставлена для обратной совместимости
+   * (App.vue). Повторные вызовы безопасны: слушатель подписывается один раз.
    */
-  function initAuth() {
-    const auth = getFirebaseAuth()
-
-    if (!auth) {
-      console.warn('Firebase Auth не инициализирован')
-      initializing.value = false
-
-      return
-    }
-
-    // Слушаем изменения состояния аутентификации
-    onAuthStateChanged(auth, (user) => {
-      currentUser.value = user
-      void refreshAdminClaim(user)
-      loading.value = false
-      initializing.value = false
-    })
+  function initAuth(): Promise<void> {
+    return whenReady()
   }
 
   /**
@@ -138,7 +193,7 @@ export function useAdminAuth() {
       )
 
       currentUser.value = userCredential.user
-      await refreshAdminClaim(userCredential.user)
+      await refreshAdminClaim(userCredential.user, isAdmin)
 
       if (!isAdmin.value) {
         await signOut(auth)
@@ -301,13 +356,6 @@ export function useAdminAuth() {
     }
   }
 
-  /**
-   * Проверка аутентификации (deprecated - используйте isAuthenticated)
-   */
-  function checkAuth(): boolean {
-    return isAuthenticated.value
-  }
-
   return {
     currentUser,
     isAuthenticated,
@@ -317,7 +365,15 @@ export function useAdminAuth() {
     login,
     logout,
     register,
-    checkAuth,
     initAuth,
+    whenReady,
   }
 }
+
+/**
+ * Resolves once the initial Firebase auth state has settled.
+ *
+ * Exported at module level so the router guard can `await` it without
+ * instantiating reactive state or subscribing to anything itself.
+ */
+export { whenReady }

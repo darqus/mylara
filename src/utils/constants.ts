@@ -5,9 +5,6 @@
 // bundle. Verified with a prod build: the whole env object was inlined into
 // dist/spa/assets/constants-*.js until this was fixed.
 const VITE_NAME_FULL: string = import.meta.env.VITE_NAME_FULL ?? 'MYLARA'
-const VITE_REDIRECT_PATH: string = import.meta.env.VITE_REDIRECT_PATH ?? ''
-const VITE_REDIRECT_PATH_DEV: string =
-  import.meta.env.VITE_REDIRECT_PATH_DEV ?? ''
 
 export const VITE_DESCRIPTION: string = import.meta.env.VITE_DESCRIPTION ?? ''
 
@@ -15,90 +12,15 @@ export const VITE_KEYWORDS: string = import.meta.env.VITE_KEYWORDS ?? ''
 
 export const ROUTER_BASE: string = import.meta.env.VITE_ROUTER_BASE ?? '/'
 
-export const APP_BASE: string = import.meta.env.VITE_APP_BASE ?? '/'
-
-export const API_HOST: string = import.meta.env.VITE_API_HOST ?? ''
-
-export const API_BASE_HOST: string = import.meta.env.VITE_API_BASE_HOST ?? ''
-
 // Версия приложения (задаётся через rawDefine в quasar.config.ts)
 export const APP_VERSION =
-  typeof VITE_APP_VERSION !== 'undefined' ? VITE_APP_VERSION : '0.1.51'
-
-export const NO_IMG = 'img/no-image.svg'
-
-export const COMPONENT_KEY_DELIMITER = '-'
-
-export const OFFSET_POPUP_PROXY = [0, 5]
-
-export const CURRENT_YEAR = new Date().getFullYear()
-
-export const ID_PREFIX = '#'
-
-export const REDIRECT_PATH = import.meta.env.QUASAR_PROD
-  ? VITE_REDIRECT_PATH
-  : VITE_REDIRECT_PATH_DEV
-
-const getPhoneLink = (str: string) => `tel:${str.replace(/\D/g, '')}`
-
-export const PHONES = {
-  HOT_LINE: {
-    LABEL: '+7 999 677-90-67',
-    LINK: getPhoneLink('+7 999 677-90-67'), // tel:9996779067
-  },
-}
+  typeof VITE_APP_VERSION !== 'undefined' ? VITE_APP_VERSION : '0.1.56'
 
 // Public URL of the site. The former mylara.ru domain is retired
 // (it does not resolve in DNS anymore), the site lives on GitHub Pages.
 export const SITE_URL = 'https://darqus.github.io/mylara'
 
 export const getLink = (str: string) => `${SITE_URL}/${str}`
-
-export const SOCIALS = {
-  VK: 'https://vk.com/mylara',
-  TELEGRAM: 'https://t.me/mylara',
-}
-
-export const LINKS = {
-  PRIVACY: {
-    LABEL: 'Политика конфиденциальности',
-    LINK: getLink('privacy-policy'),
-  },
-  TERMS: {
-    LABEL: 'Условия использования',
-    LINK: getLink('site_terms'),
-  },
-  ENTERPRISE: {
-    LABEL: 'Для бизнеса',
-    LINK: getLink('enterprise'),
-  },
-  OFFER: {
-    LABEL: 'Оферта',
-    LINK: getLink('offer'),
-  },
-  ADDRESS: {
-    LABEL: '129090, Москва, ул. Мещанская, д. 9/14, строение 1',
-    LINK: 'https://www.google.com/maps/place/%D0%9C%D0%B5%D1%89%D0%B0%D0%BD%D1%81%D0%BA%D0%B0%D1%8F+%D1%83%D0%BB.,+9%2F14+%D1%81%D1%82%D1%80.1,+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+129090/@55.7762848,37.6265983,19z/data=!3m1!4b1!4m6!3m5!1s0x46b54a6d9742cab3:0xc7d4a5303b54fdaa!8m2!3d55.776284!4d37.627242!16s%2Fg%2F11q2n7wr2v?entry=ttu',
-  },
-}
-
-// https://dadata.ru/find/party/1197746540155/
-export const COMPANY_DETAILS = {
-  OGRN: '1197746540155',
-  INN: '7743314440',
-}
-
-export const COPYRIGHTS = `© 2019-${CURRENT_YEAR} mylara. Все права защищены`
-
-export const PRIVACY_POLICY = {
-  LABEL: 'Политика конфиденциальности',
-  LINK: getLink('site_privacy'),
-}
-
-export const TERMS_OF_USE = {
-  LABEL: 'Условия использования',
-  LINK: getLink('site_terms'),
-}
 
 export const META = {
   NAME: {

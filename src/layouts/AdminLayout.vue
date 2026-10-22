@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AdminMenuItem from '@/components/admin/AdminMenuItem.vue'
 import { useAdminAuth } from '@/composables/useAdminAuth'
@@ -12,22 +12,11 @@ defineOptions({ name: 'AdminLayout' })
 
 const router = useRouter()
 const $q = useQuasar()
-const { currentUser, isAuthenticated, logout } = useAdminAuth()
+const { currentUser, logout } = useAdminAuth()
 
 const leftDrawerOpen = ref(false)
 const version = APP_VERSION
 const collections = getAllCollections()
-
-// Следим за изменениями аутентификации
-watch(
-  () => isAuthenticated.value,
-  (authenticated) => {
-    if (!authenticated) {
-      void router.push(ROUTE_PATH.ADMIN_LOGIN)
-    }
-  },
-  { immediate: true }
-)
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value

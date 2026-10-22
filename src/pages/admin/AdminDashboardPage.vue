@@ -65,7 +65,10 @@ function getColorForCollection(name: string): string {
 }
 
 function navigateToCollection(collectionName: string) {
-  void router.push(`/admin/collection/${collectionName}`)
+  void router.push({
+    name: 'admin-collection',
+    params: { collection: collectionName },
+  })
 }
 </script>
 

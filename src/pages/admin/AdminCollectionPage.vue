@@ -10,10 +10,16 @@ import AdminFormDialog from '@/components/admin/AdminFormDialog.vue'
 import Base64ImageTableCell from '@/components/admin/Base64ImageTableCell.vue'
 import ImageTableCell from '@/components/admin/ImageTableCell.vue'
 import TableSettingsIndicator from '@/components/admin/TableSettingsIndicator.vue'
+import { useAdminCollection } from '@/composables/useAdminCollection'
+import { useTableFilterSort } from '@/composables/useTableFilterSort'
 import { useTableSettings } from '@/composables/useTableSettings'
 import { getCollectionConfig } from '@/services/admin-config.service'
-import { firestoreService } from '@/services/firestore.service'
-import type { TableState } from '@/types/admin'
+
+import {
+  getCellText,
+  getFieldType,
+  getLayoutLabel,
+} from './admin-cell-formatters'
 
 defineOptions({ name: 'AdminCollectionPage' })
 
@@ -23,12 +29,7 @@ const route = useRoute()
 const collectionName = computed(() => route.params.collection as string)
 const config = computed(() => getCollectionConfig(collectionName.value))
 
-// Функция для определения типа поля
-function getFieldType(fieldName: string): string | undefined {
-  return config.value?.fields.find((field) => field.name === fieldName)?.type
-}
-
-// Используем композабл для управления настройками таблицы с реактивным именем коллекции
+// Настройки таблицы (persist в localStorage)
 const {
   settings: tableSettings,
   paginationSettings,
@@ -37,43 +38,38 @@ const {
   resetSettings,
 } = useTableSettings(collectionName)
 
-const tableState = ref<TableState>({
-  items: [],
-  loading: false,
-  pagination: {
-    page: paginationSettings.value.page,
-    rowsPerPage: paginationSettings.value.rowsPerPage,
-    rowsNumber: 0,
-    ...(paginationSettings.value.sortBy && {
-      sortBy: paginationSettings.value.sortBy,
-    }),
-    ...(paginationSettings.value.descending !== undefined && {
-      descending: paginationSettings.value.descending,
-    }),
-  },
-  filter: tableSettings.value.filter,
-  selected: [],
-})
+// CRUD-операции и состояние таблицы
+const {
+  tableState,
+  formLoading,
+  loadData,
+  createItem,
+  updateItem,
+  deleteItems,
+} = useAdminCollection(collectionName)
 
-// Состояние для поиска
-const allItems = ref<Record<string, unknown>[]>([])
-const filteredItems = ref<Record<string, unknown>[]>([])
+// Поиск и сортировка — чисто производные значения
+const { filteredItems, visibleItems } = useTableFilterSort({
+  items: () => tableState.value.items,
+  filter: () => tableState.value.filter,
+  sortBy: () => tableState.value.pagination.sortBy,
+  descending: () => tableState.value.pagination.descending,
+  searchableFields: () => config.value?.fields.map((field) => field.name) ?? [],
+})
 
 const showCreateDialog = ref(false)
 const showDeleteDialog = ref(false)
 const showImageDialogState = ref(false)
 const selectedImageUrl = ref('')
-const formLoading = ref(false)
 const editingItem = ref<Record<string, unknown> | null>(null)
 const itemToDelete = ref<Record<string, unknown> | null>(null)
 
-// Вычисляемое свойство для отображения информации о поиске
 const searchInfo = computed(() => {
   if (!tableState.value.filter.trim()) {
-    return `Всего записей: ${allItems.value.length}`
+    return `Всего записей: ${tableState.value.items.length}`
   }
 
-  return `Найдено: ${filteredItems.value.length} из ${allItems.value.length}`
+  return `Найдено: ${filteredItems.value.length} из ${tableState.value.items.length}`
 })
 
 const deleteDialogText = computed(() => {
@@ -85,41 +81,38 @@ const deleteDialogText = computed(() => {
 })
 
 onMounted(() => {
-  // Загружаем настройки при монтировании компонента
-  updateTableStateFromSettings()
+  applySettingsToTableState()
   void loadData()
 })
 
-// Отслеживаем изменения коллекции и автоматически перезагружаем данные
-watch(
-  () => collectionName.value,
-  (newCollection, oldCollection) => {
-    // Проверяем, что коллекция действительно изменилась
-    if (newCollection !== oldCollection && newCollection) {
-      // Загружаем настройки новой коллекции из localStorage
-      updateTableStateFromSettings()
-
-      // Показываем уведомление о переключении
-      if (oldCollection && config.value?.label) {
-        $q.notify({
-          type: 'info',
-          message: `Переключено на: ${config.value.label}`,
-          position: 'top',
-          timeout: 1000,
-        })
-      }
-
-      // Загрузка данных новой коллекции
-      void loadData()
-    }
+// Переключение коллекции: перезагружаем настройки и данные
+watch(collectionName, (newCollection, oldCollection) => {
+  if (newCollection === oldCollection || !newCollection) {
+    return
   }
-)
+
+  applySettingsToTableState()
+
+  if (config.value?.label) {
+    $q.notify({
+      type: 'info',
+      message: `Переключено на: ${config.value.label}`,
+      position: 'top',
+      timeout: 1000,
+    })
+  }
+
+  void loadData()
+})
 
 // Синхронизация фильтра с настройками
 watch(
   () => tableState.value.filter,
   (newFilter) => {
     updateFilter(newFilter)
+
+    // При изменении фильтра возвращаемся на первую страницу
+    tableState.value.pagination.page = 1
   }
 )
 
@@ -132,29 +125,23 @@ watch(
   { deep: true }
 )
 
-function updateTableStateFromSettings() {
-  // Обновляем состояние таблицы с загруженными настройками
-  tableState.value = {
-    items: [],
-    loading: true, // Показываем загрузку при переключении коллекции
-    pagination: {
-      page: paginationSettings.value.page,
-      rowsPerPage: paginationSettings.value.rowsPerPage,
-      rowsNumber: 0,
-      ...(paginationSettings.value.sortBy && {
-        sortBy: paginationSettings.value.sortBy,
-      }),
-      ...(paginationSettings.value.descending !== undefined && {
-        descending: paginationSettings.value.descending,
-      }),
-    },
-    filter: tableSettings.value.filter,
-    selected: [],
+/**
+ * Переносит сохранённые настройки таблицы в состояние страницы.
+ */
+function applySettingsToTableState() {
+  tableState.value.pagination = {
+    page: paginationSettings.value.page,
+    rowsPerPage: paginationSettings.value.rowsPerPage,
+    rowsNumber: 0,
+    ...(paginationSettings.value.sortBy && {
+      sortBy: paginationSettings.value.sortBy,
+    }),
+    ...(paginationSettings.value.descending !== undefined && {
+      descending: paginationSettings.value.descending,
+    }),
   }
-
-  // Сбрасываем данные поиска
-  allItems.value = []
-  filteredItems.value = []
+  tableState.value.filter = tableSettings.value.filter
+  tableState.value.selected = []
 
   // Закрываем все диалоги
   showCreateDialog.value = false
@@ -163,147 +150,10 @@ function updateTableStateFromSettings() {
   itemToDelete.value = null
 }
 
-// Функция поиска по всем полям
-function performSearch(searchTerm: string) {
-  if (!searchTerm.trim()) {
-    // Если поисковый запрос пустой, показываем все элементы
-    filteredItems.value = [...allItems.value]
-  } else {
-    const lowerSearchTerm = searchTerm.toLowerCase()
-    const searchableFields =
-      config.value?.fields?.map((field) => field.name) ?? []
-
-    filteredItems.value = allItems.value.filter((item) => {
-      return searchableFields.some((fieldName) => {
-        const fieldValue = item[fieldName]
-
-        if (fieldValue === null || fieldValue === undefined) {
-          return false
-        }
-
-        const stringValue = String(
-          fieldValue as string | number | boolean
-        ).toLowerCase()
-
-        return stringValue.includes(lowerSearchTerm)
-      })
-    })
-  }
-
-  // Применяем сортировку к отфильтрованным данным
-  applySorting()
-
-  tableState.value.pagination.rowsNumber = filteredItems.value.length
-  tableState.value.pagination.page = 1 // Сбрасываем на первую страницу при поиске
-}
-
-// Функция применения сортировки
-function applySorting() {
-  if (!tableState.value.pagination.sortBy) {
-    tableState.value.items = filteredItems.value
-
-    return
-  }
-
-  const { sortBy } = tableState.value.pagination
-  const descending = tableState.value.pagination.descending ?? false
-
-  const sortedItems = [...filteredItems.value].sort((a, b) => {
-    const aVal = a[sortBy]
-    const bVal = b[sortBy]
-
-    // Обработка null/undefined значений
-    if (aVal === null || aVal === undefined) {
-      if (bVal === null || bVal === undefined) {
-        return 0
-      }
-
-      return descending ? 1 : -1
-    }
-    if (bVal === null || bVal === undefined) {
-      return descending ? -1 : 1
-    }
-
-    // Сортировка строк
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      const result = aVal.localeCompare(bVal, 'ru', {
-        numeric: true,
-        sensitivity: 'base',
-      })
-
-      return descending ? -result : result
-    }
-
-    // Сортировка чисел
-    if (typeof aVal === 'number' && typeof bVal === 'number') {
-      const result = aVal - bVal
-
-      return descending ? -result : result
-    }
-
-    // Сортировка дат
-    if (aVal instanceof Date && bVal instanceof Date) {
-      const result = aVal.getTime() - bVal.getTime()
-
-      return descending ? -result : result
-    }
-
-    // Общий случай - приведение к строке
-    const aStr = String(aVal as string | number | boolean)
-    const bStr = String(bVal as string | number | boolean)
-    const result = aStr.localeCompare(bStr, 'ru', {
-      numeric: true,
-      sensitivity: 'base',
-    })
-
-    return descending ? -result : result
-  })
-
-  tableState.value.items = sortedItems
-}
-
-// Обработчик очистки поля поиска
-function handleSearchClear() {
-  tableState.value.filter = ''
-  performSearch('')
-}
-
-async function loadData() {
-  if (!config.value) {
-    $q.notify({
-      type: 'negative',
-      message: 'Конфигурация коллекции не найдена',
-      position: 'top',
-    })
-
-    return
-  }
-
-  tableState.value.loading = true
-
-  try {
-    const response = await firestoreService.getCollection<
-      Record<string, unknown>
-    >(collectionName.value)
-
-    if (response.error) {
-      $q.notify({
-        type: 'negative',
-        message: response.error,
-        position: 'top',
-      })
-    } else {
-      // Сохраняем все данные для поиска
-      allItems.value = response.items
-
-      // Применяем текущий фильтр поиска и сортировку
-      performSearch(tableState.value.filter)
-    }
-  } finally {
-    tableState.value.loading = false
-  }
-}
-
+/**
+ * Обработчик запроса q-table (смена страницы / сортировки).
+ * Данные клиентские, поэтому достаточно зафиксировать настройки.
+ */
 function onRequest(props: {
   pagination: {
     page: number
@@ -312,30 +162,6 @@ function onRequest(props: {
     descending?: boolean
   }
 }) {
-  const { page, rowsPerPage, sortBy, descending } = props.pagination
-
-  // Обновляем состояние пагинации
-  tableState.value.pagination.page = page
-  tableState.value.pagination.rowsPerPage = rowsPerPage
-
-  // Проверяем изменения сортировки
-  const sortChanged =
-    tableState.value.pagination.sortBy !== sortBy ||
-    tableState.value.pagination.descending !== descending
-
-  if (sortChanged) {
-    if (sortBy !== undefined) {
-      tableState.value.pagination.sortBy = sortBy
-    }
-    if (descending !== undefined) {
-      tableState.value.pagination.descending = descending
-    }
-
-    // Применяем новую сортировку к текущим данным
-    applySorting()
-  }
-
-  // Обновляем настройки (это автоматически сохранится в localStorage)
   updatePagination(props.pagination)
 }
 
@@ -357,16 +183,13 @@ function confirmBulkDelete() {
 function handleResetSettings() {
   resetSettings()
 
-  // Обновляем состояние таблицы с новыми настройками
   tableState.value.pagination = {
     page: 1,
     rowsPerPage: 10,
-    rowsNumber: tableState.value.pagination.rowsNumber,
+    rowsNumber: 0,
   }
   tableState.value.filter = ''
-
-  // Применяем обновленные настройки
-  performSearch('')
+  tableState.value.selected = []
 
   $q.notify({
     type: 'positive',
@@ -376,57 +199,14 @@ function handleResetSettings() {
 }
 
 async function handleSave(data: Record<string, unknown>) {
-  formLoading.value = true
+  const id = editingItem.value?.id
+  const success =
+    typeof id === 'string' && id.length > 0
+      ? await updateItem(id, data)
+      : await createItem(data)
 
-  try {
-    if (editingItem.value?.id) {
-      // Редактирование
-      const response = await firestoreService.updateDocument(
-        collectionName.value,
-        editingItem.value.id as string,
-        data
-      )
-
-      if (response.error) {
-        $q.notify({
-          type: 'negative',
-          message: response.error,
-          position: 'top',
-        })
-      } else {
-        $q.notify({
-          type: 'positive',
-          message: 'Запись успешно обновлена',
-          position: 'top',
-        })
-        await loadData()
-        handleCancel()
-      }
-    } else {
-      // Создание
-      const response = await firestoreService.createDocument(
-        collectionName.value,
-        data
-      )
-
-      if (response.error) {
-        $q.notify({
-          type: 'negative',
-          message: response.error,
-          position: 'top',
-        })
-      } else {
-        $q.notify({
-          type: 'positive',
-          message: 'Запись успешно создана',
-          position: 'top',
-        })
-        await loadData()
-        handleCancel()
-      }
-    }
-  } finally {
-    formLoading.value = false
+  if (success) {
+    handleCancel()
   }
 }
 
@@ -447,70 +227,16 @@ async function handleDelete() {
     return
   }
 
-  try {
-    const deletePromises = itemsToDelete.map((item) =>
-      firestoreService.deleteDocument(collectionName.value, item.id as string)
-    )
+  await deleteItems(itemsToDelete)
 
-    const results = await Promise.all(deletePromises)
-    const hasErrors = results.some((result) => result.error)
-
-    if (hasErrors) {
-      $q.notify({
-        type: 'negative',
-        message: 'Произошла ошибка при удалении некоторых записей',
-        position: 'top',
-      })
-    } else {
-      $q.notify({
-        type: 'positive',
-        message: `Успешно удалено ${itemsToDelete.length} записей`,
-        position: 'top',
-      })
-    }
-
-    await loadData()
-  } finally {
-    showDeleteDialog.value = false
-    tableState.value.selected = []
-    itemToDelete.value = null
-  }
+  showDeleteDialog.value = false
+  itemToDelete.value = null
 }
 
 // Функция для показа диалога с изображением
 function showImageDialog(imageUrl: string) {
   selectedImageUrl.value = imageUrl
   showImageDialogState.value = true
-}
-
-// Функция для очистки HTML контента для отображения в таблице
-function getCleanTextFromHtml(htmlContent: unknown): string {
-  if (!htmlContent) {
-    return ''
-  }
-
-  let str: string
-  if (typeof htmlContent === 'string') {
-    str = htmlContent
-  } else if (
-    typeof htmlContent === 'number' ||
-    typeof htmlContent === 'boolean'
-  ) {
-    str = String(htmlContent)
-  } else {
-    str = JSON.stringify(htmlContent)
-  }
-
-  // Удаляем HTML теги
-  let cleanText = str.replace(/<[^>]*>/g, '')
-
-  // Декодируем HTML entities используя DOM API
-  const textArea = document.createElement('textarea')
-  textArea.innerHTML = cleanText
-  cleanText = textArea.value.trim()
-
-  // Ограничиваем длину для отображения в таблице
-  return cleanText.length > 80 ? `${cleanText.substring(0, 80)}...` : cleanText
 }
 </script>
 
@@ -550,8 +276,6 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
               placeholder="Поиск по всем полям..."
               clearable
               filled
-              @clear="handleSearchClear"
-              @update:model-value="performSearch(String($event || ''))"
             >
               <template #append>
                 <q-icon name="search" />
@@ -609,11 +333,10 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
       v-model:selected="tableState.selected"
       :columns="config?.columns || []"
       :loading="tableState.loading"
-      :rows="tableState.items"
+      :rows="visibleItems"
       class="products-table"
       row-key="id"
       selection="multiple"
-      server-pagination
       @request="onRequest"
     >
       <template #body-cell-actions="props">
@@ -644,7 +367,7 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
       <template #body-cell-img="props">
         <q-td :props="props">
           <Base64ImageTableCell
-            v-if="getFieldType('img') === 'base64-image'"
+            v-if="getFieldType(config, 'img') === 'base64-image'"
             :alt="`${props.row.label || 'Продукт'} - изображение`"
             :base64-src="props.value"
             :clickable="true"
@@ -686,11 +409,35 @@ function getCleanTextFromHtml(htmlContent: unknown): string {
       <template #body-cell-info="props">
         <q-td :props="props">
           <div
-            :title="getCleanTextFromHtml(props.value)"
+            :title="getCellText(props.value)"
             class="info-cell-content"
           >
-            {{ getCleanTextFromHtml(props.value) }}
+            {{ getCellText(props.value) }}
           </div>
+        </q-td>
+      </template>
+
+      <template #body-cell-label="props">
+        <q-td :props="props">
+          {{ getCellText(props.value, 60) }}
+        </q-td>
+      </template>
+
+      <template #body-cell-title="props">
+        <q-td :props="props">
+          {{ getCellText(props.value, 100) }}
+        </q-td>
+      </template>
+
+      <template #body-cell-subtitle="props">
+        <q-td :props="props">
+          {{ getCellText(props.value, 40) }}
+        </q-td>
+      </template>
+
+      <template #body-cell-layout="props">
+        <q-td :props="props">
+          {{ getLayoutLabel(config, props.value) }}
         </q-td>
       </template>
 

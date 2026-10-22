@@ -4,6 +4,7 @@ import {
   getDownloadURL,
   ref,
   uploadBytes,
+  uploadBytesResumable,
 } from 'firebase/storage'
 import { getFirebaseStorage } from './firebase'
 
@@ -78,35 +79,57 @@ export class FirebaseStorageService {
   }
 
   /**
-   * Загрузка изображения с отслеживанием прогресса
+   * Загрузка изображения с отслеживанием прогресса.
+   *
+   * Использует `uploadBytesResumable`, поэтому `onProgress` получает реальные
+   * значения от Firebase (а не симулированные 100% в конце загрузки).
    */
   async uploadImageWithProgress(
     file: File,
     options: ImageUploadOptions = {},
     onProgress?: (progress: UploadProgress) => void
   ): Promise<UploadResult> {
+    // Валидация файла
+    const validationError = this.validateImageFile(file, options)
+
+    if (validationError) {
+      return { error: validationError }
+    }
+
+    // Генерируем уникальное имя файла
+    const filename = options.filename ?? this.generateFileName(file)
+    const path = options.path ?? 'images'
+    const fileRef = ref(this.storage, `${path}/${filename}`)
+
     try {
-      // Валидация файла
-      const validationError = this.validateImageFile(file, options)
+      const downloadURL = await new Promise<string>((resolve, reject) => {
+        const task = uploadBytesResumable(fileRef, file)
 
-      if (validationError) {
-        return { error: validationError }
-      }
+        task.on(
+          'state_changed',
+          (snapshot) => {
+            if (!onProgress) {
+              return
+            }
 
-      // Для простоты используем обычную загрузку
-      // В продакшене можно использовать uploadBytesResumable для отслеживания прогресса
-      const result = await this.uploadImage(file, options)
+            onProgress({
+              percentage: Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              ),
+              bytesTransferred: snapshot.bytesTransferred,
+              totalBytes: snapshot.totalBytes,
+            })
+          },
+          (error) => {
+            reject(error)
+          },
+          () => {
+            getDownloadURL(task.snapshot.ref).then(resolve, reject)
+          }
+        )
+      })
 
-      // Симулируем прогресс для демонстрации
-      if (onProgress && result.url) {
-        onProgress({
-          percentage: 100,
-          bytesTransferred: file.size,
-          totalBytes: file.size,
-        })
-      }
-
-      return result
+      return { url: downloadURL }
     } catch (error) {
       console.error('Error uploading image with progress:', error)
 

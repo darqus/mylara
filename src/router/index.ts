@@ -6,6 +6,8 @@ import {
   createWebHistory,
 } from 'vue-router'
 
+import { addJsonLd, buildPageJsonLd, updateCanonicalUrl } from '@/utils/seo-dom'
+
 import { adminAuthGuard } from './guards/auth'
 import routes from './routes'
 
@@ -54,38 +56,13 @@ export default route((/* { store, ssrContext } */) => {
   // Добавляем navigation guard для защиты админских маршрутов
   Router.beforeEach(adminAuthGuard)
 
-  // Обновляем канонический URL при изменении маршрута
+  // Обновляем канонический URL и структурированные данные при смене маршрута.
+  // Router.resolve() возвращает href с учётом history base (/mylara/).
   Router.afterEach((to) => {
-    // Используем setTimeout для доступа к приложению после монтирования
-    setTimeout(() => {
-      // Получаем доступ к глобальным свойствам через app
-      const appElement = document.querySelector('#q-app')
-      // biome-ignore lint/suspicious/noExplicitAny: Vue app instance is not typed on the DOM node
-      const app = (appElement as any)?.__vue_app__
+    const href = Router.resolve(to.fullPath).href
 
-      if (app?.config?.globalProperties?.$updateCanonicalUrl) {
-        // Router.resolve() returns the href including the history base (/mylara/)
-        app.config.globalProperties.$updateCanonicalUrl(
-          Router.resolve(to.fullPath).href
-        )
-      }
-
-      // Добавляем базовые структурированные данные для страницы
-      if (app?.config?.globalProperties?.$addJsonLd) {
-        const pageJsonLd = {
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          url: window.location.href,
-          name: document.title,
-          description:
-            document
-              .querySelector('meta[name="description"]')
-              ?.getAttribute('content') ?? '',
-        }
-
-        app.config.globalProperties.$addJsonLd(pageJsonLd)
-      }
-    }, 0)
+    updateCanonicalUrl(new URL(href, window.location.origin).href)
+    addJsonLd(buildPageJsonLd(window.location.href, document.title))
   })
 
   return Router

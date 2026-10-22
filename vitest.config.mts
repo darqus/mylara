@@ -10,11 +10,11 @@ const srcPath = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
   test: {
     environment: 'happy-dom',
-    setupFiles: 'test/vitest/setup-file.ts',
+    // Unit tests live next to the code they cover (`*.vitest.spec.ts`).
+    // The `test/` folder is reserved for cross-cutting suites and helpers.
     include: [
-      // Matches vitest tests in any subfolder of 'src' or into 'test/vitest/__tests__'
-      // Matches all files with extension 'js', 'jsx', 'ts' and 'tsx'
       'src/**/*.vitest.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'test/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
     ],
 
     // Add alias configuration for resolving paths

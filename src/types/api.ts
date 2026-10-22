@@ -33,7 +33,7 @@ export type SloganResponse = {
  */
 export type SlidesResponse = {
   slides: Array<{
-    id: number
+    id: string
     img: string
     title: string
     subtitle: string

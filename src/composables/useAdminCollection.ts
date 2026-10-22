@@ -1,12 +1,20 @@
 import { useQuasar } from 'quasar'
-import { ref } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
+import { ref, toValue } from 'vue'
 import { firestoreService } from '@/services/firestore.service'
-import type { CollectionConfig, TableState } from '@/types/admin'
+import type { TableState } from '@/types/admin'
 
 /**
- * Composable для управления коллекцией в админке
+ * Composable для управления коллекцией в админке.
+ *
+ * Владеет состоянием таблицы и всеми CRUD-операциями (с уведомлениями).
+ * `tableState.items` хранит «сырые» данные из Firestore; фильтрация и
+ * сортировка — зона ответственности `useTableFilterSort`, настройки в
+ * localStorage — `useTableSettings`.
+ *
+ * @param collectionName - Реактивное имя коллекции (в админке берётся из маршрута)
  */
-export function useAdminCollection(config: CollectionConfig) {
+export function useAdminCollection(collectionName: MaybeRefOrGetter<string>) {
   const $q = useQuasar()
 
   const tableState = ref<TableState>({
@@ -23,16 +31,31 @@ export function useAdminCollection(config: CollectionConfig) {
 
   const formLoading = ref(false)
 
+  function currentCollectionName(): string {
+    return toValue(collectionName)
+  }
+
   /**
-   * Загрузка данных коллекции
+   * Загрузка данных коллекции (перезаполняет `tableState.items`)
    */
   async function loadData() {
+    const name = currentCollectionName()
+
+    if (!name) {
+      $q.notify({
+        type: 'negative',
+        message: 'Конфигурация коллекции не найдена',
+        position: 'top',
+      })
+
+      return
+    }
+
     tableState.value.loading = true
 
     try {
-      const response = await firestoreService.getCollection<
-        Record<string, unknown>
-      >(config.name)
+      const response =
+        await firestoreService.getCollection<Record<string, unknown>>(name)
 
       if (response.error) {
         $q.notify({
@@ -42,7 +65,6 @@ export function useAdminCollection(config: CollectionConfig) {
         })
       } else {
         tableState.value.items = response.items
-        tableState.value.pagination.rowsNumber = response.items.length
       }
     } finally {
       tableState.value.loading = false
@@ -51,12 +73,17 @@ export function useAdminCollection(config: CollectionConfig) {
 
   /**
    * Создание нового элемента
+   *
+   * @returns `true`, если запись создана и таблица перезагружена
    */
   async function createItem(data: Record<string, unknown>) {
     formLoading.value = true
 
     try {
-      const response = await firestoreService.createDocument(config.name, data)
+      const response = await firestoreService.createDocument(
+        currentCollectionName(),
+        data
+      )
 
       if (response.error) {
         $q.notify({
@@ -66,16 +93,16 @@ export function useAdminCollection(config: CollectionConfig) {
         })
 
         return false
-      } else {
-        $q.notify({
-          type: 'positive',
-          message: 'Запись успешно создана',
-          position: 'top',
-        })
-        await loadData()
-
-        return true
       }
+
+      $q.notify({
+        type: 'positive',
+        message: 'Запись успешно создана',
+        position: 'top',
+      })
+      await loadData()
+
+      return true
     } finally {
       formLoading.value = false
     }
@@ -83,13 +110,15 @@ export function useAdminCollection(config: CollectionConfig) {
 
   /**
    * Обновление элемента
+   *
+   * @returns `true`, если запись обновлена и таблица перезагружена
    */
   async function updateItem(id: string, data: Record<string, unknown>) {
     formLoading.value = true
 
     try {
       const response = await firestoreService.updateDocument(
-        config.name,
+        currentCollectionName(),
         id,
         data
       )
@@ -102,16 +131,16 @@ export function useAdminCollection(config: CollectionConfig) {
         })
 
         return false
-      } else {
-        $q.notify({
-          type: 'positive',
-          message: 'Запись успешно обновлена',
-          position: 'top',
-        })
-        await loadData()
-
-        return true
       }
+
+      $q.notify({
+        type: 'positive',
+        message: 'Запись успешно обновлена',
+        position: 'top',
+      })
+      await loadData()
+
+      return true
     } finally {
       formLoading.value = false
     }
@@ -119,11 +148,16 @@ export function useAdminCollection(config: CollectionConfig) {
 
   /**
    * Удаление элементов
+   *
+   * @returns `true`, если все записи удалены без ошибок
    */
   async function deleteItems(items: Array<Record<string, unknown>>) {
     try {
       const deletePromises = items.map((item) =>
-        firestoreService.deleteDocument(config.name, item.id as string)
+        firestoreService.deleteDocument(
+          currentCollectionName(),
+          item.id as string
+        )
       )
 
       const results = await Promise.all(deletePromises)
@@ -144,7 +178,7 @@ export function useAdminCollection(config: CollectionConfig) {
       }
 
       await loadData()
-      tableState.value.selected = []
+      clearSelection()
 
       return !hasErrors
     } catch {
@@ -156,13 +190,6 @@ export function useAdminCollection(config: CollectionConfig) {
 
       return false
     }
-  }
-
-  /**
-   * Фильтрация данных
-   */
-  function filterData(query: string) {
-    tableState.value.filter = query
   }
 
   /**
@@ -179,7 +206,6 @@ export function useAdminCollection(config: CollectionConfig) {
     createItem,
     updateItem,
     deleteItems,
-    filterData,
     clearSelection,
   }
 }

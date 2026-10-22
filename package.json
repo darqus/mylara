@@ -1,5 +1,5 @@
 {
-  "name": "@amzn/mylara",
+  "name": "mylara",
   "version": "0.1.57",
   "description": "Косметика по уходу за лицом",
   "productName": "mylara-landing",
@@ -44,10 +44,13 @@
     "vite": "^7.3.7",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^5.0.5",
-    "vue-tsc": "^3.3.13"
+    "vue-tsc": "^3.2.5"
   },
   "engines": {
-    "node": "^22.22.0 || ^24 || ^26 || ^28 || ^30",
-    "npm": ">= 6.13.4"
-  }
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "keywords": [],
+  "packageManager": "npm@10.9.2"
 }

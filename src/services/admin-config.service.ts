@@ -1,7 +1,12 @@
 import type { CollectionConfig } from '@/types/admin'
 
 /**
- * Конфигурация коллекций для админки
+ * Конфигурация коллекций для админки.
+ *
+ * Данный модуль описывает ТОЛЬКО данные: какие поля есть у коллекции и как
+ * они подписаны. Форматирование значений для отображения и стилизация ячеек
+ * здесь отсутствуют — это ответственность слоя представления (см.
+ * `src/utils/format.ts` и AdminCollectionPage.vue).
  */
 export const collectionsConfig: Record<string, CollectionConfig> = {
   // Коллекция carousel из carousel.service.ts
@@ -58,9 +63,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => (val ? (val as string) : ''),
-        style: 'width: 80px; min-width: 80px;',
-        headerStyle: 'width: 80px; min-width: 80px;',
       },
       {
         name: 'label',
@@ -69,22 +71,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: true,
         align: 'left',
         sortable: true,
-        style: 'max-width: 350px; white-space: normal; line-height: 1.4;',
-        headerStyle: 'width: 40%;',
-        format: (val: unknown) => {
-          if (val === null || val === undefined) {
-            return ''
-          }
-          let str: string
-          if (typeof val === 'string') {
-            str = val
-          } else if (typeof val === 'number' || typeof val === 'boolean') {
-            str = String(val)
-          } else {
-            str = JSON.stringify(val)
-          }
-          return str.length > 60 ? `${str.substring(0, 60)}...` : str
-        },
       },
       {
         name: 'info',
@@ -93,34 +79,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: true,
         align: 'left',
         sortable: true,
-        style: 'max-width: 280px; white-space: normal; line-height: 1.3;',
-        headerStyle: 'width: 30%;',
-        format: (val: unknown) => {
-          if (val === null || val === undefined) {
-            return ''
-          }
-          let str: string
-          if (typeof val === 'string') {
-            str = val
-          } else if (typeof val === 'number' || typeof val === 'boolean') {
-            str = String(val)
-          } else {
-            str = JSON.stringify(val)
-          }
-
-          // Удаляем HTML теги для отображения в таблице
-          let cleanText = str.replace(/<[^>]*>/g, '')
-
-          // Декодируем HTML entities используя DOM API
-          const textArea = document.createElement('textarea')
-          textArea.innerHTML = cleanText
-          cleanText = textArea.value
-
-          cleanText = cleanText.trim()
-          return cleanText.length > 80
-            ? `${cleanText.substring(0, 80)}...`
-            : cleanText
-        },
       },
       {
         name: 'link',
@@ -128,17 +86,12 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'link',
         align: 'center',
         sortable: false,
-        style: 'width: 80px; min-width: 80px;',
-        headerStyle: 'width: 80px; min-width: 80px;',
-        format: (val: unknown) => (val ? '🔗' : ''),
       },
       {
         name: 'actions',
         label: 'Действия',
         field: 'actions',
         align: 'center',
-        style: 'width: 120px; min-width: 120px;',
-        headerStyle: 'width: 120px; min-width: 120px;',
       },
     ],
   },
@@ -189,7 +142,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'img',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => (val ? (val as string) : ''),
       },
       {
         name: 'title',
@@ -206,11 +158,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: true,
         align: 'left',
         sortable: true,
-        format: (val: unknown) => {
-          const str = String(val)
-
-          return str.length > 40 ? `${str.substring(0, 40)}...` : str
-        },
       },
       {
         name: 'actions',
@@ -265,11 +212,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         required: true,
         align: 'left',
         sortable: false,
-        format: (val: unknown) => {
-          const str = String(val)
-
-          return str.length > 100 ? `${str.substring(0, 100)}...` : str
-        },
       },
       {
         name: 'image',
@@ -284,14 +226,6 @@ export const collectionsConfig: Record<string, CollectionConfig> = {
         field: 'layout',
         align: 'center',
         sortable: false,
-        format: (val: unknown) => {
-          const layoutMap = {
-            'text-left': 'Текст слева',
-            'text-right': 'Текст справа',
-          }
-
-          return layoutMap[val as keyof typeof layoutMap] ?? 'Не указано'
-        },
       },
       {
         name: 'actions',
