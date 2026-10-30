@@ -49,12 +49,7 @@ import DataLoader from 'src/components/common/DataLoader.vue'
     @retry="fetchData"
   >
     <template #content>
-      <div
-        v-for="item in data"
-        :key="item.id"
-      >
-        {{ item.name }}
-      </div>
+      <div v-for="item in data" :key="item.id">{{ item.name }}</div>
     </template>
   </DataLoader>
 </template>
@@ -97,37 +92,23 @@ import DataLoader from 'src/components/common/DataLoader.vue'
   >
     <!-- Кастомный лоадер -->
     <template #loading>
-      <q-spinner-gears
-        color="secondary"
-        size="50px"
-      />
+      <q-spinner-gears color="secondary" size="50px" />
       <div class="q-mt-sm text-secondary">Получаем данные...</div>
     </template>
 
     <!-- Кастомная ошибка -->
     <template #error>
       <div class="text-negative q-py-md">
-        <q-icon
-          name="warning"
-          size="2rem"
-        />
+        <q-icon name="warning" size="2rem" />
         <div>Не удалось загрузить информацию</div>
-        <q-btn
-          label="Повторить"
-          color="primary"
-          @click="fetchData"
-        />
+        <q-btn label="Повторить" color="primary" @click="fetchData" />
       </div>
     </template>
 
     <!-- Кастомное пустое состояние -->
     <template #empty>
       <div class="q-pa-lg text-center">
-        <q-icon
-          name="search_off"
-          size="3rem"
-          color="grey"
-        />
+        <q-icon name="search_off" size="3rem" color="grey" />
         <div class="text-h6 q-mt-md">По вашему запросу ничего не найдено</div>
       </div>
     </template>
@@ -135,11 +116,7 @@ import DataLoader from 'src/components/common/DataLoader.vue'
     <!-- Основной контент -->
     <template #content>
       <div class="row q-col-gutter-md">
-        <div
-          v-for="item in data"
-          :key="item.id"
-          class="col-12 col-md-6"
-        >
+        <div v-for="item in data" :key="item.id" class="col-12 col-md-6">
           <!-- Контент здесь -->
         </div>
       </div>

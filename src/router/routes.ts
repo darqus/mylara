@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+
 import { ROUTE_PATH } from '@/types/route-paths'
 import { ROUTER_BASE } from '@/utils/constants'
 

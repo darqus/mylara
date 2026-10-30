@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import {
-  type Base64ImageOptions,
-  useBase64Image,
-} from '@/composables/useBase64Image'
+
+import { type Base64ImageOptions, useBase64Image } from '@/composables/useBase64Image'
 
 defineOptions({ name: 'Base64ImageUploader' })
 
@@ -42,8 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-const { loading, error, fileToBase64, formatFileSize, isValidBase64Image } =
-  useBase64Image()
+const { loading, error, fileToBase64, formatFileSize, isValidBase64Image } = useBase64Image()
 
 const fileInput = ref<HTMLInputElement>()
 const isDragOver = ref(false)
@@ -58,9 +55,7 @@ const base64Value = computed({
   set: (value: string | null) => emit('update:modelValue', value),
 })
 
-const hasImage = computed(() =>
-  Boolean(base64Value.value && isValidBase64Image(base64Value.value))
-)
+const hasImage = computed(() => Boolean(base64Value.value && isValidBase64Image(base64Value.value)))
 
 const formattedAllowedTypes = computed(() => {
   const types = props.allowedTypes || ['image/jpeg', 'image/png', 'image/webp']
@@ -317,15 +312,9 @@ function downloadAsFile() {
         <div class="text-h6 text-grey-7 q-mt-sm">
           {{ placeholder || 'Загрузить изображение' }}
         </div>
-        <div class="text-caption text-grey-6">
-          Перетащите файл сюда или нажмите для выбора
-        </div>
-        <div class="text-caption text-grey-5 q-mt-sm">
-          Поддерживаемые форматы: {{ formattedAllowedTypes }}
-        </div>
-        <div class="text-caption text-grey-5">
-          Максимальный размер: {{ formatFileSize(maxSizeKB * 1024) }}
-        </div>
+        <div class="text-caption text-grey-6">Перетащите файл сюда или нажмите для выбора</div>
+        <div class="text-caption text-grey-5 q-mt-sm">Поддерживаемые форматы: {{ formattedAllowedTypes }}</div>
+        <div class="text-caption text-grey-5">Максимальный размер: {{ formatFileSize(maxSizeKB * 1024) }}</div>
       </div>
 
       <!-- Индикатор загрузки -->

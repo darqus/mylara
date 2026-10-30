@@ -1,5 +1,5 @@
 {
-  "*.{js,jsx,ts,tsx,vue,json,css,scss,md}": [
-    "biome check --write --no-errors-on-unmatched"
-  ]
+  "*.{js,jsx,ts,tsx,json,md}": ["oxfmt --no-error-on-unmatched-pattern"],
+  "*.{js,jsx,ts,tsx,vue}": ["oxlint --fix"],
+  "*.{css,scss}": ["stylelint --fix", "oxfmt --no-error-on-unmatched-pattern"]
 }

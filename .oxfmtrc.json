@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "index.html",
+    "opencode.json",
+    "package-lock.json",
+    "public/**",
+    "**/*.min.*",
+    "**/*.log"
+  ],
+  "printWidth": 80,
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "sortPackageJson": false,
+  "overrides": [
+    {
+      "files": ["**/*.css", "**/*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": ["**/*.vue"],
+      "options": {
+        "printWidth": 120,
+        "singleAttributePerLine": true
+      }
+    }
+  ],
+  "sortImports": {
+    "internalPattern": ["@/"],
+    "ignoreCase": true,
+    "newlinesBetween": true,
+    "order": "asc",
+    "groups": [
+      "type-import",
+      "side_effect_style",
+      "side_effect",
+      "value-builtin",
+      "value-external",
+      "value-internal",
+      ["value-parent", "value-sibling", "value-index"],
+      "unknown"
+    ]
+  }
+}

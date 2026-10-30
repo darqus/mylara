@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { QForm } from 'quasar'
-import { computed, ref, watch } from 'vue'
-import Base64ImageUploader from '@/components/common/Base64ImageUploader.vue'
 import type { CollectionConfig, FormField } from '@/types/admin'
+import type { QForm } from 'quasar'
+
+import { computed, ref, watch } from 'vue'
+
+import Base64ImageUploader from '@/components/common/Base64ImageUploader.vue'
 
 import ImageUploader from './ImageUploader.vue'
 
@@ -131,9 +133,7 @@ function getFieldRules(field: FormField) {
       }
 
       return (
-        (val !== null &&
-          val !== undefined &&
-          String(val as string | number).trim() !== '') ||
+        (val !== null && val !== undefined && String(val as string | number).trim() !== '') ||
         'Поле обязательно для заполнения'
       )
     })
@@ -147,9 +147,7 @@ function getFieldRules(field: FormField) {
 
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-      return (
-        emailPattern.test(String(val as string)) || 'Введите корректный email'
-      )
+      return emailPattern.test(String(val as string)) || 'Введите корректный email'
     })
   }
 
@@ -355,9 +353,7 @@ async function handleSubmit() {
                   </span>
                 </div>
                 <ImageUploader
-                  :model-value="
-                    formData[field.name] ? String(formData[field.name]) : null
-                  "
+                  :model-value="formData[field.name] ? String(formData[field.name]) : null"
                   @update:model-value="formData[field.name] = $event"
                 />
               </div>
@@ -377,9 +373,7 @@ async function handleSubmit() {
                   </span>
                 </div>
                 <Base64ImageUploader
-                  :model-value="
-                    formData[field.name] ? String(formData[field.name]) : null
-                  "
+                  :model-value="formData[field.name] ? String(formData[field.name]) : null"
                   v-bind="getBase64ImageOptions(field)"
                   @update:model-value="formData[field.name] = $event"
                 />

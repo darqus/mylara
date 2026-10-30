@@ -1,5 +1,6 @@
-import { ref } from 'vue'
 import type { ApiResponse } from '@/types/api'
+
+import { ref } from 'vue'
 
 /**
  * Общий хук для загрузки данных

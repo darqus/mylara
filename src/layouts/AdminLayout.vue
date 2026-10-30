@@ -2,6 +2,7 @@
 import { useQuasar } from 'quasar'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 import AdminMenuItem from '@/components/admin/AdminMenuItem.vue'
 import { useAdminAuth } from '@/composables/useAdminAuth'
 import { getAllCollections } from '@/services/admin-config.service'

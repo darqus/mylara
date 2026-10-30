@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { MetaData } from '@/services/seo.service'
+
 import { useMeta } from 'quasar'
 
-import type { MetaData } from '@/services/seo.service'
 import { SeoService } from '@/services/seo.service'
 import { SEO_HOME } from '@/utils/seo-constants'
 

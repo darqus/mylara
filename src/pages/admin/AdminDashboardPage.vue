@@ -2,6 +2,7 @@
 import { useQuasar } from 'quasar'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 import { getAllCollections } from '@/services/admin-config.service'
 import { firestoreService } from '@/services/firestore.service'
 import { formatRecordsCount } from '@/utils/pluralization'
@@ -50,15 +51,7 @@ async function loadCollectionStats() {
 }
 
 function getColorForCollection(name: string): string {
-  const colors = [
-    'primary',
-    'secondary',
-    'accent',
-    'positive',
-    'negative',
-    'info',
-    'warning',
-  ]
+  const colors = ['primary', 'secondary', 'accent', 'positive', 'negative', 'info', 'warning']
   const index = name.length % colors.length
 
   return colors[index] ?? 'primary'
@@ -76,9 +69,7 @@ function navigateToCollection(collectionName: string) {
   <q-page class="q-pa-md">
     <div class="text-h4 q-mb-md">Панель администратора</div>
 
-    <div class="text-subtitle1 q-mb-lg text-grey-7">
-      Добро пожаловать в админку для управления базой данных
-    </div>
+    <div class="text-subtitle1 q-mb-lg text-grey-7">Добро пожаловать в админку для управления базой данных</div>
 
     <div class="row q-gutter-md">
       <div
@@ -102,18 +93,14 @@ function navigateToCollection(collectionName: string) {
             <div class="text-h6">
               {{ collection.label }}
             </div>
-            <div class="text-body2 text-grey-6 q-mb-sm">
-              Управление записями {{ collection.label.toLowerCase() }}
-            </div>
+            <div class="text-body2 text-grey-6 q-mb-sm">Управление записями {{ collection.label.toLowerCase() }}</div>
 
             <!-- Статистика количества записей -->
             <div class="q-mt-md">
               <q-chip
                 v-if="collectionStats[collection.name] !== undefined"
                 :color="getColorForCollection(collection.name)"
-                :label="
-                  formatRecordsCount(collectionStats[collection.name] ?? 0)
-                "
+                :label="formatRecordsCount(collectionStats[collection.name] ?? 0)"
                 text-color="white"
                 dense
               />

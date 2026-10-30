@@ -1,3 +1,7 @@
 {
-  "recommendations": ["biomejs.biome", "vue.volar"]
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "stylelint.vscode-stylelint",
+    "vue.volar"
+  ]
 }

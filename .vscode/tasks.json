@@ -33,38 +33,23 @@
     {
       "label": "Lint + Fix",
       "type": "shell",
-      "command": "biome check --write --unsafe --files-ignore-unknown=true .",
+      "command": "npm run fix",
       "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "silent",
         "focus": false
       },
-      "problemMatcher": {
-        "owner": "biome",
-        "severity": "warning",
-        "pattern": [
-          {
-            "regexp": "^(src/.*):(\\d+):(\\d+) (lint|format|parse|assist) (.*)",
-            "file": 1,
-            "line": 2,
-            "column": 3,
-            "severity": 4,
-            "message": 5
-          }
-        ]
-      }
+      "problemMatcher": []
     },
     {
       "label": "Full Check (Lint + Typecheck)",
       "type": "shell",
-      "command": "biome check --write --unsafe --files-ignore-unknown=true . && npx vue-tsc --noEmit",
+      "command": "npm run lint && npm run typecheck",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "dependsOn": ["Lint + Fix", "Typecheck"],
-      "dependsOrder": "sequence",
       "presentation": {
         "echo": true,
         "reveal": "always",

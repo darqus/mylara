@@ -4,24 +4,28 @@ A Quasar Framework app for Mylara landing page with comprehensive code formattin
 
 ## 🎨 Code Formatting
 
-This project uses [Biome](https://biomejs.dev) as its single formatter and
-linter for JavaScript, TypeScript, Vue and JSON:
+This project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) for
+JavaScript and TypeScript linting, [Stylelint](https://stylelint.io/) with
+Recess Order for CSS/SCSS property sorting, and
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for formatting
+JavaScript, TypeScript, Vue, stylesheets and JSON:
 
 ```bash
-npm run lint          # biome check . - report problems
-npm run fix           # biome check --write --unsafe - format and fix
+npm run lint          # check lint and formatting
+npm run fix           # apply lint fixes and format files
 npm run typecheck     # vue-tsc --noEmit - full type check
 ```
 
 **Key features:**
 
-- ✅ **Biome** - Formatting, linting and import sorting
-- ✅ **VS Code integration** - Biome extension, auto-format on save
+- ✅ **OXC** - Fast linting, formatting and import sorting
+- ✅ **SCSS property order** - Stylelint Recess Order
+- ✅ **VS Code integration** - OXC and Stylelint extensions
 - ✅ **TypeScript** - Type checking via `vue-tsc`
 
 📚 **Documentation:**
 
-- [Formatting](docs/formatting.md) - Biome usage and conventions
+- [Formatting](docs/formatting.md) - OXC usage and conventions
 - [Breakpoints System](docs/quasar-breakpoints-system.md) - Responsive design with Quasar
 - [Breakpoints Examples](docs/breakpoints-examples.md) - Practical usage examples
 

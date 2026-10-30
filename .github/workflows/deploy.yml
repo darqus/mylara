@@ -57,8 +57,7 @@ jobs:
         run: npm run typecheck
 
       - name: Lint
-        # Biome is not a local devDependency: it is installed and pinned here.
-        run: npm exec --yes --package=@biomejs/biome@2.5.8 -- biome check .
+        run: npm run lint
 
       - name: Configure git identity
         # `npm run update-env` creates a commit, which requires an author

@@ -1,3 +1,5 @@
+import type { CollectionResponse, DocumentResponse } from '@/types/api'
+
 import {
   addDoc,
   collection,
@@ -8,8 +10,6 @@ import {
   serverTimestamp,
   updateDoc,
 } from 'firebase/firestore'
-
-import type { CollectionResponse, DocumentResponse } from '@/types/api'
 
 import { getFirebaseAuth, getFirebaseDb } from './firebase'
 

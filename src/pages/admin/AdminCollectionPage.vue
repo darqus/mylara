@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-
-import { useRoute } from 'vue-router'
 import './scss/admin-collection-page.scss'
 
 import { useQuasar } from 'quasar'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 import AdminFormDialog from '@/components/admin/AdminFormDialog.vue'
 import Base64ImageTableCell from '@/components/admin/Base64ImageTableCell.vue'
@@ -15,11 +14,7 @@ import { useTableFilterSort } from '@/composables/useTableFilterSort'
 import { useTableSettings } from '@/composables/useTableSettings'
 import { getCollectionConfig } from '@/services/admin-config.service'
 
-import {
-  getCellText,
-  getFieldType,
-  getLayoutLabel,
-} from './admin-cell-formatters'
+import { getCellText, getFieldType, getLayoutLabel } from './admin-cell-formatters'
 
 defineOptions({ name: 'AdminCollectionPage' })
 
@@ -39,14 +34,7 @@ const {
 } = useTableSettings(collectionName)
 
 // CRUD-операции и состояние таблицы
-const {
-  tableState,
-  formLoading,
-  loadData,
-  createItem,
-  updateItem,
-  deleteItems,
-} = useAdminCollection(collectionName)
+const { tableState, formLoading, loadData, createItem, updateItem, deleteItems } = useAdminCollection(collectionName)
 
 // Поиск и сортировка — чисто производные значения
 const { filteredItems, visibleItems } = useTableFilterSort({
@@ -200,10 +188,7 @@ function handleResetSettings() {
 
 async function handleSave(data: Record<string, unknown>) {
   const id = editingItem.value?.id
-  const success =
-    typeof id === 'string' && id.length > 0
-      ? await updateItem(id, data)
-      : await createItem(data)
+  const success = typeof id === 'string' && id.length > 0 ? await updateItem(id, data) : await createItem(data)
 
   if (success) {
     handleCancel()
@@ -217,11 +202,7 @@ function handleCancel() {
 
 async function handleDelete() {
   const itemsToDelete =
-    tableState.value.selected.length > 0
-      ? tableState.value.selected
-      : itemToDelete.value
-        ? [itemToDelete.value]
-        : []
+    tableState.value.selected.length > 0 ? tableState.value.selected : itemToDelete.value ? [itemToDelete.value] : []
 
   if (itemsToDelete.length === 0) {
     return
@@ -247,9 +228,7 @@ function showImageDialog(imageUrl: string) {
         <div class="text-h4">
           {{ config?.label || collectionName }}
         </div>
-        <div class="text-subtitle1 text-grey-7">
-          Управление записями в коллекции
-        </div>
+        <div class="text-subtitle1 text-grey-7">Управление записями в коллекции</div>
       </div>
 
       <q-btn

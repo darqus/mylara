@@ -10,9 +10,7 @@ useMeta(() => SeoService.setMeta(SEO_404) as unknown as Record<string, unknown>)
 </script>
 
 <template>
-  <div
-    class="fullscreen bg-primary text-white text-center q-pa-md flex flex-center"
-  >
+  <div class="fullscreen bg-primary text-white text-center q-pa-md flex flex-center">
     <div>
       <div style="font-size: 30vh">404</div>
 

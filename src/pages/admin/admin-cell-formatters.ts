@@ -1,4 +1,5 @@
 import type { CollectionConfig, FormField } from '@/types/admin'
+
 import { htmlToText, stringifyValue, truncate } from '@/utils/format'
 
 /**

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import './scss/landing-slider.scss'
+
 import { useQuasar } from 'quasar'
 import { ref } from 'vue'
+
 import DataLoader from '@/components/common/data-loader/DataLoader.vue'
 import { useImageErrorHandling } from '@/composables/useImageErrorHandling'
 import { getSlides } from '@/services/slides.service'
-
-import './scss/landing-slider.scss'
 
 const $q = useQuasar()
 const slide = ref(1)

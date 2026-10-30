@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { QForm } from 'quasar'
+
 import { useQuasar } from 'quasar'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 import { useAdminAuth, whenReady } from '@/composables/useAdminAuth'
 import { usePasswordVisibility } from '@/composables/usePasswordVisibility'
 import { ROUTE_PATH } from '@/types/route-paths'
@@ -11,8 +13,7 @@ defineOptions({ name: 'AdminLoginPage' })
 
 const router = useRouter()
 const $q = useQuasar()
-const { login, register, loading, isAuthenticated, initializing } =
-  useAdminAuth()
+const { login, register, loading, isAuthenticated, initializing } = useAdminAuth()
 
 // Управление видимостью паролей
 const {
@@ -49,8 +50,7 @@ onMounted(async () => {
 
   if (isAuthenticated.value) {
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
 
@@ -90,8 +90,7 @@ async function handleLogin() {
 
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
   } else {
@@ -132,8 +131,7 @@ async function handleRegister() {
 
     // Перенаправляем на исходную страницу или на админ дашборд
     const redirectQuery = router.currentRoute.value.query.redirect as string
-    const redirectTo =
-      redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
+    const redirectTo = redirectQuery && redirectQuery !== '' ? redirectQuery : ROUTE_PATH.ADMIN
 
     void router.push(redirectTo)
   } else {
@@ -175,9 +173,7 @@ async function handleRegister() {
         >
           <q-card-section class="text-center">
             <div class="text-h4 text-grey-8 q-mb-md">Админка</div>
-            <div class="text-subtitle1 text-grey-6">
-              Вход в панель администратора
-            </div>
+            <div class="text-subtitle1 text-grey-6">Вход в панель администратора</div>
           </q-card-section>
 
           <q-card-section>
@@ -238,9 +234,7 @@ async function handleRegister() {
           </q-card-section>
 
           <q-card-section class="text-center">
-            <div class="text-caption text-grey-6">
-              Используйте свои учетные данные Firebase Auth
-            </div>
+            <div class="text-caption text-grey-6">Используйте свои учетные данные Firebase Auth</div>
 
             <!-- Показываем кнопку регистрации только если нет аутентифицированных пользователей -->
             <!-- <div
@@ -266,9 +260,7 @@ async function handleRegister() {
           <q-card style="min-width: 400px">
             <q-card-section>
               <div class="text-h6">Создание администратора</div>
-              <div class="text-caption text-grey-6 q-mt-sm">
-                Эта опция доступна только для первоначальной настройки
-              </div>
+              <div class="text-caption text-grey-6 q-mt-sm">Эта опция доступна только для первоначальной настройки</div>
             </q-card-section>
 
             <q-card-section>
@@ -280,8 +272,7 @@ async function handleRegister() {
                   v-model="registerEmail"
                   :rules="[
                     (val) => !!val || 'Введите email',
-                    (val) =>
-                      /.+@.+\..+/.test(val) || 'Введите корректный email',
+                    (val) => /.+@.+\..+/.test(val) || 'Введите корректный email',
                   ]"
                   label="Email администратора"
                   type="email"
@@ -292,9 +283,7 @@ async function handleRegister() {
                   v-model="registerPassword"
                   :rules="[
                     (val) => !!val || 'Введите пароль',
-                    (val) =>
-                      val.length >= 6 ||
-                      'Пароль должен содержать минимум 6 символов',
+                    (val) => val.length >= 6 || 'Пароль должен содержать минимум 6 символов',
                   ]"
                   :type="getRegisterPasswordInputType()"
                   class="q-mt-md"

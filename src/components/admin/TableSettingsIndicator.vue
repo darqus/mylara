@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { TableSettings } from '@/composables/useTableSettings'
+
+import { computed } from 'vue'
 
 type Props = {
   settings: TableSettings
@@ -42,9 +43,7 @@ const hasCustomSettings = computed(() => {
           </li>
           <li v-if="settings.filter">Фильтр: "{{ settings.filter }}"</li>
           <li>Записей на странице: {{ settings.rowsPerPage }}</li>
-          <li v-if="settings.page > 1">
-            Текущая страница: {{ settings.page }}
-          </li>
+          <li v-if="settings.page > 1">Текущая страница: {{ settings.page }}</li>
         </ul>
       </div>
     </q-tooltip>

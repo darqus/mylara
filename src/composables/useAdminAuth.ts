@@ -8,6 +8,7 @@ import {
   signOut,
 } from 'firebase/auth'
 import { computed, ref } from 'vue'
+
 import { getFirebaseAuth } from '@/services/firebase'
 
 type AuthResult = {

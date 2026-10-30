@@ -10,9 +10,9 @@
     display: flex;
     align-items: stretch; /* Элементы растягиваются по высоте */
     overflow-x: auto;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none; /* Firefox */
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none; /* IE and Edge */
 

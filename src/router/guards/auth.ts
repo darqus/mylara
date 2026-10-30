@@ -1,4 +1,5 @@
 import type { NavigationGuardWithThis } from 'vue-router'
+
 import { useAdminAuth, whenReady } from '@/composables/useAdminAuth'
 import { ROUTE_PATH } from '@/types/route-paths'
 

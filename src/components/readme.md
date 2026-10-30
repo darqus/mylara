@@ -80,14 +80,8 @@ components/
 
 ```vue
 <template>
-  <div
-    class="base-input"
-    :class="{ 'base-input--error': hasError }"
-  >
-    <label
-      v-if="label"
-      class="base-input__label"
-    >
+  <div class="base-input" :class="{ 'base-input--error': hasError }">
+    <label v-if="label" class="base-input__label">
       {{ label }}
     </label>
     <input
@@ -97,10 +91,7 @@ components/
       :placeholder="placeholder"
       :type="type"
     />
-    <span
-      v-if="errorMessage"
-      class="base-input__error"
-    >
+    <span v-if="errorMessage" class="base-input__error">
       {{ errorMessage }}
     </span>
   </div>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import './scss/landing-footer.scss'
+
 import { ref } from 'vue'
 
-import './scss/landing-footer.scss'
 import PrivacyPolicyDialog from '@/components/common/PrivacyPolicyDialog.vue'
 import TermsOfUseDialog from '@/components/common/TermsOfUseDialog.vue'
 import { APP_VERSION, BUILD_DATE } from '@/utils/meta'
@@ -83,9 +84,7 @@ const showTermsOfUse = ref(false)
             />
             <!-- <div class="text-h6 text-weight-bold">MyLara</div> -->
           </div>
-          <p class="text-grey-8 q-mb-sm">
-            Ваш надежный партнер в мире технологий и инноваций.
-          </p>
+          <p class="text-grey-8 q-mb-sm">Ваш надежный партнер в мире технологий и инноваций.</p>
           <small class="text-grey-6">v{{ APP_VERSION }} {{ BUILD_DATE }}</small>
         </div>
 
@@ -171,9 +170,7 @@ const showTermsOfUse = ref(false)
       <!-- Bottom Bar -->
       <q-separator class="q-my-md" />
       <div class="row items-center justify-between">
-        <div class="text-caption text-grey-6">
-          © {{ new Date().getFullYear() }} MyLara. Все права защищены.
-        </div>
+        <div class="text-caption text-grey-6">© {{ new Date().getFullYear() }} MyLara. Все права защищены.</div>
         <div class="text-caption text-grey-6">
           <a
             class="text-primary text-decoration-none cursor-pointer"

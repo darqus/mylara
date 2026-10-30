@@ -1,7 +1,9 @@
+import type { PluginOption } from 'vite'
+
 import { fileURLToPath } from 'node:url'
+
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 import vue from '@vitejs/plugin-vue'
-import type { PluginOption } from 'vite'
 import { defineConfig } from 'vitest/config'
 
 const srcPath = fileURLToPath(new URL('./src', import.meta.url))

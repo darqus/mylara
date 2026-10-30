@@ -1,8 +1,10 @@
-import { useQuasar } from 'quasar'
-import type { MaybeRefOrGetter } from 'vue'
-import { ref, toValue } from 'vue'
-import { firestoreService } from '@/services/firestore.service'
 import type { TableState } from '@/types/admin'
+import type { MaybeRefOrGetter } from 'vue'
+
+import { useQuasar } from 'quasar'
+import { ref, toValue } from 'vue'
+
+import { firestoreService } from '@/services/firestore.service'
 
 /**
  * Composable для управления коллекцией в админке.

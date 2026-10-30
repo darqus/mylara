@@ -97,9 +97,7 @@ function downloadImage() {
                   name="broken_image"
                   size="48px"
                 />
-                <div class="text-grey-7 q-mt-sm">
-                  Ошибка загрузки изображения
-                </div>
+                <div class="text-grey-7 q-mt-sm">Ошибка загрузки изображения</div>
               </div>
             </template>
           </q-img>

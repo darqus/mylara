@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
-
 import type { CollectionConfig } from '@/types/admin'
+
+import { describe, expect, it } from 'vitest'
 
 import {
   getCellText,

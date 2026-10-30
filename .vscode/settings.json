@@ -1,9 +1,18 @@
 {
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "biomejs.biome",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": "explicit",
-    "source.fixAll.biome": "explicit"
+    "source.format.oxc": "always",
+    "source.fixAll.oxc": "always",
+    "source.fixAll.stylelint": "always"
+  },
+  "oxc.unusedDisableDirectives": "deny",
+  "oxc.configPath": ".oxlintrc.json",
+  "search.exclude": {
+    "**/dist": true,
+    "**/.quasar": true
   },
   "json.schemas": [
     {
@@ -33,19 +42,22 @@
   "[vue]": {
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
-    "editor.defaultFormatter": "biomejs.biome",
+    "editor.defaultFormatter": "oxc.oxc-vscode",
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file",
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "always",
-      "source.fixAll.biome": "always",
-      "source.organizeImports.biome": "always"
-    }
+    "editor.formatOnSaveMode": "file"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
   },
   "[scss]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[css]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   }
 }

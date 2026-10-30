@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+
 import { useBase64Image } from '@/composables/useBase64Image'
 
 defineOptions({ name: 'Base64ImageTableCell' })
@@ -33,9 +34,7 @@ const { isValidBase64Image } = useBase64Image()
 // Используем base64Src с fallback на base64 для совместимости
 const imageSource = computed(() => props.base64Src ?? props.base64)
 
-const hasValidImage = computed(() =>
-  Boolean(imageSource.value && isValidBase64Image(imageSource.value))
-)
+const hasValidImage = computed(() => Boolean(imageSource.value && isValidBase64Image(imageSource.value)))
 
 const imageSize = computed(() => ({
   width: `${props.size}px`,

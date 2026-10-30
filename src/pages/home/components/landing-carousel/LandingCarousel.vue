@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { CarouselItem } from '@/services/carousel.service'
+
+import './scss/landing-carousel.scss'
+
 import { onMounted, ref } from 'vue'
+
 import DataLoader from '@/components/common/data-loader/DataLoader.vue'
 import { useDevice } from '@/composables/useDevice'
 import { useImageErrorHandling } from '@/composables/useImageErrorHandling'
-import type { CarouselItem } from '@/services/carousel.service'
 import { getCarouselItems } from '@/services/carousel.service'
-
-import './scss/landing-carousel.scss'
 
 const { isMobile } = useDevice()
 
@@ -115,14 +117,10 @@ onMounted(() => {
         <div
           ref="carouselRef"
           class="carousel-items-container q-py-lg q-my-sm"
-          @touchend="
-            (e) => handleTouchEnd(e, Array.isArray(items) ? items : [])
-          "
+          @touchend="(e) => handleTouchEnd(e, Array.isArray(items) ? items : [])"
         >
           <div
-            v-for="{ id, img, label, link, info } in Array.isArray(items)
-              ? items
-              : []"
+            v-for="{ id, img, label, link, info } in Array.isArray(items) ? items : []"
             :key="id"
             class="carousel-card-container"
           >
@@ -160,9 +158,7 @@ onMounted(() => {
 
         <q-btn
           v-if="!isMobile"
-          :disable="
-            currentIndex === (Array.isArray(items) ? items.length : 0) - 1
-          "
+          :disable="currentIndex === (Array.isArray(items) ? items.length : 0) - 1"
           class="carousel-nav-btn carousel-next-btn"
           color="primary"
           icon="chevron_right"
@@ -207,9 +203,7 @@ onMounted(() => {
         <!-- Дополнительные детали -->
         <q-separator class="q-my-md" />
 
-        <div class="text-caption text-grey-6">
-          ID элемента: {{ selectedItem.id }}
-        </div>
+        <div class="text-caption text-grey-6">ID элемента: {{ selectedItem.id }}</div>
       </q-card-section>
 
       <!-- Действия -->

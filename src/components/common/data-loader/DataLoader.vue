@@ -44,10 +44,7 @@ const loadData = async (): Promise<void> => {
         : response
     emit('data-loaded', internalData.value)
   } catch (error) {
-    internalError.value =
-      error instanceof Error
-        ? error.message
-        : 'Произошла ошибка при загрузке данных'
+    internalError.value = error instanceof Error ? error.message : 'Произошла ошибка при загрузке данных'
   } finally {
     internalLoading.value = false
   }

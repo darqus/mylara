@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import '@/utils/images-migration'
+
 import { useMeta } from 'quasar'
 import { onMounted } from 'vue'
-
-import '@/utils/images-migration'
 
 import { useAdminAuth } from '@/composables/useAdminAuth'
 import { meta } from '@/utils/meta'

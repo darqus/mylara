@@ -1,0 +1,6 @@
+{
+  "$schema": "./node_modules/stylelint/schema.json",
+  "extends": ["stylelint-config-recess-order"],
+  "customSyntax": "postcss-scss",
+  "ignoreFiles": ["**/node_modules/**", "**/dist/**", "**/.quasar/**"]
+}

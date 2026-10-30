@@ -1,10 +1,11 @@
 import type { FirebaseApp } from 'firebase/app'
-import { initializeApp } from 'firebase/app'
 import type { Auth } from 'firebase/auth'
-import { connectAuthEmulator, getAuth } from 'firebase/auth'
 import type { Firestore } from 'firebase/firestore'
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 import type { FirebaseStorage } from 'firebase/storage'
+
+import { initializeApp } from 'firebase/app'
+import { connectAuthEmulator, getAuth } from 'firebase/auth'
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
 
 // Firebase конфигурация

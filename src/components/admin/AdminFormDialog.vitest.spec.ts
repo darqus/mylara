@@ -1,7 +1,7 @@
+import type { CollectionConfig } from '@/types/admin'
+
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-
-import type { CollectionConfig } from '@/types/admin'
 
 import AdminFormDialog from './AdminFormDialog.vue'
 

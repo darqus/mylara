@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
 import type { ImageUploadOptions } from '@/services/firebase-storage.service'
+
+import { computed, ref, watch } from 'vue'
+
 import { firebaseStorageService } from '@/services/firebase-storage.service'
 
 defineOptions({ name: 'ImageUploader' })
@@ -25,13 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
   disabled: false,
   maxSizeKB: 5000,
-  allowedTypes: () => [
-    'image/jpeg',
-    'image/jpg',
-    'image/png',
-    'image/gif',
-    'image/webp',
-  ],
+  allowedTypes: () => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'],
   path: 'images',
   placeholder: '',
 })
@@ -130,13 +126,9 @@ async function uploadFile(file: File) {
   }
 
   try {
-    const result = await firebaseStorageService.uploadImageWithProgress(
-      file,
-      options,
-      (progress) => {
-        uploadProgress.value = progress.percentage
-      }
-    )
+    const result = await firebaseStorageService.uploadImageWithProgress(file, options, (progress) => {
+      uploadProgress.value = progress.percentage
+    })
 
     if (result.error) {
       errorMessage.value = result.error
@@ -280,12 +272,8 @@ function extractFileNameFromUrl(url: string): string {
           size="48px"
         />
         <div class="text-h6 text-grey-7 q-mt-sm">Загрузить изображение</div>
-        <div class="text-caption text-grey-6">
-          Перетащите файл сюда или нажмите для выбора
-        </div>
-        <div class="text-caption text-grey-5 q-mt-sm">
-          Поддерживаемые форматы: JPG, PNG, GIF, WebP
-        </div>
+        <div class="text-caption text-grey-6">Перетащите файл сюда или нажмите для выбора</div>
+        <div class="text-caption text-grey-5 q-mt-sm">Поддерживаемые форматы: JPG, PNG, GIF, WebP</div>
         <div class="text-caption text-grey-5">
           Максимальный размер: {{ formatFileSize((maxSizeKB ?? 5000) * 1024) }}
         </div>
@@ -304,9 +292,7 @@ function extractFileNameFromUrl(url: string): string {
           size="50px"
           track-color="grey-3"
         />
-        <div class="text-body2 text-grey-8">
-          Загрузка... {{ uploadProgress }}%
-        </div>
+        <div class="text-body2 text-grey-8">Загрузка... {{ uploadProgress }}%</div>
       </div>
     </div>
 
