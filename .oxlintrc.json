@@ -13,6 +13,14 @@
     "correctness": "error",
     "suspicious": "warn"
   },
+  "overrides": [
+    {
+      "files": ["scripts/**"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ],
   "rules": {
     "eslint/curly": "error",
     "eslint/eqeqeq": "error",
@@ -26,6 +34,9 @@
     "typescript/no-explicit-any": "warn",
     "typescript/no-non-null-assertion": "error",
     "typescript/no-unused-vars": "warn",
+    "eslint/no-underscore-dangle": ["warn", { "allow": ["__dirname"] }],
+    "unicorn/consistent-function-scoping": "off",
+    "unicorn/no-array-sort": "off",
     "unicorn/no-useless-fallback-in-spread": "off"
   }
 }

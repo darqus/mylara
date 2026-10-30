@@ -147,11 +147,15 @@ async function uploadFile(file: File) {
 function createPreview(file: File) {
   const reader = new FileReader()
 
-  reader.onload = (e) => {
-    previewUrl.value = e.target?.result as string
-    fileName.value = file.name
-    fileSize.value = file.size
-  }
+  reader.addEventListener(
+    'load',
+    () => {
+      previewUrl.value = reader.result as string
+      fileName.value = file.name
+      fileSize.value = file.size
+    },
+    { once: true }
+  )
 
   reader.readAsDataURL(file)
 }

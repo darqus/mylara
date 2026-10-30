@@ -158,9 +158,9 @@ function getFieldRules(field: FormField) {
       }
 
       try {
-        new URL(String(val as string))
+        const url = new URL(String(val as string))
 
-        return true
+        return url.href.length > 0
       } catch {
         return 'Введите корректный URL'
       }

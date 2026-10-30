@@ -17,6 +17,102 @@ export type Base64ImageResult = {
   height: number
 }
 
+function createImageElement(file: File): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    const url = URL.createObjectURL(file)
+
+    img.addEventListener(
+      'load',
+      () => {
+        URL.revokeObjectURL(url)
+        resolve(img)
+      },
+      { once: true }
+    )
+
+    img.addEventListener(
+      'error',
+      () => {
+        URL.revokeObjectURL(url)
+        reject(new Error('Не удалось загрузить изображение'))
+      },
+      { once: true }
+    )
+
+    img.src = url
+  })
+}
+
+function fileToBase64String(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.addEventListener(
+      'load',
+      () => {
+        resolve(reader.result as string)
+      },
+      { once: true }
+    )
+
+    reader.addEventListener(
+      'error',
+      () => {
+        reject(new Error('Ошибка чтения файла'))
+      },
+      { once: true }
+    )
+
+    reader.readAsDataURL(file)
+  })
+}
+
+function calculateNewDimensions(
+  originalWidth: number,
+  originalHeight: number,
+  maxWidth?: number,
+  maxHeight?: number
+): { width: number; height: number } {
+  let { width, height } = { width: originalWidth, height: originalHeight }
+
+  if (maxWidth && width > maxWidth) {
+    height = (height * maxWidth) / width
+    width = maxWidth
+  }
+
+  if (maxHeight && height > maxHeight) {
+    width = (width * maxHeight) / height
+    height = maxHeight
+  }
+
+  return { width: Math.round(width), height: Math.round(height) }
+}
+
+function isValidBase64Image(base64: string): boolean {
+  const base64Pattern = /^data:image\/(jpeg|jpg|png|gif|webp);base64,/
+
+  return base64Pattern.test(base64)
+}
+
+function getMimeTypeFromBase64(base64: string): string | null {
+  const match = base64.match(/^data:([^;]+);base64,/)
+
+  return match ? (match[1] ?? null) : null
+}
+
+function formatFileSize(bytes: number): string {
+  if (bytes === 0) {
+    return '0 Bytes'
+  }
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
+}
+
 /**
  * Composable для работы с изображениями в формате base64
  */
@@ -119,71 +215,6 @@ export function useBase64Image() {
   }
 
   /**
-   * Создает изображение из файла
-   */
-  function createImageElement(file: File): Promise<HTMLImageElement> {
-    return new Promise((resolve, reject) => {
-      const img = new Image()
-      const url = URL.createObjectURL(file)
-
-      img.onload = () => {
-        URL.revokeObjectURL(url)
-        resolve(img)
-      }
-
-      img.onerror = () => {
-        URL.revokeObjectURL(url)
-        reject(new Error('Не удалось загрузить изображение'))
-      }
-
-      img.src = url
-    })
-  }
-
-  /**
-   * Преобразует файл в base64 строку
-   */
-  function fileToBase64String(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        resolve(reader.result as string)
-      }
-
-      reader.onerror = () => {
-        reject(new Error('Ошибка чтения файла'))
-      }
-
-      reader.readAsDataURL(file)
-    })
-  }
-
-  /**
-   * Вычисляет новые размеры изображения с сохранением пропорций
-   */
-  function calculateNewDimensions(
-    originalWidth: number,
-    originalHeight: number,
-    maxWidth?: number,
-    maxHeight?: number
-  ): { width: number; height: number } {
-    let { width, height } = { width: originalWidth, height: originalHeight }
-
-    if (maxWidth && width > maxWidth) {
-      height = (height * maxWidth) / width
-      width = maxWidth
-    }
-
-    if (maxHeight && height > maxHeight) {
-      width = (width * maxHeight) / height
-      height = maxHeight
-    }
-
-    return { width: Math.round(width), height: Math.round(height) }
-  }
-
-  /**
    * Получает информацию об изображении из base64
    */
   async function getImageInfo(base64: string): Promise<{
@@ -195,17 +226,25 @@ export function useBase64Image() {
       const img = new Image()
 
       return new Promise((resolve, reject) => {
-        img.onload = () => {
-          resolve({
-            width: img.naturalWidth,
-            height: img.naturalHeight,
-            size: Math.round((base64.length * 3) / 4), // Приблизительный размер
-          })
-        }
+        img.addEventListener(
+          'load',
+          () => {
+            resolve({
+              width: img.naturalWidth,
+              height: img.naturalHeight,
+              size: Math.round((base64.length * 3) / 4), // Приблизительный размер
+            })
+          },
+          { once: true }
+        )
 
-        img.onerror = () => {
-          reject(new Error('Не удалось загрузить изображение'))
-        }
+        img.addEventListener(
+          'error',
+          () => {
+            reject(new Error('Не удалось загрузить изображение'))
+          },
+          { once: true }
+        )
 
         img.src = base64
       })
@@ -215,39 +254,6 @@ export function useBase64Image() {
 
       return null
     }
-  }
-
-  /**
-   * Проверяет, является ли строка валидным base64 изображением
-   */
-  function isValidBase64Image(base64: string): boolean {
-    const base64Pattern = /^data:image\/(jpeg|jpg|png|gif|webp);base64,/
-
-    return base64Pattern.test(base64)
-  }
-
-  /**
-   * Извлекает MIME-тип из base64 строки
-   */
-  function getMimeTypeFromBase64(base64: string): string | null {
-    const match = base64.match(/^data:([^;]+);base64,/)
-
-    return match ? (match[1] ?? null) : null
-  }
-
-  /**
-   * Форматирует размер файла
-   */
-  function formatFileSize(bytes: number): string {
-    if (bytes === 0) {
-      return '0 Bytes'
-    }
-
-    const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-    return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
   }
 
   return {

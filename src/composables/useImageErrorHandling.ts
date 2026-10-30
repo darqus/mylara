@@ -1,5 +1,12 @@
 import { ref } from 'vue'
 
+function handleImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement
+
+  img.setAttribute('data-loaded', 'true')
+  img.classList.remove('fallback-image')
+}
+
 export function useImageErrorHandling() {
   const failedImages = ref<Set<string>>(new Set())
 
@@ -23,16 +30,6 @@ export function useImageErrorHandling() {
       // Добавляем CSS класс для стилизации fallback изображений
       img.classList.add('fallback-image')
     }
-  }
-
-  /**
-   * Обработчик успешной загрузки изображения
-   */
-  const handleImageLoad = (event: Event) => {
-    const img = event.target as HTMLImageElement
-
-    img.setAttribute('data-loaded', 'true')
-    img.classList.remove('fallback-image')
   }
 
   /**

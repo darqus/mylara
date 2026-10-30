@@ -7,7 +7,7 @@ defineOptions({ name: 'PrivacyPolicyDialog' })
 
 withDefaults(
   defineProps<{
-    modelValue: boolean
+    modelValue?: boolean
   }>(),
   {
     modelValue: false,
