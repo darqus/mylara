@@ -5,9 +5,9 @@
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.codeActionsOnSave": {
     "source.format.oxc": "always",
-    "source.fixAll.oxc": "always",
-    "source.fixAll.stylelint": "always"
+    "source.fixAll.oxc": "always"
   },
+  "stylelint.validate": ["css", "scss"],
   "oxc.unusedDisableDirectives": "deny",
   "oxc.configPath": ".oxlintrc.json",
   "search.exclude": {
@@ -55,9 +55,15 @@
     "editor.formatOnSave": true
   },
   "[scss]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
   },
   "[css]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
   }
 }
