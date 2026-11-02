@@ -2,6 +2,7 @@
   "recommendations": [
     "oxc.oxc-vscode",
     "stylelint.vscode-stylelint",
-    "vue.volar"
+    "vue.volar",
+    "emeraldwalk.runonsave"
   ]
 }

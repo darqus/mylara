@@ -17,6 +17,7 @@ export default defineConfig({
     include: [
       'src/**/*.vitest.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
       'test/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'scripts/**/*.test.mjs',
     ],
 
     // Add alias configuration for resolving paths

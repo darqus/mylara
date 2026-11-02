@@ -10,8 +10,10 @@
   "scripts": {
     "dev": "quasar dev",
     "build": "quasar build",
-    "lint": "oxlint . && stylelint \"src/**/*.{css,scss}\" && oxfmt --check",
-    "fix": "oxlint --fix . && stylelint --fix \"src/**/*.{css,scss}\" && oxfmt",
+    "lint": "oxlint . && stylelint \"src/**/*.{css,scss}\" && oxfmt --check && node scripts/check-vue-attribute-order.mjs",
+    "fix": "oxlint --fix . && stylelint --fix \"src/**/*.{css,scss}\" && oxfmt && node scripts/check-vue-attribute-order.mjs --fix",
+    "check:vue-attrs": "node scripts/check-vue-attribute-order.mjs",
+    "fix:vue-attrs": "node scripts/check-vue-attribute-order.mjs --fix",
     "typecheck": "vue-tsc --noEmit",
     "postinstall": "quasar prepare",
     "test:unit": "vitest",

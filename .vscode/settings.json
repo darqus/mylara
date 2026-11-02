@@ -3,6 +3,15 @@
   "editor.guides.bracketPairs": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.vue$",
+        "cmd": "PATH=\"$HOME/.nvm/current/bin:$PATH\" node \"${workspaceFolder}/scripts/check-vue-attribute-order.mjs\" --fix \"${file}\"",
+        "autoShowOutputPanel": "error"
+      }
+    ]
+  },
   "editor.codeActionsOnSave": {
     "source.format.oxc": "always",
     "source.fixAll.oxc": "always"

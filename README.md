@@ -13,6 +13,8 @@ JavaScript, TypeScript, Vue, stylesheets and JSON:
 ```bash
 npm run lint          # check lint and formatting
 npm run fix           # apply lint fixes and format files
+npm run check:vue-attrs # check Vue template attribute order
+npm run fix:vue-attrs   # fix Vue template attribute order
 npm run typecheck     # vue-tsc --noEmit - full type check
 ```
 
